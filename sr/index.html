@@ -93,26 +93,38 @@
 .x21:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
 .x22:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
 .x23:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
-.x24:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
-.x25:hover{background: var(--acchov) !important; color: var(--onacc) !important}
-.x26:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
-.x27:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
-.x28:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x24:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x25:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x26:hover{border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x27:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x28:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
 .x29:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
-.x30:hover{background: var(--acchov) !important; color: var(--onacc) !important}
-.x31:hover{color: var(--acc, var(--acc-theme)) !important; border-color: var(--acc, var(--acc-theme)) !important}
-.x32:hover{color: var(--acc, var(--acc-theme)) !important}
-.x33:hover{color: var(--acc, var(--acc-theme)) !important}
-.x34:hover{color: var(--acc, var(--acc-theme)) !important}
-.x35:hover{color: var(--acc, var(--acc-theme)) !important}
-.x36:hover{color: var(--acc, var(--acc-theme)) !important}
-.x37:hover{color: var(--acc, var(--acc-theme)) !important}
-.x38:hover{color: var(--acc, var(--acc-theme)) !important}
-.x39:hover{color: var(--acc, var(--acc-theme)) !important}
-.x40:hover{color: var(--acc, var(--acc-theme)) !important}
-.x41:hover{color: var(--acc, var(--acc-theme)) !important}
-.x42:hover{color: var(--acc, var(--acc-theme)) !important}
-.x43:hover{color: var(--acc, var(--acc-theme)) !important}
+.x30:hover{background: var(--cardacc) !important}
+.x31:hover{background: var(--cardacc) !important}
+.x32:hover{background: var(--cardacc) !important}
+.x33:hover{background: var(--cardacc) !important}
+.x34:hover{background: var(--cardacc) !important}
+.x35:hover{background: var(--cardacc) !important}
+.x36:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x37:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x38:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x39:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x40:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x41:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x42:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x43:hover{color: var(--acc, var(--acc-theme)) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x44:hover{color: var(--acc, var(--acc-theme)) !important}
+.x45:hover{color: var(--acc, var(--acc-theme)) !important}
+.x46:hover{color: var(--acc, var(--acc-theme)) !important}
+.x47:hover{color: var(--acc, var(--acc-theme)) !important}
+.x48:hover{color: var(--acc, var(--acc-theme)) !important}
+.x49:hover{color: var(--acc, var(--acc-theme)) !important}
+.x50:hover{color: var(--acc, var(--acc-theme)) !important}
+.x51:hover{color: var(--acc, var(--acc-theme)) !important}
+.x52:hover{color: var(--acc, var(--acc-theme)) !important}
+.x53:hover{color: var(--acc, var(--acc-theme)) !important}
+.x54:hover{color: var(--acc, var(--acc-theme)) !important}
+.x55:hover{color: var(--acc, var(--acc-theme)) !important}
 </style>
 <script>(function(){if(window.__vsStats)return;window.__vsStats=1;function run(){var ease=function(p){return 1-Math.pow(1-p,3)};document.querySelectorAll('[data-count]:not([data-done])').forEach(function(e){e.setAttribute('data-done','1');var t=parseInt(e.getAttribute('data-count'),10),sfx=e.getAttribute('data-suffix')||'';if(!('IntersectionObserver'in window)){e.textContent=t+sfx;return}e.textContent='0'+sfx;var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.disconnect();var s=performance.now();(function f(n){var p=Math.min(1,(n-s)/1000);e.textContent=Math.round(t*ease(p))+sfx;if(p<1)requestAnimationFrame(f)})(performance.now())})},{threshold:.4});io.observe(e)});document.querySelectorAll('[data-reveal]:not([data-done])').forEach(function(e){e.setAttribute('data-done','1');if(!('IntersectionObserver'in window))return;e.style.opacity='0';e.style.transform='translateY(10px)';e.style.transition='opacity .55s ease, transform .55s ease';e.style.transitionDelay=(e.getAttribute('data-reveal')||0)+'ms';var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.disconnect();e.style.opacity='1';e.style.transform='none'})},{threshold:.4});io.observe(e)})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();setTimeout(run,400);setTimeout(run,1200);})();</script>
@@ -236,7 +248,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
 
-  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line)">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
       <a class="x1" href="../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Meni">
@@ -420,7 +432,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Kreni od najmanjeg obima koji odgovara na pitanje. Uvek možemo da proširimo, retko ima smisla krenuti obrnuto.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; margin-top: clamp(32px, 4vw, 52px); align-items: stretch">
-        <div style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px">
+        <div class="x24" style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="min-height: 160px">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">Jednokratno</div>
             <h3 style="margin: 12px 0 8px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em">Tehnički audit</h3>
@@ -437,10 +449,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Lista zadataka rangirana po uticaju</div>
             <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Walkthrough poziv sa timom</div>
           </div>
-          <a class="x24" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Zatraži audit</a>
+          <a class="x25" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Zatraži audit</a>
         </div>
 
-        <div style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--cardacc); display: flex; flex-direction: column; gap: 18px; position: relative">
+        <div class="x26" style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--cardacc); display: flex; flex-direction: column; gap: 18px; position: relative; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="position: absolute; top: -11px; left: clamp(26px, 3vw, 34px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; background: var(--acc, var(--acc-theme)); color: var(--onacc); padding: 5px 11px; border-radius: 6px">NAJČEŠĆI IZBOR</div>
           <div style="min-height: 160px">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Mesečno</div>
@@ -459,10 +471,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink1)"><span style="color: var(--acc, var(--acc-theme))">—</span>Tiketi za dev tim i verifikacija na stagingu</div>
             <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink1)"><span style="color: var(--acc, var(--acc-theme))">—</span>Mesečni izveštaj bez vate</div>
           </div>
-          <a class="x25" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Zakaži poziv</a>
+          <a class="x27" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Zakaži poziv</a>
         </div>
 
-        <div style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px">
+        <div class="x28" style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="min-height: 160px">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">Projektno</div>
             <h3 style="margin: 12px 0 8px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em">Sajt od nule</h3>
@@ -479,7 +491,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Postavljanje GSC i GA4 merenja</div>
             <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Predaja sa uputstvom za samostalno vođenje</div>
           </div>
-          <a class="x26" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Opiši projekat</a>
+          <a class="x29" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Opiši projekat</a>
         </div>
       </div>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 26px">Cene su orijentacione i zavise od veličine sajta i broja tržišta. Uvodni poziv je besplatan.</div>
@@ -496,37 +508,37 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       <div style="flex: 3 1 460px; min-width: 0">
         <h2 style="margin: 0 0 32px; font-size: clamp(28px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Dugotrajna faza istraživanja je prošlost. Uvid u problem stičete već prve nedelje.</h2>
         <div style="border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr))">
-          <div style="padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card)">
+          <div class="x30" style="padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card); transition: background .18s ease">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 1</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Uvodni poziv</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">30 minuta, besplatno. Opišeš problem, ja ti iskreno kažem da li sam prava osoba za njega.</p>
             <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">call</span></span></div>
           </div>
-          <div style="padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card)">
+          <div class="x31" style="padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card); transition: background .18s ease">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 2</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Dijagnostika</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Crawl, logovi, Search Console i istorija poslednjih deploy-eva. Podaci pre mišljenja.</p>
             <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">troubleshoot</span></span></div>
           </div>
-          <div style="padding: 26px; border-bottom: 1px solid var(--line); background: var(--card)">
+          <div class="x32" style="padding: 26px; border-bottom: 1px solid var(--line); background: var(--card); transition: background .18s ease">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 3</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Nalaz i plan</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Šta zaista blokira vidljivost, rangirano po uticaju, sa konkretnim zadacima umesto liste principa.</p>
             <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">assignment</span></span></div>
           </div>
-          <div style="padding: 26px; border-right: 1px solid var(--line); background: var(--card)">
+          <div class="x33" style="padding: 26px; border-right: 1px solid var(--line); background: var(--card); transition: background .18s ease">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 4</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Implementacija</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Radim sa tvojim timom: tiketi, staging provere i verifikacija da je izmena zaista otišla u produkciju.</p>
             <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">build</span></span></div>
           </div>
-          <div style="padding: 26px; border-right: 1px solid var(--line); background: var(--card)">
+          <div class="x34" style="padding: 26px; border-right: 1px solid var(--line); background: var(--card); transition: background .18s ease">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 5</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Predaja</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Dokumentovan način rada koji tim nastavlja da koristi i kada ja više nisam tu. To je i poenta.</p>
             <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">handshake</span></span></div>
           </div>
-          <div style="padding: 26px; background: var(--card)">
+          <div class="x35" style="padding: 26px; background: var(--card); transition: background .18s ease">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 6</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Provera posle 30 dana</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Jedan sat: šta je prošlo, šta nije i šta traži još jedan krug. Bez naplate, i obično najkorisniji sat od svih.</p>
@@ -545,7 +557,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Isti procesi koje koristim u radu sa klijentima, zapisani tako da možeš da ih primeniš bez mene. Preuzimaš odmah posle kupovine.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: clamp(32px, 4vw, 52px); align-items: stretch">
-        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+        <div class="x36" style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
           </div>
@@ -560,11 +572,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <span style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em">29 €</span>
               <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ trajni pristup</span>
             </div>
-            <a class="x27" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
+            <a class="x37" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
           </div>
         </div>
 
-        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+        <div class="x38" style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
           </div>
@@ -578,11 +590,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <span style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em">29 €</span>
               <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ trajni pristup</span>
             </div>
-            <a class="x28" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
+            <a class="x39" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
           </div>
         </div>
 
-        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+        <div class="x40" style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
           </div>
@@ -597,7 +609,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <span style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em">29 €</span>
               <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ trajni pristup</span>
             </div>
-            <a class="x29" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
+            <a class="x41" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
           </div>
         </div>
       </div>
@@ -612,8 +624,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 44ch; text-wrap: pretty">Pogledam sajt pre poziva. Ako vidim nešto očigledno, čućeš to u prvih pet minuta bez obzira na to da li radimo zajedno.</p>
       </div>
       <div style="min-width: 0; display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-        <a class="x30" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
-        <a class="x31" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(15px, 1.6vw, 19px); color: var(--ink); border-bottom: 1px solid var(--line4); padding-bottom: 4px">LinkedIn → vuk-stojkovic</a>
+        <a class="x42" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
+        <a class="x43" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(15px, 1.6vw, 19px); color: var(--ink); border-bottom: 1px solid var(--line4); padding-bottom: 4px">LinkedIn → vuk-stojkovic</a>
         <div style="display: flex; align-items: center; gap: 9px; margin-top: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acc2, var(--ok))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc2, var(--ok))"></span>Odgovaram u roku od 24h</div>
       </div>
     </div>
@@ -627,33 +639,33 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         <div style="flex: 1 1 180px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Radi sa mnom</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x32" href="../sr/iskustvo/" style="font-size: 16px; color: var(--ink2)">Iskustvo</a>
-            <a class="x33" href="../sr/usluge/" style="font-size: 16px; color: var(--ink2)">Usluge</a>
-            <a class="x34" href="../sr/saradnja/" style="font-size: 16px; color: var(--ink2)">Saradnja</a>
-            <a class="x35" href="../sr/o-meni/" style="font-size: 16px; color: var(--ink2)">O meni</a>
+            <a class="x44" href="../sr/iskustvo/" style="font-size: 16px; color: var(--ink2)">Iskustvo</a>
+            <a class="x45" href="../sr/usluge/" style="font-size: 16px; color: var(--ink2)">Usluge</a>
+            <a class="x46" href="../sr/saradnja/" style="font-size: 16px; color: var(--ink2)">Saradnja</a>
+            <a class="x47" href="../sr/o-meni/" style="font-size: 16px; color: var(--ink2)">O meni</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Proizvodi</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x36" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
-            <a class="x37" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Tech SEO audit za 60 minuta</a>
-            <a class="x38" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Brend u AI odgovorima</a>
+            <a class="x48" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
+            <a class="x49" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Tech SEO audit za 60 minuta</a>
+            <a class="x50" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Brend u AI odgovorima</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Kontakt</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x39" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
-            <a class="x40" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
-            <a class="x41" href="#" style="font-size: 16px; color: var(--ink2)">Instagram</a>
+            <a class="x51" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
+            <a class="x52" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
+            <a class="x53" href="#" style="font-size: 16px; color: var(--ink2)">Instagram</a>
           </div>
         </div>
       </div>
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
         <div>Beograd, Srbija · CET/CEST</div>
         <div>© 2026 Vuk Stojković. Sva prava zadržana.</div>
-        <div style="display: flex; gap: 20px"><a class="x42" href="../sr/politika-privatnosti/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Politika privatnosti</a><a class="x43" href="#" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie podešavanja</a></div>
+        <div style="display: flex; gap: 20px"><a class="x54" href="../sr/politika-privatnosti/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Politika privatnosti</a><a class="x55" href="#" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie podešavanja</a></div>
       </div>
     </div>
   </footer>
