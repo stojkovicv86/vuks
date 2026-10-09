@@ -27,6 +27,20 @@
   a { color: #ff5c47; text-decoration: none; }
   a:hover { color: #ff8873; }
   ::selection { background: #ff5c47; color: #100d0e; }
+  .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .navb { display: none; }
+  @media (max-width: 880px) {
+    .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
+    .navb span { display: block; width: 22px; height: 2px; background: #ece6e4; border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: #100d0e; border-bottom: 1px solid #241e1d; flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navt:checked ~ nav { display: flex !important; }
+    .navt:focus-visible + .navb { outline: 2px solid #ff5c47; outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid #1d1817 !important; }
+    header nav > div { margin-top: 14px; }
+    .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .navt:checked + .navb span:nth-child(2) { opacity: 0; }
+    .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
 .x1:hover{color: #ece6e4 !important}
 .x2:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
 .x3:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
@@ -178,6 +192,8 @@
   <header style="position: sticky; top: 0; z-index: 50; background: rgba(16, 13, 14, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #241e1d">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
       <a class="x1" href="../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Vuk Stojković</a>
+      <input type="checkbox" id="nav-toggle" class="navt" aria-label="Meni">
+      <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
       <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
         <a class="x2" href="../sr/iskustvo/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Iskustvo</a>
         <a class="x3" href="../sr/usluge/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Usluge</a>
@@ -194,10 +210,10 @@
   <section style="padding: clamp(56px, 7vw, 104px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 72px)">
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 72px); align-items: flex-start">
       <div style="flex: 1 1 440px; min-width: 0">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, #ff5c47); margin-bottom: 28px">SEO · PPC · Web prezentacije &nbsp;/&nbsp; Beograd, remote-first</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, #ff5c47); margin-bottom: 28px">Vuk Stojković &nbsp;·&nbsp; SEO i GEO freelancer</div>
         <h1 style="margin: 0; font-size: clamp(38px, 6.2vw, 76px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; ">Optimizacija sajtova i <br><span style="color: var(--acc, #ff5c47)">tehnički SEO audit</span></h1>
-        <p style="margin: 28px 0 0; font-size: clamp(17px, 1.5vw, 20px); color: #a9a09d; max-width: 50ch; text-wrap: pretty">Ja sam Vuk Stojković, freelancer specijalizovan za optimizaciju za pretraživače (SEO) i generativne odgovore (GEO), PPC oglašavanje i web prezentacije. Kroz 4+ godine iskustva optimizovao sam poslovanja iz različitih industrija, prema zahtevima tržišta.</p>
-        <p style="margin: 18px 0 0; padding-left: 18px; border-left: 2px solid var(--acc, #ff5c47); font-size: clamp(16px, 1.4vw, 18px); color: #c9c1be; max-width: 50ch; text-wrap: pretty">Fokus je na rezultatu: tehničko unapređenje sajta korak po korak i stranicu po stranicu, do standarda koji će konkurencija pokušavati da prati.</p>
+        <p style="margin: 28px 0 0; font-size: clamp(17px, 1.5vw, 20px); color: #a9a09d; max-width: 50ch; text-wrap: pretty">Tehnički SEO koji donosi merljiv rezultat: više vidljivosti na Google-u i u AI odgovorima.</p>
+        <p style="margin: 18px 0 0; padding-left: 18px; border-left: 2px solid var(--acc, #ff5c47); font-size: clamp(16px, 1.4vw, 18px); color: #c9c1be; max-width: 50ch; text-wrap: pretty">Pronalazim šta koči vaš sajt u pretrazi i rešavam to, stranicu po stranicu.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px">
           <a class="x8" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
           <span style="display: inline-flex; align-items: center; gap: 10px; color: #c9c1be; font-weight: 600; font-size: 16px; padding: 15px 0">Zakaži 30-min poziv</span>
@@ -206,9 +222,6 @@
         <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px">
           <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Tehnički auditi</span>
           <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Hreflang &amp; internacionalni SEO</span>
-          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>On-page, lokalni &amp; off-page</span>
-          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>PPC oglašavanje</span>
-          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>GSC &amp; GA analitika</span>
           <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Dizajn sajta do 15 strana</span>
         </div>
       </div>
@@ -276,7 +289,7 @@
       <h2 style="margin: 24px 0 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 20ch">Šest načina na koje sajt tiho gubi vidljivost</h2>
       <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Novi sadržaj izlazi svakoga dana, a saobraćaj i dalje stoji na raskrsnici.</p>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 52px)">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 52px)">
         <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 26px; background: #151111; text-align: center">
           <div style="width: 36px; height: 36px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); margin: 0 auto 18px"><span class="ms" aria-hidden="true">travel_explore</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Crawl budget se troši na smeće</h3>

@@ -26,6 +26,20 @@ body { margin: 0; background: #100d0e; }
   a { color: #ff5c47; text-decoration: none; }
   a:hover { color: #ff8873; }
   ::selection { background: #ff5c47; color: #100d0e; }
+  .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .navb { display: none; }
+  @media (max-width: 880px) {
+    .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
+    .navb span { display: block; width: 22px; height: 2px; background: #ece6e4; border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: #100d0e; border-bottom: 1px solid #241e1d; flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navt:checked ~ nav { display: flex !important; }
+    .navt:focus-visible + .navb { outline: 2px solid #ff5c47; outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid #1d1817 !important; }
+    header nav > div { margin-top: 14px; }
+    .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .navt:checked + .navb span:nth-child(2) { opacity: 0; }
+    .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
   .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 20px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
 .x1:hover{color: #ece6e4 !important}
 .x2:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
@@ -92,6 +106,8 @@ body { margin: 0; background: #100d0e; }
   <header style="position: sticky; top: 0; z-index: 50; background: rgba(16, 13, 14, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #241e1d">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
       <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Vuk Stojković</a>
+      <input type="checkbox" id="nav-toggle" class="navt" aria-label="Menu">
+      <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
       <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
         <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
         <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Services</a>
