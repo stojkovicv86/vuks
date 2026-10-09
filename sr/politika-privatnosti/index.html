@@ -19,56 +19,87 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap&subset=latin,latin-ext" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&display=block" rel="stylesheet">
 <style>
-body { margin: 0; background: #100d0e; }
+.ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+
+  :root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+  }
+  body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
-  a { color: #ff5c47; text-decoration: none; }
-  a:hover { color: #ff8873; }
-  ::selection { background: #ff5c47; color: #100d0e; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
   .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
   .navb { display: none; }
+  .t-dark { display: none !important; }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
   @media (max-width: 880px) {
     .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
-    .navb span { display: block; width: 22px; height: 2px; background: #ece6e4; border-radius: 2px; transition: transform .2s, opacity .2s; }
-    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: #100d0e; border-bottom: 1px solid #241e1d; flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
     .navt:checked ~ nav { display: flex !important; }
-    .navt:focus-visible + .navb { outline: 2px solid #ff5c47; outline-offset: 2px; border-radius: 6px; }
-    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid #1d1817 !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
     header nav > div { margin-top: 14px; }
     .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .navt:checked + .navb span:nth-child(2) { opacity: 0; }
     .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   }
-.x1:hover{color: #ece6e4 !important}
-.x2:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x3:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x4:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x5:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x6:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x7:hover{color: #ece6e4 !important}
-.x8:hover{background: #ff7a66 !important; color: #15100f !important}
-.x9:hover{color: var(--acc, #ff5c47) !important}
-.x10:hover{color: var(--acc, #ff5c47) !important}
+.x1:hover{color: var(--ink) !important}
+.x2:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x3:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x4:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x5:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x8:hover{color: var(--ink) !important}
+.x9:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x10:hover{color: var(--acc, var(--acc-theme)) !important}
+.x11:hover{color: var(--acc, var(--acc-theme)) !important}
 </style>
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 
 </head>
 <body>
-<div style="--acc: #ff5c47; background: #100d0e; color: #ece6e4; font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+<div style="--acc: var(--acc-theme); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
-  <header style="position: sticky; top: 0; z-index: 50; background: rgba(16, 13, 14, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #241e1d">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
-      <a class="x1" href="../../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Vuk Stojković</a>
+      <a class="x1" href="../../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Meni">
       <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
       <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
-        <a class="x2" href="../../sr/iskustvo/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Iskustvo</a>
-        <a class="x3" href="../../sr/usluge/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Usluge</a>
-        <a class="x4" href="../../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
-        <a class="x5" href="../../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
-        <a class="x6" href="../../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
-        <div style="display: flex; align-items: center; border: 1px solid #2a2322; border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
-          <a class="x7" href="../../sr/politika-privatnosti/" style="padding: 5px 11px; border-radius: 999px; color: #8b807d">EN</a>
-          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 500">SR</span>
+        <a class="x2" href="../../sr/iskustvo/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Iskustvo</a>
+        <a class="x3" href="../../sr/usluge/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Usluge</a>
+        <a class="x4" href="../../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
+        <a class="x5" href="../../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
+        <a class="x6" href="../../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Promeni temu" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <a class="x8" href="../../sr/politika-privatnosti/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">EN</a>
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">SR</span>
         </div>
       </nav>
     </div>
@@ -76,10 +107,10 @@ body { margin: 0; background: #100d0e; }
 
   <section style="padding: clamp(48px, 6vw, 88px) clamp(20px, 5vw, 64px) clamp(32px, 4vw, 48px)">
     <div style="max-width: 760px; margin: 0 auto">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, #ff5c47)">Pravne informacije</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Pravne informacije</div>
       <h1 style="margin: 24px 0 0; font-size: clamp(34px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 700">Politika privatnosti</h1>
-      <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); text-wrap: pretty">Ovaj dokument objašnjava koje podatke prikupljam kada posetite sajt ili me kontaktirate, zašto ih prikupljam i koja prava imate nad njima.</p>
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d; margin-top: 22px; padding-top: 18px; border-top: 1px solid #241e1d">Poslednja izmena: oktobar 2026.</div>
+      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); text-wrap: pretty">Ovaj dokument objašnjava koje podatke prikupljam kada posetite sajt ili me kontaktirate, zašto ih prikupljam i koja prava imate nad njima.</p>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line)">Poslednja izmena: oktobar 2026.</div>
     </div>
   </section>
 
@@ -88,83 +119,83 @@ body { margin: 0; background: #100d0e; }
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">1. Kontrolor podataka</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">Za podatke opisane u ovom dokumentu odgovoran sam ja, Vuk Stojković, freelancer iz Beograda, Srbija. Za svako pitanje u vezi sa privatnošću dostupan sam na <a href="mailto:stojkovicv86@gmail.com">stojkovicv86@gmail.com</a>.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">Za podatke opisane u ovom dokumentu odgovoran sam ja, Vuk Stojković, freelancer iz Beograda, Srbija. Za svako pitanje u vezi sa privatnošću dostupan sam na <a href="mailto:stojkovicv86@gmail.com">stojkovicv86@gmail.com</a>.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">2. Koje podatke prikupljam</h2>
         <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 18px">
-          <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 22px; background: #151111">
+          <div style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 22px; background: var(--card)">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Podaci koje sami pošaljete</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Kada mi pišete mejlom: ime, email adresa, adresa sajta i sadržaj poruke. Koristim ih isključivo da vam odgovorim i, ako dođe do saradnje, da vodim projekat.</p>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Kada mi pišete mejlom: ime, email adresa, adresa sajta i sadržaj poruke. Koristim ih isključivo da vam odgovorim i, ako dođe do saradnje, da vodim projekat.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 22px; background: #151111">
+          <div style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 22px; background: var(--card)">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Podaci o korišćenju sajta</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Zbirna statistika poseta kroz analitičke alate: posećene stranice, izvor posete, tip uređaja i približna lokacija na nivou grada. Ovi podaci su agregirani i ne služe da vas identifikuju.</p>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Zbirna statistika poseta kroz analitičke alate: posećene stranice, izvor posete, tip uređaja i približna lokacija na nivou grada. Ovi podaci su agregirani i ne služe da vas identifikuju.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 22px; background: #151111">
+          <div style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 22px; background: var(--card)">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Podaci o kupovini vodiča</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Prodaja digitalnih vodiča ide preko eksterne platforme. Plaćanje i podatke o kartici obrađuje ta platforma po svojim pravilima — ja nikada ne vidim ni ne čuvam podatke o kartici.</p>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Prodaja digitalnih vodiča ide preko eksterne platforme. Plaćanje i podatke o kartici obrađuje ta platforma po svojim pravilima. Ja nikada ne vidim ni ne čuvam podatke o kartici.</p>
           </div>
         </div>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">3. Pravni osnov i svrha</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">Poruke koje mi pošaljete obrađujem na osnovu vašeg zahteva, odnosno pripreme ili izvršenja ugovora. Analitiku koristim na osnovu legitimnog interesa da razumem kako sajt funkcioniše, a kolačiće koji nisu neophodni postavljam samo uz vašu saglasnost.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">Poruke koje mi pošaljete obrađujem na osnovu vašeg zahteva, odnosno pripreme ili izvršenja ugovora. Analitiku koristim na osnovu legitimnog interesa da razumem kako sajt funkcioniše, a kolačiće koji nisu neophodni postavljam samo uz vašu saglasnost.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">4. Kolačići i analitika</h2>
-        <p style="margin: 0 0 14px; color: #c9c1be; text-wrap: pretty">Sajt koristi dve vrste kolačića:</p>
+        <p style="margin: 0 0 14px; color: var(--ink2); text-wrap: pretty">Sajt koristi dve vrste kolačića:</p>
         <div style="display: flex; flex-direction: column; gap: 11px">
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span><span><strong style="font-weight: 600">Neophodni</strong> — drže sajt funkcionalnim i pamte vaš izbor u vezi sa kolačićima. Ne mogu se isključiti.</span></div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span><span><strong style="font-weight: 600">Analitički</strong> — Google Analytics 4 i Google Search Console, za merenje saobraćaja i vidljivosti u pretrazi. Postavljaju se samo ako ih prihvatite.</span></div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span><span><strong style="font-weight: 600">Neophodni</strong> drže sajt funkcionalnim i pamte vaš izbor u vezi sa kolačićima. Ne mogu se isključiti.</span></div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span><span><strong style="font-weight: 600">Analitički</strong> su Google Analytics 4 i Google Search Console, za merenje saobraćaja i vidljivosti u pretrazi. Postavljaju se samo ako ih prihvatite.</span></div>
         </div>
-        <p style="margin: 16px 0 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Svoj izbor možete promeniti u svakom trenutku kroz cookie podešavanja u footeru, ili brisanjem kolačića u podešavanjima pregledača.</p>
+        <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Svoj izbor možete promeniti u svakom trenutku kroz cookie podešavanja u footeru, ili brisanjem kolačića u podešavanjima pregledača.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">5. Sa kim delim podatke</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">Podatke ne prodajem i ne delim u marketinške svrhe. Pristup im, u obimu koji im je potreban za rad, imaju samo servisi koje koristim: provajder hostinga i mejla, analitički alati i platforma preko koje se prodaju vodiči. Neki od njih obrađuju podatke izvan Srbije, uz standardne ugovorne klauzule o zaštiti podataka.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">Podatke ne prodajem i ne delim u marketinške svrhe. Pristup im, u obimu koji im je potreban za rad, imaju samo servisi koje koristim: provajder hostinga i mejla, analitički alati i platforma preko koje se prodaju vodiči. Neki od njih obrađuju podatke izvan Srbije, uz standardne ugovorne klauzule o zaštiti podataka.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">6. Koliko dugo čuvam podatke</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">Poslovnu prepisku čuvam dok je relevantna za saradnju, a najduže tri godine od poslednjeg kontakta. Dokumentaciju koja je potrebna zbog poreskih i zakonskih obaveza čuvam u rokovima koje propisuje zakon. Analitički podaci se čuvaju u zbirnom obliku, po podrazumevanim rokovima alata.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">Poslovnu prepisku čuvam dok je relevantna za saradnju, a najduže tri godine od poslednjeg kontakta. Dokumentaciju koja je potrebna zbog poreskih i zakonskih obaveza čuvam u rokovima koje propisuje zakon. Analitički podaci se čuvaju u zbirnom obliku, po podrazumevanim rokovima alata.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">7. Vaša prava</h2>
-        <p style="margin: 0 0 14px; color: #c9c1be; text-wrap: pretty">U svakom trenutku možete zahtevati:</p>
+        <p style="margin: 0 0 14px; color: var(--ink2); text-wrap: pretty">U svakom trenutku možete zahtevati:</p>
         <div style="display: flex; flex-direction: column; gap: 11px">
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>pristup podacima koje imam o vama i njihovu kopiju</div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>ispravku netačnih ili nepotpunih podataka</div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>brisanje podataka, kada ne postoji zakonska obaveza da ih čuvam</div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>ograničenje obrade ili prigovor na obradu</div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>povlačenje saglasnosti za analitičke kolačiće</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>pristup podacima koje imam o vama i njihovu kopiju</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>ispravku netačnih ili nepotpunih podataka</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>brisanje podataka, kada ne postoji zakonska obaveza da ih čuvam</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>ograničenje obrade ili prigovor na obradu</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>povlačenje saglasnosti za analitičke kolačiće</div>
         </div>
-        <p style="margin: 16px 0 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Zahtev pošaljite na <a href="mailto:stojkovicv86@gmail.com">stojkovicv86@gmail.com</a> — odgovaram u roku od 30 dana. Ako smatrate da su vam prava prekršena, možete se obratiti Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti.</p>
+        <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Zahtev pošaljite na <a href="mailto:stojkovicv86@gmail.com">stojkovicv86@gmail.com</a> . Odgovaram u roku od 30 dana. Ako smatrate da su vam prava prekršena, možete se obratiti Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">8. Izmene ove politike</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">Ako se način obrade podataka promeni, ažuriraću ovaj dokument i datum poslednje izmene na vrhu stranice. Materijalne izmene biće jasno označene.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">Ako se način obrade podataka promeni, ažuriraću ovaj dokument i datum poslednje izmene na vrhu stranice. Materijalne izmene biće jasno označene.</p>
       </div>
 
-      <div style="border: 1px solid #3d2420; border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: #19100f">
+      <div style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--cardacc)">
         <h2 style="margin: 0 0 10px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em">Imate pitanje o svojim podacima?</h2>
-        <p style="margin: 0 0 20px; color: #a9a09d; font-size: 16px; text-wrap: pretty">Pišite direktno — odgovaram lično, bez formulara i tiketa.</p>
-        <a class="x8" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 14px 24px; border-radius: 10px">Pošalji email</a>
+        <p style="margin: 0 0 20px; color: var(--ink3); font-size: 16px; text-wrap: pretty">Pišite direktno. Odgovaram lično, bez formulara i tiketa.</p>
+        <a class="x9" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 14px 24px; border-radius: 10px">Pošalji email</a>
       </div>
     </div>
   </section>
 
-  <footer style="border-top: 1px solid #241e1d; background: #0b0909; padding: clamp(40px, 5vw, 56px) clamp(20px, 5vw, 64px) 32px">
-    <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d">
+  <footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(40px, 5vw, 56px) clamp(20px, 5vw, 64px) 32px">
+    <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
       <div>Beograd, Srbija &middot; CET/CEST</div>
       <div>&copy; 2026 Vuk Stojković. Sva prava zadržana.</div>
-      <div style="display: flex; gap: 20px"><a class="x9" href="../../sr/" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Početna</a><a class="x10" href="#" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Cookie podešavanja</a></div>
+      <div style="display: flex; gap: 20px"><a class="x10" href="../../sr/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Početna</a><a class="x11" href="#" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie podešavanja</a></div>
     </div>
   </footer>
 </div>

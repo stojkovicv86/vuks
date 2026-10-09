@@ -21,127 +21,168 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&amp;display=block" rel="stylesheet">
 <style>
-body { margin: 0; background: #100d0e; }
+:root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+  }
+  body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
-  a { color: #ff5c47; text-decoration: none; }
-  a:hover { color: #ff8873; }
-  ::selection { background: #ff5c47; color: #100d0e; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
   .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
   .navb { display: none; }
+  .t-dark { display: none !important; }
+  .cyc { position: relative; width: min(100%, 440px); aspect-ratio: 1; margin: 0 auto; --r: 162px; }
+  .cycring { position: absolute; inset: 0; border: 1px dashed var(--line3); border-radius: 50%; }
+  .cycspin { position: absolute; inset: 0; animation: cycspin 22s linear infinite; }
+  .cycdot { position: absolute; left: 50%; top: 0; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%; background: var(--acc, var(--acc-theme)); box-shadow: 0 0 0 5px var(--acctint); }
+  .cycnode { position: absolute; left: 50%; top: 50%; width: 136px; margin: -30px 0 0 -68px; text-align: center; }
+  .cyccenter { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 160px; text-align: center; }
+  @keyframes cycspin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .cycspin { animation: none; } }
+  @media (max-width: 560px) { .cyc { --r: 112px; } .cycnode { width: 104px; margin-left: -52px; } }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
   @media (max-width: 880px) {
     .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
-    .navb span { display: block; width: 22px; height: 2px; background: #ece6e4; border-radius: 2px; transition: transform .2s, opacity .2s; }
-    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: #100d0e; border-bottom: 1px solid #241e1d; flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
     .navt:checked ~ nav { display: flex !important; }
-    .navt:focus-visible + .navb { outline: 2px solid #ff5c47; outline-offset: 2px; border-radius: 6px; }
-    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid #1d1817 !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
     header nav > div { margin-top: 14px; }
     .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .navt:checked + .navb span:nth-child(2) { opacity: 0; }
     .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   }
   .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 20px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
-.x1:hover{color: #ece6e4 !important}
-.x2:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x3:hover{color: #ece6e4 !important}
-.x4:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x5:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x6:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x7:hover{color: #ece6e4 !important}
-.x8:hover{color: var(--acc, #ff5c47) !important}
-.x9:hover{background: #ff7a66 !important; color: #15100f !important}
-.x10:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x11:hover{background: #ff7a66 !important; color: #15100f !important}
-.x12:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x13:hover{color: var(--acc, #ff5c47) !important}
-.x14:hover{color: var(--acc, #ff5c47) !important}
-.x15:hover{color: var(--acc, #ff5c47) !important}
-.x16:hover{color: var(--acc, #ff5c47) !important}
-.x17:hover{color: var(--acc, #ff5c47) !important}
-.x18:hover{color: var(--acc, #ff5c47) !important}
-.x19:hover{color: var(--acc, #ff5c47) !important}
-.x20:hover{color: var(--acc, #ff5c47) !important}
-.x21:hover{color: var(--acc, #ff5c47) !important}
-.x22:hover{color: var(--acc, #ff5c47) !important}
-.x23:hover{color: var(--acc, #ff5c47) !important}
-.x24:hover{color: var(--acc, #ff5c47) !important}
+.x1:hover{color: var(--ink) !important}
+.x2:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x3:hover{color: var(--ink) !important}
+.x4:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x5:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x8:hover{color: var(--ink) !important}
+.x9:hover{color: var(--acc, var(--acc-theme)) !important}
+.x10:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x11:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x12:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x13:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x14:hover{color: var(--acc, var(--acc-theme)) !important}
+.x15:hover{color: var(--acc, var(--acc-theme)) !important}
+.x16:hover{color: var(--acc, var(--acc-theme)) !important}
+.x17:hover{color: var(--acc, var(--acc-theme)) !important}
+.x18:hover{color: var(--acc, var(--acc-theme)) !important}
+.x19:hover{color: var(--acc, var(--acc-theme)) !important}
+.x20:hover{color: var(--acc, var(--acc-theme)) !important}
+.x21:hover{color: var(--acc, var(--acc-theme)) !important}
+.x22:hover{color: var(--acc, var(--acc-theme)) !important}
+.x23:hover{color: var(--acc, var(--acc-theme)) !important}
+.x24:hover{color: var(--acc, var(--acc-theme)) !important}
+.x25:hover{color: var(--acc, var(--acc-theme)) !important}
 </style>
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 
 </head>
 <body>
-<div style="--acc: #ff5c47; --acc2: #4fd1b5; background: #100d0e; color: #ece6e4; font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+<div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
-  <header style="position: sticky; top: 0; z-index: 50; background: rgba(16, 13, 14, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #241e1d">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
-      <a class="x1" href="../../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Vuk Stojković</a>
+      <a class="x1" href="../../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Meni">
       <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
       <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
-        <a class="x2" href="../../sr/iskustvo/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Iskustvo</a>
-        <a class="x3" href="../../sr/usluge/" style="font-size: 15px; font-weight: 500; color: #ece6e4; padding: 6px 0; border-bottom: 1px solid var(--acc, #ff5c47)">Usluge</a>
-        <a class="x4" href="../../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
-        <a class="x5" href="../../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
-        <a class="x6" href="../../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
-        <div style="display: flex; align-items: center; border: 1px solid #2a2322; border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
-          <a class="x7" href="../../services/" style="padding: 5px 11px; border-radius: 999px; color: #8b807d">EN</a>
-          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 500">SR</span>
+        <a class="x2" href="../../sr/iskustvo/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Iskustvo</a>
+        <a class="x3" href="../../sr/usluge/" style="font-size: 15px; font-weight: 500; color: var(--ink); padding: 6px 0; border-bottom: 1px solid var(--acc, var(--acc-theme))">Usluge</a>
+        <a class="x4" href="../../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
+        <a class="x5" href="../../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
+        <a class="x6" href="../../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Promeni temu" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <a class="x8" href="../../services/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">EN</a>
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">SR</span>
         </div>
       </nav>
     </div>
   </header>
 
-  <section style="padding: clamp(44px, 5.5vw, 76px) clamp(20px, 5vw, 64px) clamp(44px, 5.5vw, 72px); border-bottom: 1px solid #241e1d">
+  <section style="padding: clamp(44px, 5.5vw, 76px) clamp(20px, 5vw, 64px) clamp(44px, 5.5vw, 72px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d"><a class="x8" href="../../sr/" style="color: #8b807d">POČETNA</a> &nbsp;/&nbsp; USLUGE</div>
-      <h1 style="margin: 26px 0 0; font-size: clamp(36px, 5.6vw, 68px); line-height: 1.03; letter-spacing: -0.035em; font-weight: 700">Šest stvari koje popravljam <br><span style="color: var(--acc, #ff5c47)">i šta tačno dobijate</span></h1>
-      <p style="margin: 24px 0 0; color: #a9a09d; font-size: clamp(17px, 1.5vw, 20px); max-width: 54ch; text-wrap: pretty">Svaka od ovih usluga može biti jednokratni angažman ili deo mesečne saradnje. Posao je isti — razlikuje se samo koliko dugo ostajem na projektu.</p>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5)"><a class="x9" href="../../sr/" style="color: var(--ink5)">POČETNA</a> &nbsp;/&nbsp; USLUGE</div>
+      <h1 style="margin: 26px 0 0; font-size: clamp(36px, 5.6vw, 68px); line-height: 1.03; letter-spacing: -0.035em; font-weight: 700">Šest stvari koje popravljam <br><span style="color: var(--acc, var(--acc-theme))">i šta tačno dobijate</span></h1>
+      <p style="margin: 24px 0 0; color: var(--ink3); font-size: clamp(17px, 1.5vw, 20px); max-width: 54ch; text-wrap: pretty">Svaka od ovih usluga može biti jednokratni angažman ili deo mesečne saradnje. Posao je isti, razlikuje se samo koliko dugo ostajem na projektu.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px">
-        <a class="x9" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
-        <a class="x10" href="../../sr/saradnja/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Vidi planove saradnje</a>
+        <a class="x10" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
+        <a class="x11" href="../../sr/saradnja/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Vidi planove saradnje</a>
       </div>
     </div>
   </section>
 
-  <section style="padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px); border-bottom: 1px solid #241e1d">
+  <section style="padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
-      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #8b807d"><span style="width: 30px; height: 1px; background: var(--acc, #ff5c47)"></span>Ciklus</div>
+      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>Ciklus</div>
       <h2 style="margin: 24px 0 0; font-size: clamp(28px, 4vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Tehnički SEO je krug, ne prava linija</h2>
-      <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">Svaka usluga ispod stoji na nekom mestu ovog kruga. Većina sajtova ima četiri faze koje rade dobro i jednu koja tiho kvari ostale.</p>
+      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">Svaka usluga ispod stoji na nekom mestu ovog kruga. Većina sajtova ima četiri faze koje rade dobro i jednu koja tiho kvari ostale.</p>
 
-      <div style="border: 1px solid #241e1d; border-radius: 16px; background: #151111; padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 36px); margin-top: clamp(32px, 4vw, 48px)">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 16px; position: relative">
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, #ff5c47); display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, #ff5c47)"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Dijagnostika</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">crawl i logovi</div>
+      <div style="border: 1px solid var(--line); border-radius: 16px; background: var(--card); padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 36px); margin-top: clamp(32px, 4vw, 48px)">
+        <div class="cyc">
+          <div class="cycring"></div>
+          <div class="cycspin"><span class="cycdot"></span></div>
+          <div class="cycnode" style="transform: rotate(0deg) translateY(calc(-1 * var(--r))) rotate(-0deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, var(--acc-theme))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Dijagnostika</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">crawl i logovi</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3d3432; display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #8b807d"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Prioritet</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">uticaj × napor</div>
+          <div class="cycnode" style="transform: rotate(60deg) translateY(calc(-1 * var(--r))) rotate(-60deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Prioritet</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">uticaj × napor</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3d3432; display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #8b807d"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Implementacija</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">tiketi i staging</div>
+          <div class="cycnode" style="transform: rotate(120deg) translateY(calc(-1 * var(--r))) rotate(-120deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Implementacija</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">tiketi i staging</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3d3432; display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #8b807d"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Verifikacija</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">QA posle deploy-a</div>
+          <div class="cycnode" style="transform: rotate(180deg) translateY(calc(-1 * var(--r))) rotate(-180deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Verifikacija</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">QA posle deploy-a</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3d3432; display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #8b807d"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Merenje</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">GSC i GA4</div>
+          <div class="cycnode" style="transform: rotate(240deg) translateY(calc(-1 * var(--r))) rotate(-240deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Merenje</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">GSC i GA4</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, #ff5c47); display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, #ff5c47)"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Nova procena</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">šta je sledeće</div>
+          <div class="cycnode" style="transform: rotate(300deg) translateY(calc(-1 * var(--r))) rotate(-300deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, var(--acc-theme))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Nova procena</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">šta je sledeće</div>
+          </div>
+          <div class="cyccenter">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5); line-height: 1.6">Izmeri, pa ponovo<br>odredi prioritete</div>
           </div>
         </div>
-        <div style="margin-top: 32px; padding-top: 20px; border-top: 1px dashed #2f2726; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8b807d">Izmeri, pa ponovo odredi prioritete</div>
       </div>
     </div>
   </section>
@@ -151,164 +192,164 @@ body { margin: 0; background: #100d0e; }
 
       <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 56px)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Usluga 01</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Usluga 01</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Tehnički SEO audit</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> postojeći audit je lista od osamdeset grešaka bez redosleda. Dev tim ne zna šta prvo, pa se ne radi ništa ili se radi ono najlakše, što ne menja rezultat.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> crawl celog sajta kroz Screaming Frog, JetOctopus ili Lumar, proveru Search Console podataka i istorije poslednjih izmena, pa nalaz rangiran po matrici uticaj × napor sa objašnjenjem zašto nešto čeka.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> postojeći audit je lista od osamdeset grešaka bez redosleda. Dev tim ne zna šta prvo, pa se ne radi ništa ili se radi ono najlakše, što ne menja rezultat.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> crawl celog sajta kroz Screaming Frog, JetOctopus ili Lumar, proveru Search Console podataka i istorije poslednjih izmena, pa nalaz rangiran po matrici uticaj × napor sa objašnjenjem zašto nešto čeka.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">Šta dobijate</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">Šta dobijate</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Nalaz prioritizovan po uticaju, ne po broju grešaka</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Lista zadataka koju dev tim može direktno da izvrši</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Kriterijum „gotovo“ za svaki zadatak</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Walkthrough poziv sa timom, bez PDF-a koji nikome ništa ne znači</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Nalaz prioritizovan po uticaju, ne po broju grešaka</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Lista zadataka koju dev tim može direktno da izvrši</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Kriterijum „gotovo“ za svaki zadatak</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Walkthrough poziv sa timom, bez PDF-a koji nikome ništa ne znači</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Usluga 02</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Usluga 02</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Crawl budget i log analiza</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: #ece6e4; font-weight: 600">Problem:</strong> nove stranice čekaju nedeljama na indeksaciju dok Googlebot obilazi filtere, parametre i paginaciju. Search Console to pokaže mesec dana kasnije, logovi odmah.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> analizu server logova da vidim šta Googlebot zaista obilazi i koliko često, pa zatvaram rasipanje robots pravila, parametri, interno linkovanje i sitemap koji odgovara realnom stanju sajta.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Problem:</strong> nove stranice čekaju nedeljama na indeksaciju dok Googlebot obilazi filtere, parametre i paginaciju. Search Console to pokaže mesec dana kasnije, logovi odmah.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> analizu server logova da vidim šta Googlebot zaista obilazi i koliko često, pa zatvaram rasipanje robots pravila, parametri, interno linkovanje i sitemap koji odgovara realnom stanju sajta.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">Šta dobijate</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">Šta dobijate</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Jasnu sliku gde se troši crawl budžet</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Konkretna pravila za ono što ne treba da se obilazi</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Brža indeksacija novog sadržaja</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Sitemap i interne linkove usklađene sa prioritetima</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Jasnu sliku gde se troši crawl budžet</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Konkretna pravila za ono što ne treba da se obilazi</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Brža indeksacija novog sadržaja</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Sitemap i interne linkove usklađene sa prioritetima</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Usluga 03</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Usluga 03</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Indeksacija i arhitektura sajta</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> canonical govori jedno, interni linkovi drugo, a sitemap treće. Kada signali nisu usklađeni, Google bira sam, obično stranicu koju nisi hteo da rangiraš.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> reviziju canonical logike, čišćenje redirect lanaca, ispravku interne strukture linkova i kontrolu onoga što uopšte sme u indeks tako da svi signali govore istu stvar.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> canonical govori jedno, interni linkovi drugo, a sitemap treće. Kada signali nisu usklađeni, Google bira sam, obično stranicu koju nisi hteo da rangiraš.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> reviziju canonical logike, čišćenje redirect lanaca, ispravku interne strukture linkova i kontrolu onoga što uopšte sme u indeks tako da svi signali govore istu stvar.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">Šta dobijate</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">Šta dobijate</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Usklađene canonical, sitemap i interne signale</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Redirect lance svedene na jedan skok</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Indeks u kojem su samo stranice koje tu i treba da budu</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Strukturu linkova koja prenosi snagu tamo gde je potrebna</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Usklađene canonical, sitemap i interne signale</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Redirect lance svedene na jedan skok</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Indeks u kojem su samo stranice koje tu i treba da budu</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Strukturu linkova koja prenosi snagu tamo gde je potrebna</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Usluga 04</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Usluga 04</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Hreflang i internacionalni SEO</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: #ece6e4; font-weight: 600">Problem:</strong> jednosmerne veze, pogrešni kodovi regiona i stranice koje nedostaju u setu. Rezultat je da pogrešna jezička verzija rangira na pogrešnom tržištu.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: #ece6e4; font-weight: 600">Šta radim:</strong> postavljanje i validaciju kompletnih hreflang mreža za sajtove na više jezika i tržišta, uz kontrolu da svaka verzija ima svog para i da se setovi ne raspadnu kod sledeće objave.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Problem:</strong> jednosmerne veze, pogrešni kodovi regiona i stranice koje nedostaju u setu. Rezultat je da pogrešna jezička verzija rangira na pogrešnom tržištu.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Šta radim:</strong> postavljanje i validaciju kompletnih hreflang mreža za sajtove na više jezika i tržišta, uz kontrolu da svaka verzija ima svog para i da se setovi ne raspadnu kod sledeće objave.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">Šta dobijate</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">Šta dobijate</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Validiranu hreflang mrežu bez jednosmernih veza</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Pravu jezičku verziju na pravom tržištu</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Manje kanibalizacije između lokalizovanih stranica</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Proces koji vaš tim može da ponovi za novo tržište</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Validiranu hreflang mrežu bez jednosmernih veza</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Pravu jezičku verziju na pravom tržištu</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Manje kanibalizacije između lokalizovanih stranica</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Proces koji vaš tim može da ponovi za novo tržište</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Usluga 05</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Usluga 05</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">SEO QA i migracije</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> noindex ostane sa staginga, robots.txt se prepiše, schema nestane posle redizajna. Bez provere pre i posle deploy-a, to se otkrije tek kroz mesec dana i to po padu saobraćaja.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> QA ciklus oko svakog deploy-a, verifikaciju na stagingu i validaciju SEO kritičnih elemenata tokom migracije, mapiranje redirecta, provera pre lansiranja i praćenje odmah posle.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> noindex ostane sa staginga, robots.txt se prepiše, schema nestane posle redizajna. Bez provere pre i posle deploy-a, to se otkrije tek kroz mesec dana i to po padu saobraćaja.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> QA ciklus oko svakog deploy-a, verifikaciju na stagingu i validaciju SEO kritičnih elemenata tokom migracije, mapiranje redirecta, provera pre lansiranja i praćenje odmah posle.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">Šta dobijate</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">Šta dobijate</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Checklistu provere pre i posle svakog deploy-a</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Migraciju bez izgubljenih URL-ova i snage linkova</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Rano otkrivanje regresije, dok je još popravljiva</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Dev tim koji zna šta da proveri i bez mene</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Checklistu provere pre i posle svakog deploy-a</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Migraciju bez izgubljenih URL-ova i snage linkova</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Rano otkrivanje regresije, dok je još popravljiva</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Dev tim koji zna šta da proveri i bez mene</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Usluga 06</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Usluga 06</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Novi sajt sa ispravnim temeljem</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> sajt je napravljen lepo, ali bez SEO logike, struktura improvizovana, merenje nepostavljeno, a prvi audit dolazi godinu kasnije i traži prepravku svega.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> dizajniram i postavljam web prezentaciju od one-pagera do petnaest stranica sa strukturom i keyword planom pre izrade, tehničkim SEO-om ugrađenim tokom rada i GSC/GA4 merenjem od prvog dana. Shopove ne radim.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> sajt je napravljen lepo, ali bez SEO logike, struktura improvizovana, merenje nepostavljeno, a prvi audit dolazi godinu kasnije i traži prepravku svega.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> dizajniram i postavljam web prezentaciju od one-pagera do petnaest stranica sa strukturom i keyword planom pre izrade, tehničkim SEO-om ugrađenim tokom rada i GSC/GA4 merenjem od prvog dana. Shopove ne radim.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">Šta dobijate</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">Šta dobijate</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Strukturu sajta i keyword plan pre prve stranice</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Sajt do 15 stranica, spreman za indeksaciju</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Postavljeno GSC i GA4 merenje</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Uputstvo za samostalno vođenje posle predaje</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Strukturu sajta i keyword plan pre prve stranice</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Sajt do 15 stranica, spreman za indeksaciju</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Postavljeno GSC i GA4 merenje</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Uputstvo za samostalno vođenje posle predaje</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d; background: #0b0909">
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); align-items: center; justify-content: space-between">
       <div style="flex: 1 1 380px; min-width: 0">
         <h2 style="margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance">Ne znate koja vam od ovih šest treba?</h2>
-        <p style="margin: 18px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 46ch; text-wrap: pretty">To je upravo ono što otkrivamo na uvodnom pozivu. Pošaljite URL i opišite šta vas brine — pogledam sajt pre razgovora.</p>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 46ch; text-wrap: pretty">To je upravo ono što otkrivamo na uvodnom pozivu. Pošaljite URL i opišite šta vas brine. Sajt pogledam pre razgovora.</p>
       </div>
       <div style="flex: 0 1 auto; display: flex; flex-wrap: wrap; gap: 12px">
-        <a class="x11" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
-        <a class="x12" href="../../sr/iskustvo/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Vidi iskustvo</a>
+        <a class="x12" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
+        <a class="x13" href="../../sr/iskustvo/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Vidi iskustvo</a>
       </div>
     </div>
   </section>
 
-  <footer style="border-top: 1px solid #241e1d; background: #0b0909; padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
+  <footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
     <div style="max-width: 1240px; margin: 0 auto">
       <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 64px)">
         <div style="flex: 1 1 280px; max-width: 360px; min-width: 0">
-          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4">Vuk Stojković</div>
-          <p style="margin: 16px 0 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Tehnički SEO, PPC i izrada web prezentacija. Beograd, Srbija rad sa klijentima i timovima na daljinu.</p>
+          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)">Vuk Stojković</div>
+          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Tehnički SEO, PPC i izrada web prezentacija. Beograd, Srbija rad sa klijentima i timovima na daljinu.</p>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Radi sa mnom</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Radi sa mnom</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x13" href="../../sr/iskustvo/" style="font-size: 16px; color: #c9c1be">Iskustvo</a>
-            <a class="x14" href="../../sr/usluge/" style="font-size: 16px; color: #c9c1be">Usluge</a>
-            <a class="x15" href="../../sr/saradnja/" style="font-size: 16px; color: #c9c1be">Saradnja</a>
-            <a class="x16" href="../../sr/o-meni/" style="font-size: 16px; color: #c9c1be">O meni</a>
+            <a class="x14" href="../../sr/iskustvo/" style="font-size: 16px; color: var(--ink2)">Iskustvo</a>
+            <a class="x15" href="../../sr/usluge/" style="font-size: 16px; color: var(--ink2)">Usluge</a>
+            <a class="x16" href="../../sr/saradnja/" style="font-size: 16px; color: var(--ink2)">Saradnja</a>
+            <a class="x17" href="../../sr/o-meni/" style="font-size: 16px; color: var(--ink2)">O meni</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Proizvodi</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Proizvodi</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x17" href="../../sr/proizvodi/" style="font-size: 16px; color: #c9c1be">Google Starter Pack</a>
-            <a class="x18" href="../../sr/proizvodi/" style="font-size: 16px; color: #c9c1be">Tech SEO audit za 60 minuta</a>
-            <a class="x19" href="../../sr/proizvodi/" style="font-size: 16px; color: #c9c1be">Brend u AI odgovorima</a>
+            <a class="x18" href="../../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
+            <a class="x19" href="../../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Tech SEO audit za 60 minuta</a>
+            <a class="x20" href="../../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Brend u AI odgovorima</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Kontakt</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Kontakt</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x20" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: #c9c1be">Email</a>
-            <a class="x21" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: #c9c1be">LinkedIn</a>
-            <a class="x22" href="#" style="font-size: 16px; color: #c9c1be">Instagram</a>
+            <a class="x21" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
+            <a class="x22" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
+            <a class="x23" href="#" style="font-size: 16px; color: var(--ink2)">Instagram</a>
           </div>
         </div>
       </div>
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid #241e1d; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
         <div>Beograd, Srbija · CET/CEST</div>
         <div>© 2026 Vuk Stojković. Sva prava zadržana.</div>
-        <div style="display: flex; gap: 20px"><a class="x23" href="../../sr/politika-privatnosti/" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Politika privatnosti</a><a class="x24" href="#" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Cookie podešavanja</a></div>
+        <div style="display: flex; gap: 20px"><a class="x24" href="../../sr/politika-privatnosti/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Politika privatnosti</a><a class="x25" href="#" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie podešavanja</a></div>
       </div>
     </div>
   </footer>

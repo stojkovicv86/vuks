@@ -19,56 +19,87 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap&subset=latin,latin-ext" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&display=block" rel="stylesheet">
 <style>
-body { margin: 0; background: #100d0e; }
+.ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+
+  :root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+  }
+  body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
-  a { color: #ff5c47; text-decoration: none; }
-  a:hover { color: #ff8873; }
-  ::selection { background: #ff5c47; color: #100d0e; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
   .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
   .navb { display: none; }
+  .t-dark { display: none !important; }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
   @media (max-width: 880px) {
     .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
-    .navb span { display: block; width: 22px; height: 2px; background: #ece6e4; border-radius: 2px; transition: transform .2s, opacity .2s; }
-    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: #100d0e; border-bottom: 1px solid #241e1d; flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
     .navt:checked ~ nav { display: flex !important; }
-    .navt:focus-visible + .navb { outline: 2px solid #ff5c47; outline-offset: 2px; border-radius: 6px; }
-    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid #1d1817 !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
     header nav > div { margin-top: 14px; }
     .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .navt:checked + .navb span:nth-child(2) { opacity: 0; }
     .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   }
-.x1:hover{color: #ece6e4 !important}
-.x2:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x3:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x4:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x5:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x6:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x7:hover{color: #ece6e4 !important}
-.x8:hover{background: #ff7a66 !important; color: #15100f !important}
-.x9:hover{color: var(--acc, #ff5c47) !important}
-.x10:hover{color: var(--acc, #ff5c47) !important}
+.x1:hover{color: var(--ink) !important}
+.x2:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x3:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x4:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x5:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x8:hover{color: var(--ink) !important}
+.x9:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x10:hover{color: var(--acc, var(--acc-theme)) !important}
+.x11:hover{color: var(--acc, var(--acc-theme)) !important}
 </style>
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 
 </head>
 <body>
-<div style="--acc: #ff5c47; background: #100d0e; color: #ece6e4; font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+<div style="--acc: var(--acc-theme); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
-  <header style="position: sticky; top: 0; z-index: 50; background: rgba(16, 13, 14, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #241e1d">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
-      <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Vuk Stojković</a>
+      <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Menu">
       <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
       <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
-        <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
-        <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Services</a>
-        <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
-        <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
-        <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
-        <div style="display: flex; align-items: center; border: 1px solid #2a2322; border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
-          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 500">EN</span>
-          <a class="x7" href="../privacy-policy/" style="padding: 5px 11px; border-radius: 999px; color: #8b807d">SR</a>
+        <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
+        <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Services</a>
+        <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
+        <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
+        <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
+          <a class="x8" href="../privacy-policy/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
         </div>
       </nav>
     </div>
@@ -76,10 +107,10 @@ body { margin: 0; background: #100d0e; }
 
   <section style="padding: clamp(48px, 6vw, 88px) clamp(20px, 5vw, 64px) clamp(32px, 4vw, 48px)">
     <div style="max-width: 760px; margin: 0 auto">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, #ff5c47)">Legal information</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Legal information</div>
       <h1 style="margin: 24px 0 0; font-size: clamp(34px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 700">Privacy policy</h1>
-      <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); text-wrap: pretty">This document explains what data I collect when you visit the site or contact me, why I collect it and what rights you have over it.</p>
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d; margin-top: 22px; padding-top: 18px; border-top: 1px solid #241e1d">Last updated: October 2026.</div>
+      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); text-wrap: pretty">This document explains what data I collect when you visit the site or contact me, why I collect it and what rights you have over it.</p>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line)">Last updated: October 2026.</div>
     </div>
   </section>
 
@@ -88,83 +119,83 @@ body { margin: 0; background: #100d0e; }
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">1. Data controller</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">I am responsible for the data described in this document: Vuk Stojković, a freelancer based in Belgrade, Serbia. For any privacy question I am reachable at <a href="mailto:stojkovicv86@gmail.com">stojkovicv86@gmail.com</a>.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">I am responsible for the data described in this document: Vuk Stojković, a freelancer based in Belgrade, Serbia. For any privacy question I am reachable at <a href="mailto:stojkovicv86@gmail.com">stojkovicv86@gmail.com</a>.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">2. What data I collect</h2>
         <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 18px">
-          <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 22px; background: #151111">
+          <div style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 22px; background: var(--card)">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Data you send yourself</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">When you email me: your name, email address, site address and the content of the message. I use them solely to reply and, if an engagement follows, to run the project.</p>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">When you email me: your name, email address, site address and the content of the message. I use them solely to reply and, if an engagement follows, to run the project.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 22px; background: #151111">
+          <div style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 22px; background: var(--card)">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Site usage data</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Aggregate visit statistics through analytics tools: pages visited, traffic source, device type and approximate location at city level. This data is aggregated and is not used to identify you.</p>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Aggregate visit statistics through analytics tools: pages visited, traffic source, device type and approximate location at city level. This data is aggregated and is not used to identify you.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 22px; background: #151111">
+          <div style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 22px; background: var(--card)">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Guide purchase data</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Digital guides are sold through an external platform. Payment and card data are processed by that platform under its own rules — I never see or store card details.</p>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Digital guides are sold through an external platform. Payment and card data are processed by that platform under its own rules. I never see or store card details.</p>
           </div>
         </div>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">3. Legal basis and purpose</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">I process the messages you send on the basis of your request, that is, preparing or performing a contract. I use analytics on the basis of a legitimate interest in understanding how the site performs, and I set non-essential cookies only with your consent.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">I process the messages you send on the basis of your request, that is, preparing or performing a contract. I use analytics on the basis of a legitimate interest in understanding how the site performs, and I set non-essential cookies only with your consent.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">4. Cookies and analytics</h2>
-        <p style="margin: 0 0 14px; color: #c9c1be; text-wrap: pretty">The site uses two kinds of cookies:</p>
+        <p style="margin: 0 0 14px; color: var(--ink2); text-wrap: pretty">The site uses two kinds of cookies:</p>
         <div style="display: flex; flex-direction: column; gap: 11px">
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span><span><strong style="font-weight: 600">Essential</strong> — they keep the site working and remember your cookie choice. They cannot be switched off.</span></div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span><span><strong style="font-weight: 600">Analytics</strong> — Google Analytics 4 and Google Search Console, for measuring traffic and search visibility. They are set only if you accept them.</span></div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span><span><strong style="font-weight: 600">Essential</strong> keep the site working and remember your cookie choice. They cannot be switched off.</span></div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span><span><strong style="font-weight: 600">Analytics</strong> are Google Analytics 4 and Google Search Console, for measuring traffic and search visibility. They are set only if you accept them.</span></div>
         </div>
-        <p style="margin: 16px 0 0; color: #9a918e; font-size: 15px; text-wrap: pretty">You can change your choice at any time through the cookie settings in the footer, or by clearing cookies in your browser settings.</p>
+        <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">You can change your choice at any time through the cookie settings in the footer, or by clearing cookies in your browser settings.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">5. Who I share data with</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">I do not sell data or share it for marketing purposes. Only the services I use have access, to the extent they need it: my hosting and email provider, analytics tools and the platform the guides are sold through. Some of them process data outside Serbia, under standard contractual clauses on data protection.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">I do not sell data or share it for marketing purposes. Only the services I use have access, to the extent they need it: my hosting and email provider, analytics tools and the platform the guides are sold through. Some of them process data outside Serbia, under standard contractual clauses on data protection.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">6. How long I keep data</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">I keep business correspondence for as long as it is relevant to the engagement, and at most three years from the last contact. Documentation required for tax and legal obligations is kept for the periods the law prescribes. Analytics data is kept in aggregate form, under the tools’ default retention periods.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">I keep business correspondence for as long as it is relevant to the engagement, and at most three years from the last contact. Documentation required for tax and legal obligations is kept for the periods the law prescribes. Analytics data is kept in aggregate form, under the tools’ default retention periods.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">7. Your rights</h2>
-        <p style="margin: 0 0 14px; color: #c9c1be; text-wrap: pretty">At any time you can request:</p>
+        <p style="margin: 0 0 14px; color: var(--ink2); text-wrap: pretty">At any time you can request:</p>
         <div style="display: flex; flex-direction: column; gap: 11px">
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>access to the data I hold about you, and a copy of it</div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>correction of inaccurate or incomplete data</div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>erasure of data, where no legal obligation requires me to keep it</div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>restriction of processing, or an objection to processing</div>
-          <div style="display: flex; gap: 12px; font-size: 16px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>withdrawal of consent for analytics cookies</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>access to the data I hold about you, and a copy of it</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>correction of inaccurate or incomplete data</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>erasure of data, where no legal obligation requires me to keep it</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>restriction of processing, or an objection to processing</div>
+          <div style="display: flex; gap: 12px; font-size: 16px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>withdrawal of consent for analytics cookies</div>
         </div>
-        <p style="margin: 16px 0 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Send your request to <a href="mailto:stojkovicv86@gmail.com">stojkovicv86@gmail.com</a> — I respond within 30 days. If you believe your rights have been breached, you can contact the Commissioner for Information of Public Importance and Personal Data Protection.</p>
+        <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Send your request to <a href="mailto:stojkovicv86@gmail.com">stojkovicv86@gmail.com</a> . I respond within 30 days. If you believe your rights have been breached, you can contact the Commissioner for Information of Public Importance and Personal Data Protection.</p>
       </div>
 
       <div>
         <h2 style="margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">8. Changes to this policy</h2>
-        <p style="margin: 0; color: #c9c1be; text-wrap: pretty">If the way data is processed changes, I will update this document and the last-updated date at the top of the page. Material changes will be clearly marked.</p>
+        <p style="margin: 0; color: var(--ink2); text-wrap: pretty">If the way data is processed changes, I will update this document and the last-updated date at the top of the page. Material changes will be clearly marked.</p>
       </div>
 
-      <div style="border: 1px solid #3d2420; border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: #19100f">
+      <div style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--cardacc)">
         <h2 style="margin: 0 0 10px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em">Have a question about your data?</h2>
-        <p style="margin: 0 0 20px; color: #a9a09d; font-size: 16px; text-wrap: pretty">Write directly — I reply personally, no forms and no tickets.</p>
-        <a class="x8" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 14px 24px; border-radius: 10px">Send an email</a>
+        <p style="margin: 0 0 20px; color: var(--ink3); font-size: 16px; text-wrap: pretty">Write directly. I reply personally, no forms and no tickets.</p>
+        <a class="x9" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 14px 24px; border-radius: 10px">Send an email</a>
       </div>
     </div>
   </section>
 
-  <footer style="border-top: 1px solid #241e1d; background: #0b0909; padding: clamp(40px, 5vw, 56px) clamp(20px, 5vw, 64px) 32px">
-    <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d">
+  <footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(40px, 5vw, 56px) clamp(20px, 5vw, 64px) 32px">
+    <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
       <div>Belgrade, Serbia &middot; CET/CEST</div>
       <div>&copy; 2026 Vuk Stojković. All rights reserved.</div>
-      <div style="display: flex; gap: 20px"><a class="x9" href="../" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Home</a><a class="x10" href="#" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
+      <div style="display: flex; gap: 20px"><a class="x10" href="../" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Home</a><a class="x11" href="#" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
     </div>
   </footer>
 </div>

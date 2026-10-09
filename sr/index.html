@@ -21,55 +21,102 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&amp;display=block" rel="stylesheet">
 <style>
-.ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
-  body { margin: 0; background: #100d0e; }
+:root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+  }
+  .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
-  a { color: #ff5c47; text-decoration: none; }
-  a:hover { color: #ff8873; }
-  ::selection { background: #ff5c47; color: #100d0e; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
   .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
   .navb { display: none; }
+  .t-dark { display: none !important; }
+  @media (max-width: 880px) {
+    .hero { flex-direction: column; }
+    .heroimg { order: -1; width: 100%; max-width: 260px !important; padding-top: 10px !important; }
+  }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
   @media (max-width: 880px) {
     .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
-    .navb span { display: block; width: 22px; height: 2px; background: #ece6e4; border-radius: 2px; transition: transform .2s, opacity .2s; }
-    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: #100d0e; border-bottom: 1px solid #241e1d; flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
     .navt:checked ~ nav { display: flex !important; }
-    .navt:focus-visible + .navb { outline: 2px solid #ff5c47; outline-offset: 2px; border-radius: 6px; }
-    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid #1d1817 !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
     header nav > div { margin-top: 14px; }
     .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .navt:checked + .navb span:nth-child(2) { opacity: 0; }
     .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   }
-.x1:hover{color: #ece6e4 !important}
-.x2:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x3:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x4:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x5:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x6:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x7:hover{color: #ece6e4 !important}
-.x8:hover{background: #ff7a66 !important; color: #15100f !important}
-.x9:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x10:hover{background: #ff7a66 !important; color: #15100f !important}
-.x11:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x12:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x13:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x14:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x15:hover{background: #ff7a66 !important; color: #15100f !important}
-.x16:hover{color: var(--acc, #ff5c47) !important; border-color: var(--acc, #ff5c47) !important}
-.x17:hover{color: var(--acc, #ff5c47) !important}
-.x18:hover{color: var(--acc, #ff5c47) !important}
-.x19:hover{color: var(--acc, #ff5c47) !important}
-.x20:hover{color: var(--acc, #ff5c47) !important}
-.x21:hover{color: var(--acc, #ff5c47) !important}
-.x22:hover{color: var(--acc, #ff5c47) !important}
-.x23:hover{color: var(--acc, #ff5c47) !important}
-.x24:hover{color: var(--acc, #ff5c47) !important}
-.x25:hover{color: var(--acc, #ff5c47) !important}
-.x26:hover{color: var(--acc, #ff5c47) !important}
-.x27:hover{color: var(--acc, #ff5c47) !important}
-.x28:hover{color: var(--acc, #ff5c47) !important}
+.x1:hover{color: var(--ink) !important}
+.x2:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x3:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x4:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x5:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x8:hover{color: var(--ink) !important}
+.x9:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x10:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x11:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x12:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x13:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x14:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x15:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x16:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x17:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x18:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x19:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x20:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x21:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x22:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x23:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x24:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x25:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x26:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x27:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x28:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x29:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x30:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x31:hover{color: var(--acc, var(--acc-theme)) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x32:hover{color: var(--acc, var(--acc-theme)) !important}
+.x33:hover{color: var(--acc, var(--acc-theme)) !important}
+.x34:hover{color: var(--acc, var(--acc-theme)) !important}
+.x35:hover{color: var(--acc, var(--acc-theme)) !important}
+.x36:hover{color: var(--acc, var(--acc-theme)) !important}
+.x37:hover{color: var(--acc, var(--acc-theme)) !important}
+.x38:hover{color: var(--acc, var(--acc-theme)) !important}
+.x39:hover{color: var(--acc, var(--acc-theme)) !important}
+.x40:hover{color: var(--acc, var(--acc-theme)) !important}
+.x41:hover{color: var(--acc, var(--acc-theme)) !important}
+.x42:hover{color: var(--acc, var(--acc-theme)) !important}
+.x43:hover{color: var(--acc, var(--acc-theme)) !important}
 </style>
+<script>(function(){if(window.__vsStats)return;window.__vsStats=1;function run(){var ease=function(p){return 1-Math.pow(1-p,3)};document.querySelectorAll('[data-count]:not([data-done])').forEach(function(e){e.setAttribute('data-done','1');var t=parseInt(e.getAttribute('data-count'),10),sfx=e.getAttribute('data-suffix')||'';if(!('IntersectionObserver'in window)){e.textContent=t+sfx;return}e.textContent='0'+sfx;var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.disconnect();var s=performance.now();(function f(n){var p=Math.min(1,(n-s)/1000);e.textContent=Math.round(t*ease(p))+sfx;if(p<1)requestAnimationFrame(f)})(performance.now())})},{threshold:.4});io.observe(e)});document.querySelectorAll('[data-reveal]:not([data-done])').forEach(function(e){e.setAttribute('data-done','1');if(!('IntersectionObserver'in window))return;e.style.opacity='0';e.style.transform='translateY(10px)';e.style.transition='opacity .55s ease, transform .55s ease';e.style.transitionDelay=(e.getAttribute('data-reveal')||0)+'ms';var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.disconnect();e.style.opacity='1';e.style.transform='none'})},{threshold:.4});io.observe(e)})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();setTimeout(run,400);setTimeout(run,1200);})();</script>
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -186,177 +233,178 @@
 </script>
 </head>
 <body>
-<div style="--acc: #ff5c47; --acc2: #4fd1b5; background: #100d0e; color: #ece6e4; font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+<div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
 
-  <header style="position: sticky; top: 0; z-index: 50; background: rgba(16, 13, 14, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #241e1d">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
-      <a class="x1" href="../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Vuk Stojković</a>
+      <a class="x1" href="../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Meni">
       <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
       <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
-        <a class="x2" href="../sr/iskustvo/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Iskustvo</a>
-        <a class="x3" href="../sr/usluge/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Usluge</a>
-        <a class="x4" href="../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
-        <a class="x5" href="../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
-        <a class="x6" href="../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
-        <div style="display: flex; align-items: center; border: 1px solid #2a2322; border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
-          <a class="x7" href="../" style="padding: 5px 11px; border-radius: 999px; color: #8b807d">EN</a>
-          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 500">SR</span>
+        <a class="x2" href="../sr/iskustvo/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Iskustvo</a>
+        <a class="x3" href="../sr/usluge/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Usluge</a>
+        <a class="x4" href="../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
+        <a class="x5" href="../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
+        <a class="x6" href="../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Promeni temu" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <a class="x8" href="../" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">EN</a>
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">SR</span>
         </div>
       </nav>
     </div>
   </header>
   <section style="padding: clamp(56px, 7vw, 104px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 72px)">
-    <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 72px); align-items: flex-start">
+    <div class="hero" style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 72px); align-items: flex-start">
       <div style="flex: 1 1 440px; min-width: 0">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, #ff5c47); margin-bottom: 28px">Vuk Stojković &nbsp;·&nbsp; SEO i GEO freelancer</div>
-        <h1 style="margin: 0; font-size: clamp(38px, 6.2vw, 76px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; ">Optimizacija sajtova i <br><span style="color: var(--acc, #ff5c47)">tehnički SEO audit</span></h1>
-        <p style="margin: 28px 0 0; font-size: clamp(17px, 1.5vw, 20px); color: #a9a09d; max-width: 50ch; text-wrap: pretty">Tehnički SEO koji donosi merljiv rezultat: više vidljivosti na Google-u i u AI odgovorima.</p>
-        <p style="margin: 18px 0 0; padding-left: 18px; border-left: 2px solid var(--acc, #ff5c47); font-size: clamp(16px, 1.4vw, 18px); color: #c9c1be; max-width: 50ch; text-wrap: pretty">Pronalazim šta koči vaš sajt u pretrazi i rešavam to, stranicu po stranicu.</p>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); margin-bottom: 28px">Vuk Stojković &nbsp;·&nbsp; SEO i GEO freelancer</div>
+        <h1 style="margin: 0; font-size: clamp(38px, 6.2vw, 76px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; ">Optimizacija sajtova i <br><span style="color: var(--acc, var(--acc-theme))">tehnički SEO audit</span></h1>
+        <p style="margin: 28px 0 0; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink3); max-width: 50ch; text-wrap: pretty">Tehnički SEO koji donosi merljiv rezultat: više vidljivosti na Google-u i u AI odgovorima.</p>
+        <p style="margin: 18px 0 0; padding-left: 18px; border-left: 2px solid var(--acc, var(--acc-theme)); font-size: clamp(16px, 1.4vw, 18px); color: var(--ink2); max-width: 50ch; text-wrap: pretty">Pronalazim šta koči vaš sajt u pretrazi i rešavam to, stranicu po stranicu.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px">
-          <a class="x8" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
-          <span style="display: inline-flex; align-items: center; gap: 10px; color: #c9c1be; font-weight: 600; font-size: 16px; padding: 15px 0">Zakaži 30-min poziv</span>
+          <a class="x9" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
+          <span style="display: inline-flex; align-items: center; gap: 10px; color: var(--ink2); font-weight: 600; font-size: 16px; padding: 15px 0">Zakaži 30-min poziv</span>
         </div>
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d; margin-top: 18px">Besplatno, bez prodaje. Ako rešenje problema nije za mene, reći ću ti.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 18px">Ako rešenje problema nije za mene, reći ću ti.</div>
         <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px">
-          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Tehnički auditi</span>
-          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Hreflang &amp; internacionalni SEO</span>
-          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2322; border-radius: 999px; padding: 9px 16px; font-size: 14px; color: #c9c1be"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Dizajn sajta do 15 strana</span>
+          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Tehnički auditi</span>
+          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Hreflang &amp; internacionalni SEO</span>
+          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Dizajn sajta do 15 strana</span>
         </div>
       </div>
 
-      <div style="flex: 0 1 300px; max-width: 320px; min-width: 0; position: relative; padding-top: 14px">
-        <div style="position: absolute; top: 0; left: 14px; z-index: 2; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; background: var(--acc, #ff5c47); color: #15100f; padding: 6px 11px; border-radius: 6px">BEOGRAD, RS</div>
-        <div style="border: 1px solid #2a2322; border-radius: 14px; padding: 10px; background: #171313">
-          <div style="aspect-ratio: 4 / 5; border-radius: 8px; display: flex; align-items: flex-end; padding: 18px; background-color: #221c1b; background-image: repeating-linear-gradient(135deg, #2b2423 0 10px, #221c1b 10px 20px)">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d; letter-spacing: 0.08em">[ PORTRET — 4:5 ]</div>
+      <div class="heroimg" style="flex: 0 1 300px; max-width: 320px; min-width: 0; position: relative; padding-top: 14px">
+        <div style="position: absolute; top: 0; left: 14px; z-index: 2; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; background: var(--acc, var(--acc-theme)); color: var(--onacc); padding: 6px 11px; border-radius: 6px">BEOGRAD, RS</div>
+        <div style="border: 1px solid var(--line2); border-radius: 14px; padding: 10px; background: var(--card2)">
+          <div style="aspect-ratio: 4 / 5; border-radius: 8px; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ PORTRET — 4:5 ]</div>
           </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 9px; margin-top: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acc2, #4fd1b5)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc2, #4fd1b5)"></span>Dostupan za projekte i konsultacije</div>
+        <div style="display: flex; align-items: center; gap: 9px; margin-top: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acc2, var(--ok))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc2, var(--ok))"></span>Dostupan za projekte i konsultacije</div>
       </div>
     </div>
 
-    <div style="max-width: 1240px; margin: clamp(48px, 6vw, 88px) auto 0; border-top: 1px solid #241e1d; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr))">
-      <div style="padding: 28px 24px 4px 0; border-right: 1px solid #241e1d">
-        <div style="font-size: 28px; font-weight: 700; letter-spacing: -0.02em">4+</div>
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8b807d; margin-top: 8px">godine u tehničkom SEO-u</div>
+    <div style="max-width: 1240px; margin: clamp(48px, 6vw, 88px) auto 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr))">
+      <div style="padding: 28px 24px 4px 0; border-right: 1px solid var(--line)">
+        <div data-count="4" data-suffix="+" style="font-size: 28px; font-weight: 700; letter-spacing: -0.02em">4+</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink5); margin-top: 8px">godine u tehničkom SEO-u</div>
       </div>
-      <div style="padding: 28px 24px 4px; border-right: 1px solid #241e1d">
-        <div style="font-size: 28px; font-weight: 700; letter-spacing: -0.02em">20+</div>
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8b807d; margin-top: 8px">sajtova paralelno</div>
+      <div style="padding: 28px 24px 4px; border-right: 1px solid var(--line)">
+        <div data-count="20" data-suffix="+" style="font-size: 28px; font-weight: 700; letter-spacing: -0.02em">20+</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink5); margin-top: 8px">sajtova paralelno</div>
       </div>
-      <div style="padding: 28px 24px 4px; border-right: 1px solid #241e1d">
+      <div data-reveal="250" style="padding: 28px 24px 4px; border-right: 1px solid var(--line)">
         <div style="font-size: 28px; font-weight: 700; letter-spacing: -0.02em">iGaming</div>
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8b807d; margin-top: 8px">&amp; crypto vertikale</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink5); margin-top: 8px">&amp; crypto vertikale</div>
       </div>
-      <div style="padding: 28px 0 4px 24px">
+      <div data-reveal="500" style="padding: 28px 0 4px 24px">
         <div style="font-size: 28px; font-weight: 700; letter-spacing: -0.02em">Log-level</div>
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8b807d; margin-top: 8px">analiza crawl ponašanja</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink5); margin-top: 8px">analiza crawl ponašanja</div>
       </div>
     </div>
   </section>
 
-  <section style="border-top: 1px solid #241e1d; border-bottom: 1px solid #241e1d; background: #0b0909; padding: 26px clamp(20px, 5vw, 64px)">
+  <section style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg2); padding: 26px clamp(20px, 5vw, 64px)">
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: clamp(24px, 3.5vw, 56px)">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d">Radio za</div>
-      <div style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: #8e8481; letter-spacing: -0.01em">Nexplay Media</div>
-      <div style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: #8e8481; letter-spacing: -0.01em">Clickout Media</div>
-      <div style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: #8e8481; letter-spacing: -0.01em">Finixio</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5)">Radio za</div>
+      <div style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: var(--ink7); letter-spacing: -0.01em">Nexplay Media</div>
+      <div style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: var(--ink7); letter-spacing: -0.01em">Clickout Media</div>
+      <div style="font-size: clamp(19px, 2vw, 24px); font-weight: 600; color: var(--ink7); letter-spacing: -0.01em">Finixio</div>
     </div>
   </section>
 
   <section style="padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px)">
     <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
-      <div style="border: 1px solid #241e1d; border-radius: 14px; padding: clamp(24px, 3vw, 36px); background: #151111">
-        <div style="width: 38px; height: 38px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); font-size: 17px; font-weight: 700">01</div>
+      <div class="x10" style="border: 1px solid var(--line); border-radius: 14px; padding: clamp(24px, 3vw, 36px); background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
+        <div style="width: 38px; height: 38px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); font-size: 17px; font-weight: 700">01</div>
         <h2 style="margin: 22px 0 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Zapošljavaš</h2>
-        <p style="margin: 0; color: #a9a09d; font-size: 16px; text-wrap: pretty">Otvoren za Technical SEO Specialist pozicije. Kratka verzija za hiring menadžere: šta sam vodio, kako izgleda prvih devedeset dana i ceo CV.</p>
+        <p style="margin: 0; color: var(--ink3); font-size: 16px; text-wrap: pretty">Otvoren za Technical SEO Specialist pozicije. Kratka verzija za hiring menadžere: šta sam vodio, kako izgleda prvih devedeset dana i ceo CV.</p>
         <a href="../sr/saradnja/" style="display: inline-block; margin-top: 20px; font-weight: 600; font-size: 15px">Za hiring menadžere →</a>
       </div>
-      <div style="border: 1px solid #241e1d; border-radius: 14px; padding: clamp(24px, 3vw, 36px); background: #151111">
-        <div style="width: 38px; height: 38px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); font-size: 17px; font-weight: 700">02</div>
+      <div class="x11" style="border: 1px solid var(--line); border-radius: 14px; padding: clamp(24px, 3vw, 36px); background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
+        <div style="width: 38px; height: 38px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); font-size: 17px; font-weight: 700">02</div>
         <h2 style="margin: 22px 0 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Treba ti konsultant</h2>
-        <p style="margin: 0; color: #a9a09d; font-size: 16px; text-wrap: pretty">Besplatan uvodni poziv, jednokratni tehnički audit ili mesečna saradnja. Kreni od najmanje verzije koja odgovara na pitanje koje te muči.</p>
+        <p style="margin: 0; color: var(--ink3); font-size: 16px; text-wrap: pretty">Besplatan uvodni poziv, jednokratni tehnički audit ili mesečna saradnja. Kreni od najmanje verzije koja odgovara na pitanje koje te muči.</p>
         <a href="../sr/saradnja/" style="display: inline-block; margin-top: 20px; font-weight: 600; font-size: 15px">Planovi saradnje →</a>
       </div>
     </div>
   </section>
 
-  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d">
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
-      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #8b807d"><span style="width: 30px; height: 1px; background: var(--acc, #ff5c47)"></span>Zvuči poznato?</div>
+      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>Zvuči poznato?</div>
       <h2 style="margin: 24px 0 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 20ch">Šest načina na koje sajt tiho gubi vidljivost</h2>
-      <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Novi sadržaj izlazi svakoga dana, a saobraćaj i dalje stoji na raskrsnici.</p>
+      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Novi sadržaj izlazi svakoga dana, a saobraćaj i dalje stoji na raskrsnici.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 52px)">
-        <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 26px; background: #151111; text-align: center">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); margin: 0 auto 18px"><span class="ms" aria-hidden="true">travel_explore</span></div>
+        <div class="x12" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
+          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">travel_explore</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Crawl budget se troši na smeće</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Google obilazi filtere, parametre i paginaciju, a nove stranice čekaju nedeljama na indeksaciju. Log fajlovi to pokažu odmah, Search Console tek kasnije.</p>
+          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Google obilazi filtere, parametre i paginaciju, a nove stranice čekaju nedeljama na indeksaciju. Log fajlovi to pokažu odmah, Search Console tek kasnije.</p>
         </div>
-        <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 26px; background: #151111; text-align: center">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); margin: 0 auto 18px"><span class="ms" aria-hidden="true">language</span></div>
+        <div class="x13" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
+          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">language</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Hreflang mreža je nepotpuna</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Jednosmerne veze, pogrešni kodovi regiona i stranice koje nedostaju u setu. Rezultat: pogrešna verzija sajta rangira na pogrešnom tržištu.</p>
+          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Jednosmerne veze, pogrešni kodovi regiona i stranice koje nedostaju u setu. Rezultat: pogrešna verzija sajta rangira na pogrešnom tržištu.</p>
         </div>
-        <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 26px; background: #151111; text-align: center">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); margin: 0 auto 18px"><span class="ms" aria-hidden="true">link</span></div>
+        <div class="x14" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
+          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">link</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Canonical govori jedno, interni linkovi drugo</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Kada signali nisu usklađeni, Google bira sam. Obično izabere stranicu koju nisi hteo da rangiraš.</p>
+          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Kada signali nisu usklađeni, Google bira sam. Obično izabere stranicu koju nisi hteo da rangiraš.</p>
         </div>
-        <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 26px; background: #151111; text-align: center">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); margin: 0 auto 18px"><span class="ms" aria-hidden="true">alt_route</span></div>
+        <div class="x15" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
+          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">alt_route</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Redirect lanci posle svake migracije</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Tri skoka do finalnog URL-a, izgubljen link equity i stranice koje više niko ne obilazi. Migracija je prošla, posledice su ostale.</p>
+          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Tri skoka do finalnog URL-a, izgubljen link equity i stranice koje više niko ne obilazi. Migracija je prošla, posledice su ostale.</p>
         </div>
-        <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 26px; background: #151111; text-align: center">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); margin: 0 auto 18px"><span class="ms" aria-hidden="true">rocket_launch</span></div>
+        <div class="x16" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
+          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">rocket_launch</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Deploy ruši SEO, a niko ne primeti</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Noindex ostane sa staginga, robots.txt se prepiše, šema nestane. Bez QA pre i posle deploy-a, to se otkrije tek kroz mesec dana.</p>
+          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Noindex ostane sa staginga, robots.txt se prepiše, šema nestane. Bez QA pre i posle deploy-a, to se otkrije tek kroz mesec dana.</p>
         </div>
-        <div style="border: 1px solid #241e1d; border-left: 2px solid var(--acc, #ff5c47); border-radius: 0 12px 12px 0; padding: 26px; background: #151111; text-align: center">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47); margin: 0 auto 18px"><span class="ms" aria-hidden="true">confirmation_number</span></div>
+        <div class="x17" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
+          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">confirmation_number</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Preporuke stoje u tiketu</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Audit od 80 strana koji dev tim ne zna da prioritizuje. Bez prevoda u konkretne zadatke i verifikacije na stagingu, ništa se ne implementira.</p>
+          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Audit od 80 strana koji dev tim ne zna da prioritizuje. Bez prevoda u konkretne zadatke i verifikacije na stagingu, ništa se ne implementira.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="usluge" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d; background: #0b0909">
+  <section id="usluge" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); align-items: flex-start">
       <div style="flex: 1 1 220px; max-width: 340px; min-width: 0">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47); padding-bottom: 14px; border-bottom: 1px solid #2a2322">Šta radim</div>
-        <p style="margin: 16px 0 0; color: #8b807d; font-size: 15px; text-wrap: pretty">Šest oblasti, kao deo internog tima ili kao spoljni konsultant</p>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); padding-bottom: 14px; border-bottom: 1px solid var(--line2)">Šta radim</div>
+        <p style="margin: 16px 0 0; color: var(--ink5); font-size: 15px; text-wrap: pretty">Šest oblasti, kao deo internog tima ili kao spoljni konsultant</p>
       </div>
       <div style="flex: 3 1 460px; min-width: 0">
-        <h2 style="margin: 0; font-size: clamp(28px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Popravi temelj i sadržaj počne da radi svoj posao</h2>
-        <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">Četiri godine iskustva na WordPress sajtovima u iGaming i crypto industriji. Regulisano, brzo i uvek na skali. Evo gde sam najkorisniji.</p>
+        <h2 style="margin: 0; font-size: clamp(28px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Popravi temelj i sadržaj počinje da radi svoj posao</h2>
+        <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">Četiri godine iskustva na WordPress sajtovima u iGaming i crypto industriji. Regulisano, brzo i uvek na skali. Evo gde sam najkorisniji.</p>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 36px">
-          <div style="border: 1px solid #241e1d; border-radius: 12px; padding: 24px; background: #151111">
-            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47)"><span class="ms" aria-hidden="true" style="font-size: 18px">fact_check</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Tehnički auditi</h3></div>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Screaming Frog, JetOctopus i Lumar&nbsp; izveštaj koji je rangiran po uticaju, ne po broju grešaka.</p>
+          <div class="x18" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
+            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme))"><span class="ms" aria-hidden="true" style="font-size: 18px">fact_check</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Tehnički auditi</h3></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Screaming Frog, JetOctopus i Lumar&nbsp; izveštaj koji je rangiran po uticaju, ne po broju grešaka.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-radius: 12px; padding: 24px; background: #151111">
-            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47)"><span class="ms" aria-hidden="true" style="font-size: 18px">monitoring</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Crawl &amp; log analiza</h3></div>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Šta Googlebot zaista obilazi, koliko često i gde se budžet rasipa. Zaključci iz server logova, ne iz pretpostavki.</p>
+          <div class="x19" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
+            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme))"><span class="ms" aria-hidden="true" style="font-size: 18px">monitoring</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Crawl &amp; log analiza</h3></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Šta Googlebot zaista obilazi, koliko često i gde se budžet rasipa. Zaključci iz server logova, ne iz pretpostavki.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-radius: 12px; padding: 24px; background: #151111">
-            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47)"><span class="ms" aria-hidden="true" style="font-size: 18px">public</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Hreflang &amp; internacionalni SEO</h3></div>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Postavljanje i validacija hreflang mreža za sajtove na više jezika i tržišta.</p>
+          <div class="x20" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
+            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme))"><span class="ms" aria-hidden="true" style="font-size: 18px">public</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Hreflang &amp; internacionalni SEO</h3></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Postavljanje i validacija hreflang mreža za sajtove na više jezika i tržišta.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-radius: 12px; padding: 24px; background: #151111">
-            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47)"><span class="ms" aria-hidden="true" style="font-size: 18px">account_tree</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Indeksacija &amp; arhitektura</h3></div>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Canonical logika, interno linkovanje, redirect čišćenje i kontrola onoga što uopšte sme u indeks.</p>
+          <div class="x21" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
+            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme))"><span class="ms" aria-hidden="true" style="font-size: 18px">account_tree</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Indeksacija &amp; arhitektura</h3></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Canonical logika, interno linkovanje, redirect čišćenje i kontrola onoga što uopšte sme u indeks.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-radius: 12px; padding: 24px; background: #151111">
-            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47)"><span class="ms" aria-hidden="true" style="font-size: 18px">verified</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">SEO QA &amp; migracije</h3></div>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Provera pre i posle deploy-a, verifikacija na stagingu i validacija SEO kritičnih elemenata tokom migracije.</p>
+          <div class="x22" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
+            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme))"><span class="ms" aria-hidden="true" style="font-size: 18px">verified</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">SEO QA &amp; migracije</h3></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Provera pre i posle deploy-a, verifikacija na stagingu i validacija SEO kritičnih elemenata tokom migracije.</p>
           </div>
-          <div style="border: 1px solid #241e1d; border-radius: 12px; padding: 24px; background: #151111">
-            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center; color: var(--acc, #ff5c47)"><span class="ms" aria-hidden="true" style="font-size: 18px">handyman</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Rad sa dev timovima</h3></div>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Preporuke prevedene u tikete koje developeri mogu da izvrše, sa jasnim kriterijumom kada je zadatak gotov.</p>
+          <div class="x23" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
+            <div style="display: flex; align-items: center; gap: 11px; margin: 0 0 9px"><span style="width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme))"><span class="ms" aria-hidden="true" style="font-size: 18px">handyman</span></span><h3 style="margin: 0; font-size: 16px; font-weight: 600">Rad sa dev timovima</h3></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Preporuke prevedene u tikete koje developeri mogu da izvrše, sa jasnim kriterijumom kada je zadatak gotov.</p>
           </div>
         </div>
       </div>
@@ -364,149 +412,125 @@
   </section>
 
   
-  <section id="iskustvo" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d">
-    <div style="max-width: 1240px; margin: 0 auto">
-      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #8b807d"><span style="width: 30px; height: 1px; background: var(--acc, #ff5c47)"></span>Dokaz</div>
-      <h2 style="margin: 24px 0 clamp(32px, 4vw, 48px); font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Tri konteksta, tri različita posla</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px">
-        <div style="border: 1px solid #241e1d; border-radius: 14px; padding: clamp(24px, 3vw, 32px); background: #151111">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: #8b807d">Nexplay Media · 2026—danas</div>
-          <h3 style="margin: 16px 0 10px; font-size: 18px; font-weight: 600">Portfolio od 20+ WordPress sajtova</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Crypto i iGaming sajtovi sa različitim stekom i tempom objave. Tehnički auditi, log analiza i hreflang mreže, uz QA koji sprečava da deploy poništi rad od prošlog meseca.</p>
-        </div>
-        <div style="border: 1px solid #241e1d; border-radius: 14px; padding: clamp(24px, 3vw, 32px); background: #151111">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: #8b807d">Clickout Media · 2024—2026</div>
-          <h3 style="margin: 16px 0 10px; font-size: 18px; font-weight: 600">Internacionalni SEO na više tržišta</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Hreflang strukture, redirect i indeksacioni problemi na više sajtova istovremeno, u task-driven okruženju sa SEO i dev timovima.</p>
-        </div>
-        <div style="border: 1px solid #241e1d; border-radius: 14px; padding: clamp(24px, 3vw, 32px); background: #151111">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: #8b807d">Finixio · 2022—2024</div>
-          <h3 style="margin: 16px 0 10px; font-size: 18px; font-weight: 600">Tehnički zadaci po specifikaciji</h3>
-          <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Freelance rad na WordPress backendu: canonical, redirecti i hreflang, uz implementaciju izmena na osnovu tuđih SEO audita — škola preciznosti i rada po jasnom zahtevu.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
 
-  <section id="planovi" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d; background: #0b0909">
+  <section id="planovi" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
     <div style="max-width: 1240px; margin: 0 auto">
-      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #8b807d"><span style="width: 30px; height: 1px; background: var(--acc, #ff5c47)"></span>Saradnja</div>
+      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>Saradnja</div>
       <h2 style="margin: 24px 0 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Tri načina da radimo zajedno</h2>
-      <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Kreni od najmanjeg obima koji odgovara na pitanje. Uvek možemo da proširimo, retko ima smisla krenuti obrnuto.</p>
+      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Kreni od najmanjeg obima koji odgovara na pitanje. Uvek možemo da proširimo, retko ima smisla krenuti obrnuto.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; margin-top: clamp(32px, 4vw, 52px); align-items: stretch">
-        <div style="border: 1px solid #241e1d; border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: #151111; display: flex; flex-direction: column; gap: 18px">
+        <div style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px">
           <div style="min-height: 160px">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8b807d">Jednokratno</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">Jednokratno</div>
             <h3 style="margin: 12px 0 8px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em">Tehnički audit</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Kompletna slika stanja sajta i prioritizovan plan koji dev tim može da izvrši.</p>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Kompletna slika stanja sajta i prioritizovan plan koji dev tim može da izvrši.</p>
           </div>
-          <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 18px; border-bottom: 1px solid #241e1d">
+          <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 18px; border-bottom: 1px solid var(--line)">
             <span style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em">od 600 €</span>
-            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d">/ 2 nedelje</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ 2 nedelje</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 11px">
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Crawl celog sajta (Screaming Frog, JetOctopus)</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Analiza server logova i crawl budžeta</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Indeksacija, canonical i redirect revizija</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Lista zadataka rangirana po uticaju</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Walkthrough poziv sa timom</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Crawl celog sajta (Screaming Frog, JetOctopus)</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Analiza server logova i crawl budžeta</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Indeksacija, canonical i redirect revizija</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Lista zadataka rangirana po uticaju</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Walkthrough poziv sa timom</div>
           </div>
-          <a class="x9" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Zatraži audit</a>
+          <a class="x24" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Zatraži audit</a>
         </div>
 
-        <div style="border: 1px solid #3d2420; border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: #19100f; display: flex; flex-direction: column; gap: 18px; position: relative">
-          <div style="position: absolute; top: -11px; left: clamp(26px, 3vw, 34px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; background: var(--acc, #ff5c47); color: #15100f; padding: 5px 11px; border-radius: 6px">NAJČEŠĆI IZBOR</div>
+        <div style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--cardacc); display: flex; flex-direction: column; gap: 18px; position: relative">
+          <div style="position: absolute; top: -11px; left: clamp(26px, 3vw, 34px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; background: var(--acc, var(--acc-theme)); color: var(--onacc); padding: 5px 11px; border-radius: 6px">NAJČEŠĆI IZBOR</div>
           <div style="min-height: 160px">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Mesečno</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Mesečno</div>
             <h3 style="margin: 12px 0 8px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em">Kontinuirana saradnja</h3>
-            <p style="margin: 0; color: #a9a09d; font-size: 15px; text-wrap: pretty">Audit je početak. Ovo je deo gde se stvari zaista implementiraju i održavaju.</p>
+            <p style="margin: 0; color: var(--ink3); font-size: 15px; text-wrap: pretty">Audit je početak. Ovo je deo gde se stvari zaista implementiraju i održavaju.</p>
           </div>
-          <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 18px; border-bottom: 1px solid #2e1f1d">
+          <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 18px; border-bottom: 1px solid var(--accline2)">
             <span style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em">od 900 €</span>
-            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d">/ mesečno</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ mesečno</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 11px">
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #d6cfcc"><span style="color: var(--acc, #ff5c47)">—</span>Sve iz audita, plus implementacija</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #d6cfcc"><span style="color: var(--acc, #ff5c47)">—</span>Mesečni crawl i praćenje indeksacije</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #d6cfcc"><span style="color: var(--acc, #ff5c47)">—</span>Hreflang održavanje i validacija</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #d6cfcc"><span style="color: var(--acc, #ff5c47)">—</span>SEO QA pre i posle svakog deploy-a</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #d6cfcc"><span style="color: var(--acc, #ff5c47)">—</span>Tiketi za dev tim i verifikacija na stagingu</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #d6cfcc"><span style="color: var(--acc, #ff5c47)">—</span>Mesečni izveštaj bez vate</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink1)"><span style="color: var(--acc, var(--acc-theme))">—</span>Sve iz audita, plus implementacija</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink1)"><span style="color: var(--acc, var(--acc-theme))">—</span>Mesečni crawl i praćenje indeksacije</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink1)"><span style="color: var(--acc, var(--acc-theme))">—</span>Hreflang održavanje i validacija</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink1)"><span style="color: var(--acc, var(--acc-theme))">—</span>SEO QA pre i posle svakog deploy-a</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink1)"><span style="color: var(--acc, var(--acc-theme))">—</span>Tiketi za dev tim i verifikacija na stagingu</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink1)"><span style="color: var(--acc, var(--acc-theme))">—</span>Mesečni izveštaj bez vate</div>
           </div>
-          <a class="x10" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Zakaži poziv</a>
+          <a class="x25" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Zakaži poziv</a>
         </div>
 
-        <div style="border: 1px solid #241e1d; border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: #151111; display: flex; flex-direction: column; gap: 18px">
+        <div style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px">
           <div style="min-height: 160px">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8b807d">Projektno</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">Projektno</div>
             <h3 style="margin: 12px 0 8px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em">Sajt od nule</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Kada sajta još nema ili postojeći ne vredi spašavati: dizajniram ga i postavljam tako da temelj bude ispravan od prvog dana.</p>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Kada sajta još nema ili postojeći ne vredi spašavati: dizajniram ga i postavljam tako da temelj bude ispravan od prvog dana.</p>
           </div>
-          <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 18px; border-bottom: 1px solid #241e1d">
+          <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 18px; border-bottom: 1px solid var(--line)">
             <span style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em">Na upit</span>
-            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d">/ po broju stranica</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ po broju stranica</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 11px">
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Struktura sajta, mapa stranica i keyword plan</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Dizajn i izrada — one-pager do 15 stranica</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Tehnički SEO ugrađen još u fazi izrade</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Postavljanje GSC i GA4 merenja</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: #c9c1be"><span style="color: var(--acc, #ff5c47)">—</span>Predaja sa uputstvom za samostalno vođenje</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Struktura sajta, mapa stranica i keyword plan</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Dizajn i izrada, od one-pagera do 15 stranica</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Tehnički SEO ugrađen još u fazi izrade</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Postavljanje GSC i GA4 merenja</div>
+            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Predaja sa uputstvom za samostalno vođenje</div>
           </div>
-          <a class="x11" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Opiši projekat</a>
+          <a class="x26" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Opiši projekat</a>
         </div>
       </div>
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d; margin-top: 26px">Cene su orijentacione i zavise od veličine sajta i broja tržišta. Uvodni poziv je besplatan.</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 26px">Cene su orijentacione i zavise od veličine sajta i broja tržišta. Uvodni poziv je besplatan.</div>
     </div>
   </section>
 
   
-  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d">
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); align-items: flex-start">
       <div style="flex: 1 1 220px; max-width: 340px; min-width: 0">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47); padding-bottom: 14px; border-bottom: 1px solid #2a2322">Kako izgleda</div>
-        <p style="margin: 16px 0 0; color: #8b807d; font-size: 15px; text-wrap: pretty">Realan redosled, svaki korak otvara sledeći</p>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); padding-bottom: 14px; border-bottom: 1px solid var(--line2)">Kako izgleda</div>
+        <p style="margin: 16px 0 0; color: var(--ink5); font-size: 15px; text-wrap: pretty">Realan redosled, svaki korak otvara sledeći</p>
       </div>
       <div style="flex: 3 1 460px; min-width: 0">
         <h2 style="margin: 0 0 32px; font-size: clamp(28px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Dugotrajna faza istraživanja je prošlost. Uvid u problem stičete već prve nedelje.</h2>
-        <div style="border: 1px solid #241e1d; border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr))">
-          <div style="padding: 26px; border-right: 1px solid #241e1d; border-bottom: 1px solid #241e1d; background: #151111">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, #ff5c47); letter-spacing: 0.08em">Korak 1</div>
+        <div style="border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr))">
+          <div style="padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 1</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Uvodni poziv</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">30 minuta, besplatno. Opišeš problem, ja ti iskreno kažem da li sam prava osoba za njega.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, #ff5c47)"><span style="width: 34px; height: 34px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">call</span></span></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">30 minuta, besplatno. Opišeš problem, ja ti iskreno kažem da li sam prava osoba za njega.</p>
+            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">call</span></span></div>
           </div>
-          <div style="padding: 26px; border-right: 1px solid #241e1d; border-bottom: 1px solid #241e1d; background: #151111">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, #ff5c47); letter-spacing: 0.08em">Korak 2</div>
+          <div style="padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 2</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Dijagnostika</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Crawl, logovi, Search Console i istorija poslednjih deploy-eva. Podaci pre mišljenja.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, #ff5c47)"><span style="width: 34px; height: 34px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">troubleshoot</span></span></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Crawl, logovi, Search Console i istorija poslednjih deploy-eva. Podaci pre mišljenja.</p>
+            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">troubleshoot</span></span></div>
           </div>
-          <div style="padding: 26px; border-bottom: 1px solid #241e1d; background: #151111">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, #ff5c47); letter-spacing: 0.08em">Korak 3</div>
+          <div style="padding: 26px; border-bottom: 1px solid var(--line); background: var(--card)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 3</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Nalaz i plan</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Šta zaista blokira vidljivost, rangirano po uticaju, sa konkretnim zadacima umesto liste principa.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, #ff5c47)"><span style="width: 34px; height: 34px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">assignment</span></span></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Šta zaista blokira vidljivost, rangirano po uticaju, sa konkretnim zadacima umesto liste principa.</p>
+            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">assignment</span></span></div>
           </div>
-          <div style="padding: 26px; border-right: 1px solid #241e1d; background: #151111">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, #ff5c47); letter-spacing: 0.08em">Korak 4</div>
+          <div style="padding: 26px; border-right: 1px solid var(--line); background: var(--card)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 4</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Implementacija</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Radim sa tvojim timom: tiketi, staging provere i verifikacija da je izmena zaista otišla u produkciju.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, #ff5c47)"><span style="width: 34px; height: 34px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">build</span></span></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Radim sa tvojim timom: tiketi, staging provere i verifikacija da je izmena zaista otišla u produkciju.</p>
+            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">build</span></span></div>
           </div>
-          <div style="padding: 26px; border-right: 1px solid #241e1d; background: #151111">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, #ff5c47); letter-spacing: 0.08em">Korak 5</div>
+          <div style="padding: 26px; border-right: 1px solid var(--line); background: var(--card)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 5</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Predaja</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Dokumentovan način rada koji tim nastavlja da koristi i kada ja više nisam tu. To je i poenta.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, #ff5c47)"><span style="width: 34px; height: 34px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">handshake</span></span></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Dokumentovan način rada koji tim nastavlja da koristi i kada ja više nisam tu. To je i poenta.</p>
+            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">handshake</span></span></div>
           </div>
-          <div style="padding: 26px; background: #151111">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, #ff5c47); letter-spacing: 0.08em">Korak 6</div>
+          <div style="padding: 26px; background: var(--card)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Korak 6</div>
             <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Provera posle 30 dana</h3>
-            <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Jedan sat: šta je prošlo, šta nije i šta traži još jedan krug. Bez naplate, i obično najkorisniji sat od svih.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, #ff5c47)"><span style="width: 34px; height: 34px; border-radius: 9px; background: rgba(255, 92, 71, 0.12); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">event_repeat</span></span></div>
+            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Jedan sat: šta je prošlo, šta nije i šta traži još jedan krug. Bez naplate, i obično najkorisniji sat od svih.</p>
+            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">event_repeat</span></span></div>
           </div>
         </div>
       </div>
@@ -514,122 +538,122 @@
   </section>
   
 
-  <section id="vodici" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d">
+  <section id="vodici" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
-      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #8b807d"><span style="width: 30px; height: 1px; background: var(--acc, #ff5c47)"></span>Digitalni proizvodi</div>
+      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>Digitalni proizvodi</div>
       <h2 style="margin: 24px 0 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 20ch">Tri vodiča za one koji rade sami</h2>
-      <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Isti procesi koje koristim u radu sa klijentima, zapisani tako da možeš da ih primeniš bez mene. Preuzimaš odmah posle kupovine.</p>
+      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Isti procesi koje koristim u radu sa klijentima, zapisani tako da možeš da ih primeniš bez mene. Preuzimaš odmah posle kupovine.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: clamp(32px, 4vw, 52px); align-items: stretch">
-        <div style="border: 1px solid #241e1d; border-radius: 16px; overflow: hidden; background: #151111; display: flex; flex-direction: column">
-          <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: #221c1b; background-image: repeating-linear-gradient(135deg, #2b2423 0 10px, #221c1b 10px 20px); border-bottom: 1px solid #241e1d">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d; letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
+        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+          <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
           </div>
           <div style="padding: clamp(24px, 3vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1">
             <div>
-              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8b807d">PDF · 48 strana</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">PDF · 48 strana</div>
               <h3 style="margin: 12px 0 10px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance">Google Starter Pack: povežite biznis za jedno popodne</h3>
-              <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Korak po korak na primeru jednog sajta, sa screenshotima: GSC preko DNS-a, GA4, Tag Manager, Business profil, povezivanje sa Ads-om i Merchant Center za prodavnice. Na kraju checklista „sve je povezano kako treba“.</p>
-              <div style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed #2a2322; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d; text-wrap: pretty">+ bonus poglavlje: Ko je vlasnik vaših naloga? Pravilno davanje pristupa.</div>
+              <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Korak po korak na primeru jednog sajta, sa screenshotima: GSC preko DNS-a, GA4, Tag Manager, Business profil, povezivanje sa Ads-om i Merchant Center za prodavnice. Na kraju checklista „sve je povezano kako treba“.</p>
+              <div style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line2); font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); text-wrap: pretty">+ bonus poglavlje: Ko je vlasnik vaših naloga? Pravilno davanje pristupa.</div>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 16px; border-top: 1px solid #241e1d">
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line)">
               <span style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em">29 €</span>
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d">/ trajni pristup</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ trajni pristup</span>
             </div>
-            <a class="x12" href="#" style="text-align: center; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
+            <a class="x27" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
           </div>
         </div>
 
-        <div style="border: 1px solid #241e1d; border-radius: 16px; overflow: hidden; background: #151111; display: flex; flex-direction: column">
-          <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: #221c1b; background-image: repeating-linear-gradient(135deg, #2b2423 0 10px, #221c1b 10px 20px); border-bottom: 1px solid #241e1d">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d; letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
+        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+          <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
           </div>
           <div style="padding: clamp(24px, 3vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1">
             <div>
-              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8b807d">PDF · 48 strana</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">PDF · 48 strana</div>
               <h3 style="margin: 12px 0 10px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance">Tech SEO audit za 60 minuta</h3>
-              <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Checklista po oblastima, indeksacija, crawl, brzina, struktura, schema i mobilna verzija. Uz alate i ekstenzije koje su dovoljne za ceo posao. Jezgro vodiča je matrica „uticaj × napor“ koja odmah kaže šta se popravlja prvo.</p>
+              <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Checklista po oblastima, indeksacija, crawl, brzina, struktura, schema i mobilna verzija. Uz alate i ekstenzije koje su dovoljne za ceo posao. Jezgro vodiča je matrica „uticaj × napor“ koja odmah kaže šta se popravlja prvo.</p>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 16px; border-top: 1px solid #241e1d">
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line)">
               <span style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em">29 €</span>
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d">/ trajni pristup</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ trajni pristup</span>
             </div>
-            <a class="x13" href="#" style="text-align: center; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
+            <a class="x28" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
           </div>
         </div>
 
-        <div style="border: 1px solid #241e1d; border-radius: 16px; overflow: hidden; background: #151111; display: flex; flex-direction: column">
-          <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: #221c1b; background-image: repeating-linear-gradient(135deg, #2b2423 0 10px, #221c1b 10px 20px); border-bottom: 1px solid #241e1d">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d; letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
+        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+          <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ KORICA VODIČA — 16:10 ]</div>
           </div>
           <div style="padding: clamp(24px, 3vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1">
             <div>
-              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8b807d">PDF · 48 strana</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">PDF · 48 strana</div>
               <h3 style="margin: 12px 0 10px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance">Brend vidljiv na Google-u i u AI odgovorima</h3>
-              <p style="margin: 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Kako Google i AI modeli prepoznaju brend kao entitet: Organization schema i sameAs, konzistentni podaci svuda, Wikidata i pominjanja koja se broje. Uključuje test da proverite da li vas ChatGPT, Perplexity, Gemini i AI Overviews uopšte pominju.</p>
-              <div style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed #2a2322; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d; text-wrap: pretty">+ bonus poglavlje: Lični brend za stručnjake — E-E-A-T u praksi, Person schema i put do Knowledge Panela.</div>
+              <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Kako Google i AI modeli prepoznaju brend kao entitet: Organization schema i sameAs, konzistentni podaci svuda, Wikidata i pominjanja koja se broje. Uključuje test da proverite da li vas ChatGPT, Perplexity, Gemini i AI Overviews uopšte pominju.</p>
+              <div style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line2); font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); text-wrap: pretty">+ bonus poglavlje: Lični brend za stručnjake: E-E-A-T u praksi, Person schema i put do Knowledge Panela.</div>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 16px; border-top: 1px solid #241e1d">
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line)">
               <span style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em">29 €</span>
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b807d">/ trajni pristup</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ trajni pristup</span>
             </div>
-            <a class="x14" href="#" style="text-align: center; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
+            <a class="x29" href="#" style="text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 10px">Kupi vodič</a>
           </div>
         </div>
       </div>
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d; margin-top: 26px">Prodaja ide preko eksterne platforme — dugme vodi na stranicu proizvoda.</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 26px">Prodaja ide preko eksterne platforme. Dugme vodi na stranicu proizvoda.</div>
     </div>
   </section>
 
-  <section id="kontakt" style="scroll-margin-top: 88px; padding: clamp(64px, 8vw, 120px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d; background: #0b0909">
+  <section id="kontakt" style="scroll-margin-top: 88px; padding: clamp(64px, 8vw, 120px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
     <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 64px); align-items: center">
       <div style="flex: 3 1 460px; min-width: 0">
         <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 48px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance">Pošalji mi URL i reci šta te brine.</h2>
-        <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 44ch; text-wrap: pretty">Pogledam sajt pre poziva. Ako vidim nešto očigledno, čućeš to u prvih pet minuta bez obzira na to da li radimo zajedno.</p>
+        <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 44ch; text-wrap: pretty">Pogledam sajt pre poziva. Ako vidim nešto očigledno, čućeš to u prvih pet minuta bez obzira na to da li radimo zajedno.</p>
       </div>
       <div style="min-width: 0; display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-        <a class="x15" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
-        <a class="x16" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(15px, 1.6vw, 19px); color: #ece6e4; border-bottom: 1px solid #3d3432; padding-bottom: 4px">LinkedIn → vuk-stojkovic</a>
-        <div style="display: flex; align-items: center; gap: 9px; margin-top: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acc2, #4fd1b5)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc2, #4fd1b5)"></span>Odgovaram u roku od 24h</div>
+        <a class="x30" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Pošalji email</a>
+        <a class="x31" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(15px, 1.6vw, 19px); color: var(--ink); border-bottom: 1px solid var(--line4); padding-bottom: 4px">LinkedIn → vuk-stojkovic</a>
+        <div style="display: flex; align-items: center; gap: 9px; margin-top: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acc2, var(--ok))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc2, var(--ok))"></span>Odgovaram u roku od 24h</div>
       </div>
     </div>
-  </section><footer style="border-top: 1px solid #241e1d; background: #0b0909; padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
+  </section><footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
     <div style="max-width: 1240px; margin: 0 auto">
       <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 64px)">
         <div style="flex: 1 1 280px; max-width: 360px; min-width: 0">
-          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4">Vuk Stojković</div>
-          <p style="margin: 16px 0 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Tehnički SEO, PPC i izrada web prezentacija. Beograd, Srbija rad sa klijentima i timovima na daljinu.</p>
+          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)">Vuk Stojković</div>
+          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Tehnički SEO, PPC i izrada web prezentacija. Beograd, Srbija rad sa klijentima i timovima na daljinu.</p>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Radi sa mnom</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Radi sa mnom</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x17" href="../sr/iskustvo/" style="font-size: 16px; color: #c9c1be">Iskustvo</a>
-            <a class="x18" href="../sr/usluge/" style="font-size: 16px; color: #c9c1be">Usluge</a>
-            <a class="x19" href="../sr/saradnja/" style="font-size: 16px; color: #c9c1be">Saradnja</a>
-            <a class="x20" href="../sr/o-meni/" style="font-size: 16px; color: #c9c1be">O meni</a>
+            <a class="x32" href="../sr/iskustvo/" style="font-size: 16px; color: var(--ink2)">Iskustvo</a>
+            <a class="x33" href="../sr/usluge/" style="font-size: 16px; color: var(--ink2)">Usluge</a>
+            <a class="x34" href="../sr/saradnja/" style="font-size: 16px; color: var(--ink2)">Saradnja</a>
+            <a class="x35" href="../sr/o-meni/" style="font-size: 16px; color: var(--ink2)">O meni</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Proizvodi</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Proizvodi</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x21" href="../sr/proizvodi/" style="font-size: 16px; color: #c9c1be">Google Starter Pack</a>
-            <a class="x22" href="../sr/proizvodi/" style="font-size: 16px; color: #c9c1be">Tech SEO audit za 60 minuta</a>
-            <a class="x23" href="../sr/proizvodi/" style="font-size: 16px; color: #c9c1be">Brend u AI odgovorima</a>
+            <a class="x36" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
+            <a class="x37" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Tech SEO audit za 60 minuta</a>
+            <a class="x38" href="../sr/proizvodi/" style="font-size: 16px; color: var(--ink2)">Brend u AI odgovorima</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Kontakt</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Kontakt</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x24" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: #c9c1be">Email</a>
-            <a class="x25" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: #c9c1be">LinkedIn</a>
-            <a class="x26" href="#" style="font-size: 16px; color: #c9c1be">Instagram</a>
+            <a class="x39" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
+            <a class="x40" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
+            <a class="x41" href="#" style="font-size: 16px; color: var(--ink2)">Instagram</a>
           </div>
         </div>
       </div>
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid #241e1d; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
         <div>Beograd, Srbija · CET/CEST</div>
         <div>© 2026 Vuk Stojković. Sva prava zadržana.</div>
-        <div style="display: flex; gap: 20px"><a class="x27" href="../sr/politika-privatnosti/" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Politika privatnosti</a><a class="x28" href="#" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Cookie podešavanja</a></div>
+        <div style="display: flex; gap: 20px"><a class="x42" href="../sr/politika-privatnosti/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Politika privatnosti</a><a class="x43" href="#" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie podešavanja</a></div>
       </div>
     </div>
   </footer>

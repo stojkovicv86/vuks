@@ -21,127 +21,168 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&amp;display=block" rel="stylesheet">
 <style>
-body { margin: 0; background: #100d0e; }
+:root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+  }
+  body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
-  a { color: #ff5c47; text-decoration: none; }
-  a:hover { color: #ff8873; }
-  ::selection { background: #ff5c47; color: #100d0e; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
   .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
   .navb { display: none; }
+  .t-dark { display: none !important; }
+  .cyc { position: relative; width: min(100%, 440px); aspect-ratio: 1; margin: 0 auto; --r: 162px; }
+  .cycring { position: absolute; inset: 0; border: 1px dashed var(--line3); border-radius: 50%; }
+  .cycspin { position: absolute; inset: 0; animation: cycspin 22s linear infinite; }
+  .cycdot { position: absolute; left: 50%; top: 0; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%; background: var(--acc, var(--acc-theme)); box-shadow: 0 0 0 5px var(--acctint); }
+  .cycnode { position: absolute; left: 50%; top: 50%; width: 136px; margin: -30px 0 0 -68px; text-align: center; }
+  .cyccenter { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 160px; text-align: center; }
+  @keyframes cycspin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .cycspin { animation: none; } }
+  @media (max-width: 560px) { .cyc { --r: 112px; } .cycnode { width: 104px; margin-left: -52px; } }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
   @media (max-width: 880px) {
     .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
-    .navb span { display: block; width: 22px; height: 2px; background: #ece6e4; border-radius: 2px; transition: transform .2s, opacity .2s; }
-    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: #100d0e; border-bottom: 1px solid #241e1d; flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
     .navt:checked ~ nav { display: flex !important; }
-    .navt:focus-visible + .navb { outline: 2px solid #ff5c47; outline-offset: 2px; border-radius: 6px; }
-    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid #1d1817 !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
     header nav > div { margin-top: 14px; }
     .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .navt:checked + .navb span:nth-child(2) { opacity: 0; }
     .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   }
   .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 20px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
-.x1:hover{color: #ece6e4 !important}
-.x2:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x3:hover{color: #ece6e4 !important}
-.x4:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x5:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x6:hover{color: #ece6e4 !important; border-color: var(--acc, #ff5c47) !important}
-.x7:hover{color: #ece6e4 !important}
-.x8:hover{color: var(--acc, #ff5c47) !important}
-.x9:hover{background: #ff7a66 !important; color: #15100f !important}
-.x10:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x11:hover{background: #ff7a66 !important; color: #15100f !important}
-.x12:hover{border-color: #5a4b48 !important; color: #ece6e4 !important}
-.x13:hover{color: var(--acc, #ff5c47) !important}
-.x14:hover{color: var(--acc, #ff5c47) !important}
-.x15:hover{color: var(--acc, #ff5c47) !important}
-.x16:hover{color: var(--acc, #ff5c47) !important}
-.x17:hover{color: var(--acc, #ff5c47) !important}
-.x18:hover{color: var(--acc, #ff5c47) !important}
-.x19:hover{color: var(--acc, #ff5c47) !important}
-.x20:hover{color: var(--acc, #ff5c47) !important}
-.x21:hover{color: var(--acc, #ff5c47) !important}
-.x22:hover{color: var(--acc, #ff5c47) !important}
-.x23:hover{color: var(--acc, #ff5c47) !important}
-.x24:hover{color: var(--acc, #ff5c47) !important}
+.x1:hover{color: var(--ink) !important}
+.x2:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x3:hover{color: var(--ink) !important}
+.x4:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x5:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x8:hover{color: var(--ink) !important}
+.x9:hover{color: var(--acc, var(--acc-theme)) !important}
+.x10:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x11:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x12:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x13:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x14:hover{color: var(--acc, var(--acc-theme)) !important}
+.x15:hover{color: var(--acc, var(--acc-theme)) !important}
+.x16:hover{color: var(--acc, var(--acc-theme)) !important}
+.x17:hover{color: var(--acc, var(--acc-theme)) !important}
+.x18:hover{color: var(--acc, var(--acc-theme)) !important}
+.x19:hover{color: var(--acc, var(--acc-theme)) !important}
+.x20:hover{color: var(--acc, var(--acc-theme)) !important}
+.x21:hover{color: var(--acc, var(--acc-theme)) !important}
+.x22:hover{color: var(--acc, var(--acc-theme)) !important}
+.x23:hover{color: var(--acc, var(--acc-theme)) !important}
+.x24:hover{color: var(--acc, var(--acc-theme)) !important}
+.x25:hover{color: var(--acc, var(--acc-theme)) !important}
 </style>
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 
 </head>
 <body>
-<div style="--acc: #ff5c47; --acc2: #4fd1b5; background: #100d0e; color: #ece6e4; font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+<div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
-  <header style="position: sticky; top: 0; z-index: 50; background: rgba(16, 13, 14, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #241e1d">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
-      <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, #ff5c47)"></span>Vuk Stojković</a>
+      <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Menu">
       <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
       <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
-        <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
-        <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: #ece6e4; padding: 6px 0; border-bottom: 1px solid var(--acc, #ff5c47)">Services</a>
-        <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
-        <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
-        <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: #c9c1be; padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
-        <div style="display: flex; align-items: center; border: 1px solid #2a2322; border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
-          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 500">EN</span>
-          <a class="x7" href="../sr/usluge/" style="padding: 5px 11px; border-radius: 999px; color: #8b807d">SR</a>
+        <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
+        <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: var(--ink); padding: 6px 0; border-bottom: 1px solid var(--acc, var(--acc-theme))">Services</a>
+        <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
+        <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
+        <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
+          <a class="x8" href="../sr/usluge/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
         </div>
       </nav>
     </div>
   </header>
 
-  <section style="padding: clamp(44px, 5.5vw, 76px) clamp(20px, 5vw, 64px) clamp(44px, 5.5vw, 72px); border-bottom: 1px solid #241e1d">
+  <section style="padding: clamp(44px, 5.5vw, 76px) clamp(20px, 5vw, 64px) clamp(44px, 5.5vw, 72px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d"><a class="x8" href="../" style="color: #8b807d">HOME</a> &nbsp;/&nbsp; SERVICES</div>
-      <h1 style="margin: 26px 0 0; font-size: clamp(36px, 5.6vw, 68px); line-height: 1.03; letter-spacing: -0.035em; font-weight: 700">Six things I fix <br><span style="color: var(--acc, #ff5c47)">and exactly what you get</span></h1>
-      <p style="margin: 24px 0 0; color: #a9a09d; font-size: clamp(17px, 1.5vw, 20px); max-width: 54ch; text-wrap: pretty">Each of these services can be a one-off engagement or part of a monthly retainer. The work is the same — only how long I stay on the project changes.</p>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5)"><a class="x9" href="../" style="color: var(--ink5)">HOME</a> &nbsp;/&nbsp; SERVICES</div>
+      <h1 style="margin: 26px 0 0; font-size: clamp(36px, 5.6vw, 68px); line-height: 1.03; letter-spacing: -0.035em; font-weight: 700">Six things I fix <br><span style="color: var(--acc, var(--acc-theme))">and exactly what you get</span></h1>
+      <p style="margin: 24px 0 0; color: var(--ink3); font-size: clamp(17px, 1.5vw, 20px); max-width: 54ch; text-wrap: pretty">Each of these services can be a one-off engagement or part of a monthly retainer. The work is the same, only how long I stay on the project changes.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px">
-        <a class="x9" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
-        <a class="x10" href="../work-with-me/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">See engagement plans</a>
+        <a class="x10" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
+        <a class="x11" href="../work-with-me/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">See engagement plans</a>
       </div>
     </div>
   </section>
 
-  <section style="padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px); border-bottom: 1px solid #241e1d">
+  <section style="padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
-      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #8b807d"><span style="width: 30px; height: 1px; background: var(--acc, #ff5c47)"></span>The cycle</div>
+      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>The cycle</div>
       <h2 style="margin: 24px 0 0; font-size: clamp(28px, 4vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Technical SEO is a loop, not a straight line</h2>
-      <p style="margin: 20px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">Every service below sits somewhere on this loop. Most sites have four stages that work well and one that quietly ruins the rest.</p>
+      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">Every service below sits somewhere on this loop. Most sites have four stages that work well and one that quietly ruins the rest.</p>
 
-      <div style="border: 1px solid #241e1d; border-radius: 16px; background: #151111; padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 36px); margin-top: clamp(32px, 4vw, 48px)">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 16px; position: relative">
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, #ff5c47); display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, #ff5c47)"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Diagnostics</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">crawl and logs</div>
+      <div style="border: 1px solid var(--line); border-radius: 16px; background: var(--card); padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 36px); margin-top: clamp(32px, 4vw, 48px)">
+        <div class="cyc">
+          <div class="cycring"></div>
+          <div class="cycspin"><span class="cycdot"></span></div>
+          <div class="cycnode" style="transform: rotate(0deg) translateY(calc(-1 * var(--r))) rotate(-0deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, var(--acc-theme))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Diagnostics</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">crawl and logs</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3d3432; display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #8b807d"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Prioritisation</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">impact × effort</div>
+          <div class="cycnode" style="transform: rotate(60deg) translateY(calc(-1 * var(--r))) rotate(-60deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Prioritisation</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">impact × effort</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3d3432; display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #8b807d"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Implementation</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">tickets and staging</div>
+          <div class="cycnode" style="transform: rotate(120deg) translateY(calc(-1 * var(--r))) rotate(-120deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Implementation</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">tickets and staging</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3d3432; display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #8b807d"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Verification</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">QA after the deploy</div>
+          <div class="cycnode" style="transform: rotate(180deg) translateY(calc(-1 * var(--r))) rotate(-180deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Verification</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">QA after the deploy</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3d3432; display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #8b807d"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Measurement</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">GSC and GA4</div>
+          <div class="cycnode" style="transform: rotate(240deg) translateY(calc(-1 * var(--r))) rotate(-240deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Measurement</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">GSC and GA4</div>
           </div>
-          <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center">
-            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, #ff5c47); display: flex; align-items: center; justify-content: center"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, #ff5c47)"></span></span>
-            <div style="margin-top: 16px; font-size: 16px; font-weight: 600">Re-assessment</div>
-            <div style="margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b807d">what comes next</div>
+          <div class="cycnode" style="transform: rotate(300deg) translateY(calc(-1 * var(--r))) rotate(-300deg)">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, var(--acc-theme))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span></span>
+            <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Re-assessment</div>
+            <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">what comes next</div>
+          </div>
+          <div class="cyccenter">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5); line-height: 1.6">Measure, then<br>prioritise again</div>
           </div>
         </div>
-        <div style="margin-top: 32px; padding-top: 20px; border-top: 1px dashed #2f2726; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8b807d">Measure, then prioritise again</div>
       </div>
     </div>
   </section>
@@ -151,164 +192,164 @@ body { margin: 0; background: #100d0e; }
 
       <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 56px)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Service 01</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Service 01</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Technical SEO audit</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The problem:</strong> the existing audit is a list of eighty errors in no particular order. The dev team does not know what comes first, so nothing gets done — or the easiest thing does, which changes nothing.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> a full-site crawl through Screaming Frog, JetOctopus or Lumar, a review of Search Console data and recent changes, then findings ranked on an impact × effort matrix with an explanation of why something waits.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The problem:</strong> the existing audit is a list of eighty errors in no particular order. The dev team does not know what comes first, so nothing gets done, or the easiest thing does, which changes nothing.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> a full-site crawl through Screaming Frog, JetOctopus or Lumar, a review of Search Console data and recent changes, then findings ranked on an impact × effort matrix with an explanation of why something waits.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">What you get</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">What you get</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Findings prioritised by impact, not by error count</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A task list the dev team can execute directly</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A definition of done for every task</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A walkthrough call with the team, not a PDF that means nothing to anyone</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Findings prioritised by impact, not by error count</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A task list the dev team can execute directly</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A definition of done for every task</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A walkthrough call with the team, not a PDF that means nothing to anyone</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Service 02</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Service 02</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Crawl budget and log analysis</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: #ece6e4; font-weight: 600">The problem:</strong> new pages wait weeks to be indexed while Googlebot crawls filters, parameters and pagination. Search Console shows it a month later; the logs show it immediately.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> server log analysis to see what Googlebot actually crawls and how often, then I close the leaks — robots rules, parameters, internal linking and a sitemap that matches the real state of the site.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">The problem:</strong> new pages wait weeks to be indexed while Googlebot crawls filters, parameters and pagination. Search Console shows it a month later; the logs show it immediately.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> server log analysis to see what Googlebot actually crawls and how often, then I close the leaks: robots rules, parameters, internal linking and a sitemap that matches the real state of the site.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">What you get</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">What you get</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A clear picture of where crawl budget goes</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Concrete rules for what should not be crawled</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Faster indexation of new content</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Sitemap and internal links aligned with priorities</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A clear picture of where crawl budget goes</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Concrete rules for what should not be crawled</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Faster indexation of new content</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Sitemap and internal links aligned with priorities</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Service 03</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Service 03</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Indexation and site architecture</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The problem:</strong> canonicals say one thing, internal links another and the sitemap a third. When signals disagree, Google decides for you — usually on the page you never wanted ranking.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> a review of canonical logic, clean-up of redirect chains, repair of the internal link structure and control over what is allowed into the index at all — so every signal says the same thing.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The problem:</strong> canonicals say one thing, internal links another and the sitemap a third. When signals disagree, Google decides for you, usually on the page you never wanted ranking.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> a review of canonical logic, clean-up of redirect chains, repair of the internal link structure and control over what is allowed into the index at all, so every signal says the same thing.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">What you get</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">What you get</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Canonicals, sitemap and internal signals in agreement</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Redirect chains reduced to a single hop</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>An index holding only the pages that belong there</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A link structure that passes strength where it is needed</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Canonicals, sitemap and internal signals in agreement</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Redirect chains reduced to a single hop</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>An index holding only the pages that belong there</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A link structure that passes strength where it is needed</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Service 04</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Service 04</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Hreflang and international SEO</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: #ece6e4; font-weight: 600">The problem:</strong> one-way links, wrong region codes and pages missing from the set. The result is the wrong language version ranking in the wrong market.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: #ece6e4; font-weight: 600">What I do:</strong> setting up and validating complete hreflang networks across languages and markets, making sure every version has its pair and that the sets do not fall apart at the next publish.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">The problem:</strong> one-way links, wrong region codes and pages missing from the set. The result is the wrong language version ranking in the wrong market.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">What I do:</strong> setting up and validating complete hreflang networks across languages and markets, making sure every version has its pair and that the sets do not fall apart at the next publish.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">What you get</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">What you get</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A validated hreflang network with no one-way links</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>The right language version in the right market</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Less cannibalisation between localised pages</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A process your team can repeat for a new market</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A validated hreflang network with no one-way links</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>The right language version in the right market</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Less cannibalisation between localised pages</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A process your team can repeat for a new market</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Service 05</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Service 05</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">SEO QA and migrations</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The problem:</strong> a noindex survives from staging, robots.txt gets overwritten, schema disappears after a redesign. Without checks before and after the deploy, it surfaces a month later — through a traffic drop.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> a QA cycle around every deploy, staging verification and validation of SEO-critical elements during a migration — redirect mapping, pre-launch checks and monitoring right after.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The problem:</strong> a noindex survives from staging, robots.txt gets overwritten, schema disappears after a redesign. Without checks before and after the deploy, it surfaces a month later, through a traffic drop.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> a QA cycle around every deploy, staging verification and validation of SEO-critical elements during a migration: redirect mapping, pre-launch checks and monitoring right after.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">What you get</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">What you get</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A check-list for before and after every deploy</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A migration without lost URLs or link equity</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Early detection of regressions, while they are still fixable</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A dev team that knows what to check without me</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A check-list for before and after every deploy</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A migration without lost URLs or link equity</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Early detection of regressions, while they are still fixable</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A dev team that knows what to check without me</span></div>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid #241e1d">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, #ff5c47)">Service 06</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Service 06</div>
           <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">A new site on the right foundation</h2>
-          <p style="margin: 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The problem:</strong> the site looks good but has no SEO logic — improvised structure, no measurement set up, and the first audit arrives a year later asking for everything to be rebuilt.</p>
-          <p style="margin: 16px 0 0; color: #c9c1be; text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> I design and build the site — from a one-pager up to fifteen pages — with structure and a keyword plan before the build, technical SEO built in along the way and GSC/GA4 measurement from day one. I do not build shops.</p>
+          <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The problem:</strong> the site looks good but has no SEO logic: improvised structure, no measurement set up, and the first audit arrives a year later asking for everything to be rebuilt.</p>
+          <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I do:</strong> I design and build the site, from a one-pager up to fifteen pages, with structure and a keyword plan before the build, technical SEO built in along the way and GSC/GA4 measurement from day one. I do not build shops.</p>
         </div>
         <div style="flex: 1 1 320px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 20px">What you get</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">What you get</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>Site structure and a keyword plan before the first page</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A site of up to 15 pages, ready to be indexed</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>GSC and GA4 measurement in place</span></div>
-            <div style="display: flex; gap: 12px; color: #c9c1be; font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, #ff5c47); flex: 0 0 auto">check</span><span>A guide for running it yourself after handover</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Site structure and a keyword plan before the first page</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A site of up to 15 pages, ready to be indexed</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>GSC and GA4 measurement in place</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A guide for running it yourself after handover</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid #241e1d; background: #0b0909">
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); align-items: center; justify-content: space-between">
       <div style="flex: 1 1 380px; min-width: 0">
         <h2 style="margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance">Not sure which of these six you need?</h2>
-        <p style="margin: 18px 0 0; color: #a9a09d; font-size: clamp(16px, 1.4vw, 19px); max-width: 46ch; text-wrap: pretty">That is exactly what the intro call is for. Send a URL and describe what worries you — I look at the site before we talk.</p>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 46ch; text-wrap: pretty">That is exactly what the intro call is for. Send a URL and describe what worries you. I look at the site before we talk.</p>
       </div>
       <div style="flex: 0 1 auto; display: flex; flex-wrap: wrap; gap: 12px">
-        <a class="x11" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, #ff5c47); color: #15100f; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
-        <a class="x12" href="../experience/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid #332b2a; color: #ece6e4; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">See my work</a>
+        <a class="x12" href="mailto:stojkovicv86@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
+        <a class="x13" href="../experience/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">See my work</a>
       </div>
     </div>
   </section>
 
-  <footer style="border-top: 1px solid #241e1d; background: #0b0909; padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
+  <footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
     <div style="max-width: 1240px; margin: 0 auto">
       <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 64px)">
         <div style="flex: 1 1 280px; max-width: 360px; min-width: 0">
-          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #ece6e4">Vuk Stojković</div>
-          <p style="margin: 16px 0 0; color: #9a918e; font-size: 15px; text-wrap: pretty">Technical SEO, PPC and website design. Belgrade, Serbia — working with clients and teams remotely.</p>
+          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)">Vuk Stojković</div>
+          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Technical SEO, PPC and website design. Belgrade, Serbia. I work with clients and teams remotely.</p>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Explore</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Explore</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x13" href="../experience/" style="font-size: 16px; color: #c9c1be">Experience</a>
-            <a class="x14" href="../services/" style="font-size: 16px; color: #c9c1be">Services</a>
-            <a class="x15" href="../work-with-me/" style="font-size: 16px; color: #c9c1be">Work with me</a>
-            <a class="x16" href="../about-me/" style="font-size: 16px; color: #c9c1be">About me</a>
+            <a class="x14" href="../experience/" style="font-size: 16px; color: var(--ink2)">Experience</a>
+            <a class="x15" href="../services/" style="font-size: 16px; color: var(--ink2)">Services</a>
+            <a class="x16" href="../work-with-me/" style="font-size: 16px; color: var(--ink2)">Work with me</a>
+            <a class="x17" href="../about-me/" style="font-size: 16px; color: var(--ink2)">About me</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Products</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Products</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x17" href="../products/" style="font-size: 16px; color: #c9c1be">Google Starter Pack</a>
-            <a class="x18" href="../products/" style="font-size: 16px; color: #c9c1be">The 60-Minute Tech SEO Audit</a>
-            <a class="x19" href="../products/" style="font-size: 16px; color: #c9c1be">Your Brand in AI Answers</a>
+            <a class="x18" href="../products/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
+            <a class="x19" href="../products/" style="font-size: 16px; color: var(--ink2)">The 60-Minute Tech SEO Audit</a>
+            <a class="x20" href="../products/" style="font-size: 16px; color: var(--ink2)">Your Brand in AI Answers</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8b807d; margin-bottom: 22px">Contact</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Contact</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x20" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: #c9c1be">Email</a>
-            <a class="x21" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: #c9c1be">LinkedIn</a>
-            <a class="x22" href="#" style="font-size: 16px; color: #c9c1be">Instagram</a>
+            <a class="x21" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
+            <a class="x22" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
+            <a class="x23" href="#" style="font-size: 16px; color: var(--ink2)">Instagram</a>
           </div>
         </div>
       </div>
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid #241e1d; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8b807d">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
         <div>Belgrade, Serbia · CET/CEST</div>
         <div>© 2026 Vuk Stojković. All rights reserved.</div>
-        <div style="display: flex; gap: 20px"><a class="x23" href="../privacy-policy/" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Privacy policy</a><a class="x24" href="#" style="color: #c9c1be; text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
+        <div style="display: flex; gap: 20px"><a class="x24" href="../privacy-policy/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a><a class="x25" href="#" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
       </div>
     </div>
   </footer>
