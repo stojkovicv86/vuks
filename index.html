@@ -30,7 +30,7 @@
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -41,7 +41,7 @@
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
   body { margin: 0; background: var(--bg); }
@@ -259,7 +259,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         <a class="x4" href="./work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
         <a class="x5" href="./products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
         <a class="x6" href="./about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
-        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
         <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
           <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
           <a class="x8" href="./sr/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
@@ -346,41 +346,25 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
       <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>Sound familiar?</div>
-      <h2 style="margin: 24px 0 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 20ch">Six ways a site quietly loses visibility</h2>
-      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">New content ships every day, and traffic is still sitting at the crossroads.</p>
+      <h2 style="margin: 24px 0 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 20ch">Three ways a site quietly loses visibility</h2>
+      <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">New content ships every day, and traffic is still sitting at the crossroads. The reasons pile up: an incomplete hreflang network that sends the wrong version of the site to the wrong market, redirect chains left over from a migration, slow rendering that serves the bot an empty page, duplicates on parameter URLs, recommendations that sit in a ticket for months. Three of them come back most often:</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 52px)">
         <div class="x12" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">travel_explore</span></div>
-          <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Crawl budget is spent on junk</h3>
+          <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Crawl budget is spent on redundant URLs</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Google crawls filters, parameters and pagination while new pages wait weeks to be indexed. Log files show it immediately, Search Console only later.</p>
-        </div>
-        <div class="x13" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">language</span></div>
-          <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">The hreflang network is incomplete</h3>
-          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">One-way links, wrong region codes and pages missing from the set. The result: the wrong version of the site ranks in the wrong market.</p>
         </div>
         <div class="x14" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">link</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Canonicals say one thing, internal links another</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">When signals disagree, Google decides for you. It usually picks the page you never wanted ranking.</p>
         </div>
-        <div class="x15" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">alt_route</span></div>
-          <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Redirect chains after every migration</h3>
-          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Three hops to the final URL, lost link equity and pages nobody crawls anymore. The migration is over, the consequences are not.</p>
-        </div>
         <div class="x16" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">rocket_launch</span></div>
           <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">A deploy breaks SEO and nobody notices</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">A noindex survives from staging, robots.txt gets overwritten, schema disappears. Without QA before and after the deploy, it surfaces a month later.</p>
-        </div>
-        <div class="x17" style="border: 1px solid var(--line); border-left: 2px solid var(--acc, var(--acc-theme)); border-radius: 0 12px 12px 0; padding: 26px; background: var(--card); text-align: center; transition: background .18s ease, border-color .18s ease, transform .18s ease">
-          <div style="width: 36px; height: 36px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme)); margin: 0 auto 18px"><span class="ms" aria-hidden="true">confirmation_number</span></div>
-          <h3 style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Recommendations sit in a ticket</h3>
-          <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">An 80-page audit the dev team cannot prioritise. Without translating it into concrete tasks and verifying on staging, nothing gets implemented.</p>
-        </div>
-      </div>
+        </div>      </div>
     </div>
   </section>
 

@@ -30,7 +30,7 @@
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -41,7 +41,7 @@
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
@@ -92,6 +92,11 @@
 .x24:hover{color: var(--acc, var(--acc-theme)) !important}
 .x25:hover{color: var(--acc, var(--acc-theme)) !important}
 .x26:hover{color: var(--acc, var(--acc-theme)) !important}
+
+.hvtag:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important; background: var(--acctint) !important}
+.hvcard:hover{background: var(--cardacc) !important; border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.hvcardacc:hover{border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.hvcell:hover{background: var(--cardacc) !important}
 </style>
 <script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 
@@ -110,7 +115,7 @@
         <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
         <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink); padding: 6px 0; border-bottom: 1px solid var(--acc, var(--acc-theme))">Products</a>
         <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
-        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
         <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
           <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
           <a class="x8" href="../sr/proizvodi/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
@@ -135,7 +140,7 @@
   <section style="padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: clamp(32px, 4vw, 52px); align-items: stretch">
-        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ GUIDE COVER — 16:10 ]</div>
           </div>
@@ -154,7 +159,7 @@
           </div>
         </div>
 
-        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ GUIDE COVER — 16:10 ]</div>
           </div>
@@ -172,7 +177,7 @@
           </div>
         </div>
 
-        <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 18px; background-color: var(--ph1); background-image: repeating-linear-gradient(135deg, var(--ph2) 0 10px, var(--ph1) 10px 20px); border-bottom: 1px solid var(--line)">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5); letter-spacing: 0.08em">[ GUIDE COVER — 16:10 ]</div>
           </div>
@@ -201,7 +206,7 @@
         <p style="margin: 16px 0 0; color: var(--ink5); font-size: 15px; text-wrap: pretty">And, just as important, who they are not for</p>
       </div>
       <div style="flex: 3 1 460px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px">
-        <div style="border: 1px solid var(--line); border-radius: 12px; padding: 26px; background: var(--card)">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 12px; padding: 26px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <h3 style="margin: 0 0 12px; font-size: 16px; font-weight: 600">The guides are for you if</h3>
           <div style="display: flex; flex-direction: column; gap: 12px">
             <div style="display: flex; gap: 11px; color: var(--ink2); font-size: 15px"><span class="ms" aria-hidden="true" style="font-size: 18px; color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>You run a site alone or in a small team</span></div>
@@ -209,7 +214,7 @@
             <div style="display: flex; gap: 11px; color: var(--ink2); font-size: 15px"><span class="ms" aria-hidden="true" style="font-size: 18px; color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>A consultant is not in the budget right now</span></div>
           </div>
         </div>
-        <div style="border: 1px solid var(--line); border-radius: 12px; padding: 26px; background: var(--card)">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 12px; padding: 26px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <h3 style="margin: 0 0 12px; font-size: 16px; font-weight: 600">They are not for you if</h3>
           <div style="display: flex; flex-direction: column; gap: 12px">
             <div style="display: flex; gap: 11px; color: var(--ink4); font-size: 15px"><span class="ms" aria-hidden="true" style="font-size: 18px; color: var(--ink5); flex: 0 0 auto">close</span><span>You are looking for a shortcut without the work, and there is none</span></div>
@@ -223,7 +228,7 @@
 
   <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px)">
     <div style="max-width: 1240px; margin: 0 auto">
-      <div style="border: 1px solid var(--accline); border-radius: 18px; background: var(--cardacc); padding: clamp(28px, 4vw, 52px); display: flex; flex-wrap: wrap; gap: clamp(28px, 4vw, 56px); align-items: center; justify-content: space-between">
+      <div class="hvcardacc" style="border: 1px solid var(--accline); border-radius: 18px; background: var(--cardacc); padding: clamp(28px, 4vw, 52px); display: flex; flex-wrap: wrap; gap: clamp(28px, 4vw, 56px); align-items: center; justify-content: space-between; transition: border-color .18s ease, transform .18s ease">
         <div style="flex: 1 1 380px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">If it still gets stuck</div>
           <h2 style="margin: 20px 0 0; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance">A guide answers “what”. Sometimes the problem is “why specifically here”.</h2>

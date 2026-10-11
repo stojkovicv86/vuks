@@ -30,7 +30,7 @@
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -41,7 +41,7 @@
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
@@ -96,6 +96,11 @@
 .x28:hover{color: var(--acc, var(--acc-theme)) !important}
 .x29:hover{color: var(--acc, var(--acc-theme)) !important}
 .x30:hover{color: var(--acc, var(--acc-theme)) !important}
+
+.hvtag:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important; background: var(--acctint) !important}
+.hvcard:hover{background: var(--cardacc) !important; border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.hvcardacc:hover{border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.hvcell:hover{background: var(--cardacc) !important}
 </style>
 <script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 <script type="application/ld+json">
@@ -170,7 +175,7 @@
         <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink); padding: 6px 0; border-bottom: 1px solid var(--acc, var(--acc-theme))">Work with me</a>
         <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
         <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
-        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
         <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
           <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
           <a class="x8" href="../sr/saradnja/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
@@ -189,7 +194,7 @@
 
   <section style="padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
-      <div style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3.2vw, 40px); background: var(--card); display: flex; flex-direction: column; gap: 18px">
+      <div class="hvcard" style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3.2vw, 40px); background: var(--card); display: flex; flex-direction: column; gap: 18px; transition: background .18s ease, border-color .18s ease, transform .18s ease">
         <div style="width: 38px; height: 38px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme))"><span class="ms" aria-hidden="true">badge</span></div>
         <div>
           <h2 style="margin: 0 0 10px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">You want to hire me</h2>
@@ -206,7 +211,7 @@
         </div>
       </div>
 
-      <div style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3.2vw, 40px); background: var(--cardacc); display: flex; flex-direction: column; gap: 18px">
+      <div class="hvcardacc" style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3.2vw, 40px); background: var(--cardacc); display: flex; flex-direction: column; gap: 18px; transition: border-color .18s ease, transform .18s ease">
         <div style="width: 38px; height: 38px; border-radius: 9px; background: var(--acctint2); display: flex; align-items: center; justify-content: center; color: var(--acc, var(--acc-theme))"><span class="ms" aria-hidden="true">handshake</span></div>
         <div>
           <h2 style="margin: 0 0 10px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">You need a consultant</h2>
@@ -232,7 +237,7 @@
       <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Prices are indicative and depend on site size and number of markets. You get an exact quote after the intro call.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; margin-top: clamp(32px, 4vw, 52px); align-items: stretch">
-        <div style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="min-height: 160px">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">One-off</div>
             <h3 style="margin: 12px 0 8px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em">Technical audit</h3>
@@ -252,7 +257,7 @@
           <a class="x14" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Request an audit</a>
         </div>
 
-        <div style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--cardacc); display: flex; flex-direction: column; gap: 18px; position: relative">
+        <div class="hvcardacc" style="border: 1px solid var(--accline); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--cardacc); display: flex; flex-direction: column; gap: 18px; position: relative; transition: border-color .18s ease, transform .18s ease">
           <div style="position: absolute; top: -11px; left: clamp(26px, 3vw, 34px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; background: var(--acc, var(--acc-theme)); color: var(--onacc); padding: 5px 11px; border-radius: 6px">MOST CHOSEN</div>
           <div style="min-height: 160px">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Monthly</div>
@@ -274,7 +279,7 @@
           <a class="x15" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Book a call</a>
         </div>
 
-        <div style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px; transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <div style="min-height: 160px">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">Project-based</div>
             <h3 style="margin: 12px 0 8px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em">A site from scratch</h3>
@@ -358,27 +363,27 @@
         <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 400; color: var(--ink5); text-wrap: pretty">The questions that come up most on intro calls</h2>
       </div>
       <div style="flex: 3 1 460px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px">
-        <div style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card)">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <h3 style="margin: 0 0 9px; font-size: 16px; font-weight: 600">Do you work with small sites?</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Yes, but honestly: below about fifty pages technical SEO rarely carries most of the result. I will say so on the call, before you spend the budget.</p>
         </div>
-        <div style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card)">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <h3 style="margin: 0 0 9px; font-size: 16px; font-weight: 600">What do you need from us?</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Access to Search Console and analytics, server logs if they exist, and one person from the dev team as a contact. Without those, the work is guesswork.</p>
         </div>
-        <div style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card)">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <h3 style="margin: 0 0 9px; font-size: 16px; font-weight: 600">Do you implement the changes yourself?</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">On WordPress sites yes, within an agreed scope. On larger systems I write tickets and verify the implementation on staging.</p>
         </div>
-        <div style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card)">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <h3 style="margin: 0 0 9px; font-size: 16px; font-weight: 600">When do results show?</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Indexation and crawl respond in weeks, rankings in months. Anyone promising faster is selling something else.</p>
         </div>
-        <div style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card)">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <h3 style="margin: 0 0 9px; font-size: 16px; font-weight: 600">Do you build shops?</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Technical SEO for existing eCommerce sites, yes. Building a shop, no. For that you need a developer, not me.</p>
         </div>
-        <div style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card)">
+        <div class="hvcard" style="border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--card); transition: background .18s ease, border-color .18s ease, transform .18s ease">
           <h3 style="margin: 0 0 9px; font-size: 16px; font-weight: 600">How is it billed?</h3>
           <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Audits: half upfront, half on delivery. Monthly engagements are invoiced in advance, with one month notice.</p>
         </div>

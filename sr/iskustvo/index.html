@@ -32,7 +32,7 @@
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -43,7 +43,7 @@
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
@@ -90,6 +90,11 @@
 .x21:hover{color: var(--acc, var(--acc-theme)) !important}
 .x22:hover{color: var(--acc, var(--acc-theme)) !important}
 .x23:hover{color: var(--acc, var(--acc-theme)) !important}
+
+.hvtag:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important; background: var(--acctint) !important}
+.hvcard:hover{background: var(--cardacc) !important; border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.hvcardacc:hover{border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.hvcell:hover{background: var(--cardacc) !important}
 </style>
 <script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 
@@ -108,7 +113,7 @@
         <a class="x4" href="../../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
         <a class="x5" href="../../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
         <a class="x6" href="../../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
-        <button class="x7" type="button" data-theme-toggle="true" aria-label="Promeni temu" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Promeni temu" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
         <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
           <a class="x8" href="../../experience/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">EN</a>
           <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">SR</span>
@@ -138,12 +143,12 @@
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Šta vodim.</strong> Tehničke audite kroz Screaming Frog, JetOctopus i Lumar; log analizu radi razumevanja crawl ponašanja i optimizacije crawl budžeta; implementaciju i validaciju hreflang mreža; rešavanje redirect lanaca, broken linkova i canonical konflikata.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Najteži deo.</strong> Sprečiti SEO regresiju na portfoliju koji se stalno menja, QA pre i posle deploy-a, verifikacija na stagingu i validacija SEO kritičnih elemenata tokom migracija, sve kroz ticketing sisteme dev timova.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px">
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Log analiza</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Crawl budget</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Hreflang</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">SEO QA</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Migracije</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">AI u analizi izveštaja</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Log analiza</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Crawl budget</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Hreflang</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">SEO QA</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Migracije</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">AI u analizi izveštaja</span>
             </div>
           </div>
           <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 26px; padding-left: 22px; border-left: 1px solid var(--line2)">
@@ -174,10 +179,10 @@
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Šta sam vodio.</strong> Implementaciju tehničkih SEO zadataka na portfoliju sajtova, rad na hreflang strukturama i internacionalnom SEO-u, i sistematsko rešavanje problema sa redirectima, broken linkovima i indeksacijom.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Najteži deo.</strong> Task-driven okruženje gde preporuka vredi samo ako je implementirana. Rad kroz ticketing sisteme i tabele, uz usklađivanje SEO i dev timova oko prioriteta koji se menjaju nedeljno.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px">
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Hreflang mreže</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Indeksacija</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Redirect čišćenje</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Rad sa dev timovima</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Hreflang mreže</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Indeksacija</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Redirect čišćenje</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Rad sa dev timovima</span>
             </div>
           </div>
           <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 26px; padding-left: 22px; border-left: 1px solid var(--line2)">
@@ -208,10 +213,10 @@
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta sam radio.</strong> Izvršavanje tehničkih SEO zadataka prema specifikaciji, optimizaciju WordPress backenda, canonical, redirecti, hreflang i implementaciju promena na osnovu SEO audita.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Šta sam naučio.</strong> Preciznost i disciplinu rada po zahtevu: kako audit izgleda sa strane onoga ko ga implementira i zašto nejasno napisana preporuka nikada ne stigne do produkcije.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px">
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">WordPress backend</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Canonical</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Redirecti</span>
-              <span style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2)">Implementacija audita</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">WordPress backend</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Canonical</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Redirecti</span>
+              <span class="hvtag" style="border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); transition: color .18s ease, border-color .18s ease, background .18s ease">Implementacija audita</span>
             </div>
           </div>
           <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 26px; padding-left: 22px; border-left: 1px solid var(--line2)">

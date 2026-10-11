@@ -30,7 +30,7 @@
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -41,7 +41,7 @@
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
@@ -91,6 +91,11 @@
 .x23:hover{color: var(--acc, var(--acc-theme)) !important}
 .x24:hover{color: var(--acc, var(--acc-theme)) !important}
 .x25:hover{color: var(--acc, var(--acc-theme)) !important}
+
+.hvtag:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important; background: var(--acctint) !important}
+.hvcard:hover{background: var(--cardacc) !important; border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.hvcardacc:hover{border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.hvcell:hover{background: var(--cardacc) !important}
 </style>
 <script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
 <script type="application/ld+json">
@@ -141,7 +146,7 @@
         <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
         <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
         <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink); padding: 6px 0; border-bottom: 1px solid var(--acc, var(--acc-theme))">About me</a>
-        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
         <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
           <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
           <a class="x8" href="../sr/o-meni/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
@@ -206,19 +211,19 @@
         <p style="margin: 18px 0 0; color: var(--ink2); max-width: 68ch; text-wrap: pretty">I use tools daily, including AI, for analysing crawl and log reports and prioritising tasks, with a manual check on everything that goes further. AI speeds up reading the data; it does not take over the decision or the responsibility.</p>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; margin-top: clamp(32px, 4vw, 44px); background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden">
-          <div style="padding: 26px; background: var(--card)">
+          <div class="hvcell" style="padding: 26px; background: var(--card); transition: background .18s ease">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Data before opinions</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Logs and crawl data show what Googlebot does. Assumptions come after that, if at all.</p>
           </div>
-          <div style="padding: 26px; background: var(--card)">
+          <div class="hvcell" style="padding: 26px; background: var(--card); transition: background .18s ease">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Prioritising is part of the job</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Eighty findings in no order is not an audit. Ranking them by impact and effort is what you are paying for.</p>
           </div>
-          <div style="padding: 26px; background: var(--card)">
+          <div class="hvcell" style="padding: 26px; background: var(--card); transition: background .18s ease">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Implemented or not</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">A recommendation sitting in a ticket is worth nothing. So I write tasks a dev team can execute, and verify them.</p>
           </div>
-          <div style="padding: 26px; background: var(--card)">
+          <div class="hvcell" style="padding: 26px; background: var(--card); transition: background .18s ease">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Honest, even when it does not suit me</h3>
             <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">If the problem is not technical, or I am not the right person for it, better you hear that from me on the first call.</p>
           </div>

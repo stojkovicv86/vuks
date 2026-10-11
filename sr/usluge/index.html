@@ -30,7 +30,7 @@
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4;
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -41,7 +41,7 @@
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f;
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
@@ -58,7 +58,11 @@
   .cycnode { position: absolute; left: 50%; top: 50%; width: 136px; margin: -30px 0 0 -68px; text-align: center; }
   .cyccenter { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 160px; text-align: center; }
   @keyframes cycspin { to { transform: rotate(360deg); } }
-  @media (prefers-reduced-motion: reduce) { .cycspin { animation: none; } }
+.cycmark { animation: cycpass 22s linear infinite; animation-delay: var(--d, 0s); }
+.cycin { animation: cycpassin 22s linear infinite; animation-delay: var(--d, 0s); }
+@keyframes cycpass { 0%, 8% { border-color: var(--acc-theme); box-shadow: 0 0 0 5px var(--acctint); transform: scale(1.28); } 24%, 100% { border-color: var(--line4); box-shadow: 0 0 0 0 rgba(0,0,0,0); transform: scale(1); } }
+@keyframes cycpassin { 0%, 8% { background: var(--acc-theme); } 24%, 100% { background: var(--ink5); } }
+  @media (prefers-reduced-motion: reduce) { .cycspin, .cycmark, .cycin { animation: none; } }
   @media (max-width: 560px) { .cyc { --r: 112px; } .cycnode { width: 104px; margin-left: -52px; } }
   :root[data-theme="light"] .t-light { display: none !important; }
   :root[data-theme="light"] .t-dark { display: inline-block !important; }
@@ -118,7 +122,7 @@
         <a class="x4" href="../../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
         <a class="x5" href="../../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
         <a class="x6" href="../../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
-        <button class="x7" type="button" data-theme-toggle="true" aria-label="Promeni temu" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px">light_mode</span></button>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Promeni temu" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
         <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
           <a class="x8" href="../../services/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">EN</a>
           <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">SR</span>
@@ -149,33 +153,33 @@
         <div class="cyc">
           <div class="cycring"></div>
           <div class="cycspin"><span class="cycdot"></span></div>
-          <div class="cycnode" style="transform: rotate(0deg) translateY(calc(-1 * var(--r))) rotate(-0deg)">
-            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, var(--acc-theme))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span></span>
+          <div class="cycnode" style="--d: 0s; transform: rotate(0deg) translateY(calc(-1 * var(--r))) rotate(-0deg)">
+            <span class="cycmark" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span class="cycin" style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
             <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Dijagnostika</div>
             <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">crawl i logovi</div>
           </div>
-          <div class="cycnode" style="transform: rotate(60deg) translateY(calc(-1 * var(--r))) rotate(-60deg)">
-            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+          <div class="cycnode" style="--d: -18.333s; transform: rotate(60deg) translateY(calc(-1 * var(--r))) rotate(-60deg)">
+            <span class="cycmark" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span class="cycin" style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
             <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Prioritet</div>
             <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">uticaj × napor</div>
           </div>
-          <div class="cycnode" style="transform: rotate(120deg) translateY(calc(-1 * var(--r))) rotate(-120deg)">
-            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+          <div class="cycnode" style="--d: -14.667s; transform: rotate(120deg) translateY(calc(-1 * var(--r))) rotate(-120deg)">
+            <span class="cycmark" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span class="cycin" style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
             <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Implementacija</div>
             <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">tiketi i staging</div>
           </div>
-          <div class="cycnode" style="transform: rotate(180deg) translateY(calc(-1 * var(--r))) rotate(-180deg)">
-            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+          <div class="cycnode" style="--d: -11s; transform: rotate(180deg) translateY(calc(-1 * var(--r))) rotate(-180deg)">
+            <span class="cycmark" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span class="cycin" style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
             <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Verifikacija</div>
             <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">QA posle deploy-a</div>
           </div>
-          <div class="cycnode" style="transform: rotate(240deg) translateY(calc(-1 * var(--r))) rotate(-240deg)">
-            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
+          <div class="cycnode" style="--d: -7.333s; transform: rotate(240deg) translateY(calc(-1 * var(--r))) rotate(-240deg)">
+            <span class="cycmark" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span class="cycin" style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
             <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Merenje</div>
             <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">GSC i GA4</div>
           </div>
-          <div class="cycnode" style="transform: rotate(300deg) translateY(calc(-1 * var(--r))) rotate(-300deg)">
-            <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--acc, var(--acc-theme))"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span></span>
+          <div class="cycnode" style="--d: -3.667s; transform: rotate(300deg) translateY(calc(-1 * var(--r))) rotate(-300deg)">
+            <span class="cycmark" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line4)"><span class="cycin" style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink5)"></span></span>
             <div style="margin-top: 10px; font-size: 15px; font-weight: 600; line-height: 1.25">Nova procena</div>
             <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink5)">šta je sledeće</div>
           </div>
@@ -283,7 +287,7 @@
       <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 56px) 0; border-top: 1px solid var(--line)">
         <div style="flex: 1 1 420px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme))">Usluga 06</div>
-          <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Novi sajt sa ispravnim temeljem</h2>
+          <h2 style="margin: 16px 0 18px; font-size: clamp(21px, 2.2vw, 27px); font-weight: 700; letter-spacing: -0.02em">Novi sajt sa ispravnim temeljima</h2>
           <p style="margin: 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Problem:</strong> sajt je napravljen lepo, ali bez SEO logike, struktura improvizovana, merenje nepostavljeno, a prvi audit dolazi godinu kasnije i traži prepravku svega.</p>
           <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta radim:</strong> dizajniram i postavljam web prezentaciju od one-pagera do petnaest stranica sa strukturom i keyword planom pre izrade, tehničkim SEO-om ugrađenim tokom rada i GSC/GA4 merenjem od prvog dana. Shopove ne radim.</p>
         </div>
@@ -303,7 +307,7 @@
   <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); align-items: center; justify-content: space-between">
       <div style="flex: 1 1 380px; min-width: 0">
-        <h2 style="margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance">Ne znate koja vam od ovih šest treba?</h2>
+        <h2 style="margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance">Ne znate koja vam od ovih šest usluga treba?</h2>
         <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 46ch; text-wrap: pretty">To je upravo ono što otkrivamo na uvodnom pozivu. Pošaljite URL i opišite šta vas brine. Sajt pogledam pre razgovora.</p>
       </div>
       <div style="flex: 0 1 auto; display: flex; flex-wrap: wrap; gap: 12px">
