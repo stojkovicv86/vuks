@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Consent Mode v2 (default: denied) -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+gtag('set','ads_data_redaction',true);gtag('set','url_passthrough',true);
+try{if(localStorage.getItem('vs-consent')==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MBWKV8RG');</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About Vuk Stojković — Technical SEO Specialist</title>
@@ -137,6 +149,10 @@
 </script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBWKV8RG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
   <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
@@ -355,10 +371,24 @@
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
         <div>Belgrade, Serbia · CET/CEST</div>
         <div>© 2026 Vuk Stojković. All rights reserved.</div>
-        <div style="display: flex; gap: 20px"><a class="x24" href="../privacy-policy/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a><a class="x25" href="#" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
+        <div style="display: flex; gap: 20px"><a class="x24" href="../privacy-policy/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a><a class="x25" href="#" data-cc-open="" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
       </div>
     </div>
   </footer>
 </div>
+
+<style>#vs-cc .ccp:hover{background:var(--acchov)!important}#vs-cc .ccs:hover{border-color:var(--btnline2)!important;color:var(--ink)!important}#vs-cc button:focus-visible{outline:2px solid var(--acc-theme);outline-offset:2px}</style>
+<div id="vs-cc" hidden role="dialog" aria-label="Cookies" style="position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 9999; max-width: 480px; margin-left: auto; background: var(--card); border: 1px solid var(--line3); border-radius: 14px; padding: 20px 22px; box-shadow: 0 18px 50px rgba(0,0,0,0.35); font-family: 'Archivo', sans-serif; color: var(--ink)">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc-theme)">Cookies</div>
+  <p style="margin: 10px 0 16px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty">I use analytics cookies to see which pages help and which don’t. None are set until you choose. <a href="../privacy-policy/" style="color: var(--ink); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a></p>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px">
+    <button type="button" data-cc="a" class="ccp" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: var(--acc-theme); color: var(--onacc); border: 1px solid transparent">Accept</button>
+    <button type="button" data-cc="r" class="ccs" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: transparent; color: var(--ink2); border: 1px solid var(--btnline)">Necessary only</button>
+  </div>
+</div>
+<script>(function(){var b=document.getElementById('vs-cc');function set(v){try{localStorage.setItem('vs-consent',v)}catch(e){}var g=v==='granted'?'granted':'denied';gtag('consent','update',{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g});dataLayer.push({event:'consent_update',consent_choice:v});b.hidden=true}
+var c=null;try{c=localStorage.getItem('vs-consent')}catch(e){}if(!c)b.hidden=false;
+b.querySelector('[data-cc=a]').addEventListener('click',function(){set('granted')});b.querySelector('[data-cc=r]').addEventListener('click',function(){set('denied')});
+document.querySelectorAll('[data-cc-open]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();b.hidden=false;b.querySelector('[data-cc=a]').focus()})});})();</script>
 </body>
 </html>
