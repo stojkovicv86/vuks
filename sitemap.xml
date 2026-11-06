@@ -126,4 +126,8 @@
     <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://vukstojkovic.com/sr/politika-privatnosti/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://vukstojkovic.com/privacy-policy/"/>
   </url>
+  <url>
+    <loc>https://vukstojkovic.com/redirect-map-validator/</loc>
+    <lastmod>2026-11-06</lastmod>
+  </url>
 </urlset>

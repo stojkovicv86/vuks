@@ -76,7 +76,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   :root[data-theme="light"] .t-light { display: none !important; }
   :root[data-theme="light"] .t-dark { display: inline-block !important; }
-  @media (max-width: 880px) {
+  @media (max-width: 1040px) {
     .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
     .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
     header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
@@ -151,6 +151,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @keyframes vsAlert { 0% { transform: scale(1); opacity: .6 } 100% { transform: scale(1.9); opacity: 0 } }
   .ctaprim:hover{background: var(--acchov) !important; color: var(--onacc) !important}
   .ctasec:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.navdd{position:relative;display:flex;align-items:center}
+.navdd-t{display:inline-flex;align-items:center;gap:3px;font:500 15px Archivo,Helvetica,sans-serif;color:var(--ink2);padding:6px 0;background:none;border:0;border-bottom:1px solid transparent;cursor:pointer}
+.navdd-t .ms{font-size:18px;transition:transform .2s}
+.navdd:hover .navdd-t,.navdd:focus-within .navdd-t,.navdd--on .navdd-t{color:var(--ink);border-bottom-color:var(--acc-theme)}
+.navdd:hover .navdd-t .ms,.navdd:focus-within .navdd-t .ms{transform:rotate(180deg)}
+.navdd-m{position:absolute;top:100%;left:-18px;padding-top:12px;min-width:290px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
+.navdd:hover .navdd-m,.navdd:focus-within .navdd-m{opacity:1;visibility:visible;transform:none}
+.navdd-b{display:flex;flex-direction:column;gap:2px;padding:8px;background:var(--card);border:1px solid var(--line3);border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.navdd-i{display:flex;flex-direction:column;gap:2px;padding:11px 12px;border-radius:9px;color:var(--ink)}
+.navdd-i:hover{background:var(--cardacc);color:var(--ink)}
+.navdd-i b{font-size:15px;font-weight:600}
+.navdd-i span{font-size:13px;color:var(--ink5)}
+header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
+@media (max-width:1040px){.navdd{flex-direction:column;align-items:stretch;width:100%;margin-top:0 !important}.navdd-t{font-size:17px;padding:12px 0;width:100%;border-bottom:1px solid var(--line5) !important;cursor:default;color:var(--ink2)}.navdd-t .ms{display:none}.navdd-m{position:static;opacity:1;visibility:visible;transform:none;padding:0;min-width:0}.navdd-b{background:transparent;border:0;box-shadow:none;padding:0}.navdd-i{padding:12px 0 12px 16px;border-radius:0;border-bottom:1px solid var(--line5)}}
 </style>
 <script>(function(){if(window.__vsStats)return;window.__vsStats=1;function run(){var ease=function(p){return 1-Math.pow(1-p,3)};document.querySelectorAll('[data-count]:not([data-done])').forEach(function(e){e.setAttribute('data-done','1');var t=parseInt(e.getAttribute('data-count'),10),sfx=e.getAttribute('data-suffix')||'';if(!('IntersectionObserver'in window)){e.textContent=t+sfx;return}e.textContent='0'+sfx;var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.disconnect();var s=performance.now();(function f(n){var p=Math.min(1,(n-s)/1000);e.textContent=Math.round(t*ease(p))+sfx;if(p<1)requestAnimationFrame(f)})(performance.now())})},{threshold:.4});io.observe(e)});document.querySelectorAll('[data-reveal]:not([data-done])').forEach(function(e){e.setAttribute('data-done','1');if(!('IntersectionObserver'in window))return;e.style.opacity='0';e.style.transform='translateY(10px)';e.style.transition='opacity .55s ease, transform .55s ease';e.style.transitionDelay=(e.getAttribute('data-reveal')||0)+'ms';var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.disconnect();e.style.opacity='1';e.style.transform='none'})},{threshold:.4});io.observe(e)})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();setTimeout(run,400);setTimeout(run,1200);})();</script>
@@ -311,6 +325,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a class="x2" href="../sr/iskustvo/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Iskustvo</a>
         <a class="x3" href="../sr/usluge/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Usluge</a>
         <a class="x4" href="../sr/saradnja/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Saradnja</a>
+        <div class="navdd">
+          <button class="navdd-t" type="button" aria-haspopup="true">SEO alati<span class="ms" aria-hidden="true">expand_more</span></button>
+          <div class="navdd-m">
+            <div class="navdd-b">
+              <a class="navdd-i" href="../redirect-map-validator/"><b>Redirect map validator</b><span>Lanci, petlje i konflikti (EN)</span></a>
+            </div>
+          </div>
+        </div>
         <a class="x5" href="../sr/proizvodi/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Proizvodi</a>
         <a class="x6" href="../sr/o-meni/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">O meni</a>
         <button class="x7" type="button" data-theme-toggle="true" aria-label="Promeni temu" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>

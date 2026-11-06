@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Consent Mode v2 (default: denied) -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+gtag('set','ads_data_redaction',true);
+try{if(localStorage.getItem('vs-consent')==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MBWKV8RG');</script>
+<!-- End Google Tag Manager -->
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redirect Map Validator: Chains, Loops &amp; Conflicts | Vuk Stojković</title>
+<meta name="description" content="Free redirect map validator. Upload any CSV or Screaming Frog export, map columns by role, and find chains, loops, conflicts and broken rows. Export a flattened map.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://vukstojkovic.com/redirect-map-validator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vuk Stojković">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://vukstojkovic.com/redirect-map-validator/">
+<meta property="og:title" content="Redirect Map Validator: chains, loops and conflicts">
+<meta property="og:description" content="Validate a redirect map before launch. Works with any column layout, multi-hop chains and Screaming Frog exports. Runs in your browser.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Redirect Map Validator: chains, loops and conflicts">
+<meta name="twitter:description" content="Validate a redirect map before launch. Works with any column layout, multi-hop chains and Screaming Frog exports. Runs in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&amp;display=block" rel="stylesheet">
+<style>
+:root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
+  }
+  .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); }
+  * { box-sizing: border-box; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
+  .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .navb { display: none; }
+  .t-dark { display: none !important; }
+  @media (max-width: 880px) {
+    .hero { flex-direction: column; }
+    .heroimg { order: -1; width: 100%; max-width: 260px !important; padding-top: 10px !important; }
+  }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
+  @media (max-width: 1040px) {
+    .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navt:checked ~ nav { display: flex !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
+    header nav > div { margin-top: 14px; }
+    .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .navt:checked + .navb span:nth-child(2) { opacity: 0; }
+    .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+.x1:hover{color: var(--ink) !important}
+.x2:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x3:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x4:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x5:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x8:hover{color: var(--ink) !important}
+.x9:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x10:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x11:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x12:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x13:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x14:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x15:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x16:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x17:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; border-left-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x18:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x19:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x20:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x21:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x22:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x23:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x24:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x25:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x26:hover{border-color: var(--acc, var(--acc-theme)) !important; transform: translateY(-3px) !important}
+.x27:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x28:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x29:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x30:hover{background: var(--cardacc) !important}
+.x31:hover{background: var(--cardacc) !important}
+.x32:hover{background: var(--cardacc) !important}
+.x33:hover{background: var(--cardacc) !important}
+.x34:hover{background: var(--cardacc) !important}
+.x35:hover{background: var(--cardacc) !important}
+.x36:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x37:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x38:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x39:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x40:hover{background: var(--cardacc) !important; border-color: var(--line3) !important; transform: translateY(-3px) !important}
+.x41:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x42:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x43:hover{color: var(--acc, var(--acc-theme)) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x44:hover{color: var(--acc, var(--acc-theme)) !important}
+.x45:hover{color: var(--acc, var(--acc-theme)) !important}
+.x46:hover{color: var(--acc, var(--acc-theme)) !important}
+.x47:hover{color: var(--acc, var(--acc-theme)) !important}
+.x48:hover{color: var(--acc, var(--acc-theme)) !important}
+.x49:hover{color: var(--acc, var(--acc-theme)) !important}
+.x50:hover{color: var(--acc, var(--acc-theme)) !important}
+.x51:hover{color: var(--acc, var(--acc-theme)) !important}
+.x52:hover{color: var(--acc, var(--acc-theme)) !important}
+.x53:hover{color: var(--acc, var(--acc-theme)) !important}
+.x54:hover{color: var(--acc, var(--acc-theme)) !important}
+.x55:hover{color: var(--acc, var(--acc-theme)) !important}
+  @keyframes vsScan { 0% { transform: translateY(-10%); opacity: 0 } 12% { opacity: 1 } 88% { opacity: 1 } 100% { transform: translateY(110%); opacity: 0 } }
+  @keyframes vsBlink { 50% { opacity: .15 } }
+  @keyframes vsFlow { to { stroke-dashoffset: -320 } }
+  @keyframes vsNode { 0%, 100% { opacity: .35 } 45% { opacity: 1 } }
+  @keyframes vsRow { 0%, 100% { opacity: .42 } 10%, 26% { opacity: 1 } }
+  @keyframes vsAlert { 0% { transform: scale(1); opacity: .6 } 100% { transform: scale(1.9); opacity: 0 } }
+  .ctaprim:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+  .ctasec:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.navdd{position:relative;display:flex;align-items:center}
+.navdd-t{display:inline-flex;align-items:center;gap:3px;font:500 15px Archivo,Helvetica,sans-serif;color:var(--ink2);padding:6px 0;background:none;border:0;border-bottom:1px solid transparent;cursor:pointer}
+.navdd-t .ms{font-size:18px;transition:transform .2s}
+.navdd:hover .navdd-t,.navdd:focus-within .navdd-t,.navdd--on .navdd-t{color:var(--ink);border-bottom-color:var(--acc-theme)}
+.navdd:hover .navdd-t .ms,.navdd:focus-within .navdd-t .ms{transform:rotate(180deg)}
+.navdd-m{position:absolute;top:100%;left:-18px;padding-top:12px;min-width:290px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
+.navdd:hover .navdd-m,.navdd:focus-within .navdd-m{opacity:1;visibility:visible;transform:none}
+.navdd-b{display:flex;flex-direction:column;gap:2px;padding:8px;background:var(--card);border:1px solid var(--line3);border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.navdd-i{display:flex;flex-direction:column;gap:2px;padding:11px 12px;border-radius:9px;color:var(--ink)}
+.navdd-i:hover{background:var(--cardacc);color:var(--ink)}
+.navdd-i b{font-size:15px;font-weight:600}
+.navdd-i span{font-size:13px;color:var(--ink5)}
+header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
+@media (max-width:1040px){.navdd{flex-direction:column;align-items:stretch;width:100%;margin-top:0 !important}.navdd-t{font-size:17px;padding:12px 0;width:100%;border-bottom:1px solid var(--line5) !important;cursor:default;color:var(--ink2)}.navdd-t .ms{display:none}.navdd-m{position:static;opacity:1;visibility:visible;transform:none;padding:0;min-width:0}.navdd-b{background:transparent;border:0;box-shadow:none;padding:0}.navdd-i{padding:12px 0 12px 16px;border-radius:0;border-bottom:1px solid var(--line5)}}
+</style>
+<style id="rv-style">
+:root{--rv-err:#ff7b6b;--rv-errbg:rgba(255,123,107,.10);--rv-warn:#f7c948;--rv-warnbg:rgba(247,201,72,.09);--rv-ok:#4fd1b5;--rv-okbg:rgba(79,209,181,.09);--rv-info:#9db8ff;--rv-hop:#c9a7ff}
+:root[data-theme="light"]{--rv-err:#b42318;--rv-errbg:#fdeceA;--rv-warn:#8a5a00;--rv-warnbg:#fff3d4;--rv-ok:#0b6b7d;--rv-okbg:#e2f2f1;--rv-info:#2f4fa8;--rv-hop:#6b3fb8}
+.rv-wrap{max-width:1240px;margin:0 auto}
+.rv-eyebrow{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.rv-eyebrow::before{content:'';width:30px;height:1px;background:var(--acc,var(--acc-theme))}
+.rv-card{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.rv-step{padding:clamp(20px,3vw,32px);border-top:1px solid var(--line)}
+.rv-step:first-child{border-top:0}
+.rv-step-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.rv-step-n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc,var(--acc-theme));letter-spacing:.08em}
+.rv-step-h h2{margin:0;font-size:clamp(20px,2vw,24px);letter-spacing:-.02em;font-weight:700;color:var(--ink)}
+.rv-step-h p{margin:0;color:var(--ink4);font-size:15px;flex-basis:100%}
+.rv-in{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px}
+@media (max-width:860px){.rv-in{grid-template-columns:minmax(0,1fr)}}
+.rv-drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:190px;padding:24px;border:1.5px dashed var(--line4);border-radius:14px;background:var(--bg2);text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+.rv-drop:hover,.rv-drop.rv-over{border-color:var(--acc,var(--acc-theme));background:var(--acctint)}
+.rv-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.rv-drop .ms{font-size:34px;color:var(--acc,var(--acc-theme))}
+.rv-drop b{font-size:17px;color:var(--ink)}
+.rv-drop small{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink5)}
+.rv-file{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink3);margin-top:4px}
+.rv-side{display:flex;flex-direction:column;gap:12px;border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--bg2)}
+.rv-side h3{margin:0;font-size:15px;color:var(--ink)}
+.rv-side p{margin:0;font-size:14px;color:var(--ink4);line-height:1.55}
+.rv-code{margin:0;padding:12px 14px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font:400 12.5px/1.6 'IBM Plex Mono',monospace;color:var(--ink2);overflow:auto;white-space:pre}
+.rv-btn{display:inline-flex;align-items:center;gap:8px;font:600 14.5px Archivo,sans-serif;padding:11px 16px;border-radius:10px;cursor:pointer;border:1px solid var(--btnline);background:transparent;color:var(--ink2);transition:border-color .2s,color .2s,background .2s}
+.rv-btn:hover{border-color:var(--btnline2);color:var(--ink)}
+.rv-btn .ms{font-size:19px}
+.rv-btn--acc{background:var(--acc,var(--acc-theme));border-color:transparent;color:var(--onacc)}
+.rv-btn--acc:hover{background:var(--acchov);color:var(--onacc);border-color:transparent}
+.rv-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.rv-paste summary{cursor:pointer;font-size:15px;font-weight:600;color:var(--ink2);list-style:none;display:flex;align-items:center;gap:8px}
+.rv-paste summary::-webkit-details-marker{display:none}
+.rv-paste summary .ms{font-size:20px;transition:transform .2s}
+.rv-paste[open] summary .ms{transform:rotate(90deg)}
+.rv-ta,.rv-input{width:100%;font:400 13.5px/1.55 'IBM Plex Mono',monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line3);border-radius:10px;padding:11px 13px;outline:none}
+.rv-ta{min-height:130px;resize:vertical;margin:12px 0 10px}
+.rv-input{font-family:Archivo,sans-serif;font-size:15px}
+.rv-ta:focus,.rv-input:focus{border-color:var(--acc,var(--acc-theme));box-shadow:0 0 0 3px var(--acctint)}
+.rv-msg{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--rv-errbg);color:var(--rv-err);font-size:15px}
+.rv-mapwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.rv-map{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.rv-map th{text-align:left;vertical-align:top;padding:10px;background:var(--bg2);border-bottom:1px solid var(--line);border-left:1px solid var(--line);min-width:150px}
+.rv-map th:first-child,.rv-map td:first-child{border-left:0}
+.rv-map td{padding:8px 10px;border-top:1px solid var(--line5);border-left:1px solid var(--line5);font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink3);white-space:nowrap;max-width:280px;overflow:hidden;text-overflow:ellipsis}
+.rv-map select{width:100%;font:600 13px Archivo,sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line3);border-radius:8px;padding:7px 8px;cursor:pointer}
+.rv-colname{display:block;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:400;color:var(--ink5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+.rv-map th.rv-role-source{box-shadow:inset 0 3px 0 var(--acc,var(--acc-theme))}
+.rv-map th.rv-role-hop{box-shadow:inset 0 3px 0 var(--rv-hop)}
+.rv-map th.rv-role-target{box-shadow:inset 0 3px 0 var(--rv-ok)}
+.rv-map th.rv-role-rstatus,.rv-map th.rv-role-fstatus{box-shadow:inset 0 3px 0 var(--rv-info)}
+.rv-map td.rv-role-ignore,.rv-map th.rv-role-ignore .rv-colname{opacity:.45}
+.rv-map td.rv-role-source{color:var(--ink)}
+.rv-opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;margin-top:18px}
+@media (max-width:860px){.rv-opts{grid-template-columns:minmax(0,1fr)}}
+.rv-box{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg2);display:flex;flex-direction:column;gap:10px}
+.rv-box h3{margin:0;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.rv-chk{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink2);cursor:pointer;line-height:1.45}
+.rv-chk input{margin-top:3px;width:16px;height:16px;accent-color:var(--acc-theme);flex:none}
+.rv-chk small{display:block;color:var(--ink5);font-size:13px}
+.rv-checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px 18px}
+.rv-hint{font-size:13.5px;color:var(--ink5)}
+.rv-bad{color:var(--rv-err)}
+.rv-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px}
+.rv-tile{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg2);display:flex;flex-direction:column;gap:2px}
+.rv-tile b{font-size:28px;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
+.rv-tile span{font-size:13px;color:var(--ink5)}
+.rv-tile--err b{color:var(--rv-err)}.rv-tile--warn b{color:var(--rv-warn)}.rv-tile--ok b{color:var(--rv-ok)}
+.rv-meta{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink5);margin:14px 0 0}
+.rv-relhint{margin-top:12px;padding:11px 14px;border-radius:10px;background:var(--rv-warnbg);color:var(--rv-warn);font-size:14px}
+.rv-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:22px 0 12px}
+.rv-seg{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--line2);border-radius:999px}
+.rv-seg button{border:0;background:transparent;color:var(--ink4);font:600 13.5px Archivo,sans-serif;padding:7px 13px;border-radius:999px;cursor:pointer}
+.rv-seg button span{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:12px;opacity:.8}
+.rv-seg button[aria-pressed="true"]{background:var(--acc,var(--acc-theme));color:var(--onacc)}
+.rv-types{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.rv-chip{border:1px solid var(--line2);background:transparent;color:var(--ink3);font:500 13px Archivo,sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer}
+.rv-chip span{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink5)}
+.rv-chip[aria-pressed="true"]{border-color:var(--acc,var(--acc-theme));color:var(--ink);background:var(--acctint)}
+.rv-search{max-width:280px}
+.rv-tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.rv-table{width:100%;border-collapse:collapse;font-size:14px;min-width:860px}
+.rv-table th{text-align:left;padding:11px 12px;background:var(--bg2);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);border-bottom:1px solid var(--line)}
+.rv-table td{padding:11px 12px;border-top:1px solid var(--line5);vertical-align:top;color:var(--ink2)}
+.rv-table tr.rv-tr-error td:first-child{box-shadow:inset 3px 0 0 var(--rv-err)}
+.rv-table tr.rv-tr-warn td:first-child{box-shadow:inset 3px 0 0 var(--rv-warn)}
+.rv-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink5);white-space:nowrap}
+.rv-url{font-family:'IBM Plex Mono',monospace;font-size:12.5px;word-break:break-all;max-width:300px;color:var(--ink)}
+.rv-node{color:var(--ink2)}
+.rv-node--end{color:var(--rv-ok)}
+.rv-arrow{color:var(--ink5);margin:0 5px}
+.rv-pill{display:inline-block;font:600 12px Archivo,sans-serif;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.rv-pill--error{background:var(--rv-errbg);color:var(--rv-err)}
+.rv-pill--warn{background:var(--rv-warnbg);color:var(--rv-warn)}
+.rv-pill--ok{background:var(--rv-okbg);color:var(--rv-ok)}
+.rv-find ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+.rv-find li{font-size:13.5px;line-height:1.45;padding-left:14px;position:relative}
+.rv-find li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%}
+.rv-f-error::before{background:var(--rv-err)}.rv-f-warn::before{background:var(--rv-warn)}.rv-f-info::before{background:var(--rv-info)}
+.rv-find code,.rv-prose code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--bg2);border:1px solid var(--line);padding:1px 5px;border-radius:5px;word-break:break-all}
+.rv-dim{color:var(--ink5)}
+.rv-empty-row{text-align:center;padding:28px!important;color:var(--ink5)!important}
+.rv-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+.rv-exports{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin-top:22px}
+.rv-x{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:16px;cursor:pointer;color:var(--ink);font-family:Archivo,sans-serif;transition:border-color .2s,transform .2s}
+.rv-x:hover{border-color:var(--acc,var(--acc-theme));transform:translateY(-2px)}
+.rv-x b{display:flex;align-items:center;gap:8px;font-size:15.5px}
+.rv-x b .ms{font-size:20px;color:var(--acc,var(--acc-theme))}
+.rv-x span{font-size:13.5px;color:var(--ink4);line-height:1.5}
+.rv-x--main{border-color:var(--accline)}
+.rv-prose{max-width:780px;color:var(--ink3);font-size:17px;line-height:1.7}
+.rv-prose h2{margin:56px 0 16px;color:var(--ink);font-size:clamp(26px,3vw,36px);line-height:1.12;letter-spacing:-.03em}
+.rv-prose h3{margin:28px 0 8px;color:var(--ink);font-size:19px}
+.rv-prose p{margin:0 0 16px}
+.rv-prose ul{margin:0 0 16px;padding-left:20px}
+.rv-prose li{margin:6px 0}
+.rv-prose b{color:var(--ink1)}
+.rv-faq details{border-top:1px solid var(--line)}
+.rv-faq details:last-child{border-bottom:1px solid var(--line)}
+.rv-faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:18px;font-weight:600;color:var(--ink)}
+.rv-faq summary::-webkit-details-marker{display:none}
+.rv-faq summary::after{content:'add';font-family:'Material Symbols Rounded';font-size:22px;color:var(--acc,var(--acc-theme));flex:none;transition:transform .2s}
+.rv-faq details[open] summary::after{transform:rotate(45deg)}
+.rv-faq p{margin:0 0 20px;color:var(--ink3)}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebApplication",
+   "@id": "https://vukstojkovic.com/redirect-map-validator/#app",
+   "name": "Redirect Map Validator",
+   "url": "https://vukstojkovic.com/redirect-map-validator/",
+   "inLanguage": "en",
+   "applicationCategory": "DeveloperApplication",
+   "operatingSystem": "Any",
+   "browserRequirements": "Requires JavaScript",
+   "description": "Free browser-based validator for redirect maps. Detects chains, loops, conflicts, duplicates, self-redirects and malformed rows in any CSV layout, and exports a flattened redirect map.",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+   },
+   "creator": {
+    "@id": "https://vukstojkovic.com/#vuk"
+   },
+   "provider": {
+    "@id": "https://vukstojkovic.com/#business"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://vukstojkovic.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Redirect map validator",
+     "item": "https://vukstojkovic.com/redirect-map-validator/"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://vukstojkovic.com/redirect-map-validator/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is my CSV uploaded anywhere?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The file is read and processed by JavaScript in your browser. Nothing is sent to a server, so client redirect maps stay private."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which Screaming Frog exports work?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Response Codes › Redirection (3xx) works as-is: Address is the source, Redirect URL the target and Status Code the redirect status. Chain reports with several redirect columns work too. Check the column roles in step 02 and adjust anything that was guessed wrong."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need to rename my columns?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Roles are detected from the values in each column, not from the header text. You can change any role with the dropdown above the column."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How are relative paths handled?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Paths such as /old-page/ are resolved against the site URL you enter, or against the first full URL found in the file. That way /old-page/ and https://example.com/old-page/ are recognised as the same URL."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many rows can it handle?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Tens of thousands of rows run in well under a second in a modern browser. The results table shows the first rows and loads more on demand. Exports always include every row."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why does the Apache export use RedirectMatch instead of Redirect?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Apache's Redirect directive matches by prefix, so a rule for /old would also catch /old-anything. The export uses anchored RedirectMatch rules so each rule matches exactly one URL. Sources with query strings are listed as comments, because they need a RewriteCond rule."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBWKV8RG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+      <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><svg viewBox="50 18 402 460" width="26" height="30" aria-hidden="true" style="flex: none; color: var(--acc, var(--acc-theme))"><path d="M113 195V32L205 128H298L390 32V195L437 297L250 462L65 297Z M113 195L205 128 M390 195L298 128 M157 250L205 278V392 M345 250L297 278V392" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="miter" stroke-miterlimit="10"></path><path d="M226 392H275L250.5 418Z" fill="currentColor"></path></svg>Vuk Stojković</a>
+      <input type="checkbox" id="nav-toggle" class="navt" aria-label="Menu">
+      <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
+      <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
+        <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
+        <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Services</a>
+        <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
+        <div class="navdd navdd--on">
+          <button class="navdd-t" type="button" aria-haspopup="true">SEO tools<span class="ms" aria-hidden="true">expand_more</span></button>
+          <div class="navdd-m">
+            <div class="navdd-b">
+              <a class="navdd-i" href="../redirect-map-validator/"><b>Redirect map validator</b><span>Chains, loops and conflicts</span></a>
+            </div>
+          </div>
+        </div>
+        <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
+        <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
+          <a class="x8" href="../sr/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section style="padding: clamp(48px, 6vw, 88px) clamp(20px, 5vw, 64px) clamp(32px, 4vw, 48px)">
+    <div class="rv-wrap">
+      <nav aria-label="Breadcrumb" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink5); margin-bottom: 26px"><a href="../" class="x1" style="color: var(--ink3)">Home</a> &nbsp;/&nbsp; <span style="color: var(--ink2)">Redirect map validator</span></nav>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); margin-bottom: 24px">Free tool &nbsp;·&nbsp; Migrations &nbsp;·&nbsp; Technical SEO</div>
+      <h1 style="margin: 0; font-size: clamp(34px, 4.6vw, 58px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; max-width: 18ch">Redirect map <span style="color: var(--acc, var(--acc-theme))">validator</span></h1>
+      <p style="margin: 26px 0 0; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink3); max-width: 62ch; text-wrap: pretty">Check a redirect map before it goes live. Upload a migration sheet or a Screaming Frog export, tell the tool which column is which, and get every chain, loop, conflict and broken row in one table. Then download a flattened map where each old URL points straight to its final destination.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px">
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Any column layout</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Multi-hop chains</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Flattened export</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Your file never leaves the browser</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 0 clamp(20px, 5vw, 64px) clamp(56px, 7vw, 100px)">
+    <div class="rv-wrap">
+      <div class="rv-card" id="tool">
+        <div class="rv-step">
+          <div class="rv-step-h"><span class="rv-step-n">01</span><h2>Add your redirect map</h2><p>CSV, TSV or rows pasted from Google Sheets or Excel. Column names don't matter.</p></div>
+          <div class="rv-in">
+            <div>
+              <label class="rv-drop" id="rv-drop">
+                <input type="file" id="rv-input" accept=".csv,.tsv,.txt,text/csv,text/plain" aria-label="Upload redirect CSV">
+                <span class="ms" aria-hidden="true">upload_file</span>
+                <b>Drop a CSV here or click to browse</b>
+                <small>.csv · .tsv · .txt &nbsp;|&nbsp; comma, semicolon or tab</small>
+                <span class="rv-file" id="rv-file">No file selected</span>
+              </label>
+              <details class="rv-paste" style="margin-top:14px">
+                <summary><span class="ms" aria-hidden="true">chevron_right</span>Or paste rows from a spreadsheet</summary>
+                <textarea class="rv-ta" id="rv-paste" spellcheck="false" placeholder="Source&#9;Target&#10;/old-page/&#9;/new-page/"></textarea>
+                <button type="button" class="rv-btn rv-btn--acc" id="rv-paste-go">Use pasted rows</button>
+              </details>
+              <div class="rv-msg" id="rv-msg" role="alert" hidden></div>
+            </div>
+            <div class="rv-side">
+              <h3>Works with your layout</h3>
+              <p>Two columns, a full chain across several columns, or a raw Screaming Frog export with ten columns. You pick the role of each column in the next step.</p>
+<pre class="rv-code">Source,Redirect 1,Redirect 2,Final
+/old-page/,/page-1/,/page-2/,/new-page/
+/category/seo,/category/seo/,—,/category/seo/</pre>
+              <div class="rv-row">
+                <button type="button" class="rv-btn" id="rv-s-chain"><span class="ms" aria-hidden="true">account_tree</span>Chain sample</button>
+                <button type="button" class="rv-btn" id="rv-s-sf"><span class="ms" aria-hidden="true">table_view</span>Screaming Frog sample</button>
+              </div>
+              <div class="rv-row">
+                <button type="button" class="rv-btn" id="rv-s-dl"><span class="ms" aria-hidden="true">download</span>Download sample CSV</button>
+                <button type="button" class="rv-btn" id="rv-clear">Clear</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rv-step" id="rv-step2" hidden>
+          <div class="rv-step-h"><span class="rv-step-n">02</span><h2>Check the column roles</h2><p>Detected automatically from the values. Change any column with the dropdown. Hops are read left to right, then the target.</p></div>
+          <div class="rv-mapwrap" id="rv-map"></div>
+          <div class="rv-hint" id="rv-map-msg" style="margin-top:10px"></div>
+          <div class="rv-opts">
+            <div class="rv-box">
+              <h3>File</h3>
+              <label class="rv-chk"><input type="checkbox" id="rv-header"><span>First row is a header</span></label>
+              <label for="rv-base" style="font-size:14.5px;color:var(--ink2)">Site URL for relative paths</label>
+              <input class="rv-input" id="rv-base" type="text" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://example.com">
+              <span class="rv-hint">Leave empty to use the first full URL in the file.</span>
+            </div>
+            <div class="rv-box">
+              <h3>Treat these as the same URL</h3>
+              <div class="rv-checks">
+                <label class="rv-chk"><input type="checkbox" id="rv-o-slash"><span>Trailing slash<small>/page and /page/</small></span></label>
+                <label class="rv-chk"><input type="checkbox" id="rv-o-proto"><span>Protocol<small>http:// and https://</small></span></label>
+                <label class="rv-chk"><input type="checkbox" id="rv-o-www"><span>www<small>www.site.com and site.com</small></span></label>
+                <label class="rv-chk"><input type="checkbox" id="rv-o-ci"><span>Letter case in paths<small>/Page and /page</small></span></label>
+              </div>
+              <span class="rv-hint">Off by default: most servers treat these as different URLs, so a redirect between them is valid.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rv-step" id="rv-step3" hidden>
+          <div class="rv-step-h"><span class="rv-step-n">03</span><h2>Results</h2></div>
+          <div class="rv-stats" id="rv-stats"></div>
+          <div class="rv-meta" id="rv-meta"></div>
+          <div class="rv-relhint" id="rv-relhint" hidden>The file has relative paths and no full URLs. Add the site URL above so paths and full URLs are matched correctly.</div>
+          <div class="rv-bar">
+            <div class="rv-seg" id="rv-lv" role="group" aria-label="Filter by result"></div>
+            <input class="rv-input rv-search" id="rv-q" type="search" placeholder="Search URLs" aria-label="Search URLs">
+          </div>
+          <div class="rv-types" id="rv-types"></div>
+          <div class="rv-tablewrap">
+            <table class="rv-table">
+              <thead><tr><th>Row</th><th>Source</th><th>Redirect path</th><th>Hops</th><th>Result</th><th>Findings</th></tr></thead>
+              <tbody id="rv-tbody"></tbody>
+            </table>
+          </div>
+          <div class="rv-foot"><span class="rv-hint" id="rv-count"></span><button type="button" class="rv-btn" id="rv-more" hidden>Show more rows</button></div>
+          <div class="rv-exports">
+            <button type="button" class="rv-x rv-x--main" id="rv-x-flat"><b><span class="ms" aria-hidden="true">alt_route</span>Flattened map (CSV)</b><span>Every redirecting URL, hops included, pointed straight to its final URL. Loops are left out.</span></button>
+            <button type="button" class="rv-x" id="rv-x-find"><b><span class="ms" aria-hidden="true">fact_check</span>Findings (CSV)</b><span>All rows with result, final URL, hop count and findings, ready for a ticket.</span></button>
+            <button type="button" class="rv-x" id="rv-x-apache"><b><span class="ms" aria-hidden="true">dns</span>Apache .htaccess</b><span>Exact-match RedirectMatch 301 rules from the flattened map.</span></button>
+            <button type="button" class="rv-x" id="rv-x-nginx"><b><span class="ms" aria-hidden="true">dns</span>Nginx</b><span>Exact-match location blocks with return 301.</span></button>
+          </div>
+        </div>
+      </div>
+      <p class="rv-hint" style="margin:14px 2px 0">This checks the mapping file, not live URLs. Nothing is uploaded: the CSV is read and processed in your browser.</p>
+    </div>
+  </section>
+
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
+    <div class="rv-wrap">
+      <div class="rv-prose">
+        <div class="rv-eyebrow">How it works</div>
+        <h2 style="margin-top:22px">What the validator checks</h2>
+        <p>Every row becomes a set of steps: source, any hops, then the target. All steps from the whole file go into one redirect graph, so a problem is found even when it spans several rows.</p>
+        <ul>
+          <li><b>Chains.</b> A source that needs two or more hops to reach its final URL, whether the hops sit in one row or in different rows.</li>
+          <li><b>Loops.</b> URLs that redirect back to themselves through one or more steps, including loops closed across separate rows.</li>
+          <li><b>Conflicts.</b> The same URL sent to two different destinations. Only one can win on the server, and it is rarely the one you expect.</li>
+          <li><b>Duplicates.</b> The same redirect listed twice. Harmless, but a sign the sheet needs a cleanup.</li>
+          <li><b>Self-redirects.</b> A source that points to itself.</li>
+          <li><b>Missing or malformed values.</b> Empty cells, notes typed into a URL column, broken URLs.</li>
+          <li><b>Temporary redirects.</b> 302, 303 or 307 status codes, when the file has a redirect status column.</li>
+          <li><b>Final URL not 200.</b> Chains that end on a 404 or another error, when the file has a final status column.</li>
+          <li><b>HTTPS to HTTP steps</b> and <b>targets on another host</b>, flagged so they are deliberate rather than accidental.</li>
+        </ul>
+
+        <h2>Column roles instead of column names</h2>
+        <p>Redirect maps arrive in every shape: a two-column migration sheet, a client's Excel file with notes, a chain export with Redirect URL 1, 2 and 3, a raw crawler export. Instead of asking you to rename headers, the tool looks at the values. Columns full of URLs or paths become the source, hops and target. Columns of three-digit numbers become status codes. Everything else is ignored.</p>
+        <p>You can override any column in step 02. Hops are read from left to right, and the target always comes last, so a layout like <code>Address, Final Address, Redirect 1, Redirect 2</code> still gives the right path.</p>
+        <h3>Formats that work as-is</h3>
+        <ul>
+          <li>Screaming Frog <b>Response Codes › Redirection (3xx)</b> export: Address becomes the source, Redirect URL the target, Status Code the redirect status.</li>
+          <li>Chain sheets with several redirect columns and a final URL column, including dashes in empty cells.</li>
+          <li>Relative paths such as <code>/old-page/</code>, matched against full URLs through the site URL setting.</li>
+          <li>Comma, semicolon and tab separated files. Excel on European locale settings saves CSV with semicolons, and that works too.</li>
+        </ul>
+
+        <h2>Why flatten redirect chains</h2>
+        <p>Each extra hop is another request before the page loads, for users and for crawlers. Google documents that its crawlers follow a limited number of redirect hops, and long chains left over from older migrations waste crawl activity on URLs that should resolve in one step.</p>
+        <p>The flattened export fixes this at the source. Every URL that redirects, including the intermediate hops, points straight to its final destination. If <code>/old-page/</code> went through <code>/page-1/</code> and <code>/page-2/</code>, all three now go directly to <code>/new-page/</code>.</p>
+
+        <h2>When to use the normalization options</h2>
+        <p>By default <code>/page</code> and <code>/page/</code> are different URLs, because on most servers they are. Turn on trailing slash, protocol, www or letter case matching only when your server already treats those versions as one URL, for example when a global rule adds the trailing slash. With matching on, a row like <code>/category/seo → /category/seo/</code> is reported as a self-redirect, because the global rule already handles it.</p>
+
+        <h2>What this tool does not do</h2>
+        <p>It validates the map, not the live site. It does not request any URL, so it cannot see redirects your server adds on its own, such as HTTP to HTTPS or trailing slash rules. Once the redirects are live, crawl the old URLs in Screaming Frog list mode with redirects followed, and run the export through this validator again.</p>
+
+        <h2 id="faq">FAQ</h2>
+        <div class="rv-faq">
+          <details><summary>Is my CSV uploaded anywhere?</summary><p>No. The file is read and processed by JavaScript in your browser. Nothing is sent to a server, so client redirect maps stay private.</p></details>
+          <details><summary>Which Screaming Frog exports work?</summary><p>Response Codes › Redirection (3xx) works as-is: Address is the source, Redirect URL the target and Status Code the redirect status. Chain reports with several redirect columns work too. Check the column roles in step 02 and adjust anything that was guessed wrong.</p></details>
+          <details><summary>Do I need to rename my columns?</summary><p>No. Roles are detected from the values in each column, not from the header text. You can change any role with the dropdown above the column.</p></details>
+          <details><summary>How are relative paths handled?</summary><p>Paths such as /old-page/ are resolved against the site URL you enter, or against the first full URL found in the file. That way /old-page/ and https://example.com/old-page/ are recognised as the same URL.</p></details>
+          <details><summary>How many rows can it handle?</summary><p>Tens of thousands of rows run in well under a second in a modern browser. The results table shows the first rows and loads more on demand. Exports always include every row.</p></details>
+          <details><summary>Why does the Apache export use RedirectMatch instead of Redirect?</summary><p>Apache&#x27;s Redirect directive matches by prefix, so a rule for /old would also catch /old-anything. The export uses anchored RedirectMatch rules so each rule matches exactly one URL. Sources with query strings are listed as comments, because they need a RewriteCond rule.</p></details>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
+    <div class="rv-wrap" style="display: flex; flex-wrap: wrap; gap: clamp(28px, 4vw, 56px); align-items: center; justify-content: space-between">
+      <div style="flex: 1 1 460px; min-width: 0">
+        <div class="rv-eyebrow">SEO QA and migrations</div>
+        <h2 style="margin: 22px 0 0; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 22ch; color: var(--ink)">Planning a migration?</h2>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I build and test the redirect map before launch, check staging, and verify the live redirects, canonicals and indexation after the switch. You get tickets your developers can close without guessing.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a class="x9" href="mailto:stojkovicv86@gmail.com?subject=Site%20migration" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
+        <a class="x7" href="../services/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink2); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">See services</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
+    <div style="max-width: 1240px; margin: 0 auto">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 64px)">
+        <div style="flex: 1 1 280px; max-width: 360px; min-width: 0">
+          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)">Vuk Stojković</div>
+          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Technical SEO, PPC and website design. Belgrade, Serbia. I work with clients and teams remotely.</p>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Explore</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x44" href="../experience/" style="font-size: 16px; color: var(--ink2)">Experience</a>
+            <a class="x45" href="../services/" style="font-size: 16px; color: var(--ink2)">Services</a>
+            <a class="x46" href="../work-with-me/" style="font-size: 16px; color: var(--ink2)">Work with me</a>
+            <a class="x47" href="../about-me/" style="font-size: 16px; color: var(--ink2)">About me</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Products</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x48" href="../products/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
+            <a class="x49" href="../products/" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
+            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">Brand Visibility in AI Answers</a>
+            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">SEO + AI Visibility Bundle</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Contact</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x51" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
+            <a class="x52" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
+            <a class="x53" href="https://www.instagram.com/vukstojkovicseo/" rel="me noopener" target="_blank" style="font-size: 16px; color: var(--ink2)">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
+        <div>Belgrade, Serbia · CET/CEST</div>
+        <div>© 2026 Vuk Stojković. All rights reserved.</div>
+        <div style="display: flex; gap: 20px"><a class="x54" href="../privacy-policy/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a><a class="x55" href="#" data-cc-open="" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<style>#vs-cc .ccp:hover{background:var(--acchov)!important}#vs-cc .ccs:hover{border-color:var(--btnline2)!important;color:var(--ink)!important}#vs-cc button:focus-visible{outline:2px solid var(--acc-theme);outline-offset:2px}</style>
+<div id="vs-cc" hidden role="dialog" aria-label="Cookies" style="position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 9999; max-width: 480px; margin-left: auto; background: var(--card); border: 1px solid var(--line3); border-radius: 14px; padding: 20px 22px; box-shadow: 0 18px 50px rgba(0,0,0,0.35); font-family: 'Archivo', sans-serif; color: var(--ink)">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc-theme)">Cookies</div>
+  <p style="margin: 10px 0 16px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty">I use analytics cookies to see which pages help and which don’t. None are set until you choose. <a href="../privacy-policy/" style="color: var(--ink); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a></p>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px">
+    <button type="button" data-cc="a" class="ccp" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: var(--acc-theme); color: var(--onacc); border: 1px solid transparent">Accept</button>
+    <button type="button" data-cc="r" class="ccs" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: transparent; color: var(--ink2); border: 1px solid var(--btnline)">Necessary only</button>
+  </div>
+</div>
+<script>(function(){var b=document.getElementById('vs-cc');function set(v){try{localStorage.setItem('vs-consent',v)}catch(e){}var g=v==='granted'?'granted':'denied';gtag('consent','update',{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g});dataLayer.push({event:'consent_update',consent_choice:v});b.hidden=true}
+var c=null;try{c=localStorage.getItem('vs-consent')}catch(e){}if(!c)b.hidden=false;
+b.querySelector('[data-cc=a]').addEventListener('click',function(){set('granted')});b.querySelector('[data-cc=r]').addEventListener('click',function(){set('denied')});
+document.querySelectorAll('[data-cc-open]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();b.hidden=false;b.querySelector('[data-cc=a]').focus()})});})();</script>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmt(n){return n.toLocaleString('en-US')}
+
+/* ---------------- CSV ---------------- */
+function countOutside(line,d){var q=false,n=0;for(var i=0;i<line.length;i++){var c=line[i];if(c==='"')q=!q;else if(!q&&c===d)n++}return n}
+function detectDelim(text){
+  var lines=text.split(/\r?\n/).filter(function(l){return l.trim()}).slice(0,15),best=',',bestScore=-1;
+  [',',';','\t','|'].forEach(function(d){
+    var c=lines.map(function(l){return countOutside(l,d)}),min=Math.min.apply(null,c);
+    var score=min>0?min*10+(c.every(function(x){return x===c[0]})?5:0):(c[0]>0?1:0);
+    if(score>bestScore){bestScore=score;best=d}
+  });
+  return best;
+}
+function parseCSV(text,d){
+  var rows=[],row=[],cell='',q=false,i=0,c;
+  text=text.replace(/^﻿/,'');
+  while(i<text.length){
+    c=text[i];
+    if(q){
+      if(c==='"'){if(text[i+1]==='"'){cell+='"';i+=2;continue}q=false;i++;continue}
+      cell+=c;i++;continue;
+    }
+    if(c==='"'&&cell.trim()===''){q=true;cell='';i++;continue}
+    if(c===d){row.push(cell);cell='';i++;continue}
+    if(c==='\r'){i++;continue}
+    if(c==='\n'){row.push(cell);rows.push(row);row=[];cell='';i++;continue}
+    cell+=c;i++;
+  }
+  if(cell!==''||row.length){row.push(cell);rows.push(row)}
+  return rows.filter(function(r){return r.some(function(x){return x.trim()!==''})});
+}
+
+/* ---------------- Vrednosti ---------------- */
+var EMPTY=/^(|—|–|-|n\/a|na|none|null|undefined|#n\/a)$/i;
+function clean(v){v=(v==null?'':String(v)).trim();return EMPTY.test(v)?'':v}
+function isUrlish(v){return /^https?:\/\/\S+$/i.test(v)||/^\/\S*$/.test(v)||/^www\.[^\s\/]+\.[^\s]+/i.test(v)||/^[a-z0-9-]+(\.[a-z0-9-]+)+\/\S*$/i.test(v)}
+function isStatus(v){return /^[1-5]\d\d$/.test(v)}
+function withScheme(v){if(/^www\./i.test(v)||(/^[a-z0-9-]+(\.[a-z0-9-]+)+\//i.test(v)&&!/^https?:/i.test(v)))return 'https://'+v;return v}
+function validUrl(v){v=withScheme(v);if(/^\/\S*$/.test(v))return true;if(!/^https?:\/\/\S+$/i.test(v))return false;try{new URL(v);return true}catch(e){return false}}
+
+var ROLES=[['source','Source URL'],['hop','Redirect hop'],['target','Target / final URL'],['rstatus','Redirect status code'],['fstatus','Final status code'],['ignore','Ignore']];
+var S={rows:null,header:false,delim:',',roles:[],name:'',res:null,filter:'all',type:'',q:'',shown:100};
+
+function autoHeader(rows){
+  if(rows.length<2)return false;
+  var r0=rows[0].map(clean);
+  if(r0.some(isUrlish))return false;
+  return rows.slice(1,6).some(function(r){return r.map(clean).some(isUrlish)})||r0.some(function(x){return /[a-z]/i.test(x)});
+}
+function autoRoles(rows,hasHeader){
+  var hdr=hasHeader?rows[0].map(function(h){return clean(h).toLowerCase()}):[];
+  var data=rows.slice(hasHeader?1:0,(hasHeader?1:0)+400);
+  var ncol=rows.reduce(function(m,r){return Math.max(m,r.length)},0),roles=[],urlCols=[],stat=[];
+  for(var c=0;c<ncol;c++){
+    var vals=data.map(function(r){return clean(r[c])}).filter(Boolean);
+    roles.push('ignore');
+    if(!vals.length){stat.push(null);continue}
+    var u=vals.filter(isUrlish).length/vals.length,s=vals.filter(isStatus).length/vals.length,r3=vals.filter(function(v){return /^3\d\d$/.test(v)}).length/vals.length;
+    if(u>=0.5)urlCols.push(c);
+    stat.push({s:s,r3:r3});
+  }
+  if(urlCols.length){
+    var h=function(c){return hdr[c]||''};
+    var src=urlCols.filter(function(c){return /^(address|source|from|old|original|url$|source url|old url|redirect from|start)/.test(h(c))})[0];
+    if(src===undefined)src=urlCols[0];
+    var rest=urlCols.filter(function(c){return c!==src});
+    var tgt=rest.filter(function(c){return /final|destination|target|^to\b|new url|redirect to|end/.test(h(c))})[0];
+    if(tgt===undefined)tgt=rest[rest.length-1];
+    roles[src]='source';
+    if(tgt!==undefined)roles[tgt]='target';
+    rest.forEach(function(c){if(c!==tgt)roles[c]='hop'});
+  }
+  var fDone=false;
+  stat.forEach(function(st,c){
+    if(!st||roles[c]!=='ignore'||st.s<0.6)return;
+    var hh=hdr[c]||'';
+    if(/final/.test(hh)&&!fDone){roles[c]='fstatus';fDone=true}
+    else if(st.r3>=0.6)roles[c]='rstatus';
+    else if(/status/.test(hh)&&!fDone){roles[c]='fstatus';fDone=true}
+  });
+  return roles;
+}
+
+/* ---------------- Normalizacija ---------------- */
+var OPT={slash:false,proto:false,www:false,ci:false},BASE='',RX={};
+function key(raw){
+  var u=withScheme(raw.trim()),x=null;
+  try{x=/^https?:\/\//i.test(u)?new URL(u):(BASE?new URL(u,BASE):null)}catch(e){x=null}
+  if(!x){
+    var p=u.split('#')[0],q='',qi=p.indexOf('?');if(qi>-1){q=p.slice(qi);p=p.slice(0,qi)}
+    if(OPT.ci)p=p.toLowerCase();if(OPT.slash&&p.length>1)p=p.replace(/\/+$/,'')||'/';
+    return '~'+p+q;
+  }
+  var host=x.hostname.toLowerCase();if(OPT.www)host=host.replace(/^www\./,'');
+  var path=x.pathname;if(OPT.ci)path=path.toLowerCase();if(OPT.slash&&path.length>1)path=path.replace(/\/+$/,'')||'/';
+  return (OPT.proto?'':x.protocol)+'//'+host+(x.port?':'+x.port:'')+path+x.search;
+}
+function hostOf(raw){try{return new URL(withScheme(raw)).hostname.toLowerCase().replace(/^www\./,'')}catch(e){return ''}}
+function protoOf(raw){var m=withScheme(raw).match(/^(https?):/i);return m?m[1].toLowerCase():''}
+
+/* ---------------- Analiza ---------------- */
+function analyze(){
+  var rows=S.rows,roles=S.roles,start=S.header?1:0;
+  var col=function(r){return roles.reduce(function(a,x,i){if(x===r)a.push(i);return a},[])};
+  var srcC=col('source')[0],hopC=col('hop'),tgtC=col('target')[0],rsC=col('rstatus'),fsC=col('fstatus')[0];
+  var base=($('rv-base').value||'').trim();
+  BASE='';
+  if(base){BASE=/^https?:\/\//i.test(base)?base:'https://'+base}
+  else{
+    for(var i=start;i<Math.min(rows.length,start+2000)&&!BASE;i++){var rr=rows[i];for(var j=0;j<rr.length;j++){var v=clean(rr[j]);if(/^https?:\/\//i.test(v)){try{BASE=new URL(v).origin}catch(e){}break}}}
+  }
+  try{new URL(BASE)}catch(e){BASE=''}
+  var hasRel=false;
+  var recs=[],edges=new Map(),disp=new Map(),srcRows=new Map(),byLine={},pend={};
+  for(var r=start;r<rows.length;r++){
+    var row=rows[r],line=r+1;
+    var src=srcC!==undefined?clean(row[srcC]):'',hops=hopC.map(function(c){return clean(row[c])}).filter(Boolean),tgt=tgtC!==undefined?clean(row[tgtC]):'';
+    if(!src&&!hops.length&&!tgt)continue;
+    var rec={line:line,src:src,tgt:tgt||hops[hops.length-1]||'',f:[],rs:rsC.map(function(c){return clean(row[c])}).filter(isStatus),fs:fsC!==undefined?clean(row[fsC]):''};
+    byLine[line]=rec;recs.push(rec);
+    var raw=[src].concat(hops,[tgt]).filter(Boolean);
+    if(!src)add(rec,'error','missing','Source URL is empty.');
+    if(src&&!tgt&&!hops.length)add(rec,'error','missing','Target URL is empty.');
+    var bad=raw.filter(function(v){return !validUrl(v)});
+    bad.forEach(function(v){add(rec,'error','malformed','Not a valid URL: <code>'+esc(v.slice(0,80))+'</code>')});
+    var good=raw.filter(validUrl);
+    good.forEach(function(v){if(!/^https?:|^www\.|^[a-z0-9-]+\.[a-z]/i.test(v))hasRel=true});
+    var keys=[];good.forEach(function(v){var k=key(v);if(!disp.has(k))disp.set(k,v);if(keys[keys.length-1]!==k)keys.push(k)});
+    rec.keys=keys;
+    if(src&&validUrl(src)&&good.length>=2&&keys.length===1)add(rec,'error','self','Redirects to itself'+(OPT.slash||OPT.proto||OPT.www||OPT.ci?' (with the current normalization settings).':'.'));
+    if(src&&validUrl(src)){var sk=keys[0];if(!srcRows.has(sk))srcRows.set(sk,[]);srcRows.get(sk).push(rec)}
+    for(var p=0;p+1<keys.length;p++){
+      var a=keys[p],b=keys[p+1],e=edges.get(a);
+      if(e){
+        if(e.to!==b){
+          add(rec,'error','conflict','<code>'+esc(disp.get(a))+'</code> already redirects to <code>'+esc(disp.get(e.to))+'</code> on row '+e.line+'.');
+          (pend[e.line]=pend[e.line]||[]).push('<code>'+esc(disp.get(a))+'</code> also redirects to <code>'+esc(disp.get(b))+'</code> on row '+line+'.');
+        }
+      }else edges.set(a,{to:b,line:line});
+    }
+  }
+  Object.keys(pend).forEach(function(l){var rc=byLine[l];if(!rc)return;var seen={};pend[l].forEach(function(m){if(!seen[m]){seen[m]=1;add(rc,'error','conflict',m)}})});
+  srcRows.forEach(function(list){
+    if(list.length<2)return;
+    var t0=list[0].keys[1];
+    if(list.every(function(x){return x.keys[1]===t0})){
+      list.forEach(function(x,i){add(x,'warn','duplicate',i===0?'Same redirect repeated on row'+(list.length>2?'s ':' ')+list.slice(1).map(function(y){return y.line}).join(', ')+'.':'Duplicate of row '+list[0].line+'.')});
+    }
+  });
+  var cache=new Map();
+  function resolve(k){
+    if(cache.has(k))return cache.get(k);
+    var seen=[k],cur=k,n=0,lines=[];
+    while(edges.has(cur)){
+      var e=edges.get(cur);lines.push(e.line);cur=e.to;n++;
+      if(seen.indexOf(cur)>-1||n>60){var res={loop:true,path:seen.concat([cur]),lines:lines};cache.set(k,res);return res}
+      seen.push(cur);
+    }
+    var out={loop:false,final:cur,hops:n,path:seen,lines:lines};cache.set(k,out);return out;
+  }
+  recs.forEach(function(rec){
+    if(!rec.keys||rec.keys.length<2||!rec.src||!validUrl(rec.src))return;
+    var own=rec.keys,seen=own.slice(),cur=own[own.length-1],n=own.length-1,lines=[],loop=own.some(function(k,i){return own.indexOf(k)!==i});
+    while(!loop&&edges.has(cur)){var e=edges.get(cur);lines.push(e.line);cur=e.to;n++;seen.push(cur);if(seen.indexOf(cur)<seen.length-1||n>60)loop=true}
+    var R={loop:loop,path:seen,final:cur,hops:n,lines:lines};
+    rec.path=R.path;
+    var other=R.lines.filter(function(l,i,a){return l!==rec.line&&a.indexOf(l)===i});
+    var via=other.length?' Continues via row'+(other.length>1?'s ':' ')+other.slice(0,5).join(', ')+(other.length>5?'…':'')+'.':'';
+    if(R.loop){add(rec,'error','loop','Redirect loop: '+R.path.map(function(k){return '<code>'+esc(disp.get(k)||k)+'</code>'}).join(' → ')+'.'+via);return}
+    rec.final=disp.get(R.final);rec.hops=R.hops;
+    if(R.hops>=2)add(rec,'warn','chain',R.hops+' hops before the final URL. Point it straight to <code>'+esc(rec.final)+'</code>.'+via);
+    for(var i=0;i+1<R.path.length;i++){if(protoOf(disp.get(R.path[i]))==='https'&&protoOf(disp.get(R.path[i+1]))==='http'){add(rec,'warn','downgrade','HTTPS → HTTP step: <code>'+esc(disp.get(R.path[i+1]))+'</code>.');break}}
+    var hs=hostOf(rec.src),hf=hostOf(rec.final);
+    if(hs&&hf&&hs!==hf)add(rec,'info','external','Final URL is on another host ('+esc(hf)+').');
+  });
+  recs.forEach(function(rec){
+    var t=rec.rs.filter(function(s){return /^30[237]$/.test(s)});
+    if(t.length)add(rec,'warn','temp','Temporary redirect ('+t[0]+'). Use 301 or 308 for a permanent move.');
+    if(rec.fs&&isStatus(rec.fs)&&!/^2/.test(rec.fs))add(rec,rec.fs[0]==='3'?'warn':'error','final','Final URL returns '+rec.fs+'.');
+    rec.lvl=rec.f.some(function(x){return x.l==='error'})?'error':(rec.f.some(function(x){return x.l==='warn'})?'warn':'ok');
+  });
+  var flat=[];
+  edges.forEach(function(e,k){var R=resolve(k);if(!R.loop&&R.final!==k)flat.push([disp.get(k),disp.get(R.final)])});
+  S.res={recs:recs,flat:flat,disp:disp,edges:edges.size,hasRel:hasRel,base:BASE,
+    maxHops:recs.reduce(function(m,r){return Math.max(m,r.hops||0)},0)};
+}
+function add(rec,l,t,m){rec.f.push({l:l,t:t,m:m})}
+
+/* ---------------- Prikaz ---------------- */
+var TYPES=[['chain','Chains'],['loop','Loops'],['conflict','Conflicts'],['duplicate','Duplicates'],['self','Self-redirects'],['malformed','Malformed'],['missing','Missing values'],['temp','Temporary (302/307)'],['final','Final not 200'],['downgrade','HTTPS → HTTP'],['external','Other host']];
+function renderMapping(){
+  var rows=S.rows,ncol=rows.reduce(function(m,r){return Math.max(m,r.length)},0),start=S.header?1:0;
+  var h='<table class="rv-map"><thead><tr>';
+  for(var c=0;c<ncol;c++){
+    h+='<th class="rv-role-'+S.roles[c]+'"><select data-col="'+c+'" aria-label="Role for column '+(c+1)+'">'+ROLES.map(function(r){return '<option value="'+r[0]+'"'+(S.roles[c]===r[0]?' selected':'')+'>'+r[1]+'</option>'}).join('')+'</select>'+
+      '<span class="rv-colname">'+(S.header?esc(clean(rows[0][c])||'Column '+(c+1)):'Column '+(c+1))+'</span></th>';
+  }
+  h+='</tr></thead><tbody>';
+  rows.slice(start,start+5).forEach(function(r){h+='<tr>';for(var c=0;c<ncol;c++){var v=clean(r[c]);h+='<td class="rv-role-'+S.roles[c]+'" title="'+esc(v)+'">'+(v?esc(v.length>60?v.slice(0,57)+'…':v):'<span class="rv-dim">—</span>')+'</td>'}h+='</tr>'});
+  h+='</tbody></table>';
+  $('rv-map').innerHTML=h;
+  var src=S.roles.indexOf('source')>-1,dest=S.roles.indexOf('target')>-1||S.roles.indexOf('hop')>-1;
+  $('rv-map-msg').innerHTML=!src?'<span class="rv-bad">Choose a <b>Source URL</b> column.</span>':(!dest?'<span class="rv-bad">Choose a <b>Target</b> or <b>Redirect hop</b> column.</span>':'');
+  return src&&dest;
+}
+function run(){
+  if(!S.rows)return;
+  OPT.slash=$('rv-o-slash').checked;OPT.proto=$('rv-o-proto').checked;OPT.www=$('rv-o-www').checked;OPT.ci=$('rv-o-ci').checked;
+  var ok=renderMapping();
+  $('rv-step3').hidden=!ok;
+  if(!ok)return;
+  var t0=performance.now();analyze();S.ms=Math.round(performance.now()-t0);
+  S.shown=100;renderResults();
+}
+function renderResults(){
+  var R=S.res,recs=R.recs;
+  var err=recs.filter(function(r){return r.lvl==='error'}).length,warn=recs.filter(function(r){return r.lvl==='warn'}).length,ok=recs.length-err-warn;
+  var cnt={};recs.forEach(function(r){var seen={};r.f.forEach(function(x){if(!seen[x.t]){seen[x.t]=1;cnt[x.t]=(cnt[x.t]||0)+1}})});
+  $('rv-stats').innerHTML=
+    tile(fmt(recs.length),'rows checked','')+tile(fmt(err),'with errors',err?'err':'')+tile(fmt(warn),'with warnings',warn?'warn':'')+tile(fmt(ok),'clean',ok?'ok':'')+
+    tile(fmt(R.flat.length),'redirects in flattened map','')+tile(R.maxHops||0,'longest chain (hops)',R.maxHops>1?'warn':'');
+  $('rv-meta').textContent=(S.name?S.name+' · ':'')+fmt(recs.length)+(recs.length===1?' row · ':' rows · ')+(S.delim==='\t'?'tab':S.delim)+' separated · '+(S.header?'header row detected':'no header row')+(R.base&&R.hasRel?' · relative paths resolved against '+R.base:'')+' · '+S.ms+' ms';
+  $('rv-relhint').hidden=!(R.hasRel&&!R.base);
+  var lv=[['all','All',recs.length],['error','Errors',err],['warn','Warnings',warn],['ok','Clean',ok]];
+  $('rv-lv').innerHTML=lv.map(function(x){return '<button type="button" data-lv="'+x[0]+'" aria-pressed="'+(S.filter===x[0])+'">'+x[1]+' <span>'+fmt(x[2])+'</span></button>'}).join('');
+  $('rv-types').innerHTML=TYPES.filter(function(t){return cnt[t[0]]}).map(function(t){return '<button type="button" class="rv-chip" data-type="'+t[0]+'" aria-pressed="'+(S.type===t[0])+'">'+t[1]+' <span>'+fmt(cnt[t[0]])+'</span></button>'}).join('')||'<span class="rv-dim">No issues found.</span>';
+  renderTable();
+}
+function tile(n,l,c){return '<div class="rv-tile'+(c?' rv-tile--'+c:'')+'"><b>'+n+'</b><span>'+l+'</span></div>'}
+function filtered(){
+  var q=S.q.toLowerCase();
+  return S.res.recs.filter(function(r){
+    if(S.filter!=='all'&&r.lvl!==S.filter)return false;
+    if(S.type&&!r.f.some(function(x){return x.t===S.type}))return false;
+    if(q&&(r.src+' '+r.tgt+' '+(r.final||'')).toLowerCase().indexOf(q)<0)return false;
+    return true;
+  });
+}
+function renderTable(){
+  var list=filtered(),show=list.slice(0,S.shown);
+  var h='';
+  show.forEach(function(r){
+    var path=r.path&&r.path.length>1?r.path:null;
+    h+='<tr class="rv-tr-'+r.lvl+'"><td class="rv-num">'+r.line+'</td>'+
+      '<td class="rv-url">'+(r.src?esc(r.src):'<span class="rv-dim">empty</span>')+'</td>'+
+      '<td class="rv-url">'+(path?pathHtml(path):(r.tgt?esc(r.tgt):'<span class="rv-dim">empty</span>'))+'</td>'+
+      '<td class="rv-num">'+(r.hops!=null?r.hops:'–')+'</td>'+
+      '<td><span class="rv-pill rv-pill--'+r.lvl+'">'+({error:'Error',warn:'Warning',ok:'OK'})[r.lvl]+'</span></td>'+
+      '<td class="rv-find">'+(r.f.length?'<ul>'+r.f.map(function(x){return '<li class="rv-f-'+x.l+'">'+x.m+'</li>'}).join('')+'</ul>':'<span class="rv-dim">No issues</span>')+'</td></tr>';
+  });
+  $('rv-tbody').innerHTML=h||'<tr><td colspan="6" class="rv-empty-row">No rows match this filter.</td></tr>';
+  $('rv-count').textContent='Showing '+fmt(show.length)+' of '+fmt(list.length)+' rows';
+  $('rv-more').hidden=list.length<=S.shown;
+}
+function pathHtml(path){
+  var d=S.res.disp;
+  return path.map(function(k,i){var v=d.get(k)||k.replace(/^~/,'');return (i>1?'<span class="rv-arrow">→</span>':'')+'<span class="rv-node'+(i===path.length-1?' rv-node--end':'')+'">'+esc(v)+'</span>'}).slice(1).join('');
+}
+
+/* ---------------- Export ---------------- */
+function csvCell(v){v=String(v==null?'':v);return /[",\n;]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function strip(html){return html.replace(/<[^>]+>/g,'').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&')}
+function exportFindings(){
+  var out=[['Row','Source URL','Target URL','Final URL','Hops','Result','Findings']];
+  S.res.recs.forEach(function(r){out.push([r.line,r.src,r.tgt,r.final||'',r.hops!=null?r.hops:'',({error:'Error',warn:'Warning',ok:'OK'})[r.lvl],r.f.map(function(x){return strip(x.m)}).join(' | ')])});
+  dl(out.map(function(r){return r.map(csvCell).join(',')}).join('\r\n'),'redirect-findings.csv','text/csv');
+}
+function exportFlat(){
+  var out=[['source','target']].concat(S.res.flat);
+  dl(out.map(function(r){return r.map(csvCell).join(',')}).join('\r\n'),'redirect-map-flattened.csv','text/csv');
+}
+function pathPart(u){u=withScheme(u);if(/^\//.test(u))return u;try{var x=new URL(u);return x.pathname+x.search}catch(e){return null}}
+function reEsc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+function exportServer(kind){
+  var hosts={},lines=[],skipped=0;
+  S.res.flat.forEach(function(p){
+    var h=hostOf(p[0]);if(h)hosts[h]=1;
+    var path=pathPart(p[0]);
+    if(!path||path.indexOf('?')>-1){skipped++;lines.push('# Skipped (query string needs a rewrite rule): '+p[0]);return}
+    var to=p[1].replace(/\s/g,'%20'),from=path.replace(/\s/g,'%20');
+    if(kind==='apache')lines.push('RedirectMatch 301 ^'+reEsc(from)+'$ '+to);
+    else lines.push('location = '+from+' { return 301 '+to+'; }');
+  });
+  var head=['# '+(kind==='apache'?'Apache (.htaccess)':'Nginx')+' rules generated by vukstojkovic.com/redirect-map-validator/','# Every rule points straight to the final URL. Review before deploying.'];
+  if(Object.keys(hosts).length>1)head.push('# Sources span several hosts ('+Object.keys(hosts).join(', ')+'). Split the rules per host.');
+  if(kind==='nginx')head.push('# Paste inside the matching server { } block.');
+  dl(head.concat([''],lines).join('\n')+'\n',kind==='apache'?'redirects.htaccess':'redirects.nginx.conf','text/plain');
+}
+function dl(txt,name,type){
+  var u=URL.createObjectURL(new Blob(['﻿'.slice(type==='text/csv'?0:1)+txt],{type:type+';charset=utf-8'})),a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1000);
+}
+
+/* ---------------- Učitavanje ---------------- */
+function load(text,name){
+  text=String(text||'');
+  if(!text.trim()){msg('The file is empty.');return}
+  S.delim=detectDelim(text);
+  var rows=parseCSV(text,S.delim);
+  if(!rows.length){msg('No rows found.');return}
+  S.rows=rows;S.name=name||'';S.header=autoHeader(rows);S.roles=autoRoles(rows,S.header);S.filter='all';S.type='';S.q='';$('rv-q').value='';
+  $('rv-header').checked=S.header;
+  $('rv-file').textContent=(name||'Pasted data')+' · '+fmt(rows.length-(S.header?1:0))+(rows.length-(S.header?1:0)===1?' row':' rows');
+  $('rv-step2').hidden=false;
+  msg('');
+  run();
+  $('rv-step2').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function msg(t){$('rv-msg').textContent=t;$('rv-msg').hidden=!t}
+
+var SAMPLE_CHAIN=['Source URL,Redirect URL 1,Redirect URL 2,Final URL,Status Code',
+'/old-page/,/page-1/,/page-2/,/new-page/,200',
+'/category/seo,/category/seo/,—,/category/seo/,200',
+'/article-old/,/article-new/,—,/article-new/,200',
+'/services/seo-audit/,/page-1/,—,/page-1/,200',
+'/blog/,/news/,—,/news/,200',
+'/news/,/blog/,—,/blog/,200',
+'/contact-us/,—,—,/contact/,200',
+'/contact-us/,—,—,/get-in-touch/,200',
+'/about,—,—,/about-me/,200',
+'/about,—,—,/about-me/,200',
+'/pricing/,—,—,/pricing/,200',
+'/promo/,—,—,/sale/,404',
+'/team/,—,—,see new page,200'].join('\n');
+var SAMPLE_SF=['"Address","Content Type","Status Code","Status","Indexability","Indexability Status","Inlinks","Response Time","Redirect URL","Redirect Type"',
+'"https://example.com/index.html","text/html; charset=UTF-8","301","Moved Permanently","Non-Indexable","Redirected","3","0,013","https://example.com/","HTTP Redirect"',
+'"https://example.com/services","text/html; charset=UTF-8","301","Moved Permanently","Non-Indexable","Redirected","12","0,021","https://example.com/services/","HTTP Redirect"',
+'"http://example.com/blog/","text/html; charset=UTF-8","301","Moved Permanently","Non-Indexable","Redirected","5","0,009","https://example.com/blog/","HTTP Redirect"',
+'"https://example.com/old-guide/","text/html; charset=UTF-8","302","Found","Non-Indexable","Redirected","8","0,034","https://example.com/guides/seo/","HTTP Redirect"',
+'"https://example.com/guides/seo/","text/html; charset=UTF-8","301","Moved Permanently","Non-Indexable","Redirected","2","0,018","https://example.com/guides/technical-seo/","HTTP Redirect"',
+'"https://example.com/promo/","text/html; charset=UTF-8","301","Moved Permanently","Non-Indexable","Redirected","1","0,011","http://example.com/sale/","HTTP Redirect"',
+'"https://example.com/a/","text/html; charset=UTF-8","301","Moved Permanently","Non-Indexable","Redirected","1","0,010","https://example.com/b/","HTTP Redirect"',
+'"https://example.com/b/","text/html; charset=UTF-8","301","Moved Permanently","Non-Indexable","Redirected","1","0,012","https://example.com/a/","HTTP Redirect"'].join('\n');
+
+function init(){
+  var dz=$('rv-drop'),fi=$('rv-input');
+  fi.addEventListener('change',function(){var f=fi.files&&fi.files[0];if(f)readFile(f);fi.value=''});
+  ['dragenter','dragover'].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.add('rv-over')})});
+  ['dragleave','drop'].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.remove('rv-over')})});
+  dz.addEventListener('drop',function(e){var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)readFile(f)});
+  $('rv-paste-go').addEventListener('click',function(){load($('rv-paste').value,'Pasted data')});
+  $('rv-s-chain').addEventListener('click',function(){$('rv-base').value='example.com';load(SAMPLE_CHAIN,'sample-chain-sheet.csv')});
+  $('rv-s-sf').addEventListener('click',function(){$('rv-base').value='';load(SAMPLE_SF,'sample-screaming-frog-3xx.csv')});
+  $('rv-s-dl').addEventListener('click',function(){dl(SAMPLE_CHAIN,'redirect-map-sample.csv','text/csv')});
+  $('rv-clear').addEventListener('click',function(){S.rows=null;S.res=null;$('rv-step2').hidden=true;$('rv-step3').hidden=true;$('rv-paste').value='';$('rv-base').value='';$('rv-file').textContent='No file selected';msg('')});
+  $('rv-map').addEventListener('change',function(e){
+    var s=e.target.closest('select');if(!s)return;var c=+s.dataset.col,v=s.value;
+    if(v==='source'||v==='target'||v==='fstatus')S.roles=S.roles.map(function(x,i){return i!==c&&x===v?'ignore':x});
+    S.roles[c]=v;run();
+  });
+  $('rv-header').addEventListener('change',function(){S.header=this.checked;S.roles=autoRoles(S.rows,S.header);run()});
+  ['rv-o-slash','rv-o-proto','rv-o-www','rv-o-ci'].forEach(function(id){$(id).addEventListener('change',run)});
+  var bt;$('rv-base').addEventListener('input',function(){clearTimeout(bt);bt=setTimeout(run,300)});
+  $('rv-lv').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.filter=b.dataset.lv;S.shown=100;renderResults()});
+  $('rv-types').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.type=S.type===b.dataset.type?'':b.dataset.type;S.shown=100;renderResults()});
+  var qt;$('rv-q').addEventListener('input',function(){var v=this.value;clearTimeout(qt);qt=setTimeout(function(){S.q=v;S.shown=100;renderTable()},150)});
+  $('rv-more').addEventListener('click',function(){S.shown+=200;renderTable()});
+  $('rv-x-find').addEventListener('click',exportFindings);
+  $('rv-x-flat').addEventListener('click',exportFlat);
+  $('rv-x-apache').addEventListener('click',function(){exportServer('apache')});
+  $('rv-x-nginx').addEventListener('click',function(){exportServer('nginx')});
+}
+function readFile(f){
+  if(f.size>30*1024*1024){msg('That file is over 30 MB. Split it or remove unused columns first.');return}
+  var r=new FileReader();r.onload=function(){load(r.result,f.name)};r.onerror=function(){msg('Could not read the file.')};r.readAsText(f);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+
+</script>
+</body>
+</html>
