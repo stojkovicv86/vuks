@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Consent Mode v2 (default: denied) -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+gtag('set','ads_data_redaction',true);
+try{if(localStorage.getItem('vs-consent')==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MBWKV8RG');</script>
+<!-- End Google Tag Manager -->
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XML Sitemap Analyzer: Limits, Lastmod &amp; Duplicates | Vuk Stojković</title>
+<meta name="description" content="Free XML sitemap analyzer. Load sitemaps, sitemap indexes and .gz files together and check protocol limits, invalid and duplicate URLs, lastmod quality and index coverage. Compare against a crawl and export a clean sitemap.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://vukstojkovic.com/xml-sitemap-analyzer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vuk Stojković">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://vukstojkovic.com/xml-sitemap-analyzer/">
+<meta property="og:title" content="XML sitemap analyzer: limits, lastmod and duplicates">
+<meta property="og:description" content="Audit a whole sitemap set at once: indexes, children and .gz files. Find invalid and duplicate URLs, lastmod problems and pages missing from the sitemap. Runs in your browser.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="XML sitemap analyzer: limits, lastmod and duplicates">
+<meta name="twitter:description" content="Audit a whole sitemap set at once: indexes, children and .gz files. Find invalid and duplicate URLs, lastmod problems and pages missing from the sitemap. Runs in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&amp;display=block" rel="stylesheet">
+<style>
+:root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
+  }
+  .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); }
+  * { box-sizing: border-box; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
+  .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .navb { display: none; }
+  .t-dark { display: none !important; }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
+  @media (max-width: 1040px) {
+    .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navt:checked ~ nav { display: flex !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
+    header nav > div { margin-top: 14px; }
+    .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .navt:checked + .navb span:nth-child(2) { opacity: 0; }
+    .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+.x1:hover,.x8:hover{color: var(--ink) !important}
+.x2:hover,.x3:hover,.x4:hover,.x5:hover,.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x9:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x44:hover,.x45:hover,.x46:hover,.x47:hover,.x48:hover,.x49:hover,.x50:hover,.x51:hover,.x52:hover,.x53:hover,.x54:hover,.x55:hover{color: var(--acc, var(--acc-theme)) !important}
+.navdd{position:relative;display:flex;align-items:center}
+.navdd-t{display:inline-flex;align-items:center;gap:3px;font:500 15px Archivo,Helvetica,sans-serif;color:var(--ink2);padding:6px 0;background:none;border:0;border-bottom:1px solid transparent;cursor:pointer}
+.navdd-t .ms{font-size:18px;transition:transform .2s}
+.navdd:hover .navdd-t,.navdd:focus-within .navdd-t,.navdd--on .navdd-t{color:var(--ink);border-bottom-color:var(--acc-theme)}
+.navdd:hover .navdd-t .ms,.navdd:focus-within .navdd-t .ms{transform:rotate(180deg)}
+.navdd-m{position:absolute;top:100%;left:-18px;padding-top:12px;min-width:290px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
+.navdd:hover .navdd-m,.navdd:focus-within .navdd-m{opacity:1;visibility:visible;transform:none}
+.navdd-b{display:flex;flex-direction:column;gap:2px;padding:8px;background:var(--card);border:1px solid var(--line3);border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.navdd-i{display:flex;flex-direction:column;gap:2px;padding:11px 12px;border-radius:9px;color:var(--ink)}
+.navdd-i:hover{background:var(--cardacc);color:var(--ink)}
+.navdd-i b{font-size:15px;font-weight:600}
+.navdd-i span{font-size:13px;color:var(--ink5)}
+header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
+@media (max-width:1040px){.navdd{flex-direction:column;align-items:stretch;width:100%;margin-top:0 !important}.navdd-t{font-size:17px;padding:12px 0;width:100%;border-bottom:1px solid var(--line5) !important;cursor:default;color:var(--ink2)}.navdd-t .ms{display:none}.navdd-m{position:static;opacity:1;visibility:visible;transform:none;padding:0;min-width:0}.navdd-b{background:transparent;border:0;box-shadow:none;padding:0}.navdd-i{padding:12px 0 12px 16px;border-radius:0;border-bottom:1px solid var(--line5)}}
+</style>
+<style id="sm-style">
+:root{--sm-err:#ff7b6b;--sm-errbg:rgba(255,123,107,.10);--sm-warn:#f7c948;--sm-warnbg:rgba(247,201,72,.09);--sm-ok:#4fd1b5;--sm-okbg:rgba(79,209,181,.09);--sm-info:#9db8ff;--sm-infobg:rgba(157,184,255,.09)}
+:root[data-theme="light"]{--sm-err:#b42318;--sm-errbg:#fdecea;--sm-warn:#8a5a00;--sm-warnbg:#fff3d4;--sm-ok:#0b6b7d;--sm-okbg:#e2f2f1;--sm-info:#2f4fa8;--sm-infobg:#e9eefb}
+.sm-wrap{max-width:1240px;margin:0 auto}
+.sm-card [hidden],.sm-rep [hidden]{display:none!important}
+.sm-eyebrow{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.sm-eyebrow::before{content:'';width:30px;height:1px;background:var(--acc,var(--acc-theme))}
+.sm-mono{font-family:'IBM Plex Mono',monospace}
+/* loader */
+.sm-card{border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.sm-load{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0}
+@media (max-width:900px){.sm-load{grid-template-columns:minmax(0,1fr)}}
+.sm-load > div{padding:clamp(20px,3vw,32px);min-width:0}
+.sm-load > div + div{border-left:1px solid var(--line)}
+@media (max-width:900px){.sm-load > div + div{border-left:0;border-top:1px solid var(--line)}}
+.sm-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sm-h .n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc,var(--acc-theme));letter-spacing:.08em}
+.sm-h h2{margin:0;font-size:clamp(20px,2vw,24px);letter-spacing:-.02em;font-weight:700;color:var(--ink)}
+.sm-h p{margin:0;color:var(--ink4);font-size:15px;flex-basis:100%}
+.sm-drop{position:relative;display:flex;align-items:center;gap:18px;padding:22px 24px;border:1.5px dashed var(--line4);border-radius:14px;background:var(--bg2);cursor:pointer;transition:border-color .2s,background .2s}
+.sm-drop:hover,.sm-drop.over{border-color:var(--acc,var(--acc-theme));background:var(--acctint)}
+.sm-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.sm-drop .ms{font-size:36px;color:var(--acc,var(--acc-theme));flex:none}
+.sm-drop b{display:block;font-size:17px;color:var(--ink)}
+.sm-drop small{display:block;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink5);margin-top:4px}
+.sm-tabs{display:flex;gap:4px;margin:16px 0 0;border-bottom:1px solid var(--line)}
+.sm-tabs button{border:0;background:transparent;color:var(--ink4);font:600 14.5px Archivo,sans-serif;padding:10px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer}
+.sm-tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--acc,var(--acc-theme))}
+.sm-pane{padding-top:14px}
+.sm-ta,.sm-input,.sm-select{width:100%;font:400 13.5px/1.55 'IBM Plex Mono',monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line3);border-radius:10px;padding:11px 13px;outline:none}
+.sm-ta{min-height:150px;resize:vertical;white-space:pre;overflow:auto}
+.sm-input,.sm-select{font-family:Archivo,sans-serif;font-size:15px}
+.sm-select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink4) 50%),linear-gradient(135deg,var(--ink4) 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 14px) 52%;background-size:6px 6px;background-repeat:no-repeat;padding-right:40px;cursor:pointer}
+.sm-select option{background:var(--card);color:var(--ink)}
+.sm-ta:focus,.sm-input:focus,.sm-select:focus{border-color:var(--acc,var(--acc-theme));box-shadow:0 0 0 3px var(--acctint)}
+.sm-btn{display:inline-flex;align-items:center;gap:8px;font:600 14.5px Archivo,sans-serif;padding:11px 16px;border-radius:10px;cursor:pointer;border:1px solid var(--btnline);background:transparent;color:var(--ink2);transition:border-color .2s,color .2s,background .2s}
+.sm-btn:hover{border-color:var(--btnline2);color:var(--ink)}
+.sm-btn .ms{font-size:19px}
+.sm-btn--acc{background:var(--acc,var(--acc-theme));border-color:transparent;color:var(--onacc)}
+.sm-btn--acc:hover{background:var(--acchov);color:var(--onacc);border-color:transparent}
+.sm-btn--sm{padding:8px 12px;font-size:13.5px}
+.sm-btn:focus-visible,.sm-nav a:focus-visible,.sm-seg button:focus-visible,.sm-chip:focus-visible,.sm-x:focus-visible{outline:2px solid var(--acc-theme);outline-offset:2px}
+.sm-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sm-hint{font-size:13.5px;color:var(--ink5);line-height:1.5}
+.sm-hint code,.sm-detail code,.sm-prose code,.sm-side code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--bg2);border:1px solid var(--line);padding:1px 5px;border-radius:5px;word-break:break-all}
+.sm-msg{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sm-errbg);color:var(--sm-err);font-size:15px}
+.sm-side h3{margin:0 0 10px;font-size:15px;color:var(--ink)}
+.sm-checks{margin:0 0 18px;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;font-size:14px;color:var(--ink3)}
+.sm-checks li{display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.sm-checks .ms{font-size:17px;color:var(--acc,var(--acc-theme));margin-top:1px}
+@media (max-width:520px){.sm-checks{grid-template-columns:1fr}}
+.sm-files{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.sm-file{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:10px 10px 10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
+.sm-file .ms{font-size:20px;color:var(--ink4)}
+.sm-file b{display:block;font:500 13.5px 'IBM Plex Mono',monospace;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sm-file small{display:block;font-size:12.5px;color:var(--ink5);margin-top:1px}
+.sm-file button{border:0;background:transparent;color:var(--ink5);cursor:pointer;padding:6px;border-radius:8px;display:grid;place-items:center}
+.sm-file button:hover{color:var(--ink);background:var(--line5)}
+.sm-file button .ms{font-size:18px;color:inherit}
+.sm-pill{display:inline-block;font:600 12px Archivo,sans-serif;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.sm-pill--error{background:var(--sm-errbg);color:var(--sm-err)}
+.sm-pill--warn{background:var(--sm-warnbg);color:var(--sm-warn)}
+.sm-pill--info{background:var(--sm-infobg);color:var(--sm-info)}
+.sm-pill--ok{background:var(--sm-okbg);color:var(--sm-ok)}
+.sm-pill--dim{background:var(--line5);color:var(--ink4)}
+.sm-cmp{margin-top:18px;border:1px solid var(--line);border-radius:12px;background:var(--bg2)}
+.sm-cmp summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;padding:14px 16px;font-size:15px;font-weight:600;color:var(--ink2)}
+.sm-cmp summary::-webkit-details-marker{display:none}
+.sm-cmp summary .ms{font-size:20px;color:var(--acc,var(--acc-theme))}
+.sm-cmp summary small{font-weight:400;color:var(--ink5);font-size:13px}
+.sm-cmp-b{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
+.sm-chk{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink2);cursor:pointer;line-height:1.45}
+.sm-chk input{margin-top:3px;width:16px;height:16px;accent-color:var(--acc-theme);flex:none}
+/* report */
+.sm-rep{margin-top:24px;border:1px solid var(--line);border-radius:16px;background:var(--card);display:grid;grid-template-columns:210px minmax(0,1fr)}
+@media (max-width:960px){.sm-rep{grid-template-columns:minmax(0,1fr)}}
+.sm-nav{border-right:1px solid var(--line);padding:22px 14px}
+.sm-nav-in{position:sticky;top:96px;display:flex;flex-direction:column;gap:2px}
+.sm-nav .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5);padding:0 10px 10px}
+.sm-nav a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:9px;font-size:14.5px;font-weight:500;color:var(--ink3)}
+.sm-nav a:hover{background:var(--cardacc);color:var(--ink)}
+.sm-nav a.on{background:var(--acctint);color:var(--ink)}
+.sm-nav a span{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink5)}
+@media (max-width:960px){.sm-nav{border-right:0;border-bottom:1px solid var(--line);padding:10px 12px;position:sticky;top:72px;z-index:5;background:var(--card);border-radius:16px 16px 0 0}.sm-nav-in{position:static;flex-direction:row;overflow-x:auto;gap:4px}.sm-nav .lbl{display:none}.sm-nav a{white-space:nowrap;flex:none}}
+.sm-body{min-width:0}
+.sm-sec{padding:clamp(22px,3vw,34px);border-top:1px solid var(--line);scroll-margin-top:90px}
+.sm-sec:first-child{border-top:0}
+.sm-sec > h2{margin:0 0 6px;font-size:clamp(20px,2vw,24px);letter-spacing:-.02em;color:var(--ink)}
+.sm-sec > p.sub{margin:0 0 20px;color:var(--ink4);font-size:15px}
+.sm-verdict{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:12px;margin-bottom:18px}
+.sm-verdict .ms{font-size:26px;flex:none}
+.sm-verdict b{display:block;font-size:17px;color:var(--ink)}
+.sm-verdict span{font-size:14.5px;color:var(--ink3)}
+.sm-verdict--ok{background:var(--sm-okbg)}.sm-verdict--ok .ms{color:var(--sm-ok)}
+.sm-verdict--warn{background:var(--sm-warnbg)}.sm-verdict--warn .ms{color:var(--sm-warn)}
+.sm-verdict--err{background:var(--sm-errbg)}.sm-verdict--err .ms{color:var(--sm-err)}
+.sm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:10px}
+.sm-tile{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg2);display:flex;flex-direction:column;gap:2px}
+.sm-tile b{font-size:26px;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
+.sm-tile span{font-size:13px;color:var(--ink5);line-height:1.35}
+.sm-tile--err b{color:var(--sm-err)}.sm-tile--warn b{color:var(--sm-warn)}.sm-tile--ok b{color:var(--sm-ok)}
+.sm-ext{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--ink4);align-items:center}
+.sm-ftable{width:100%;border-collapse:collapse;font-size:14px;margin-top:18px;min-width:640px}
+.sm-ftable th{text-align:left;padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);border-bottom:1px solid var(--line)}
+.sm-ftable td{padding:10px;border-top:1px solid var(--line5);color:var(--ink2);vertical-align:top}
+.sm-ftable td:first-child{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);white-space:nowrap}
+.sm-ftable .num{font-family:'IBM Plex Mono',monospace;font-size:13px;white-space:nowrap}
+.sm-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 12px}
+.sm-seg{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--line2);border-radius:999px;flex-wrap:wrap}
+.sm-seg button{border:0;background:transparent;color:var(--ink4);font:600 13.5px Archivo,sans-serif;padding:7px 13px;border-radius:999px;cursor:pointer}
+.sm-seg button span{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:12px;opacity:.8}
+.sm-seg button[aria-pressed="true"]{background:var(--acc,var(--acc-theme));color:var(--onacc)}
+.sm-types{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.sm-chip{border:1px solid var(--line2);background:transparent;color:var(--ink3);font:500 13px Archivo,sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer}
+.sm-chip span{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink5)}
+.sm-chip[aria-pressed="true"]{border-color:var(--acc,var(--acc-theme));color:var(--ink);background:var(--acctint)}
+.sm-search{max-width:280px}
+.sm-tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.sm-table{width:100%;border-collapse:collapse;font-size:14px;min-width:820px}
+.sm-table th{text-align:left;padding:11px 12px;background:var(--bg2);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);border-bottom:1px solid var(--line)}
+.sm-table td{padding:10px 12px;border-top:1px solid var(--line5);vertical-align:top;color:var(--ink2)}
+.sm-table tr.s-error td:first-child{box-shadow:inset 3px 0 0 var(--sm-err)}
+.sm-table tr.s-warn td:first-child{box-shadow:inset 3px 0 0 var(--sm-warn)}
+.sm-table tr.s-info td:first-child{box-shadow:inset 3px 0 0 var(--sm-info)}
+.sm-url{font-family:'IBM Plex Mono',monospace;font-size:12.5px;word-break:break-all;color:var(--ink)}
+.sm-fn{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink4);white-space:nowrap}
+.sm-detail{font-size:13.5px;line-height:1.5;color:var(--ink3);max-width:440px}
+.sm-dim{color:var(--ink5)}
+.sm-empty-row{text-align:center;padding:28px!important;color:var(--ink5)!important}
+.sm-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+.sm-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:860px){.sm-two{grid-template-columns:minmax(0,1fr)}}
+.sm-panel{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--bg2);min-width:0}
+.sm-panel h3{margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.sm-hbars{display:flex;flex-direction:column;gap:8px}
+.sm-hb{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr) 64px;gap:10px;align-items:center;font-size:13.5px}
+.sm-hb button{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sm-hb button:hover{color:var(--acc,var(--acc-theme))}
+.sm-hb i{display:block;height:10px;border-radius:5px;background:var(--acc,var(--acc-theme));min-width:2px}
+.sm-hb em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink4);text-align:right}
+.sm-vbars{display:flex;align-items:flex-end;gap:3px;height:160px;padding-top:8px;border-bottom:1px solid var(--line)}
+.sm-vb{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative}
+.sm-vb i{display:block;background:var(--acc,var(--acc-theme));border-radius:3px 3px 0 0;min-height:1px;opacity:.9}
+.sm-vb.alt i{background:var(--ink5)}
+.sm-vb.fut i{background:var(--sm-err)}
+.sm-vb:hover i{opacity:1;filter:brightness(1.15)}
+.sm-vlab{display:flex;gap:3px;margin-top:6px}
+.sm-vlab span{flex:1;min-width:0;overflow:visible!important;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink5);text-align:center;overflow:hidden;white-space:nowrap}
+.sm-kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px;margin-top:16px}
+.sm-kv div{display:flex;flex-direction:column;gap:2px}
+.sm-kv b{font-size:18px;color:var(--ink)}
+.sm-kv span{font-size:13px;color:var(--ink5)}
+.sm-ufilters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.sm-ufilters .sm-select{width:auto;min-width:180px}
+.sm-flag{display:inline-block;font:500 11.5px Archivo,sans-serif;padding:2px 7px;border-radius:999px;margin:0 4px 4px 0;white-space:nowrap}
+.sm-exports{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.sm-x{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:16px;cursor:pointer;color:var(--ink);font-family:Archivo,sans-serif;transition:border-color .2s,transform .2s}
+.sm-x:hover{border-color:var(--acc,var(--acc-theme));transform:translateY(-2px)}
+.sm-x b{display:flex;align-items:center;gap:8px;font-size:15.5px}
+.sm-x b .ms{font-size:20px;color:var(--acc,var(--acc-theme))}
+.sm-x span{font-size:13.5px;color:var(--ink4);line-height:1.5}
+.sm-x--main{border-color:var(--accline)}
+.sm-prose{max-width:780px;color:var(--ink3);font-size:17px;line-height:1.7}
+.sm-prose h2{margin:56px 0 16px;color:var(--ink);font-size:clamp(26px,3vw,36px);line-height:1.12;letter-spacing:-.03em}
+.sm-prose h3{margin:28px 0 8px;color:var(--ink);font-size:19px}
+.sm-prose p{margin:0 0 16px}
+.sm-prose ul{margin:0 0 16px;padding-left:20px}
+.sm-prose li{margin:6px 0}
+.sm-prose b{color:var(--ink1)}
+.sm-limits{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:10px;margin:8px 0 22px}
+.sm-limits div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card)}
+.sm-limits b{display:block;font-size:24px;letter-spacing:-.02em;color:var(--ink)}
+.sm-limits span{font-size:13.5px;color:var(--ink4);line-height:1.45}
+.sm-faq details{border-top:1px solid var(--line)}
+.sm-faq details:last-child{border-bottom:1px solid var(--line)}
+.sm-faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:18px;font-weight:600;color:var(--ink)}
+.sm-faq summary::-webkit-details-marker{display:none}
+.sm-faq summary::after{content:'add';font-family:'Material Symbols Rounded';font-size:22px;color:var(--acc,var(--acc-theme));flex:none;transition:transform .2s}
+.sm-faq details[open] summary::after{transform:rotate(45deg)}
+.sm-faq p{margin:0 0 20px;color:var(--ink3)}
+.sm-toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--card);border:1px solid var(--line3);color:var(--ink);padding:12px 18px;border-radius:12px;font:600 14px Archivo,sans-serif;transition:opacity .25s,transform .25s;z-index:9000;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 18px 44px rgba(0,0,0,.3)}
+.sm-toast .ms{color:var(--sm-ok);font-size:19px}
+.sm-toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebApplication",
+   "@id": "https://vukstojkovic.com/xml-sitemap-analyzer/#app",
+   "name": "XML Sitemap Analyzer",
+   "url": "https://vukstojkovic.com/xml-sitemap-analyzer/",
+   "inLanguage": "en",
+   "applicationCategory": "DeveloperApplication",
+   "operatingSystem": "Any",
+   "browserRequirements": "Requires JavaScript",
+   "description": "Free browser-based XML sitemap analyzer. Checks sitemaps, sitemap indexes, gzip and text sitemaps for protocol limits, invalid and duplicate URLs, lastmod quality and index coverage, compares the sitemap with a URL list and exports a clean sitemap.",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+   },
+   "creator": {
+    "@id": "https://vukstojkovic.com/#vuk"
+   },
+   "provider": {
+    "@id": "https://vukstojkovic.com/#business"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://vukstojkovic.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "XML sitemap analyzer",
+     "item": "https://vukstojkovic.com/xml-sitemap-analyzer/"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://vukstojkovic.com/xml-sitemap-analyzer/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Are my sitemaps uploaded anywhere?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Files are read, unzipped and analysed by JavaScript in your browser. Nothing is sent to a server."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I check a sitemap index and its child sitemaps?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Load the index and the child sitemaps together, as several files in one drop. The analyzer matches children to the index by file name, checks every URL across all of them, and tells you which listed sitemaps are missing and which loaded files are not in the index."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does Google use priority and changefreq?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Google ignores both. It uses lastmod, but only when the dates are consistently and verifiably accurate, so a sitemap where every URL has today's date is effectively a sitemap without lastmod."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What are the sitemap size limits?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "One sitemap can hold up to 50,000 URLs and be up to 50 MB uncompressed. Larger sets are split into several sitemaps listed in a sitemap index, which has the same 50,000 entry limit."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why compare the sitemap with a crawl?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A sitemap should list every indexable, canonical URL you want in search, and nothing else. Comparing it with the indexable URLs from a crawl shows important pages the sitemap forgot and stale or non-canonical URLs it still lists."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does it check whether the URLs return 200?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. It analyses the files and does not request any URL. To check status codes, canonicals and noindex, crawl the sitemap URLs with Screaming Frog in list mode, then compare the indexable URLs with the sitemap here."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBWKV8RG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+      <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><svg viewBox="50 18 402 460" width="26" height="30" aria-hidden="true" style="flex: none; color: var(--acc, var(--acc-theme))"><path d="M113 195V32L205 128H298L390 32V195L437 297L250 462L65 297Z M113 195L205 128 M390 195L298 128 M157 250L205 278V392 M345 250L297 278V392" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="miter" stroke-miterlimit="10"></path><path d="M226 392H275L250.5 418Z" fill="currentColor"></path></svg>Vuk Stojković</a>
+      <input type="checkbox" id="nav-toggle" class="navt" aria-label="Menu">
+      <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
+      <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
+        <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
+        <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Services</a>
+        <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
+        <div class="navdd navdd--on">
+          <button class="navdd-t" type="button" aria-haspopup="true">SEO tools<span class="ms" aria-hidden="true">expand_more</span></button>
+          <div class="navdd-m">
+            <div class="navdd-b">
+              <a class="navdd-i" href="../redirect-map-validator/"><b>Redirect map validator</b><span>Chains, loops and conflicts</span></a>
+              <a class="navdd-i" href="../hreflang-validator/"><b>Hreflang validator</b><span>Return links, codes and clusters</span></a>
+              <a class="navdd-i" href="../xml-sitemap-analyzer/" aria-current="page"><b>XML sitemap analyzer</b><span>Limits, lastmod and duplicates</span></a>
+              <a class="navdd-i" href="../log-file-analyzer/"><b>Log file analyzer</b><span>Googlebot and AI crawler activity</span></a>
+              <a class="navdd-i" href="../robots-txt-generator/"><b>Robots.txt generator</b><span>Google and AI crawler access</span></a>
+            </div>
+          </div>
+        </div>
+        <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
+        <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
+          <a class="x8" href="../sr/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section style="padding: clamp(48px, 6vw, 88px) clamp(20px, 5vw, 64px) clamp(32px, 4vw, 48px)">
+    <div class="sm-wrap">
+      <nav aria-label="Breadcrumb" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink5); margin-bottom: 26px"><a href="../" class="x1" style="color: var(--ink3)">Home</a> &nbsp;/&nbsp; <span style="color: var(--ink2)">XML sitemap analyzer</span></nav>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); margin-bottom: 24px">Free tool &nbsp;·&nbsp; Crawling &nbsp;·&nbsp; Technical SEO</div>
+      <h1 style="margin: 0; font-size: clamp(34px, 4.6vw, 58px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; max-width: 18ch">XML sitemap <span style="color: var(--acc, var(--acc-theme))">analyzer</span></h1>
+      <p style="margin: 26px 0 0; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink3); max-width: 62ch; text-wrap: pretty">Audit the whole sitemap set in one go: the index, every child sitemap, gzip and text sitemaps. See what breaks the protocol, which URLs don't belong, whether lastmod can be trusted, and which important pages the sitemap forgot.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px">
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Index + children together</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>.xml, .xml.gz and .txt</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Compare with a crawl</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Your files never leave the browser</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 0 clamp(20px, 5vw, 64px) clamp(56px, 7vw, 100px)">
+    <div class="sm-wrap">
+      <div class="sm-card" id="tool">
+        <div class="sm-load">
+          <div>
+            <div class="sm-h"><span class="n">01</span><h2>Load your sitemaps</h2><p>Drop one file or the whole set: index and child sitemaps together, so they can be checked against each other.</p></div>
+            <label class="sm-drop" id="sm-drop">
+              <input type="file" id="sm-input" multiple accept=".xml,.gz,.txt,application/xml,text/xml,text/plain,application/gzip" aria-label="Upload sitemap files">
+              <span class="ms" aria-hidden="true">upload_file</span>
+              <span><b>Drop sitemap files or click to browse</b><small>.xml · .xml.gz · .txt &nbsp;|&nbsp; several files at once</small></span>
+            </label>
+            <div class="sm-tabs" role="tablist" aria-label="Other ways to add a sitemap">
+              <button type="button" role="tab" id="sm-t-paste" aria-selected="true" aria-controls="sm-p-paste">Paste XML</button>
+              <button type="button" role="tab" id="sm-t-cmp" aria-selected="false" aria-controls="sm-p-cmp" tabindex="-1">Compare with a URL list</button>
+            </div>
+            <div class="sm-pane" id="sm-p-paste" role="tabpanel" aria-labelledby="sm-t-paste">
+              <label class="sm-hint" for="sm-paste" style="display:block;margin-bottom:8px">Paste a sitemap or sitemap index. Add as many as you like, one at a time.</label>
+              <textarea class="sm-ta" id="sm-paste" spellcheck="false" placeholder="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;&#10;  &lt;url&gt;&lt;loc&gt;https://example.com/&lt;/loc&gt;&lt;/url&gt;&#10;&lt;/urlset&gt;"></textarea>
+              <div class="sm-row" style="margin-top:10px"><button type="button" class="sm-btn sm-btn--acc" id="sm-paste-go"><span class="ms" aria-hidden="true">add</span>Add pasted sitemap</button></div>
+            </div>
+            <div class="sm-pane" id="sm-p-cmp" role="tabpanel" aria-labelledby="sm-t-cmp" hidden>
+              <label class="sm-hint" for="sm-cmp" style="display:block;margin-bottom:8px">Paste the URLs that <b>should</b> be in the sitemap, for example indexable HTML pages from a Screaming Frog crawl. One per line, or any text containing URLs.</label>
+              <textarea class="sm-ta" id="sm-cmp" spellcheck="false" placeholder="https://example.com/&#10;https://example.com/services/&#10;https://example.com/blog/post-1/"></textarea>
+              <div class="sm-row" style="margin-top:10px;justify-content:space-between">
+                <label class="sm-chk"><input type="checkbox" id="sm-cmp-slash"><span>Ignore trailing slash differences</span></label>
+                <label class="sm-btn sm-btn--sm" style="position:relative"><span class="ms" aria-hidden="true">upload</span>Load list file<input type="file" id="sm-cmp-file" accept=".txt,.csv,.tsv,text/plain,text/csv" style="position:absolute;inset:0;opacity:0;cursor:pointer" aria-label="Upload URL list"></label>
+              </div>
+              <span class="sm-hint" id="sm-cmp-n"></span>
+            </div>
+            <div class="sm-msg" id="sm-msg" role="alert" hidden></div>
+            <div class="sm-files" id="sm-files"></div>
+          </div>
+          <div class="sm-side">
+            <h3>What gets checked</h3>
+            <ul class="sm-checks">
+              <li><span class="ms" aria-hidden="true">rule</span>XML, namespace, encoding</li>
+              <li><span class="ms" aria-hidden="true">straighten</span>50,000 URL and 50 MB limits</li>
+              <li><span class="ms" aria-hidden="true">link_off</span>Invalid, relative and long URLs</li>
+              <li><span class="ms" aria-hidden="true">content_copy</span>Duplicates and near duplicates</li>
+              <li><span class="ms" aria-hidden="true">public</span>Mixed hosts, www and protocol</li>
+              <li><span class="ms" aria-hidden="true">filter_alt</span>Parameters, cart, search, pagination</li>
+              <li><span class="ms" aria-hidden="true">event</span>lastmod format, future and fake dates</li>
+              <li><span class="ms" aria-hidden="true">account_tree</span>Index coverage and nested indexes</li>
+            </ul>
+            <h3>Try it</h3>
+            <div class="sm-row">
+              <button type="button" class="sm-btn sm-btn--sm" data-sample="urlset"><span class="ms" aria-hidden="true">description</span>Sitemap with issues</button>
+              <button type="button" class="sm-btn sm-btn--sm" data-sample="index"><span class="ms" aria-hidden="true">account_tree</span>Index + children</button>
+              <button type="button" class="sm-btn sm-btn--sm" data-sample="broken"><span class="ms" aria-hidden="true">error</span>Broken XML</button>
+            </div>
+            <div class="sm-row" style="margin-top:8px">
+              <button type="button" class="sm-btn sm-btn--sm" id="sm-clear">Clear all</button>
+            </div>
+            <p class="sm-hint" style="margin:16px 0 0">Sitemaps on a live site: open the URL in your browser, save the page as a file (or copy the source), then drop it here. Files are never uploaded.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm-rep" id="sm-rep" hidden>
+        <aside class="sm-nav" aria-label="Report sections">
+          <div class="sm-nav-in" id="sm-nav">
+            <div class="lbl">Report</div>
+            <a href="#sm-overview" data-sec="overview">Overview</a>
+            <a href="#sm-issues" data-sec="issues">Issues <span id="sm-nav-iss"></span></a>
+            <a href="#sm-structure" data-sec="structure">Structure</a>
+            <a href="#sm-fresh" data-sec="fresh">Freshness</a>
+            <a href="#sm-urls" data-sec="urls">URLs <span id="sm-nav-urls"></span></a>
+            <a href="#sm-compare" data-sec="compare" id="sm-nav-cmp" hidden>Compare</a>
+            <a href="#sm-export" data-sec="export">Export</a>
+          </div>
+        </aside>
+        <div class="sm-body">
+          <section class="sm-sec" id="sm-overview">
+            <h2>Overview</h2>
+            <p class="sub" id="sm-meta"></p>
+            <div class="sm-verdict" id="sm-verdict"></div>
+            <div class="sm-stats" id="sm-stats"></div>
+            <div class="sm-ext" id="sm-ext"></div>
+            <div style="overflow-x:auto"><table class="sm-ftable" id="sm-ftable"></table></div>
+          </section>
+          <section class="sm-sec" id="sm-issues">
+            <h2>Issues</h2>
+            <p class="sub">File and URL problems, most severe first. URL-level patterns are grouped, and the URL explorer lists every affected URL.</p>
+            <div class="sm-bar">
+              <div class="sm-seg" id="sm-lv" role="group" aria-label="Filter by severity"></div>
+              <input class="sm-input sm-search" id="sm-iq" type="search" placeholder="Search issues" aria-label="Search issues">
+            </div>
+            <div class="sm-types" id="sm-types"></div>
+            <div class="sm-tablewrap">
+              <table class="sm-table">
+                <thead><tr><th>Issue</th><th>File</th><th>URL</th><th>Details</th></tr></thead>
+                <tbody id="sm-itbody"></tbody>
+              </table>
+            </div>
+            <div class="sm-foot"><span class="sm-hint" id="sm-icount"></span><button type="button" class="sm-btn sm-btn--sm" id="sm-imore" hidden>Show more</button></div>
+          </section>
+          <section class="sm-sec" id="sm-structure">
+            <h2>Structure</h2>
+            <p class="sub">Where the URLs live. Click a section to see its URLs in the explorer.</p>
+            <div class="sm-two">
+              <div class="sm-panel"><h3>Top sections</h3><div class="sm-hbars" id="sm-folders"></div></div>
+              <div class="sm-panel"><h3>URL depth</h3><div class="sm-hbars" id="sm-depth"></div><h3 style="margin-top:22px">Hosts</h3><div class="sm-hbars" id="sm-hosts"></div></div>
+            </div>
+          </section>
+          <section class="sm-sec" id="sm-fresh">
+            <h2>Freshness</h2>
+            <p class="sub">lastmod by month for the last two years. Google only trusts lastmod when it is consistently accurate.</p>
+            <div class="sm-panel">
+              <div class="sm-vbars" id="sm-vbars"></div>
+              <div class="sm-vlab" id="sm-vlab"></div>
+              <div class="sm-kv" id="sm-fkv"></div>
+            </div>
+          </section>
+          <section class="sm-sec" id="sm-urls">
+            <h2>URL explorer</h2>
+            <p class="sub">Every URL from every loaded sitemap, with the issues found on it.</p>
+            <div class="sm-ufilters">
+              <input class="sm-input sm-search" id="sm-uq" type="search" placeholder="Search URLs" aria-label="Search URLs">
+              <select class="sm-select" id="sm-uflag" aria-label="Filter by issue"></select>
+              <select class="sm-select" id="sm-ufolder" aria-label="Filter by section"></select>
+              <select class="sm-select" id="sm-ufile" aria-label="Filter by file"></select>
+            </div>
+            <div class="sm-tablewrap">
+              <table class="sm-table">
+                <thead><tr><th>URL</th><th>File</th><th>lastmod</th><th>Issues</th></tr></thead>
+                <tbody id="sm-utbody"></tbody>
+              </table>
+            </div>
+            <div class="sm-foot"><span class="sm-hint" id="sm-ucount"></span><button type="button" class="sm-btn sm-btn--sm" id="sm-umore" hidden>Show more</button></div>
+          </section>
+          <section class="sm-sec" id="sm-compare" hidden>
+            <h2>Sitemap vs. your URL list</h2>
+            <p class="sub" id="sm-csub"></p>
+            <div class="sm-stats" id="sm-cstats"></div>
+            <div class="sm-bar" style="margin-top:18px">
+              <div class="sm-seg" id="sm-cview" role="group" aria-label="Compare view">
+                <button type="button" data-c="missing" aria-pressed="true">Missing from sitemap</button>
+                <button type="button" data-c="extra" aria-pressed="false">Only in sitemap</button>
+              </div>
+            </div>
+            <div class="sm-tablewrap"><table class="sm-table" style="min-width:0"><tbody id="sm-ctbody"></tbody></table></div>
+            <div class="sm-foot"><span class="sm-hint" id="sm-ccount"></span><button type="button" class="sm-btn sm-btn--sm" id="sm-cx"><span class="ms" aria-hidden="true">download</span>Download this list</button></div>
+          </section>
+          <section class="sm-sec" id="sm-export">
+            <h2>Export</h2>
+            <p class="sub">Download the findings for a ticket, the full URL inventory, or a cleaned sitemap.</p>
+            <div class="sm-exports">
+              <button type="button" class="sm-x sm-x--main" id="sm-x-clean"><b><span class="ms" aria-hidden="true">auto_fix_high</span>Clean sitemap</b><span>Unique, valid URLs on the main host, without tracking parameters or fragments. Valid lastmod kept, priority and changefreq dropped. Split at 50,000.</span></button>
+              <button type="button" class="sm-x" id="sm-x-find"><b><span class="ms" aria-hidden="true">download</span>Findings CSV</b><span>Every issue with severity, file, URL and details.</span></button>
+              <button type="button" class="sm-x" id="sm-x-urls"><b><span class="ms" aria-hidden="true">table_view</span>URL inventory CSV</b><span>All URLs with file, lastmod, section, depth, extensions and issues.</span></button>
+            </div>
+          </section>
+        </div>
+      </div>
+      <p class="sm-hint" style="margin:14px 2px 0">This analyses the files, not the live site. It does not request any URL, so it cannot see status codes, redirects, canonicals or noindex.</p>
+    </div>
+  </section>
+
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
+    <div class="sm-wrap">
+      <div class="sm-prose">
+        <div class="sm-eyebrow">Guide</div>
+        <h2 style="margin-top:22px">What a good sitemap looks like</h2>
+        <p>A sitemap is a list of the URLs you want search engines to index, and nothing else. Every entry should be canonical, return 200, be indexable, and use the same protocol and host as the rest of the site. Search engines treat the sitemap as a hint, so a list full of redirects, parameters and duplicates teaches them to trust it less.</p>
+        <div class="sm-limits">
+          <div><b>50,000</b><span>URLs per sitemap, and sitemaps per index</span></div>
+          <div><b>50 MB</b><span>uncompressed size per file, gzip or not</span></div>
+          <div><b>UTF-8</b><span>encoding, with entity-escaped URLs</span></div>
+          <div><b>Absolute</b><span>URLs with protocol and host in every &lt;loc&gt;</span></div>
+        </div>
+        <h2>What the analyzer checks</h2>
+        <h3>The files</h3>
+        <ul>
+          <li><b>XML validity</b>, with the line and column of the first error. An unescaped <code>&amp;</code> in a URL is the most common cause.</li>
+          <li><b>Root element and namespace.</b> Exactly <code>http://www.sitemaps.org/schemas/sitemap/0.9</code>, not https and not an old Google namespace.</li>
+          <li><b>Encoding</b>, which must be UTF-8.</li>
+          <li><b>Size limits</b> for URLs and bytes, with an early warning from 45,000 URLs.</li>
+        </ul>
+        <h3>The URLs</h3>
+        <ul>
+          <li><b>Missing, relative, malformed and over-long URLs.</b> Anything a crawler cannot fetch as written.</li>
+          <li><b>Duplicates</b> across all loaded files, and <b>near duplicates</b> that differ only by trailing slash or letter case.</li>
+          <li><b>Mixed hosts and protocols.</b> www next to non-www, HTTP next to HTTPS, and URLs on other domains.</li>
+          <li><b>URLs that rarely belong in a sitemap:</b> tracking and session parameters, cart, checkout, account, search, feeds, pagination, tag and author archives, and static files like images or PDFs listed as pages.</li>
+        </ul>
+        <h3>lastmod, priority and changefreq</h3>
+        <p>Google ignores <code>priority</code> and <code>changefreq</code>. It does use <code>lastmod</code>, but only when it is consistently and verifiably accurate. The analyzer flags invalid W3C Datetime values (a space instead of <code>T</code> is the classic one), dates in the future, and files where nearly every URL has the same date, which usually means the generator stamps the build time rather than the content change.</p>
+        <h3>Sitemap indexes</h3>
+        <p>Load the index together with its child sitemaps and the analyzer matches them by file name. It reports listed sitemaps you have not loaded, loaded sitemaps the index does not mention, indexes that point to other indexes, and children whose index lastmod is older than the newest URL inside them.</p>
+        <h2>Compare the sitemap with a crawl</h2>
+        <p>The most useful sitemap audit is a comparison. Crawl the site, filter to indexable HTML pages, and paste those URLs into the compare tab. <b>Missing from sitemap</b> shows real pages the sitemap forgot, often whole sections added after the generator was configured. <b>Only in sitemap</b> shows URLs the crawl did not find as indexable: redirected, noindexed, canonicalised or orphaned pages that should be fixed or removed.</p>
+        <h2>What this tool does not do</h2>
+        <p>It does not fetch anything. It cannot follow sitemap URLs from robots.txt, download child sitemaps or see status codes. That is deliberate: it works on staging files, client exports and sitemaps behind a login, and nothing leaves your browser. For live checks, crawl the sitemap URLs in Screaming Frog list mode and bring the results back here as a URL list.</p>
+        <h2 id="faq">FAQ</h2>
+        <div class="sm-faq">
+          <details><summary>Are my sitemaps uploaded anywhere?</summary><p>No. Files are read, unzipped and analysed by JavaScript in your browser. Nothing is sent to a server.</p></details>
+          <details><summary>How do I check a sitemap index and its child sitemaps?</summary><p>Load the index and the child sitemaps together, as several files in one drop. The analyzer matches children to the index by file name, checks every URL across all of them, and tells you which listed sitemaps are missing and which loaded files are not in the index.</p></details>
+          <details><summary>Does Google use priority and changefreq?</summary><p>No. Google ignores both. It uses lastmod, but only when the dates are consistently and verifiably accurate, so a sitemap where every URL has today's date is effectively a sitemap without lastmod.</p></details>
+          <details><summary>What are the sitemap size limits?</summary><p>One sitemap can hold up to 50,000 URLs and be up to 50 MB uncompressed. Larger sets are split into several sitemaps listed in a sitemap index, which has the same 50,000 entry limit.</p></details>
+          <details><summary>Why compare the sitemap with a crawl?</summary><p>A sitemap should list every indexable, canonical URL you want in search, and nothing else. Comparing it with the indexable URLs from a crawl shows important pages the sitemap forgot and stale or non-canonical URLs it still lists.</p></details>
+          <details><summary>Does it check whether the URLs return 200?</summary><p>No. It analyses the files and does not request any URL. To check status codes, canonicals and noindex, crawl the sitemap URLs with Screaming Frog in list mode, then compare the indexable URLs with the sitemap here.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
+    <div class="sm-wrap" style="display: flex; flex-wrap: wrap; gap: clamp(28px, 4vw, 56px); align-items: center; justify-content: space-between">
+      <div style="flex: 1 1 460px; min-width: 0">
+        <div class="sm-eyebrow">Crawling and indexation</div>
+        <h2 style="margin: 22px 0 0; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 22ch; color: var(--ink)">Pages not getting indexed?</h2>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I compare your sitemaps, crawl data and Search Console coverage to find out why pages are discovered but not indexed, then fix the signals that waste crawl budget. You get a prioritised list your developers can work through.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a class="x9" href="mailto:stojkovicv86@gmail.com?subject=Sitemap%20and%20indexation%20review" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
+        <a class="x7" href="../services/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink2); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">See services</a>
+        <a class="x7" href="../products/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink2); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">SEO guides</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
+    <div style="max-width: 1240px; margin: 0 auto">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 64px)">
+        <div style="flex: 1 1 280px; max-width: 360px; min-width: 0">
+          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)">Vuk Stojković</div>
+          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Technical SEO, GEO and PPC. Belgrade, Serbia. I work with clients and teams remotely.</p>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Explore</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x44" href="../experience/" style="font-size: 16px; color: var(--ink2)">Experience</a>
+            <a class="x45" href="../services/" style="font-size: 16px; color: var(--ink2)">Services</a>
+            <a class="x46" href="../work-with-me/" style="font-size: 16px; color: var(--ink2)">Work with me</a>
+            <a class="x47" href="../about-me/" style="font-size: 16px; color: var(--ink2)">About me</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Products</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x48" href="../products/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
+            <a class="x49" href="../products/" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
+            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">Brand Visibility in AI Answers</a>
+            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">SEO + AI Visibility Bundle</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Contact</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x51" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
+            <a class="x52" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
+            <a class="x53" href="https://www.instagram.com/vukstojkovicseo/" rel="me noopener" target="_blank" style="font-size: 16px; color: var(--ink2)">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
+        <div>Belgrade, Serbia · CET/CEST</div>
+        <div>© 2026 Vuk Stojković. All rights reserved.</div>
+        <div style="display: flex; gap: 20px"><a class="x54" href="../privacy-policy/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a><a class="x55" href="#" data-cc-open="" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<div class="sm-toast" id="sm-toast" role="status" aria-live="polite"><span class="ms" aria-hidden="true">check_circle</span><span></span></div>
+
+<style>#vs-cc .ccp:hover{background:var(--acchov)!important}#vs-cc .ccs:hover{border-color:var(--btnline2)!important;color:var(--ink)!important}#vs-cc button:focus-visible{outline:2px solid var(--acc-theme);outline-offset:2px}</style>
+<div id="vs-cc" hidden role="dialog" aria-label="Cookies" style="position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 9999; max-width: 480px; margin-left: auto; background: var(--card); border: 1px solid var(--line3); border-radius: 14px; padding: 20px 22px; box-shadow: 0 18px 50px rgba(0,0,0,0.35); font-family: 'Archivo', sans-serif; color: var(--ink)">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc-theme)">Cookies</div>
+  <p style="margin: 10px 0 16px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty">I use analytics cookies to see which pages help and which don’t. None are set until you choose. <a href="../privacy-policy/" style="color: var(--ink); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a></p>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px">
+    <button type="button" data-cc="a" class="ccp" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: var(--acc-theme); color: var(--onacc); border: 1px solid transparent">Accept</button>
+    <button type="button" data-cc="r" class="ccs" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: transparent; color: var(--ink2); border: 1px solid var(--btnline)">Necessary only</button>
+  </div>
+</div>
+<script>(function(){var b=document.getElementById('vs-cc');function set(v){try{localStorage.setItem('vs-consent',v)}catch(e){}var g=v==='granted'?'granted':'denied';gtag('consent','update',{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g});dataLayer.push({event:'consent_update',consent_choice:v});b.hidden=true}
+var c=null;try{c=localStorage.getItem('vs-consent')}catch(e){}if(!c)b.hidden=false;
+b.querySelector('[data-cc=a]').addEventListener('click',function(){set('granted')});b.querySelector('[data-cc=r]').addEventListener('click',function(){set('denied')});
+document.querySelectorAll('[data-cc-open]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();b.hidden=false;b.querySelector('[data-cc=a]').focus()})});})();</script>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var NS='http://www.sitemaps.org/schemas/sitemap/0.9';
+var S={files:[],res:null,cmp:{text:'',slash:false,view:'missing'},iss:{lv:'all',type:'',q:'',shown:100},url:{q:'',flag:'',folder:'',file:'',shown:100}};
+var uid=0;
+
+/* ---------- Helpers ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmtN(n){return Number(n).toLocaleString('en-US')}
+function fmtB(b){return b>=1048576?(b/1048576).toFixed(1)+' MB':b>=1024?Math.round(b/1024)+' KB':b+' B'}
+function plural(n,w,p){return fmtN(n)+' '+(n===1?w:(p||w+'s'))}
+function msg(t){var m=$('sm-msg');if(!t){m.hidden=true;return}m.textContent=t;m.hidden=false}
+var toastT;
+function toast(t){var el=$('sm-toast');el.lastElementChild.textContent=t;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('on')},2200)}
+function download(name,text,type){
+  var a=document.createElement('a'),u=URL.createObjectURL(new Blob([text],{type:(type||'text/plain')+';charset=utf-8'}));
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1500);
+}
+function csvCell(v){v=String(v==null?'':v);return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function csv(rows){return '﻿'+rows.map(function(r){return r.map(csvCell).join(',')}).join('\r\n')+'\r\n'}
+function xmlEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;')}
+function strip(h){return String(h).replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&')}
+function baseName(s){var p=String(s).split(/[?#]/)[0].split(/[\/\\]/).filter(Boolean);return (p.pop()||'').toLowerCase().replace(/\.gz$/,'')}
+function isoDay(d){return d.toISOString().slice(0,10)}
+
+/* W3C Datetime as used by sitemaps */
+var W3C=/^(\d{4})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2}))?)?)?$/;
+function parseLm(v){
+  var m=W3C.exec(v);if(!m)return null;
+  var y=+m[1],mo=m[2]?+m[2]:1,d=m[3]?+m[3]:1;
+  if(mo<1||mo>12||d<1||d>31)return null;
+  if(m[4]&&(+m[4]>23||+m[5]>59||(m[6]&&+m[6]>59)))return null;
+  var t=Date.parse(m[4]?v:(y+'-'+String(mo).padStart(2,'0')+'-'+String(d).padStart(2,'0')+'T00:00:00Z'));
+  if(isNaN(t))return null;
+  var chk=new Date(Date.UTC(y,mo-1,d));if(chk.getUTCDate()!==d)return null;
+  return t;
+}
+function lmHint(v){
+  if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(v))return 'Use T between date and time, not a space.';
+  if(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?$/.test(v))return 'A time needs a time zone, like Z or +01:00.';
+  if(/^\d{1,2}[.\/]\d{1,2}[.\/]\d{4}/.test(v))return 'Use YYYY-MM-DD.';
+  if(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?[+-]\d{4}$/.test(v))return 'The time zone needs a colon, like +01:00.';
+  return 'Use W3C Datetime, like 2026-03-15 or 2026-03-15T10:30:00+01:00.';
+}
+
+/* ---------- Reading files ---------- */
+function readFiles(list){
+  msg('');
+  Array.prototype.forEach.call(list,function(f){
+    if(f.size>300*1024*1024){msg(f.name+' is over 300 MB and was skipped.');return}
+    f.arrayBuffer().then(function(buf){
+      var u8=new Uint8Array(buf);
+      if(u8[0]===0x1f&&u8[1]===0x8b){
+        if(!('DecompressionStream' in window)){msg('This browser cannot unzip '+f.name+'. Unzip it first and load the .xml.');return}
+        return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text().then(function(t){addFile(f.name,t,buf.byteLength,true)});
+      }
+      addFile(f.name,new TextDecoder('utf-8').decode(u8),buf.byteLength,false);
+    }).catch(function(){msg('Could not read '+f.name+'. If it is gzipped, check that it is a complete .gz file.')});
+  });
+}
+function uniqueName(n){var base=n,i=2;while(S.files.some(function(f){return f.name===n})){n=base.replace(/(\.[a-z]+(\.gz)?)?$/i,' ('+(i++)+')$1')}return n}
+function addFile(name,text,comp,gz){
+  var f=parseFile(uniqueName(name),text,comp,gz);
+  S.files.push(f);renderFiles();schedule();
+}
+function cleanErr(t){
+  t=t.split(/Below is a rendering/i)[0];var m=t.match(/error on line (\d+) at column (\d+):\s*([^\n]+)/i);
+  var out=m?'Line '+m[1]+', column '+m[2]+': '+m[3].trim():(t.match(/Line Number (\d+), Column (\d+)/)?'Line '+RegExp.$1+', column '+RegExp.$2+': '+t.split('\n')[0]:t.replace(/\s+/g,' ').slice(0,200));
+  if(/EntityRef|xmlParseEntityRef|&|entity/i.test(out))out+=' This is usually an unescaped & in a URL. Write it as &amp;.';
+  return out;
+}
+function parseFile(name,text,comp,gz){
+  var f={id:++uid,name:name,gz:gz,comp:comp,size:new Blob([text]).size,kind:'error',err:'',enc:'',ns:'',urls:[],kids:[],ext:{img:0,vid:0,news:0,hl:0},cf:0,pr:0};
+  var t=text.replace(/^﻿/,''),tr=t.replace(/^\s+/,'');
+  if(!tr){f.err='The file is empty.';return f}
+  if(tr.charAt(0)!=='<'){
+    f.kind='text';
+    t.split(/\r?\n/).forEach(function(l){var v=l.trim();if(v)f.urls.push({i:f.urls.length+1,loc:v,raw:v,lastmod:'',cf:'',pr:'',img:0,vid:0,news:0,hl:0})});
+    return f;
+  }
+  var em=tr.match(/^<\?xml[^>]*encoding\s*=\s*["']([^"']+)["']/i);f.enc=em?em[1]:'';
+  var doc=new DOMParser().parseFromString(t,'application/xml'),pe=doc.getElementsByTagName('parsererror')[0];
+  if(pe){f.err=cleanErr(pe.textContent);return f}
+  var root=doc.documentElement,ln=root.localName,c,d;
+  f.ns=root.namespaceURI||'';
+  if(ln==='urlset'){
+    f.kind='urlset';
+    for(c=root.firstElementChild;c;c=c.nextElementSibling){
+      if(c.localName!=='url')continue;
+      var e={i:f.urls.length+1,loc:'',raw:'',lastmod:'',cf:'',pr:'',img:0,vid:0,news:0,hl:0,noloc:true};
+      for(d=c.firstElementChild;d;d=d.nextElementSibling){
+        var n=d.localName;
+        if(n==='loc'){e.raw=d.textContent;e.loc=e.raw.trim();e.noloc=false}
+        else if(n==='lastmod')e.lastmod=d.textContent.trim();
+        else if(n==='changefreq'){e.cf=d.textContent.trim();f.cf++}
+        else if(n==='priority'){e.pr=d.textContent.trim();f.pr++}
+        else if(n==='image'){e.img++;f.ext.img++}
+        else if(n==='video'){e.vid++;f.ext.vid++}
+        else if(n==='news'){e.news++;f.ext.news++}
+        else if(n==='link'&&d.hasAttribute('hreflang')){e.hl++;f.ext.hl++}
+      }
+      f.urls.push(e);
+    }
+  }else if(ln==='sitemapindex'){
+    f.kind='index';
+    for(c=root.firstElementChild;c;c=c.nextElementSibling){
+      if(c.localName!=='sitemap')continue;
+      var k={i:f.kids.length+1,loc:'',raw:'',lastmod:''};
+      for(d=c.firstElementChild;d;d=d.nextElementSibling){if(d.localName==='loc'){k.raw=d.textContent;k.loc=k.raw.trim()}else if(d.localName==='lastmod')k.lastmod=d.textContent.trim()}
+      f.kids.push(k);
+    }
+  }else{
+    f.err='The root element is <'+root.nodeName+'>. A sitemap must start with <urlset> or <sitemapindex>.';
+    if(/^(html|rss|feed)$/i.test(ln))f.err+=' This looks like '+(ln.toLowerCase()==='html'?'an HTML page':'a feed')+', not a sitemap.';
+  }
+  return f;
+}
+
+/* ---------- Analysis ---------- */
+var TYPES={
+  'xml-error':['error','Invalid XML'],
+  'namespace':['error','Wrong namespace'],
+  'limit-urls':['error','Over 50,000 entries'],
+  'limit-size':['error','Over 50 MB'],
+  'loc-missing':['error','Missing <loc>'],
+  'loc-relative':['error','Relative URL'],
+  'loc-invalid':['error','Malformed URL'],
+  'loc-long':['error','URL over 2,048 characters'],
+  'nested-index':['error','Index inside an index'],
+  'lm-invalid':['error','Invalid lastmod'],
+  'encoding':['warn','Not UTF-8'],
+  'limit-near':['warn','Close to the limit'],
+  'empty':['warn','Empty sitemap'],
+  'duplicate':['warn','Duplicate URL'],
+  'near-dup':['warn','Near duplicate'],
+  'cross-host':['warn','Other host'],
+  'www-mix':['warn','www mismatch'],
+  'proto-mix':['warn','Protocol mismatch'],
+  'fragment':['warn','URL with #fragment'],
+  'tracking':['warn','Tracking or session parameter'],
+  'low-value':['warn','Cart, account or search URL'],
+  'resource':['warn','File, not a page'],
+  'lm-future':['warn','lastmod in the future'],
+  'lm-uniform':['warn','Same lastmod everywhere'],
+  'loc-space':['warn','Whitespace in <loc>'],
+  'dup-child':['warn','Sitemap listed twice'],
+  'pagination':['info','Paginated URL'],
+  'archive':['info','Tag or author archive'],
+  'query':['info','URL with parameters'],
+  'lm-missing':['info','No lastmod'],
+  'ignored':['info','priority and changefreq'],
+  'tag-invalid':['info','Invalid priority or changefreq'],
+  'child-missing':['info','Child sitemap not loaded'],
+  'orphan':['info','Not in any index'],
+  'index-lm':['info','Index lastmod is stale'],
+  'hreflang':['info','Contains hreflang']
+};
+var PAT={
+  tracking:/[?&;](utm_[a-z]+|gclid|fbclid|msclkid|dclid|mc_cid|mc_eid|_ga|_gl|yclid|sessionid|sid|phpsessid|jsessionid|zanpid)=|;jsessionid=/i,
+  lowvalue:/\/(cart|basket|checkout|my-account|account|login|log-in|signin|sign-in|register|wp-admin|wp-login\.php|wp-json|cgi-bin|search|xmlrpc\.php)(\/|$)|\/feed\/?$|[?&](s|q|search|add-to-cart|add_to_cart|orderby|filter_[a-z_]+)=/i,
+  pagination:/\/page\/\d+\/?$|[?&](page|pg|paged|p)=\d+/i,
+  archive:/\/(tag|tags|author)\//i,
+  resource:/\.(jpe?g|png|gif|webp|avif|svg|ico|css|js|json|woff2?|ttf|mp4|webm|mp3|zip|rar|gz|xml)$/i
+};
+function analyze(){
+  var now=Date.now(),F=[],agg={};
+  function add(type,file,url,detail,extra){var o={sev:TYPES[type][0],type:type,file:file||'',url:url||'',detail:detail};if(extra)for(var k in extra)o[k]=extra[k];F.push(o);return o}
+  function aggr(type,file,e,note){var k=type+'|'+(file||'');var a=agg[k]||(agg[k]={type:type,file:file,n:0,ex:[],notes:{}});a.n++;if(a.ex.length<3)a.ex.push(e.loc||('#'+e.i));if(note)a.notes[note]=(a.notes[note]||0)+1;return a}
+  function flag(e,t){if(e.flags.indexOf(t)<0)e.flags.push(t)}
+  var files=S.files,all=[],hostC={},protoC={};
+  files.forEach(function(f){
+    f.maxLm=0;
+    if(f.kind!=='urlset'&&f.kind!=='text')return;
+    f.urls.forEach(function(e){
+      e.f=f;e.flags=[];e.u=null;e.lm=null;
+      if(/^https?:\/\//i.test(e.loc)&&!/\s/.test(e.loc)){try{e.u=new URL(e.loc)}catch(_){}}
+      if(e.u){hostC[e.u.hostname]=(hostC[e.u.hostname]||0)+1;protoC[e.u.protocol]=(protoC[e.u.protocol]||0)+1}
+      all.push(e);
+    });
+  });
+  var mainHost=Object.keys(hostC).sort(function(a,b){return hostC[b]-hostC[a]})[0]||'';
+  var mainProto=Object.keys(protoC).sort(function(a,b){return protoC[b]-protoC[a]})[0]||'https:';
+  var bare=function(h){return h.replace(/^www\./,'')};
+
+  /* file level */
+  files.forEach(function(f){
+    if(f.kind==='error'){add('xml-error',f.name,'',esc(f.err));return}
+    if(f.enc&&!/^utf-?8$/i.test(f.enc))add('encoding',f.name,'','The file declares <code>encoding="'+esc(f.enc)+'"</code>. Sitemaps must be UTF-8.');
+    if(f.kind!=='text'){
+      if(!f.ns)add('namespace',f.name,'','The root element has no namespace. Add <code>xmlns="'+NS+'"</code>.');
+      else if(f.ns!==NS)add('namespace',f.name,'','The namespace is <code>'+esc(f.ns)+'</code>. It must be exactly <code>'+NS+'</code>.');
+    }
+    var n=f.kind==='index'?f.kids.length:f.urls.length,what=f.kind==='index'?'sitemaps':'URLs';
+    if(n>50000)add('limit-urls',f.name,'',fmtN(n)+' '+what+' in one file. The limit is 50,000. Split it'+(f.kind==='index'?' into several indexes.':' and list the parts in a sitemap index.'));
+    else if(n>45000)add('limit-near',f.name,'',fmtN(n)+' '+what+'. The limit is 50,000, so the next content push may break it.');
+    if(f.size>52428800)add('limit-size',f.name,'','Uncompressed size is '+fmtB(f.size)+'. The limit is 50 MB, even when the file is gzipped.');
+    if(!n)add('empty',f.name,'','The file has no '+(f.kind==='index'?'&lt;sitemap&gt;':'&lt;url&gt;')+' entries.');
+    if(f.cf||f.pr)add('ignored',f.name,'',(f.pr?plural(f.pr,'URL')+' with &lt;priority&gt;':'')+(f.pr&&f.cf?', ':'')+(f.cf?plural(f.cf,'URL')+' with &lt;changefreq&gt;':'')+'. Google ignores both, so they are harmless but not worth maintaining.');
+    if(f.ext.hl)add('hreflang',f.name,'',plural(f.ext.hl,'hreflang link')+' in this sitemap. Check the annotations with the <a href="../hreflang-validator/">hreflang validator</a>.');
+  });
+
+  /* URL level */
+  var seen={},near={},nUrlLm={};
+  all.forEach(function(e){
+    var f=e.f,fn=f.name;
+    if(e.noloc||!e.loc){flag(e,'loc-missing');add('loc-missing',fn,'#'+e.i,'Entry #'+e.i+' has no &lt;loc&gt; value.');return}
+    if(!/^https?:\/\//i.test(e.loc)){flag(e,'loc-relative');add('loc-relative',fn,e.loc,'Not an absolute URL. Every &lt;loc&gt; needs the protocol and host, like <code>https://example.com/page/</code>.');return}
+    if(!e.u){flag(e,'loc-invalid');add('loc-invalid',fn,e.loc,/\s/.test(e.loc)?'The URL contains spaces. Encode them as <code>%20</code>.':'Not a valid URL.');return}
+    if(e.raw!==e.loc){flag(e,'loc-space');aggr('loc-space',fn,e)}
+    if(e.loc.length>2048){flag(e,'loc-long');add('loc-long',fn,e.loc,fmtN(e.loc.length)+' characters. Search engines may not process URLs over 2,048 characters.')}
+    if(e.u.hash){flag(e,'fragment');aggr('fragment',fn,e)}
+    if(e.u.hostname!==mainHost){
+      if(bare(e.u.hostname)===bare(mainHost)){flag(e,'www-mix');aggr('www-mix','',e)}
+      else{flag(e,'cross-host');aggr('cross-host','',e,e.u.hostname)}
+    }else if(e.u.protocol!==mainProto){flag(e,'proto-mix');aggr('proto-mix','',e)}
+    if(seen[e.loc]){var s0=seen[e.loc];flag(e,'duplicate');flag(s0,'duplicate');add('duplicate',fn,e.loc,'Listed more than once. First seen in <code>'+esc(s0.f.name)+'</code>, entry #'+s0.i+'.')}
+    else{
+      seen[e.loc]=e;
+      var nk=e.u.protocol+'//'+e.u.hostname.toLowerCase()+e.u.pathname.toLowerCase().replace(/\/+$/,'')+e.u.search;
+      if(near[nk]){flag(e,'near-dup');flag(near[nk],'near-dup');add('near-dup',fn,e.loc,'Differs from <code>'+esc(near[nk].loc)+'</code> only by trailing slash or letter case. Keep only the canonical version.')}
+      else near[nk]=e;
+    }
+    var full=e.u.pathname+e.u.search;
+    if(PAT.tracking.test(full)){flag(e,'tracking');aggr('tracking','',e)}
+    else if(PAT.lowvalue.test(full)){flag(e,'low-value');aggr('low-value','',e)}
+    else if(PAT.pagination.test(full)){flag(e,'pagination');aggr('pagination','',e)}
+    else if(e.u.search){flag(e,'query');aggr('query','',e)}
+    if(PAT.archive.test(e.u.pathname)){flag(e,'archive');aggr('archive','',e)}
+    if(PAT.resource.test(e.u.pathname)){flag(e,'resource');aggr('resource','',e)}
+    if(e.lastmod){
+      var t=parseLm(e.lastmod);
+      if(t===null){flag(e,'lm-invalid');aggr('lm-invalid',fn,e,e.lastmod)}
+      else{e.lm=t;if(t>f.maxLm)f.maxLm=t;if(t>now+86400000){flag(e,'lm-future');aggr('lm-future',fn,e,isoDay(new Date(t)))}}
+    }else flag(e,'lm-missing');
+    if(e.pr&&!(/^(0(\.\d+)?|1(\.0+)?)$/.test(e.pr))){aggr('tag-invalid',fn,e,'priority '+e.pr)}
+    if(e.cf&&!/^(always|hourly|daily|weekly|monthly|yearly|never)$/.test(e.cf)){aggr('tag-invalid',fn,e,'changefreq '+e.cf)}
+  });
+
+  /* lastmod per file */
+  files.forEach(function(f){
+    if(f.kind!=='urlset'&&f.kind!=='text')return;
+    var tot=f.urls.length,withLm=0,vals={};
+    f.urls.forEach(function(e){if(e.lm!=null){withLm++;var k=e.lastmod;vals[k]=(vals[k]||0)+1}});
+    if(tot&&!withLm&&f.kind==='urlset')add('lm-missing',f.name,'','None of the '+plural(tot,'URL')+' has a &lt;lastmod&gt;. Accurate lastmod helps search engines recrawl changed pages first.');
+    else if(withLm&&withLm<tot)add('lm-missing',f.name,'',plural(tot-withLm,'URL')+' of '+fmtN(tot)+' have no &lt;lastmod&gt;.');
+    if(withLm>=20){var top=0,tv='';Object.keys(vals).forEach(function(k){if(vals[k]>top){top=vals[k];tv=k}});
+      if(top/withLm>=0.95)add('lm-uniform',f.name,'',Math.round(top/withLm*100)+'% of URLs share the lastmod <code>'+esc(tv)+'</code>. That usually means the generator writes the build time, not the content change, and Google then ignores lastmod for the file.');}
+  });
+
+  /* aggregated findings */
+  var AGG={
+    'loc-space':function(a){return plural(a.n,'URL')+' with spaces or line breaks inside &lt;loc&gt;. Most parsers trim them, but the value should be exact.'},
+    'fragment':function(a){return plural(a.n,'URL')+' with a #fragment. Search engines drop the fragment, so these duplicate other URLs.'},
+    'www-mix':function(a){return plural(a.n,'URL')+(a.n===1?' uses':' use')+' the other www version than the main host <code>'+esc(mainHost)+'</code>. List only the version your canonicals use.'},
+    'cross-host':function(a){return plural(a.n,'URL')+' on '+Object.keys(a.notes).map(function(h){return '<code>'+esc(h)+'</code>'}).slice(0,4).join(', ')+' instead of <code>'+esc(mainHost)+'</code>. Google only accepts other hosts when both are verified in the same Search Console account.'},
+    'proto-mix':function(a){return plural(a.n,'URL')+(a.n===1?' uses ':' use ')+(mainProto==='https:'?'http://':'https://')+' while most use '+mainProto+'//. These usually redirect.'},
+    'tracking':function(a){return plural(a.n,'URL')+' with tracking or session parameters. These are never canonical and should not be in a sitemap.'},
+    'low-value':function(a){return plural(a.n,'URL')+(a.n===1?' looks':' look')+' like cart, checkout, account, login, search or feed pages. These are usually noindexed or blocked and do not belong in a sitemap.'},
+    'pagination':function(a){return plural(a.n,'paginated URL')+'. Fine if '+(a.n===1?'it is':'they are')+' indexable and self-canonical, otherwise remove them.'},
+    'archive':function(a){return plural(a.n,'tag or author archive URL')+'. Keep them only if these archives are indexable and useful landing pages.'},
+    'query':function(a){return plural(a.n,'URL')+' with query parameters. Check that each one is the canonical version of its page.'},
+    'resource':function(a){return plural(a.n,'URL')+(a.n===1?' points':' point')+' to files such as images, scripts or PDFs. List images with the image extension instead, and keep pages in &lt;loc&gt;.'},
+    'lm-invalid':function(a){var v=Object.keys(a.notes);return plural(a.n,'lastmod value')+' not in W3C Datetime format, for example <code>'+esc(v[0])+'</code>. '+lmHint(v[0])},
+    'lm-future':function(a){return plural(a.n,'URL')+' with a lastmod in the future, for example <code>'+esc(Object.keys(a.notes)[0])+'</code>. Check the generator\'s clock and time zone.'},
+    'tag-invalid':function(a){return plural(a.n,'invalid value')+': '+Object.keys(a.notes).slice(0,3).map(function(x){return '<code>'+esc(x)+'</code>'}).join(', ')+'. Ignored by Google anyway, but worth cleaning up or removing.'}
+  };
+  Object.keys(agg).forEach(function(k){var a=agg[k];add(a.type,a.file||'',a.n>1?'':a.ex[0],AGG[a.type](a),{ex:a.ex,n:a.n})});
+
+  /* indexes */
+  var idx=files.filter(function(f){return f.kind==='index'}),byName={},ref={},missing=[];
+  files.forEach(function(f){byName[baseName(f.name)]=f});
+  idx.forEach(function(ix){
+    var kseen={};
+    ix.kids.forEach(function(k){
+      if(!k.loc){add('loc-missing',ix.name,'#'+k.i,'Sitemap entry #'+k.i+' has no &lt;loc&gt;.');return}
+      if(!/^https?:\/\//i.test(k.loc)){add('loc-relative',ix.name,k.loc,'Sitemap locations must be absolute URLs.');return}
+      if(kseen[k.loc]){add('dup-child',ix.name,k.loc,'This sitemap is listed more than once in the index.');return}
+      kseen[k.loc]=1;
+      var ku=null;try{ku=new URL(k.loc)}catch(_){}
+      if(ku&&mainHost&&bare(ku.hostname)!==bare(mainHost))add('cross-host',ix.name,k.loc,'Child sitemap on <code>'+esc(ku.hostname)+'</code>, while the URLs are on <code>'+esc(mainHost)+'</code>. Cross-host sitemaps need verification of both hosts.');
+      var klm=null;
+      if(k.lastmod){klm=parseLm(k.lastmod);if(klm===null)add('lm-invalid',ix.name,k.loc,'lastmod <code>'+esc(k.lastmod)+'</code> is not valid W3C Datetime. '+lmHint(k.lastmod))}
+      var lf=byName[baseName(k.loc)];
+      if(lf&&lf!==ix){
+        ref[lf.id]=1;
+        if(lf.kind==='index')add('nested-index',ix.name,k.loc,'This entry points to another sitemap index (<code>'+esc(lf.name)+'</code>). An index can only list sitemaps, not other indexes.');
+        if(klm&&lf.maxLm&&lf.maxLm>klm+86400000)add('index-lm',ix.name,k.loc,'The index says this sitemap changed on '+isoDay(new Date(klm))+', but it contains URLs modified on '+isoDay(new Date(lf.maxLm))+'. Update the index lastmod whenever a child changes.');
+      }else if(!lf)missing.push(k.loc);
+    });
+  });
+  if(missing.length)add('child-missing','','',plural(missing.length,'sitemap')+' listed in the index '+(missing.length===1?'is':'are')+' not loaded, so '+(missing.length===1?'its':'their')+' URLs are not checked: '+missing.slice(0,4).map(function(x){return '<code>'+esc(baseName(x)||x)+'</code>'}).join(', ')+(missing.length>4?' and '+(missing.length-4)+' more':'')+'. Save them and drop them in with the index.',{ex:missing.slice(0,3),n:missing.length});
+  if(idx.length)files.forEach(function(f){if((f.kind==='urlset'||f.kind==='text')&&!ref[f.id])add('orphan',f.name,'','Loaded, but not listed in any loaded sitemap index. Make sure search engines can find it through the index, robots.txt or Search Console.')});
+
+  var order={error:0,warn:1,info:2};
+  F.sort(function(a,b){return order[a.sev]-order[b.sev]||(Object.keys(TYPES).indexOf(a.type)-Object.keys(TYPES).indexOf(b.type))});
+  return {F:F,all:all,mainHost:mainHost,mainProto:mainProto,hostC:hostC,uniq:Object.keys(seen).length,missing:missing};
+}
+
+/* ---------- Rendering ---------- */
+var runT;
+function schedule(){clearTimeout(runT);runT=setTimeout(run,60)}
+function run(){
+  if(!S.files.length){$('sm-rep').hidden=true;S.res=null;return}
+  var t0=performance.now();
+  S.res=analyze();
+  S.res.ms=Math.max(1,Math.round(performance.now()-t0));
+  $('sm-rep').hidden=false;
+  renderOverview();renderIssues(true);renderStructure();renderFresh();buildUrlFilters();renderUrls();renderCompare();
+}
+function renderFiles(){
+  var icons={urlset:'description',index:'account_tree',text:'notes',error:'error'};
+  var label={urlset:['URL set','ok'],index:['Index','info'],text:['Text sitemap','dim'],error:['Error','error']};
+  $('sm-files').innerHTML=S.files.map(function(f){
+    var n=f.kind==='index'?plural(f.kids.length,'sitemap'):f.kind==='error'?'Could not be parsed':plural(f.urls.length,'URL');
+    return '<div class="sm-file"><span class="ms" aria-hidden="true">'+icons[f.kind]+'</span><div style="min-width:0"><b title="'+esc(f.name)+'">'+esc(f.name)+'</b><small>'+n+' · '+fmtB(f.size)+(f.gz?' unzipped from '+fmtB(f.comp):'')+'</small></div><span class="sm-pill sm-pill--'+label[f.kind][1]+'">'+label[f.kind][0]+'</span><button type="button" data-rm="'+f.id+'" aria-label="Remove '+esc(f.name)+'"><span class="ms" aria-hidden="true">close</span></button></div>';
+  }).join('');
+}
+function tile(v,l,c){return '<div class="sm-tile'+(c?' sm-tile--'+c:'')+'"><b>'+v+'</b><span>'+l+'</span></div>'}
+function counts(){var c={error:0,warn:0,info:0};S.res.F.forEach(function(f){c[f.sev]++});return c}
+function renderOverview(){
+  var R=S.res,c=counts(),files=S.files;
+  var nIdx=files.filter(function(f){return f.kind==='index'}).length,nSet=files.filter(function(f){return f.kind==='urlset'||f.kind==='text'}).length;
+  var withLm=R.all.filter(function(e){return e.lm!=null}).length;
+  var dups=R.F.filter(function(f){return f.type==='duplicate'}).length;
+  $('sm-meta').textContent=plural(files.length,'file')+' · main host '+(R.mainHost||'–')+' · analysed in '+R.ms+' ms';
+  var v=$('sm-verdict');
+  if(c.error){v.className='sm-verdict sm-verdict--err';v.innerHTML='<span class="ms" aria-hidden="true">error</span><div><b>'+plural(c.error,'error')+' to fix before you submit.</b><span>Errors break the protocol or make URLs unusable. Start with those, then work through the warnings.</span></div>'}
+  else if(c.warn){v.className='sm-verdict sm-verdict--warn';v.innerHTML='<span class="ms" aria-hidden="true">warning</span><div><b>Valid, with '+plural(c.warn,'warning')+'.</b><span>Search engines can read it. The warnings are URLs and dates that make the sitemap less trustworthy.</span></div>'}
+  else{v.className='sm-verdict sm-verdict--ok';v.innerHTML='<span class="ms" aria-hidden="true">check_circle</span><div><b>Clean and ready to submit.</b><span>No protocol errors and no problem URLs found'+(c.info?'. A few notices below are worth a look.':'.')+'</span></div>'}
+  $('sm-stats').innerHTML=tile(fmtN(R.uniq),'Unique URLs')+tile(nSet+(nIdx?' + '+nIdx:''),'Sitemaps'+(nIdx?' + indexes':''))+
+    tile(c.error,'Errors',c.error?'err':'ok')+tile(c.warn,'Warnings',c.warn?'warn':'')+
+    tile(R.all.length?Math.round(withLm/R.all.length*100)+'%':'–','URLs with lastmod')+tile(fmtN(Math.max(0,dups)),'Duplicate entries',dups>0?'warn':'');
+  var ext={img:0,vid:0,news:0,hl:0};files.forEach(function(f){for(var k in ext)ext[k]+=f.ext[k]});
+  var ex=[];if(ext.img)ex.push(plural(ext.img,'image'));if(ext.vid)ex.push(plural(ext.vid,'video'));if(ext.news)ex.push(plural(ext.news,'news entry','news entries'));if(ext.hl)ex.push(plural(ext.hl,'hreflang link'));
+  $('sm-ext').innerHTML=ex.length?'<span>Extensions:</span>'+ex.map(function(x){return '<span class="sm-pill sm-pill--dim">'+x+'</span>'}).join(''):'';
+  var fc={};R.F.forEach(function(f){if(!f.file)return;var o=fc[f.file]||(fc[f.file]={error:0,warn:0});if(f.sev!=='info')o[f.sev]++});
+  var kindL={urlset:'URL set',index:'Index',text:'Text',error:'Error'};
+  $('sm-ftable').innerHTML='<thead><tr><th>File</th><th>Type</th><th>Entries</th><th>Size</th><th>Newest lastmod</th><th>Problems</th></tr></thead><tbody>'+files.map(function(f){
+    var o=fc[f.name]||{error:0,warn:0};
+    return '<tr><td>'+esc(f.name)+'</td><td>'+kindL[f.kind]+'</td><td class="num">'+(f.kind==='error'?'–':fmtN(f.kind==='index'?f.kids.length:f.urls.length))+'</td><td class="num">'+fmtB(f.size)+(f.gz?' <span class="sm-dim">(gz)</span>':'')+'</td><td class="num">'+(f.maxLm?isoDay(new Date(f.maxLm)):'<span class="sm-dim">–</span>')+'</td><td>'+(o.error?'<span class="sm-pill sm-pill--error">'+o.error+' error'+(o.error>1?'s':'')+'</span> ':'')+(o.warn?'<span class="sm-pill sm-pill--warn">'+o.warn+' warning'+(o.warn>1?'s':'')+'</span>':'')+(!o.error&&!o.warn?'<span class="sm-pill sm-pill--ok">OK</span>':'')+'</td></tr>';
+  }).join('')+'</tbody>';
+  $('sm-nav-iss').textContent=R.F.length||'';
+  $('sm-nav-urls').textContent=R.all.length?fmtN(R.all.length):'';
+}
+function renderIssues(reset){
+  var R=S.res,I=S.iss;if(reset)I.shown=100;
+  var c=counts();
+  $('sm-lv').innerHTML=[['all','All',R.F.length],['error','Errors',c.error],['warn','Warnings',c.warn],['info','Notices',c.info]].map(function(x){return '<button type="button" data-lv="'+x[0]+'" aria-pressed="'+(I.lv===x[0])+'">'+x[1]+' <span>'+x[2]+'</span></button>'}).join('');
+  var q=I.q.toLowerCase();
+  var F=R.F.filter(function(f){return (I.lv==='all'||f.sev===I.lv)&&(!q||(f.file+' '+f.url+' '+strip(f.detail)+' '+TYPES[f.type][1]).toLowerCase().indexOf(q)>-1)});
+  var tc={};F.forEach(function(f){tc[f.type]=(tc[f.type]||0)+1});
+  if(I.type&&!tc[I.type])I.type='';
+  $('sm-types').innerHTML=Object.keys(TYPES).filter(function(t){return tc[t]}).map(function(t){return '<button type="button" class="sm-chip" data-type="'+t+'" aria-pressed="'+(I.type===t)+'">'+esc(TYPES[t][1])+' <span>'+tc[t]+'</span></button>'}).join('');
+  if(I.type)F=F.filter(function(f){return f.type===I.type});
+  var sev={error:'Error',warn:'Warning',info:'Notice'};
+  var html=F.slice(0,I.shown).map(function(f){
+    var urlCell=f.url?'<div class="sm-url">'+esc(f.url)+'</div>':(f.ex&&f.ex.length?'<div class="sm-url sm-dim">'+f.ex.map(esc).join('<br>')+(f.n>f.ex.length?'<br>…':'')+'</div>':'<span class="sm-dim">–</span>');
+    var more=(f.n>1&&FLAGGED[f.type])?' <button type="button" class="sm-btn sm-btn--sm" data-show="'+f.type+'" style="margin-top:8px">Show all '+fmtN(f.n)+'</button>':'';
+    return '<tr class="s-'+f.sev+'"><td><span class="sm-pill sm-pill--'+f.sev+'">'+sev[f.sev]+'</span><div style="margin-top:6px;font-size:13.5px;color:var(--ink2);white-space:nowrap">'+esc(TYPES[f.type][1])+'</div></td><td class="sm-fn">'+(f.file?esc(f.file):'<span class="sm-dim">All files</span>')+'</td><td>'+urlCell+'</td><td class="sm-detail">'+f.detail+more+'</td></tr>';
+  }).join('');
+  if(!F.length)html='<tr><td colspan="4" class="sm-empty-row">'+(R.F.length?'No issues match this filter.':'No issues found.')+'</td></tr>';
+  $('sm-itbody').innerHTML=html;
+  $('sm-icount').textContent=F.length?'Showing '+Math.min(I.shown,F.length)+' of '+F.length:'';
+  $('sm-imore').hidden=F.length<=I.shown;
+}
+var FLAGGED={'loc-space':1,'fragment':1,'www-mix':1,'cross-host':1,'proto-mix':1,'tracking':1,'low-value':1,'pagination':1,'archive':1,'query':1,'resource':1,'lm-invalid':1,'lm-future':1};
+function hbars(el,rows,max,attr){
+  el.innerHTML=rows.length?rows.map(function(r){return '<div class="sm-hb">'+(attr?'<button type="button" data-'+attr+'="'+esc(r[2]!=null?r[2]:r[0])+'" title="'+esc(r[0])+'">'+esc(r[0])+'</button>':'<span class="sm-mono" style="font-size:12.5px;color:var(--ink2)">'+esc(r[0])+'</span>')+'<i style="width:'+Math.max(1,Math.round(r[1]/max*100))+'%"></i><em>'+fmtN(r[1])+'</em></div>'}).join(''):'<p class="sm-hint">No URLs.</p>';
+}
+function folderOf(e){if(!e.u)return '(invalid)';var p=e.u.pathname.split('/').filter(Boolean);return p.length?'/'+decodeSafe(p[0])+'/':'/ (home)'}
+function depthOf(e){return e.u?e.u.pathname.split('/').filter(Boolean).length:-1}
+function decodeSafe(s){try{return decodeURIComponent(s)}catch(_){return s}}
+function renderStructure(){
+  var R=S.res,fc={},dc={},valid=R.all.filter(function(e){return e.u});
+  valid.forEach(function(e){var f=folderOf(e);fc[f]=(fc[f]||0)+1;var d=depthOf(e);d=d>=6?'6+':String(d);dc[d]=(dc[d]||0)+1});
+  var frows=Object.keys(fc).map(function(k){return [k,fc[k]]}).sort(function(a,b){return b[1]-a[1]});
+  var rest=frows.slice(14).reduce(function(s,r){return s+r[1]},0);frows=frows.slice(0,14);
+  var fmax=frows.length?frows[0][1]:1;
+  hbars($('sm-folders'),frows,fmax,'folder');
+  if(rest)$('sm-folders').insertAdjacentHTML('beforeend','<p class="sm-hint" style="margin:4px 0 0">'+fmtN(rest)+' more URLs in smaller sections.</p>');
+  var drows=['0','1','2','3','4','5','6+'].filter(function(k){return dc[k]}).map(function(k){return [k==='0'?'Home (0)':k+(k==='1'?' level':' levels'),dc[k]]});
+  hbars($('sm-depth'),drows,Math.max.apply(null,drows.map(function(r){return r[1]}).concat([1])));
+  var hrows=Object.keys(R.hostC).map(function(h){return [h,R.hostC[h]]}).sort(function(a,b){return b[1]-a[1]}).slice(0,6);
+  hbars($('sm-hosts'),hrows,hrows.length?hrows[0][1]:1);
+}
+function renderFresh(){
+  var R=S.res,now=new Date(),months=[],lab=[],b={},old=0,none=0,fut=0,dates=[];
+  for(var i=23;i>=0;i--){var d=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth()-i,1));var k=d.toISOString().slice(0,7);months.push(k);b[k]=0}
+  var first=months[0];
+  R.all.forEach(function(e){
+    if(e.lm==null){none++;return}
+    dates.push(e.lm);
+    if(e.lm>Date.now()+86400000){fut++;return}
+    var k=new Date(e.lm).toISOString().slice(0,7);
+    if(k<first)old++;else if(b[k]!=null)b[k]++;
+  });
+  var cols=[['Older',old,'alt','Before '+first]].concat(months.map(function(m){return [m,b[m],'',m]})).concat(fut?[['Future',fut,'fut','After today']]:[]);
+  var max=Math.max.apply(null,cols.map(function(c){return c[1]}).concat([1]));
+  $('sm-vbars').innerHTML=cols.map(function(c){return '<div class="sm-vb '+c[2]+'" title="'+esc(c[3])+': '+fmtN(c[1])+' URLs"><i style="height:'+(c[1]?Math.max(2,Math.round(c[1]/max*100)):0)+'%"></i></div>'}).join('');
+  var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  $('sm-vlab').innerHTML=cols.map(function(c){var tt='';if(c[2]==='alt')tt='Older';else if(c[2]==='fut')tt='Future';else{var mm=+c[0].slice(5,7);if(mm===1||mm===7)tt=M[mm-1]+' '+c[0].slice(2,4)}return '<span>'+tt+'</span>'}).join('');
+  dates.sort(function(a,b){return a-b});
+  var day=86400000,n=Date.now(),within=function(d){return dates.filter(function(t){return t>=n-d*day}).length};
+  var pct=function(x){return R.all.length?Math.round(x/R.all.length*100)+'%':'–'};
+  $('sm-fkv').innerHTML=[
+    [dates.length?isoDay(new Date(dates[dates.length-1])):'–','Newest lastmod'],
+    [dates.length?isoDay(new Date(dates[0])):'–','Oldest lastmod'],
+    [pct(within(30)),'Changed in the last 30 days'],
+    [pct(within(365)),'Changed in the last year'],
+    [pct(none),'No lastmod']
+  ].map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join('');
+}
+function buildUrlFilters(){
+  var R=S.res,U=S.url,fl={},fo={};
+  R.all.forEach(function(e){e.flags.forEach(function(t){fl[t]=(fl[t]||0)+1});var f=folderOf(e);fo[f]=(fo[f]||0)+1});
+  var withIss=R.all.filter(function(e){return e.flags.some(function(t){return t!=='lm-missing'})}).length;
+  $('sm-uflag').innerHTML='<option value="">All URLs ('+fmtN(R.all.length)+')</option><option value="any">With any issue ('+fmtN(withIss)+')</option>'+Object.keys(TYPES).filter(function(t){return fl[t]}).map(function(t){return '<option value="'+t+'">'+esc(TYPES[t][1])+' ('+fmtN(fl[t])+')</option>'}).join('');
+  $('sm-ufolder').innerHTML='<option value="">All sections</option>'+Object.keys(fo).sort(function(a,b){return fo[b]-fo[a]}).slice(0,200).map(function(f){return '<option value="'+esc(f)+'">'+esc(f)+' ('+fmtN(fo[f])+')</option>'}).join('');
+  var fs=S.files.filter(function(f){return f.kind==='urlset'||f.kind==='text'});
+  $('sm-ufile').innerHTML='<option value="">All files</option>'+fs.map(function(f){return '<option value="'+f.id+'">'+esc(f.name)+'</option>'}).join('');
+  $('sm-ufile').hidden=fs.length<2;
+  if(U.flag&&!fl[U.flag]&&U.flag!=='any')U.flag='';
+  if(U.folder&&!fo[U.folder])U.folder='';
+  $('sm-uflag').value=U.flag;$('sm-ufolder').value=U.folder;$('sm-ufile').value=U.file;
+}
+function urlList(){
+  var U=S.url,q=U.q.toLowerCase();
+  return S.res.all.filter(function(e){
+    if(U.flag==='any'&&!e.flags.some(function(t){return t!=='lm-missing'}))return false;
+    if(U.flag&&U.flag!=='any'&&e.flags.indexOf(U.flag)<0)return false;
+    if(U.folder&&folderOf(e)!==U.folder)return false;
+    if(U.file&&String(e.f.id)!==String(U.file))return false;
+    if(q&&e.loc.toLowerCase().indexOf(q)<0)return false;
+    return true;
+  });
+}
+function renderUrls(){
+  var L=urlList(),U=S.url;
+  var html=L.slice(0,U.shown).map(function(e){
+    var fl=e.flags.filter(function(t){return t!=='lm-missing'}).map(function(t){return '<span class="sm-flag sm-pill--'+TYPES[t][0]+'">'+esc(TYPES[t][1])+'</span>'}).join('');
+    return '<tr'+(e.flags.some(function(t){return TYPES[t][0]==='error'})?' class="s-error"':e.flags.some(function(t){return TYPES[t][0]==='warn'})?' class="s-warn"':'')+'><td><div class="sm-url">'+esc(e.loc||'#'+e.i)+'</div></td><td class="sm-fn">'+esc(e.f.name)+'</td><td class="sm-fn">'+(e.lastmod?esc(e.lastmod):'<span class="sm-dim">–</span>')+'</td><td>'+(fl||'<span class="sm-dim">–</span>')+'</td></tr>';
+  }).join('');
+  if(!L.length)html='<tr><td colspan="4" class="sm-empty-row">No URLs match these filters.</td></tr>';
+  $('sm-utbody').innerHTML=html;
+  $('sm-ucount').textContent=L.length?'Showing '+fmtN(Math.min(U.shown,L.length))+' of '+fmtN(L.length):'';
+  $('sm-umore').hidden=L.length<=U.shown;
+}
+/* compare */
+function cmpUrls(){var m=S.cmp.text.match(/https?:\/\/[^\s,;"'<>|]+/gi)||[];var o={},out=[];m.forEach(function(u){u=u.replace(/[).\]]+$/,'');if(!o[u]){o[u]=1;out.push(u)}});return out}
+function cmpKey(u){return S.cmp.slash?u.replace(/\/+(?=$|\?)/,''):u}
+function compareSets(){
+  var list=cmpUrls();if(!list.length||!S.res)return null;
+  var sm={},ls={};
+  S.res.all.forEach(function(e){if(e.u)sm[cmpKey(e.loc)]=e.loc});
+  list.forEach(function(u){ls[cmpKey(u)]=u});
+  var missing=[],extra=[],both=0;
+  Object.keys(ls).forEach(function(k){if(sm[k])both++;else missing.push(ls[k])});
+  Object.keys(sm).forEach(function(k){if(!ls[k])extra.push(sm[k])});
+  return {list:list.length,sm:Object.keys(sm).length,both:both,missing:missing,extra:extra};
+}
+function renderCompare(){
+  var n=cmpUrls().length;$('sm-cmp-n').textContent=n?plural(n,'unique URL')+' in the list.':'';
+  var C=S.res?compareSets():null;
+  $('sm-compare').hidden=!C;$('sm-nav-cmp').hidden=!C;
+  if(!C)return;
+  $('sm-csub').textContent='Your list has '+plural(C.list,'URL')+', the sitemaps have '+plural(C.sm,'unique valid URL')+'.';
+  $('sm-cstats').innerHTML=tile(fmtN(C.both),'In both','ok')+tile(fmtN(C.missing.length),'Missing from sitemap',C.missing.length?'err':'ok')+tile(fmtN(C.extra.length),'Only in sitemap',C.extra.length?'warn':'')+tile(C.list?Math.round(C.both/C.list*100)+'%':'–','Of your list is covered');
+  document.querySelectorAll('#sm-cview button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.c===S.cmp.view))});
+  var L=S.cmp.view==='missing'?C.missing:C.extra;
+  var note=S.cmp.view==='missing'?'Pages from your list that no loaded sitemap contains. If they are indexable and canonical, add them.':'URLs in the sitemap that are not in your list. If the list is your indexable crawl, these are redirected, noindexed, canonicalised or orphaned. Fix or remove them.';
+  $('sm-ctbody').innerHTML='<tr><td class="sm-hint" style="background:var(--bg2)">'+note+'</td></tr>'+(L.length?L.slice(0,300).map(function(u){return '<tr><td><div class="sm-url">'+esc(u)+'</div></td></tr>'}).join(''):'<tr><td class="sm-empty-row">Nothing here.</td></tr>');
+  $('sm-ccount').textContent=L.length>300?'Showing 300 of '+fmtN(L.length)+'. Download for the full list.':L.length?fmtN(L.length)+' URLs':'';
+  $('sm-cx').hidden=!L.length;
+}
+
+/* ---------- Exports ---------- */
+function exportFindings(){
+  var sev={error:'Error',warn:'Warning',info:'Notice'},rows=[['severity','issue','file','url','count','details','examples']];
+  S.res.F.forEach(function(f){rows.push([sev[f.sev],TYPES[f.type][1],f.file,f.url,f.n||1,strip(f.detail),f.ex&&f.n>1?f.ex.join(' '):''])});
+  download('sitemap-findings.csv',csv(rows),'text/csv');toast('sitemap-findings.csv downloaded');
+}
+function exportUrls(){
+  var rows=[['url','file','entry','lastmod','changefreq','priority','images','videos','hreflang_links','section','depth','issues']];
+  S.res.all.forEach(function(e){rows.push([e.loc,e.f.name,e.i,e.lastmod,e.cf,e.pr,e.img,e.vid,e.hl,folderOf(e),depthOf(e),e.flags.map(function(t){return TYPES[t][1]}).join('; ')])});
+  download('sitemap-urls.csv',csv(rows),'text/csv');toast('sitemap-urls.csv downloaded');
+}
+function exportClean(){
+  var R=S.res,bad={'loc-missing':1,'loc-relative':1,'loc-invalid':1,'loc-long':1,'fragment':1,'tracking':1,'cross-host':1,'www-mix':1,'proto-mix':1,'resource':1},seen={},keep=[];
+  R.all.forEach(function(e){
+    if(!e.u||e.flags.some(function(t){return bad[t]})||seen[e.loc])return;seen[e.loc]=1;keep.push(e);
+  });
+  if(!keep.length){toast('No URLs left to export');return}
+  var chunks=[];for(var i=0;i<keep.length;i+=50000)chunks.push(keep.slice(i,i+50000));
+  function xml(list){return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="'+NS+'">\n'+list.map(function(e){var lm=(e.lm!=null&&!(e.flags.indexOf('lm-future')>-1))?'\n    <lastmod>'+xmlEsc(e.lastmod)+'</lastmod>':'';return '  <url>\n    <loc>'+xmlEsc(e.loc)+'</loc>'+lm+'\n  </url>'}).join('\n')+'\n</urlset>\n'}
+  if(chunks.length===1){download('sitemap-clean.xml',xml(keep),'application/xml');toast('sitemap-clean.xml: '+fmtN(keep.length)+' URLs');return}
+  var origin=R.mainProto+'//'+R.mainHost;
+  chunks.forEach(function(ch,ix){setTimeout(function(){download('sitemap-clean-'+(ix+1)+'.xml',xml(ch),'application/xml')},ix*400)});
+  setTimeout(function(){
+    var idx='<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="'+NS+'">\n'+chunks.map(function(_,ix){return '  <sitemap>\n    <loc>'+xmlEsc(origin+'/sitemap-clean-'+(ix+1)+'.xml')+'</loc>\n  </sitemap>'}).join('\n')+'\n</sitemapindex>\n';
+    download('sitemap-clean-index.xml',idx,'application/xml');toast(fmtN(keep.length)+' URLs in '+chunks.length+' sitemaps + index');
+  },chunks.length*400);
+}
+function exportCompare(){
+  var C=compareSets();if(!C)return;var L=S.cmp.view==='missing'?C.missing:C.extra;
+  download(S.cmp.view==='missing'?'missing-from-sitemap.txt':'only-in-sitemap.txt',L.join('\n')+'\n','text/plain');toast('List downloaded');
+}
+
+/* ---------- Samples ---------- */
+var SAMPLES={
+  urlset:[{n:'sitemap.xml',t:['<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+    '  <url><loc>https://example.com/</loc><lastmod>2026-10-28</lastmod><priority>1.0</priority><changefreq>daily</changefreq></url>',
+    '  <url><loc>https://example.com/services/</loc><lastmod>2026-09-14T09:30:00+02:00</lastmod><priority>0.8</priority></url>',
+    '  <url><loc>https://example.com/services</loc><lastmod>2026-09-14</lastmod></url>',
+    '  <url><loc>https://example.com/about/</loc><lastmod>2026-02-03 10:00:00</lastmod></url>',
+    '  <url><loc>https://example.com/blog/</loc><lastmod>2027-03-01</lastmod></url>',
+    '  <url><loc>https://example.com/blog/hreflang-guide/</loc><lastmod>2026-06-30</lastmod><image:image><image:loc>https://example.com/img/hreflang.png</image:loc></image:image></url>',
+    '  <url><loc>https://example.com/blog/hreflang-guide/</loc><lastmod>2026-06-30</lastmod></url>',
+    '  <url><loc>https://example.com/blog/page/2/</loc><lastmod>2026-06-30</lastmod></url>',
+    '  <url><loc>https://example.com/blog/tag/seo/</loc></url>',
+    '  <url><loc>https://example.com/pricing/?utm_source=newsletter</loc><lastmod>2026-05-11</lastmod></url>',
+    '  <url><loc>https://example.com/cart/</loc></url>',
+    '  <url><loc>https://example.com/contact/#form</loc><lastmod>2025-11-20</lastmod></url>',
+    '  <url><loc>http://example.com/case-studies/</loc><lastmod>2025-08-02</lastmod></url>',
+    '  <url><loc>https://www.example.com/team/</loc><lastmod>2025-04-17</lastmod></url>',
+    '  <url><loc>https://example.com/files/brochure.pdf</loc></url>',
+    '  <url><loc>/privacy-policy/</loc><priority>1.5</priority></url>',
+    '  <url><loc>https://example.com/products/?color=red&amp;size=m</loc><lastmod>2026-07-07</lastmod></url>',
+    '</urlset>'].join('\n')}],
+  index:[
+    {n:'sitemap_index.xml',t:['<?xml version="1.0" encoding="UTF-8"?>','<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+      '  <sitemap><loc>https://example.com/page-sitemap.xml</loc><lastmod>2026-10-01T08:00:00+00:00</lastmod></sitemap>',
+      '  <sitemap><loc>https://example.com/post-sitemap.xml</loc><lastmod>2026-03-01T08:00:00+00:00</lastmod></sitemap>',
+      '  <sitemap><loc>https://example.com/product-sitemap.xml</loc><lastmod>2026-10-30T08:00:00+00:00</lastmod></sitemap>',
+      '  <sitemap><loc>https://example.com/category-sitemap.xml</loc></sitemap>',
+      '</sitemapindex>'].join('\n')},
+    {n:'page-sitemap.xml',t:(function(){var r=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];['','about/','services/','services/technical-seo/','services/international-seo/','contact/','pricing/','case-studies/','faq/','privacy-policy/','terms/','careers/','partners/','press/','team/','locations/','locations/belgrade/','locations/berlin/','locations/london/','locations/new-york/','resources/','webinars/'].forEach(function(p){r.push('  <url><loc>https://example.com/'+p+'</loc><lastmod>2026-10-01T08:00:00+00:00</lastmod></url>')});r.push('</urlset>');return r.join('\n')})()},
+    {n:'post-sitemap.xml',t:['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+      '  <url><loc>https://example.com/blog/crawl-budget/</loc><lastmod>2026-02-11</lastmod></url>',
+      '  <url><loc>https://example.com/blog/hreflang-guide/</loc><lastmod>2026-06-30</lastmod></url>',
+      '  <url><loc>https://example.com/blog/site-migrations/</loc><lastmod>2026-09-02</lastmod></url>',
+      '  <url><loc>https://example.com/blog/log-file-analysis/</loc><lastmod>2025-12-18</lastmod></url>',
+      '  <url><loc>https://example.com/about/</loc><lastmod>2026-10-01</lastmod></url>',
+      '</urlset>'].join('\n')},
+    {n:'old-sitemap.xml',t:['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.google.com/schemas/sitemap/0.84">',
+      '  <url><loc>https://example.com/old-landing/</loc><lastmod>2023-05-04</lastmod></url>','</urlset>'].join('\n')}
+  ],
+  broken:[{n:'broken-sitemap.xml',t:['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    '  <url><loc>https://example.com/</loc></url>',
+    '  <url><loc>https://example.com/shop/?category=shoes&size=42</loc></url>',
+    '</urlset>'].join('\n')}]
+};
+var CMP_SAMPLE=['https://example.com/','https://example.com/about/','https://example.com/services/','https://example.com/services/technical-seo/','https://example.com/services/international-seo/','https://example.com/services/site-migrations/','https://example.com/contact/','https://example.com/pricing/','https://example.com/blog/crawl-budget/','https://example.com/blog/hreflang-guide/','https://example.com/blog/site-migrations/','https://example.com/blog/log-file-analysis/','https://example.com/blog/core-web-vitals/','https://example.com/locations/belgrade/'].join('\n');
+
+/* ---------- Events ---------- */
+function selectTab(w){
+  ['paste','cmp'].forEach(function(k){var on=k===w,t=$('sm-t-'+k);t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;$('sm-p-'+k).hidden=!on});
+}
+function clearAll(){S.files=[];S.cmp.text='';$('sm-cmp').value='';$('sm-paste').value='';$('sm-input').value='';msg('');renderFiles();run();renderCompare()}
+function init(){
+  var drop=$('sm-drop');
+  $('sm-input').addEventListener('change',function(){if(this.files.length)readFiles(this.files);this.value=''});
+  ['dragenter','dragover'].forEach(function(e){drop.addEventListener(e,function(ev){ev.preventDefault();drop.classList.add('over')})});
+  ['dragleave','drop'].forEach(function(e){drop.addEventListener(e,function(ev){ev.preventDefault();drop.classList.remove('over')})});
+  drop.addEventListener('drop',function(ev){if(ev.dataTransfer&&ev.dataTransfer.files.length)readFiles(ev.dataTransfer.files)});
+  $('sm-paste-go').addEventListener('click',function(){var t=$('sm-paste').value;if(!t.trim()){msg('Paste a sitemap first.');return}msg('');var n=S.files.filter(function(f){return /^pasted-\d+/.test(f.name)}).length+1;addFile('pasted-'+n+'.xml',t,new Blob([t]).size,false);$('sm-paste').value=''});
+  $('sm-files').addEventListener('click',function(e){var b=e.target.closest('[data-rm]');if(!b)return;S.files=S.files.filter(function(f){return String(f.id)!==b.dataset.rm});renderFiles();schedule()});
+  document.querySelectorAll('[data-sample]').forEach(function(b){b.addEventListener('click',function(){
+    var k=b.dataset.sample;S.files=[];msg('');
+    SAMPLES[k].forEach(function(s){S.files.push(parseFile(s.n,s.t,new Blob([s.t]).size,false))});
+    if(k==='index'){S.cmp.text=CMP_SAMPLE;$('sm-cmp').value=CMP_SAMPLE}else{S.cmp.text='';$('sm-cmp').value=''}
+    S.iss={lv:'all',type:'',q:'',shown:100};S.url={q:'',flag:'',folder:'',file:'',shown:100};$('sm-iq').value='';$('sm-uq').value='';
+    renderFiles();run();
+    $('sm-rep').scrollIntoView({behavior:'smooth',block:'start'});
+  })});
+  $('sm-clear').addEventListener('click',clearAll);
+  $('sm-t-paste').addEventListener('click',function(){selectTab('paste')});
+  $('sm-t-cmp').addEventListener('click',function(){selectTab('cmp')});
+  document.querySelector('.sm-tabs').addEventListener('keydown',function(e){if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var n=$('sm-t-paste').getAttribute('aria-selected')==='true'?'cmp':'paste';selectTab(n);$('sm-t-'+n).focus()});
+  var ct;$('sm-cmp').addEventListener('input',function(){var v=this.value;clearTimeout(ct);ct=setTimeout(function(){S.cmp.text=v;renderCompare()},250)});
+  $('sm-cmp-slash').addEventListener('change',function(){S.cmp.slash=this.checked;renderCompare()});
+  $('sm-cmp-file').addEventListener('change',function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$('sm-cmp').value=r.result;S.cmp.text=r.result;renderCompare()};r.readAsText(f);this.value=''});
+  $('sm-cview').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.cmp.view=b.dataset.c;renderCompare()});
+  $('sm-cx').addEventListener('click',exportCompare);
+  $('sm-lv').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.iss.lv=b.dataset.lv;renderIssues(true)});
+  $('sm-types').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.iss.type=S.iss.type===b.dataset.type?'':b.dataset.type;renderIssues(true)});
+  var iq;$('sm-iq').addEventListener('input',function(){var v=this.value;clearTimeout(iq);iq=setTimeout(function(){S.iss.q=v.trim();renderIssues(true)},150)});
+  $('sm-imore').addEventListener('click',function(){S.iss.shown+=200;renderIssues()});
+  $('sm-itbody').addEventListener('click',function(e){var b=e.target.closest('[data-show]');if(!b)return;S.url={q:'',flag:b.dataset.show,folder:'',file:'',shown:100};$('sm-uq').value='';buildUrlFilters();renderUrls();$('sm-urls').scrollIntoView({behavior:'smooth',block:'start'})});
+  $('sm-folders').addEventListener('click',function(e){var b=e.target.closest('[data-folder]');if(!b)return;S.url={q:'',flag:'',folder:b.dataset.folder,file:'',shown:100};$('sm-uq').value='';buildUrlFilters();renderUrls();$('sm-urls').scrollIntoView({behavior:'smooth',block:'start'})});
+  var uq;$('sm-uq').addEventListener('input',function(){var v=this.value;clearTimeout(uq);uq=setTimeout(function(){S.url.q=v.trim();S.url.shown=100;renderUrls()},150)});
+  ['sm-uflag','sm-ufolder','sm-ufile'].forEach(function(id){$(id).addEventListener('change',function(){S.url[{'sm-uflag':'flag','sm-ufolder':'folder','sm-ufile':'file'}[id]]=this.value;S.url.shown=100;renderUrls()})});
+  $('sm-umore').addEventListener('click',function(){S.url.shown+=300;renderUrls()});
+  $('sm-x-clean').addEventListener('click',exportClean);
+  $('sm-x-find').addEventListener('click',exportFindings);
+  $('sm-x-urls').addEventListener('click',exportUrls);
+  // section highlighting
+  if('IntersectionObserver' in window){
+    var links={};document.querySelectorAll('#sm-nav a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){Object.keys(links).forEach(function(k){links[k].classList.toggle('on',k===x.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});
+    document.querySelectorAll('.sm-sec').forEach(function(s){io.observe(s)});
+  }
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+</body>
+</html>

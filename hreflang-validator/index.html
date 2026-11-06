@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Consent Mode v2 (default: denied) -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+gtag('set','ads_data_redaction',true);
+try{if(localStorage.getItem('vs-consent')==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MBWKV8RG');</script>
+<!-- End Google Tag Manager -->
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hreflang Validator: Return Links, Codes &amp; Clusters | Vuk Stojković</title>
+<meta name="description" content="Free hreflang validator. Upload a CSV, a Screaming Frog export or an XML sitemap and find invalid codes, missing return links, conflicts and missing self-references. Export a clean hreflang sitemap.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://vukstojkovic.com/hreflang-validator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vuk Stojković">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://vukstojkovic.com/hreflang-validator/">
+<meta property="og:title" content="Hreflang validator: return links, codes and clusters">
+<meta property="og:description" content="Validate hreflang before launch. Works with mapping sheets, Screaming Frog exports and XML sitemaps, shows every page set as a matrix and exports clean annotations. Runs in your browser.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hreflang validator: return links, codes and clusters">
+<meta name="twitter:description" content="Validate hreflang before launch. Works with mapping sheets, Screaming Frog exports and XML sitemaps, shows every page set as a matrix and exports clean annotations. Runs in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&amp;display=block" rel="stylesheet">
+<style>
+:root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
+  }
+  .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); }
+  * { box-sizing: border-box; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
+  .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .navb { display: none; }
+  .t-dark { display: none !important; }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
+  @media (max-width: 1040px) {
+    .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navt:checked ~ nav { display: flex !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
+    header nav > div { margin-top: 14px; }
+    .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .navt:checked + .navb span:nth-child(2) { opacity: 0; }
+    .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+.x1:hover,.x8:hover{color: var(--ink) !important}
+.x2:hover,.x3:hover,.x4:hover,.x5:hover,.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x9:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x44:hover,.x45:hover,.x46:hover,.x47:hover,.x48:hover,.x49:hover,.x50:hover,.x51:hover,.x52:hover,.x53:hover,.x54:hover,.x55:hover{color: var(--acc, var(--acc-theme)) !important}
+.navdd{position:relative;display:flex;align-items:center}
+.navdd-t{display:inline-flex;align-items:center;gap:3px;font:500 15px Archivo,Helvetica,sans-serif;color:var(--ink2);padding:6px 0;background:none;border:0;border-bottom:1px solid transparent;cursor:pointer}
+.navdd-t .ms{font-size:18px;transition:transform .2s}
+.navdd:hover .navdd-t,.navdd:focus-within .navdd-t,.navdd--on .navdd-t{color:var(--ink);border-bottom-color:var(--acc-theme)}
+.navdd:hover .navdd-t .ms,.navdd:focus-within .navdd-t .ms{transform:rotate(180deg)}
+.navdd-m{position:absolute;top:100%;left:-18px;padding-top:12px;min-width:290px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
+.navdd:hover .navdd-m,.navdd:focus-within .navdd-m{opacity:1;visibility:visible;transform:none}
+.navdd-b{display:flex;flex-direction:column;gap:2px;padding:8px;background:var(--card);border:1px solid var(--line3);border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.navdd-i{display:flex;flex-direction:column;gap:2px;padding:11px 12px;border-radius:9px;color:var(--ink)}
+.navdd-i:hover{background:var(--cardacc);color:var(--ink)}
+.navdd-i b{font-size:15px;font-weight:600}
+.navdd-i span{font-size:13px;color:var(--ink5)}
+header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
+@media (max-width:1040px){.navdd{flex-direction:column;align-items:stretch;width:100%;margin-top:0 !important}.navdd-t{font-size:17px;padding:12px 0;width:100%;border-bottom:1px solid var(--line5) !important;cursor:default;color:var(--ink2)}.navdd-t .ms{display:none}.navdd-m{position:static;opacity:1;visibility:visible;transform:none;padding:0;min-width:0}.navdd-b{background:transparent;border:0;box-shadow:none;padding:0}.navdd-i{padding:12px 0 12px 16px;border-radius:0;border-bottom:1px solid var(--line5)}}
+</style>
+<style id="hv-style">
+:root{--hv-err:#ff7b6b;--hv-errbg:rgba(255,123,107,.10);--hv-warn:#f7c948;--hv-warnbg:rgba(247,201,72,.09);--hv-ok:#4fd1b5;--hv-okbg:rgba(79,209,181,.09);--hv-info:#9db8ff;--hv-infobg:rgba(157,184,255,.09)}
+:root[data-theme="light"]{--hv-err:#b42318;--hv-errbg:#fdecea;--hv-warn:#8a5a00;--hv-warnbg:#fff3d4;--hv-ok:#0b6b7d;--hv-okbg:#e2f2f1;--hv-info:#2f4fa8;--hv-infobg:#e9eefb}
+.hv-wrap{max-width:1240px;margin:0 auto}
+.hv-card [hidden]{display:none!important}
+.hv-eyebrow{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.hv-eyebrow::before{content:'';width:30px;height:1px;background:var(--acc,var(--acc-theme))}
+.hv-card{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.hv-step{padding:clamp(20px,3vw,32px);border-top:1px solid var(--line)}
+.hv-step:first-child{border-top:0}
+.hv-step-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.hv-step-n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc,var(--acc-theme));letter-spacing:.08em}
+.hv-step-h h2{margin:0;font-size:clamp(20px,2vw,24px);letter-spacing:-.02em;font-weight:700;color:var(--ink)}
+.hv-step-h p{margin:0;color:var(--ink4);font-size:15px;flex-basis:100%}
+.hv-in{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px}
+@media (max-width:860px){.hv-in{grid-template-columns:minmax(0,1fr)}}
+.hv-drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:190px;padding:24px;border:1.5px dashed var(--line4);border-radius:14px;background:var(--bg2);text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+.hv-drop:hover,.hv-drop.hv-over{border-color:var(--acc,var(--acc-theme));background:var(--acctint)}
+.hv-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.hv-drop .ms{font-size:34px;color:var(--acc,var(--acc-theme))}
+.hv-drop b{font-size:17px;color:var(--ink)}
+.hv-drop small{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink5)}
+.hv-file{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink3);margin-top:4px}
+.hv-side{display:flex;flex-direction:column;gap:12px;border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--bg2)}
+.hv-side h3{margin:0;font-size:15px;color:var(--ink)}
+.hv-side p{margin:0;font-size:14px;color:var(--ink4);line-height:1.55}
+.hv-fmts{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--ink3)}
+.hv-fmts li{display:flex;gap:9px;align-items:flex-start;line-height:1.45}
+.hv-fmts .ms{font-size:18px;color:var(--acc,var(--acc-theme));margin-top:1px}
+.hv-btn{display:inline-flex;align-items:center;gap:8px;font:600 14.5px Archivo,sans-serif;padding:11px 16px;border-radius:10px;cursor:pointer;border:1px solid var(--btnline);background:transparent;color:var(--ink2);transition:border-color .2s,color .2s,background .2s}
+.hv-btn:hover{border-color:var(--btnline2);color:var(--ink)}
+.hv-btn .ms{font-size:19px}
+.hv-btn--acc{background:var(--acc,var(--acc-theme));border-color:transparent;color:var(--onacc)}
+.hv-btn--acc:hover{background:var(--acchov);color:var(--onacc);border-color:transparent}
+.hv-btn--sm{padding:8px 12px;font-size:13.5px}
+.hv-btn:focus-visible,.hv-seg button:focus-visible,.hv-chip:focus-visible,.hv-x:focus-visible{outline:2px solid var(--acc-theme);outline-offset:2px}
+.hv-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hv-paste summary{cursor:pointer;font-size:15px;font-weight:600;color:var(--ink2);list-style:none;display:flex;align-items:center;gap:8px}
+.hv-paste summary::-webkit-details-marker{display:none}
+.hv-paste summary .ms{font-size:20px;transition:transform .2s}
+.hv-paste[open] summary .ms{transform:rotate(90deg)}
+.hv-ta,.hv-input,.hv-select{width:100%;font:400 13.5px/1.55 'IBM Plex Mono',monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line3);border-radius:10px;padding:11px 13px;outline:none}
+.hv-ta{min-height:150px;resize:vertical;margin:12px 0 10px;white-space:pre;overflow:auto}
+.hv-input,.hv-select{font-family:Archivo,sans-serif;font-size:15px}
+.hv-select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink4) 50%),linear-gradient(135deg,var(--ink4) 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 14px) 52%;background-size:6px 6px;background-repeat:no-repeat;padding-right:40px;cursor:pointer}
+.hv-select option{background:var(--card);color:var(--ink)}
+.hv-ta:focus,.hv-input:focus,.hv-select:focus{border-color:var(--acc,var(--acc-theme));box-shadow:0 0 0 3px var(--acctint)}
+.hv-msg{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--hv-errbg);color:var(--hv-err);font-size:15px}
+.hv-mapwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.hv-map{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.hv-map th{text-align:left;vertical-align:top;padding:10px;background:var(--bg2);border-bottom:1px solid var(--line);border-left:1px solid var(--line);min-width:150px}
+.hv-map th:first-child,.hv-map td:first-child{border-left:0}
+.hv-map td{padding:8px 10px;border-top:1px solid var(--line5);border-left:1px solid var(--line5);font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink3);white-space:nowrap;max-width:280px;overflow:hidden;text-overflow:ellipsis}
+.hv-map select{width:100%;font:600 13px Archivo,sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line3);border-radius:8px;padding:7px 8px;cursor:pointer}
+.hv-colname{display:block;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:400;color:var(--ink5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+.hv-map th.r-page{box-shadow:inset 0 3px 0 var(--acc,var(--acc-theme))}
+.hv-map th.r-code{box-shadow:inset 0 3px 0 var(--hv-info)}
+.hv-map th.r-target{box-shadow:inset 0 3px 0 var(--hv-ok)}
+.hv-map th.r-plang{box-shadow:inset 0 3px 0 var(--hv-warn)}
+.hv-map td.r-ignore,.hv-map th.r-ignore .hv-colname{opacity:.45}
+.hv-map td.r-page{color:var(--ink)}
+.hv-opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;margin-top:18px}
+@media (max-width:860px){.hv-opts{grid-template-columns:minmax(0,1fr)}}
+.hv-box{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg2);display:flex;flex-direction:column;gap:10px}
+.hv-box h3{margin:0;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.hv-lbl{font-size:14.5px;color:var(--ink2)}
+.hv-chk{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink2);cursor:pointer;line-height:1.45}
+.hv-chk input{margin-top:3px;width:16px;height:16px;accent-color:var(--acc-theme);flex:none}
+.hv-chk small{display:block;color:var(--ink5);font-size:13px}
+.hv-checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px 18px}
+.hv-hint{font-size:13.5px;color:var(--ink5);line-height:1.5}
+.hv-hint code,.hv-table code,.hv-prose code,.hv-detail code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--bg2);border:1px solid var(--line);padding:1px 5px;border-radius:5px;word-break:break-all}
+.hv-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:10px}
+.hv-tile{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg2);display:flex;flex-direction:column;gap:2px}
+.hv-tile b{font-size:28px;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
+.hv-tile span{font-size:13px;color:var(--ink5)}
+.hv-tile--err b{color:var(--hv-err)}.hv-tile--warn b{color:var(--hv-warn)}.hv-tile--ok b{color:var(--hv-ok)}
+.hv-meta{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink5);margin:14px 0 0}
+.hv-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:22px 0 12px}
+.hv-bar-l{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hv-seg{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--line2);border-radius:999px;flex-wrap:wrap}
+.hv-seg button{border:0;background:transparent;color:var(--ink4);font:600 13.5px Archivo,sans-serif;padding:7px 13px;border-radius:999px;cursor:pointer}
+.hv-seg button span{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:12px;opacity:.8}
+.hv-seg button[aria-pressed="true"]{background:var(--acc,var(--acc-theme));color:var(--onacc)}
+.hv-types{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.hv-chip{border:1px solid var(--line2);background:transparent;color:var(--ink3);font:500 13px Archivo,sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer}
+.hv-chip span{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink5)}
+.hv-chip[aria-pressed="true"]{border-color:var(--acc,var(--acc-theme));color:var(--ink);background:var(--acctint)}
+.hv-search{max-width:280px}
+.hv-tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.hv-table{width:100%;border-collapse:collapse;font-size:14px;min-width:900px}
+.hv-table th{text-align:left;padding:11px 12px;background:var(--bg2);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);border-bottom:1px solid var(--line)}
+.hv-table td{padding:11px 12px;border-top:1px solid var(--line5);vertical-align:top;color:var(--ink2)}
+.hv-table tr.s-error td:first-child{box-shadow:inset 3px 0 0 var(--hv-err)}
+.hv-table tr.s-warn td:first-child{box-shadow:inset 3px 0 0 var(--hv-warn)}
+.hv-table tr.s-info td:first-child{box-shadow:inset 3px 0 0 var(--hv-info)}
+.hv-url{font-family:'IBM Plex Mono',monospace;font-size:12.5px;word-break:break-all;max-width:280px;color:var(--ink)}
+.hv-codecell{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink2);white-space:nowrap}
+.hv-detail{font-size:13.5px;line-height:1.5;color:var(--ink3);max-width:380px}
+.hv-pill{display:inline-block;font:600 12px Archivo,sans-serif;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.hv-pill--error{background:var(--hv-errbg);color:var(--hv-err)}
+.hv-pill--warn{background:var(--hv-warnbg);color:var(--hv-warn)}
+.hv-pill--info{background:var(--hv-infobg);color:var(--hv-info)}
+.hv-pill--ok{background:var(--hv-okbg);color:var(--hv-ok)}
+.hv-dim{color:var(--ink5)}
+.hv-empty-row{text-align:center;padding:28px!important;color:var(--ink5)!important}
+.hv-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+.hv-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink4);margin-bottom:14px}
+.hv-legend span{display:inline-flex;align-items:center;gap:7px}
+.hv-cls{display:flex;flex-direction:column;gap:14px}
+.hv-cl{border:1px solid var(--line);border-radius:12px;background:var(--bg2);overflow:hidden}
+.hv-cl-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border-bottom:1px solid var(--line)}
+.hv-cl-h b{font-size:15px;color:var(--ink)}
+.hv-cl-h .hv-dim{font-family:'IBM Plex Mono',monospace;font-size:12px}
+.hv-cl-h .hv-pills{display:flex;gap:6px;margin-left:auto}
+.hv-mxwrap{overflow-x:auto}
+.hv-mx{border-collapse:collapse;font-size:13px;width:100%}
+.hv-mx th,.hv-mx td{border-top:1px solid var(--line5);padding:8px 10px}
+.hv-mx thead th{border-top:0;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--ink3);text-align:center;white-space:nowrap;background:var(--card)}
+.hv-mx thead th:first-child{text-align:left;color:var(--ink5);letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+.hv-mx thead th.bad{color:var(--hv-err)}
+.hv-mx tbody th{text-align:left;font-weight:400;min-width:220px;max-width:380px}
+.hv-mx tbody th .u{display:block;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink);word-break:break-all}
+.hv-mx tbody th .c{display:block;font-size:12px;color:var(--ink5);margin-top:2px}
+.hv-mx td{text-align:center;width:72px}
+.hv-cell{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:7px;font:700 13px 'IBM Plex Mono',monospace;cursor:default}
+.hv-cell--ok{background:var(--hv-okbg);color:var(--hv-ok)}
+.hv-cell--self{background:var(--hv-okbg);color:var(--hv-ok);box-shadow:inset 0 0 0 1.5px var(--hv-ok)}
+.hv-cell--warn{background:var(--hv-warnbg);color:var(--hv-warn)}
+.hv-cell--bad{background:var(--hv-errbg);color:var(--hv-err)}
+.hv-cell--miss{color:var(--hv-err);box-shadow:inset 0 0 0 1.5px var(--hv-errbg);background:transparent}
+.hv-cell--na{color:var(--ink5);background:transparent}
+.hv-mx tr.nodata th .u{color:var(--ink4)}
+.hv-exports{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-top:26px}
+.hv-x{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:16px;cursor:pointer;color:var(--ink);font-family:Archivo,sans-serif;transition:border-color .2s,transform .2s}
+.hv-x:hover{border-color:var(--acc,var(--acc-theme));transform:translateY(-2px)}
+.hv-x b{display:flex;align-items:center;gap:8px;font-size:15.5px}
+.hv-x b .ms{font-size:20px;color:var(--acc,var(--acc-theme))}
+.hv-x span{font-size:13.5px;color:var(--ink4);line-height:1.5}
+.hv-x--main{border-color:var(--accline)}
+.hv-prose{max-width:780px;color:var(--ink3);font-size:17px;line-height:1.7}
+.hv-prose h2{margin:56px 0 16px;color:var(--ink);font-size:clamp(26px,3vw,36px);line-height:1.12;letter-spacing:-.03em}
+.hv-prose h3{margin:28px 0 8px;color:var(--ink);font-size:19px}
+.hv-prose p{margin:0 0 16px}
+.hv-prose ul{margin:0 0 16px;padding-left:20px}
+.hv-prose li{margin:6px 0}
+.hv-prose b{color:var(--ink1)}
+.hv-codes{width:100%;border-collapse:collapse;font-size:15px;margin:8px 0 20px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.hv-codes th{text-align:left;padding:10px 12px;background:var(--card);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);border-bottom:1px solid var(--line)}
+.hv-codes td{padding:10px 12px;border-top:1px solid var(--line5);vertical-align:top}
+.hv-codes td:first-child{white-space:nowrap}
+.hv-faq details{border-top:1px solid var(--line)}
+.hv-faq details:last-child{border-bottom:1px solid var(--line)}
+.hv-faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:18px;font-weight:600;color:var(--ink)}
+.hv-faq summary::-webkit-details-marker{display:none}
+.hv-faq summary::after{content:'add';font-family:'Material Symbols Rounded';font-size:22px;color:var(--acc,var(--acc-theme));flex:none;transition:transform .2s}
+.hv-faq details[open] summary::after{transform:rotate(45deg)}
+.hv-faq p{margin:0 0 20px;color:var(--ink3)}
+.hv-toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--card);border:1px solid var(--line3);color:var(--ink);padding:12px 18px;border-radius:12px;font:600 14px Archivo,sans-serif;transition:opacity .25s,transform .25s;z-index:9000;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 18px 44px rgba(0,0,0,.3)}
+.hv-toast .ms{color:var(--hv-ok);font-size:19px}
+.hv-toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebApplication",
+   "@id": "https://vukstojkovic.com/hreflang-validator/#app",
+   "name": "Hreflang Validator",
+   "url": "https://vukstojkovic.com/hreflang-validator/",
+   "inLanguage": "en",
+   "applicationCategory": "DeveloperApplication",
+   "operatingSystem": "Any",
+   "browserRequirements": "Requires JavaScript",
+   "description": "Free browser-based hreflang validator. Checks language and region codes, return links, self-references, conflicts and x-default in mapping sheets, Screaming Frog exports and XML sitemaps, shows each page set as a matrix and exports clean hreflang annotations.",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+   },
+   "creator": {
+    "@id": "https://vukstojkovic.com/#vuk"
+   },
+   "provider": {
+    "@id": "https://vukstojkovic.com/#business"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://vukstojkovic.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Hreflang validator",
+     "item": "https://vukstojkovic.com/hreflang-validator/"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://vukstojkovic.com/hreflang-validator/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is my file uploaded anywhere?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The file is read and processed by JavaScript in your browser. Nothing is sent to a server, so unreleased URL structures and client data stay private."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which Screaming Frog export should I use?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Crawl the site with hreflang extraction enabled, open the Hreflang tab and export All. Address becomes the page, and every HTML hreflang N and HTML hreflang N URL pair becomes one annotation. Sitemap hreflang columns work the same way."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is a missing self-reference an error?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Google's documentation asks every language version to list itself as well as all other versions. In practice a missing self-reference rarely breaks a cluster on its own, so the validator reports it as a warning rather than an error."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need x-default?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No, it is optional. It tells search engines which URL to show users whose language or region matches none of your versions, usually a language selector or the main international page. The validator lists page sets without one as a notice."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can one URL be used for several hreflang codes?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, as long as it is the same language. One English page can serve en, en-GB and en-IE. The validator only flags a URL that is assigned two different languages, such as de and fr."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does it check canonicals and status codes?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. It validates the annotations in the file and does not request any URL. Hreflang pointing to redirected, non-200 or canonicalised URLs is ignored by Google, so crawl the URLs in the export as well before launch."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBWKV8RG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+      <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><svg viewBox="50 18 402 460" width="26" height="30" aria-hidden="true" style="flex: none; color: var(--acc, var(--acc-theme))"><path d="M113 195V32L205 128H298L390 32V195L437 297L250 462L65 297Z M113 195L205 128 M390 195L298 128 M157 250L205 278V392 M345 250L297 278V392" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="miter" stroke-miterlimit="10"></path><path d="M226 392H275L250.5 418Z" fill="currentColor"></path></svg>Vuk Stojković</a>
+      <input type="checkbox" id="nav-toggle" class="navt" aria-label="Menu">
+      <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
+      <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
+        <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
+        <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Services</a>
+        <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
+        <div class="navdd navdd--on">
+          <button class="navdd-t" type="button" aria-haspopup="true">SEO tools<span class="ms" aria-hidden="true">expand_more</span></button>
+          <div class="navdd-m">
+            <div class="navdd-b">
+              <a class="navdd-i" href="../redirect-map-validator/"><b>Redirect map validator</b><span>Chains, loops and conflicts</span></a>
+              <a class="navdd-i" href="../hreflang-validator/" aria-current="page"><b>Hreflang validator</b><span>Return links, codes and clusters</span></a>
+              <a class="navdd-i" href="../xml-sitemap-analyzer/"><b>XML sitemap analyzer</b><span>Limits, lastmod and duplicates</span></a>
+              <a class="navdd-i" href="../log-file-analyzer/"><b>Log file analyzer</b><span>Googlebot and AI crawler activity</span></a>
+              <a class="navdd-i" href="../robots-txt-generator/"><b>Robots.txt generator</b><span>Google and AI crawler access</span></a>
+            </div>
+          </div>
+        </div>
+        <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
+        <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
+          <a class="x8" href="../sr/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section style="padding: clamp(48px, 6vw, 88px) clamp(20px, 5vw, 64px) clamp(32px, 4vw, 48px)">
+    <div class="hv-wrap">
+      <nav aria-label="Breadcrumb" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink5); margin-bottom: 26px"><a href="../" class="x1" style="color: var(--ink3)">Home</a> &nbsp;/&nbsp; <span style="color: var(--ink2)">Hreflang validator</span></nav>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); margin-bottom: 24px">Free tool &nbsp;·&nbsp; International SEO &nbsp;·&nbsp; Technical SEO</div>
+      <h1 style="margin: 0; font-size: clamp(34px, 4.6vw, 58px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; max-width: 18ch">Hreflang <span style="color: var(--acc, var(--acc-theme))">validator</span></h1>
+      <p style="margin: 26px 0 0; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink3); max-width: 62ch; text-wrap: pretty">Check hreflang before it goes live, or audit what is live now. Load a mapping sheet, a Screaming Frog export or an XML sitemap and get every invalid code, missing return link and conflict in one table. Then see each page set as a language matrix and download clean annotations.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px">
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>CSV, Screaming Frog or XML sitemap</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Language matrix per page set</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Clean sitemap export</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Your file never leaves the browser</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 0 clamp(20px, 5vw, 64px) clamp(56px, 7vw, 100px)">
+    <div class="hv-wrap">
+      <div class="hv-card" id="tool">
+        <div class="hv-step">
+          <div class="hv-step-h"><span class="hv-step-n">01</span><h2>Add your hreflang data</h2><p>A CSV or TSV, rows pasted from a spreadsheet, or an XML sitemap with <code>xhtml:link</code> entries. Column names don't matter.</p></div>
+          <div class="hv-in">
+            <div>
+              <label class="hv-drop" id="hv-drop">
+                <input type="file" id="hv-input" accept=".csv,.tsv,.txt,.xml,text/csv,text/plain,application/xml,text/xml" aria-label="Upload hreflang file">
+                <span class="ms" aria-hidden="true">upload_file</span>
+                <b>Drop a file here or click to browse</b>
+                <small>.csv · .tsv · .txt · .xml &nbsp;|&nbsp; comma, semicolon or tab</small>
+                <span class="hv-file" id="hv-file">No file selected</span>
+              </label>
+              <details class="hv-paste" style="margin-top:14px">
+                <summary><span class="ms" aria-hidden="true">chevron_right</span>Or paste rows or sitemap XML</summary>
+                <textarea class="hv-ta" id="hv-paste" spellcheck="false" placeholder="page_url,hreflang,target_url&#10;https://example.com/en/,en,https://example.com/en/&#10;https://example.com/en/,de,https://example.com/de/"></textarea>
+                <button type="button" class="hv-btn hv-btn--acc" id="hv-paste-go">Use pasted data</button>
+              </details>
+              <div class="hv-msg" id="hv-msg" role="alert" hidden></div>
+            </div>
+            <div class="hv-side">
+              <h3>Works with the formats you already have</h3>
+              <ul class="hv-fmts">
+                <li><span class="ms" aria-hidden="true">table_rows</span><span><b>One row per annotation:</b> page, hreflang, alternate URL, optionally the page language.</span></li>
+                <li><span class="ms" aria-hidden="true">grid_on</span><span><b>Matrix:</b> one row per page set, one column per language.</span></li>
+                <li><span class="ms" aria-hidden="true">bug_report</span><span><b>Screaming Frog</b> Hreflang › All export, with every hreflang pair.</span></li>
+                <li><span class="ms" aria-hidden="true">code</span><span><b>XML sitemap</b> with <code>xhtml:link rel="alternate"</code>.</span></li>
+              </ul>
+              <div class="hv-row" style="margin-top:4px">
+                <button type="button" class="hv-btn hv-btn--sm" data-sample="rows"><span class="ms" aria-hidden="true">table_rows</span>Rows sample</button>
+                <button type="button" class="hv-btn hv-btn--sm" data-sample="matrix"><span class="ms" aria-hidden="true">grid_on</span>Matrix sample</button>
+                <button type="button" class="hv-btn hv-btn--sm" data-sample="sf"><span class="ms" aria-hidden="true">bug_report</span>Screaming Frog sample</button>
+                <button type="button" class="hv-btn hv-btn--sm" data-sample="xml"><span class="ms" aria-hidden="true">code</span>Sitemap sample</button>
+              </div>
+              <div class="hv-row">
+                <button type="button" class="hv-btn hv-btn--sm" id="hv-clear">Clear</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hv-step" id="hv-step2" hidden>
+          <div class="hv-step-h"><span class="hv-step-n">02</span><h2>Check how the file is read</h2><p id="hv-step2-p">Detected automatically. Change the layout or any column role if something was guessed wrong.</p></div>
+          <div id="hv-layout-box" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+            <label for="hv-layout" class="hv-lbl">Layout</label>
+            <select class="hv-select" id="hv-layout" style="max-width:420px">
+              <option value="pairs">Page URL + hreflang/URL pairs (rows, Screaming Frog)</option>
+              <option value="matrix">Matrix: one row per page set, one column per language</option>
+            </select>
+          </div>
+          <div class="hv-mapwrap" id="hv-map"></div>
+          <div class="hv-hint" id="hv-map-msg" style="margin-top:10px"></div>
+          <div class="hv-opts">
+            <div class="hv-box">
+              <h3>File</h3>
+              <label class="hv-chk" id="hv-header-l"><input type="checkbox" id="hv-header"><span>First row is a header</span></label>
+              <label for="hv-base" class="hv-lbl">Site URL for relative paths</label>
+              <input class="hv-input" id="hv-base" type="text" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://example.com">
+              <span class="hv-hint">Relative URLs are always reported, because hreflang needs absolute URLs. This setting only lets the rest of the check match them.</span>
+            </div>
+            <div class="hv-box">
+              <h3>Treat these as the same URL</h3>
+              <div class="hv-checks">
+                <label class="hv-chk"><input type="checkbox" id="hv-o-slash"><span>Trailing slash<small>/de and /de/</small></span></label>
+                <label class="hv-chk"><input type="checkbox" id="hv-o-proto"><span>Protocol<small>http:// and https://</small></span></label>
+                <label class="hv-chk"><input type="checkbox" id="hv-o-www"><span>www<small>www.site.com and site.com</small></span></label>
+                <label class="hv-chk"><input type="checkbox" id="hv-o-ci"><span>Letter case in paths<small>/DE/ and /de/</small></span></label>
+              </div>
+              <span class="hv-hint">Off by default: Google needs the return link to point to the exact URL, so <code>/de</code> and <code>/de/</code> are different pages here. Near misses are still pointed out in the findings.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hv-step" id="hv-step3" hidden>
+          <div class="hv-step-h"><span class="hv-step-n">03</span><h2>Results</h2></div>
+          <div class="hv-stats" id="hv-stats"></div>
+          <div class="hv-meta" id="hv-meta"></div>
+          <div class="hv-bar">
+            <div class="hv-bar-l">
+              <div class="hv-seg" id="hv-view" role="group" aria-label="View">
+                <button type="button" data-view="issues" aria-pressed="true">Issues</button>
+                <button type="button" data-view="clusters" aria-pressed="false">Page sets</button>
+              </div>
+              <div class="hv-seg" id="hv-lv" role="group" aria-label="Filter by severity"></div>
+            </div>
+            <input class="hv-input hv-search" id="hv-q" type="search" placeholder="Search URLs or codes" aria-label="Search URLs or codes">
+          </div>
+          <div id="hv-v-issues">
+            <div class="hv-types" id="hv-types"></div>
+            <div class="hv-tablewrap">
+              <table class="hv-table">
+                <thead><tr><th>Page to fix</th><th>Hreflang</th><th>Alternate URL</th><th>Issue</th><th>Details</th></tr></thead>
+                <tbody id="hv-tbody"></tbody>
+              </table>
+            </div>
+            <div class="hv-foot"><span class="hv-hint" id="hv-count"></span><button type="button" class="hv-btn hv-btn--sm" id="hv-more" hidden>Show more</button></div>
+          </div>
+          <div id="hv-v-clusters" hidden>
+            <div class="hv-legend">
+              <span><i class="hv-cell hv-cell--self">✓</i>Self-reference</span>
+              <span><i class="hv-cell hv-cell--ok">✓</i>Correct, linked back</span>
+              <span><i class="hv-cell hv-cell--warn">↩</i>No return link</span>
+              <span><i class="hv-cell hv-cell--bad">!</i>Wrong URL or conflict</span>
+              <span><i class="hv-cell hv-cell--miss">✕</i>Missing</span>
+              <span><i class="hv-cell hv-cell--na">–</i>No data for this page</span>
+            </div>
+            <label class="hv-chk" style="margin-bottom:14px"><input type="checkbox" id="hv-onlybad"><span>Only page sets with errors or warnings</span></label>
+            <div class="hv-cls" id="hv-cls"></div>
+            <div class="hv-foot"><span class="hv-hint" id="hv-ccount"></span><button type="button" class="hv-btn hv-btn--sm" id="hv-cmore" hidden>Show more</button></div>
+          </div>
+          <div class="hv-exports">
+            <button type="button" class="hv-x hv-x--main" id="hv-x-xml"><b><span class="ms" aria-hidden="true">code</span>Clean XML sitemap</b><span>Every page set rebuilt with one consistent set of annotations, including self-references.</span></button>
+            <button type="button" class="hv-x" id="hv-x-tags"><b><span class="ms" aria-hidden="true">html</span>HTML tags per page</b><span>CSV with the complete <code>&lt;link&gt;</code> block for each URL, ready for developers.</span></button>
+            <button type="button" class="hv-x" id="hv-x-matrix"><b><span class="ms" aria-hidden="true">grid_on</span>Matrix CSV</b><span>One row per page set, one column per language. The format clients and translators read best.</span></button>
+            <button type="button" class="hv-x" id="hv-x-find"><b><span class="ms" aria-hidden="true">download</span>Findings CSV</b><span>Every issue with severity, page, code, URL and details, ready for a ticket.</span></button>
+          </div>
+          <p class="hv-hint" style="margin:12px 2px 0" id="hv-x-note">Clean exports resolve conflicts by majority within each page set and leave out invalid codes. Review the errors first.</p>
+        </div>
+      </div>
+      <p class="hv-hint" style="margin:14px 2px 0">This checks the annotations in your file, not live pages. Nothing is uploaded: the file is read and processed in your browser.</p>
+    </div>
+  </section>
+
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
+    <div class="hv-wrap">
+      <div class="hv-prose">
+        <div class="hv-eyebrow">How it works</div>
+        <h2 style="margin-top:22px">What the validator checks</h2>
+        <p>Every annotation becomes an edge from a page to one of its alternates. All edges go into one graph, so the tool can see each complete page set, which the matrix view calls a cluster, and check it as a whole instead of row by row.</p>
+        <ul>
+          <li><b>Invalid codes.</b> Language must be ISO 639-1, region ISO 3166-1 alpha-2, with an optional script like <code>zh-Hant</code>. Common mistakes come with a suggested fix.</li>
+          <li><b>Missing return links.</b> If page A lists page B, B must list A. Google ignores pairs that don't confirm each other. The finding names the page that has to add the link, and points out near misses like <code>/en</code> versus <code>/en/</code>.</li>
+          <li><b>Conflicting targets.</b> One page sending the same code, or several x-defaults, to different URLs.</li>
+          <li><b>Inconsistent mapping.</b> Pages in the same set disagreeing about which URL is which language, or one URL labelled as two different languages.</li>
+          <li><b>Missing self-references.</b> A page that lists its alternates but not itself.</li>
+          <li><b>Page language mismatch.</b> When the file has a page language column, it is checked against the code the annotations use for that page.</li>
+          <li><b>Relative and HTTP URLs.</b> hreflang needs fully qualified URLs, and an HTTP alternate on an HTTPS site usually points to a redirect.</li>
+          <li><b>Targets with no data</b> and <b>page sets without x-default</b>, reported so they are deliberate rather than accidental.</li>
+        </ul>
+        <h2>The page set matrix</h2>
+        <p>A findings list tells you what is wrong. The matrix shows you where. Each page set gets a grid: pages down the side, hreflang codes across the top. A complete, healthy set is a solid block of ticks. A missing return link, a wrong URL or a hole in the set stands out immediately, and hovering a cell shows the exact URL and the reason.</p>
+        <p>For each code, the expected URL is the one most pages in the set agree on, with a page's own self-reference as the tie-breaker. That is also how the clean exports are built.</p>
+        <h2>Language and region codes</h2>
+        <p>Google reads the value as a language, optionally followed by a script and a region. Codes are case-insensitive, so <code>en-gb</code> and <code>en-GB</code> are the same. These are the mistakes that show up most often in real projects:</p>
+        <table class="hv-codes">
+          <thead><tr><th>Written as</th><th>Problem</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td><code>en-uk</code></td><td>UK is not an ISO 3166-1 code.</td><td><code>en-GB</code></td></tr>
+            <tr><td><code>en_US</code></td><td>Underscore instead of a hyphen.</td><td><code>en-US</code></td></tr>
+            <tr><td><code>us</code>, <code>at</code></td><td>Region without a language.</td><td><code>en-US</code>, <code>de-AT</code></td></tr>
+            <tr><td><code>us-en</code></td><td>Region and language reversed.</td><td><code>en-US</code></td></tr>
+            <tr><td><code>uk</code> for Britain</td><td><code>uk</code> is Ukrainian.</td><td><code>en-GB</code></td></tr>
+            <tr><td><code>es-419</code></td><td>Valid BCP 47, but Google only reads two-letter regions.</td><td><code>es</code> or per-country codes</td></tr>
+            <tr><td><code>en-eu</code></td><td>The EU is not a country.</td><td><code>en</code> or x-default</td></tr>
+            <tr><td><code>eng</code>, <code>deu</code></td><td>Three-letter ISO 639-2 codes.</td><td><code>en</code>, <code>de</code></td></tr>
+          </tbody>
+        </table>
+        <h2>Supported layouts</h2>
+        <h3>One row per annotation</h3>
+        <p>The most common audit format: page URL, hreflang code, alternate URL. A page language column is optional and gets its own check. Columns are recognised from their values, so the headers can say anything.</p>
+        <h3>Matrix</h3>
+        <p>The format most migration plans and translation trackers use: each row is one piece of content, each column header is an hreflang code, each cell is the URL for that version. Every URL in a row is assumed to carry the full set of annotations for that row, which is exactly what the implementation should produce.</p>
+        <h3>Screaming Frog</h3>
+        <p>Export <b>Hreflang › All</b>. Address becomes the page and every <code>HTML hreflang N</code> and <code>HTML hreflang N URL</code> pair becomes one annotation. Sitemap hreflang columns from a sitemap crawl are read the same way.</p>
+        <h3>XML sitemap</h3>
+        <p>Paste or upload a sitemap that uses <code>xhtml:link rel="alternate"</code>. Each <code>&lt;loc&gt;</code> is a page and each link one of its annotations. Sitemap index files are not followed, so load the child sitemap that holds the hreflang entries.</p>
+        <h2>What this tool does not do</h2>
+        <p>It validates annotations, not the live site. It does not request any URL, so it cannot see whether an alternate redirects, returns a 404, is noindexed or canonicalises somewhere else. Google ignores hreflang to any of those. Crawl the URLs in your export with Screaming Frog, check status and canonicals, then run the Hreflang › All export through this validator.</p>
+        <h2 id="faq">FAQ</h2>
+        <div class="hv-faq">
+          <details><summary>Is my file uploaded anywhere?</summary><p>No. The file is read and processed by JavaScript in your browser. Nothing is sent to a server, so unreleased URL structures and client data stay private.</p></details>
+          <details><summary>Which Screaming Frog export should I use?</summary><p>Crawl the site with hreflang extraction enabled, open the Hreflang tab and export All. Address becomes the page, and every HTML hreflang N and HTML hreflang N URL pair becomes one annotation. Sitemap hreflang columns work the same way.</p></details>
+          <details><summary>Is a missing self-reference an error?</summary><p>Google's documentation asks every language version to list itself as well as all other versions. In practice a missing self-reference rarely breaks a cluster on its own, so the validator reports it as a warning rather than an error.</p></details>
+          <details><summary>Do I need x-default?</summary><p>No, it is optional. It tells search engines which URL to show users whose language or region matches none of your versions, usually a language selector or the main international page. The validator lists page sets without one as a notice.</p></details>
+          <details><summary>Can one URL be used for several hreflang codes?</summary><p>Yes, as long as it is the same language. One English page can serve en, en-GB and en-IE. The validator only flags a URL that is assigned two different languages, such as de and fr.</p></details>
+          <details><summary>Does it check canonicals and status codes?</summary><p>No. It validates the annotations in the file and does not request any URL. Hreflang pointing to redirected, non-200 or canonicalised URLs is ignored by Google, so crawl the URLs in the export as well before launch.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
+    <div class="hv-wrap" style="display: flex; flex-wrap: wrap; gap: clamp(28px, 4vw, 56px); align-items: center; justify-content: space-between">
+      <div style="flex: 1 1 460px; min-width: 0">
+        <div class="hv-eyebrow">Hreflang and international SEO</div>
+        <h2 style="margin: 22px 0 0; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 22ch; color: var(--ink)">Running a site in several languages?</h2>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I audit hreflang, canonicals and international targeting across every market, find the clusters Google is ignoring, and hand your developers a mapping they can implement without guessing.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a class="x9" href="mailto:stojkovicv86@gmail.com?subject=Hreflang%20review" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
+        <a class="x7" href="../services/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink2); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">See services</a>
+        <a class="x7" href="../products/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink2); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">SEO guides</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
+    <div style="max-width: 1240px; margin: 0 auto">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 64px)">
+        <div style="flex: 1 1 280px; max-width: 360px; min-width: 0">
+          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)">Vuk Stojković</div>
+          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Technical SEO, GEO and PPC. Belgrade, Serbia. I work with clients and teams remotely.</p>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Explore</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x44" href="../experience/" style="font-size: 16px; color: var(--ink2)">Experience</a>
+            <a class="x45" href="../services/" style="font-size: 16px; color: var(--ink2)">Services</a>
+            <a class="x46" href="../work-with-me/" style="font-size: 16px; color: var(--ink2)">Work with me</a>
+            <a class="x47" href="../about-me/" style="font-size: 16px; color: var(--ink2)">About me</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Products</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x48" href="../products/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
+            <a class="x49" href="../products/" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
+            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">Brand Visibility in AI Answers</a>
+            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">SEO + AI Visibility Bundle</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Contact</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x51" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
+            <a class="x52" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
+            <a class="x53" href="https://www.instagram.com/vukstojkovicseo/" rel="me noopener" target="_blank" style="font-size: 16px; color: var(--ink2)">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
+        <div>Belgrade, Serbia · CET/CEST</div>
+        <div>© 2026 Vuk Stojković. All rights reserved.</div>
+        <div style="display: flex; gap: 20px"><a class="x54" href="../privacy-policy/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a><a class="x55" href="#" data-cc-open="" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<div class="hv-toast" id="hv-toast" role="status" aria-live="polite"><span class="ms" aria-hidden="true">check_circle</span><span></span></div>
+
+<style>#vs-cc .ccp:hover{background:var(--acchov)!important}#vs-cc .ccs:hover{border-color:var(--btnline2)!important;color:var(--ink)!important}#vs-cc button:focus-visible{outline:2px solid var(--acc-theme);outline-offset:2px}</style>
+<div id="vs-cc" hidden role="dialog" aria-label="Cookies" style="position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 9999; max-width: 480px; margin-left: auto; background: var(--card); border: 1px solid var(--line3); border-radius: 14px; padding: 20px 22px; box-shadow: 0 18px 50px rgba(0,0,0,0.35); font-family: 'Archivo', sans-serif; color: var(--ink)">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc-theme)">Cookies</div>
+  <p style="margin: 10px 0 16px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty">I use analytics cookies to see which pages help and which don’t. None are set until you choose. <a href="../privacy-policy/" style="color: var(--ink); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a></p>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px">
+    <button type="button" data-cc="a" class="ccp" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: var(--acc-theme); color: var(--onacc); border: 1px solid transparent">Accept</button>
+    <button type="button" data-cc="r" class="ccs" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: transparent; color: var(--ink2); border: 1px solid var(--btnline)">Necessary only</button>
+  </div>
+</div>
+<script>(function(){var b=document.getElementById('vs-cc');function set(v){try{localStorage.setItem('vs-consent',v)}catch(e){}var g=v==='granted'?'granted':'denied';gtag('consent','update',{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g});dataLayer.push({event:'consent_update',consent_choice:v});b.hidden=true}
+var c=null;try{c=localStorage.getItem('vs-consent')}catch(e){}if(!c)b.hidden=false;
+b.querySelector('[data-cc=a]').addEventListener('click',function(){set('granted')});b.querySelector('[data-cc=r]').addEventListener('click',function(){set('denied')});
+document.querySelectorAll('[data-cc-open]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();b.hidden=false;b.querySelector('[data-cc=a]').focus()})});})();</script>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+
+/* ---------- Code lists ---------- */
+function toSet(s){var o={};s.split(' ').forEach(function(x){o[x]=1});return o}
+var L=toSet('aa ab ae af ak am an ar as av ay az ba be bg bi bm bn bo br bs ca ce ch co cr cs cu cv cy da de dv dz ee el en eo es et eu fa ff fi fj fo fr fy ga gd gl gn gu gv ha he hi ho hr ht hu hy hz ia id ie ig ii ik io is it iu ja jv ka kg ki kj kk kl km kn ko kr ks ku kv kw ky la lb lg li ln lo lt lu lv mg mh mi mk ml mn mr ms mt my na nb nd ne ng nl nn no nr nv ny oc oj om or os pa pi pl ps pt qu rm rn ro ru rw sa sc sd se sg si sk sl sm sn so sq sr ss st su sv sw ta te tg th ti tk tl tn to tr ts tt tw ty ug uk ur uz ve vi vo wa wo xh yi yo za zh zu');
+var R=toSet('ad ae af ag ai al am ao aq ar as at au aw ax az ba bb bd be bf bg bh bi bj bl bm bn bo bq br bs bt bv bw by bz ca cc cd cf cg ch ci ck cl cm cn co cr cu cv cw cx cy cz de dj dk dm do dz ec ee eg eh er es et fi fj fk fm fo fr ga gb gd ge gf gg gh gi gl gm gn gp gq gr gs gt gu gw gy hk hm hn hr ht hu id ie il im in io iq ir is it je jm jo jp ke kg kh ki km kn kp kr kw ky kz la lb lc li lk lr ls lt lu lv ly ma mc md me mf mg mh mk ml mm mn mo mp mq mr ms mt mu mv mw mx my mz na nc ne nf ng ni nl no np nr nu nz om pa pe pf pg ph pk pl pm pn pr ps pt pw py qa re ro rs ru rw sa sb sc sd se sg sh si sj sk sl sm sn so sr ss st sv sx sy sz tc td tf tg th tj tk tl tm tn to tr tt tv tw tz ua ug um us uy uz va vc ve vg vi vn vu wf ws ye yt za zm zw');
+var DEPR={iw:'he','in':'id',ji:'yi',jw:'jv',mo:'ro'};
+var THREE={eng:'en',deu:'de',ger:'de',fra:'fr',fre:'fr',spa:'es',ita:'it',por:'pt',nld:'nl',dut:'nl',srp:'sr',hrv:'hr',bos:'bs',slv:'sl',pol:'pl',ces:'cs',cze:'cs',rus:'ru',ukr:'uk',jpn:'ja',zho:'zh',chi:'zh',kor:'ko',ara:'ar',tur:'tr',swe:'sv',dan:'da',nor:'no',fin:'fi',ell:'el',gre:'el',hun:'hu',ron:'ro',rum:'ro',bul:'bg',heb:'he',slk:'sk',slo:'sk',lit:'lt',lav:'lv',est:'et',mkd:'mk',mac:'mk'};
+var REG2LANG={us:'en',gb:'en',au:'en',nz:'en',at:'de',mx:'es',cz:'cs',dk:'da',jp:'ja',cn:'zh',gr:'el',rs:'sr',ua:'uk',cl:'es',pe:'es',ve:'es',uy:'es',py:'es',ec:'es',ru:'ru'};
+
+function canon(l,s,r){return l+(s?'-'+s.charAt(0).toUpperCase()+s.slice(1):'')+(r?'-'+r.toUpperCase():'')}
+function bad(raw,msg,fix){return {ok:false,sev:'error',canon:String(raw).trim().toLowerCase(),msg:msg,fix:fix||null}}
+var vcache={};
+function vcode(raw){var k=String(raw);return vcache[k]||(vcache[k]=checkCode(k))}
+function checkCode(raw){
+  var s=raw.trim();
+  if(!s)return bad(s,'Empty hreflang value.');
+  var lo=s.toLowerCase();
+  if(lo==='x-default')return {ok:true,canon:'x-default',xd:true};
+  if(/^x[\s_]?-?[\s_]?default$/.test(lo)||lo==='default')return bad(s,'Write it exactly as x-default.','x-default');
+  if(lo.indexOf('_')>-1){var alt=checkCode(lo.replace(/_/g,'-'));return bad(s,'Use a hyphen, not an underscore.',alt.ok?alt.canon:null)}
+  var p=lo.split('-');
+  if(p.length>3)return bad(s,'Too many parts. Use language, optional script and optional region, like zh-Hant-TW.');
+  var lang=p[0];
+  if(!/^[a-z]{2,3}$/.test(lang))return bad(s,'The first part must be a two-letter ISO 639-1 language code.');
+  if(lang.length===3){var t=THREE[lang],fx=null;if(t){var a2=checkCode([t].concat(p.slice(1)).join('-'));if(a2.ok)fx=a2.canon}return bad(s,'Google expects two-letter ISO 639-1 language codes, not three-letter ones.',fx)}
+  if(!L[lang]){
+    if(p.length===2&&L[p[1]]&&R[lang])return bad(s,'Language and region are reversed.',canon(p[1],null,lang));
+    if(R[lang])return bad(s,'"'+lang.toUpperCase()+'" is a region, not a language. hreflang must start with a language code.',(p.length===1&&REG2LANG[lang])?canon(REG2LANG[lang],null,lang):null);
+    return bad(s,'"'+lang+'" is not an ISO 639-1 language code.');
+  }
+  var script=null,region=null;
+  for(var i=1;i<p.length;i++){
+    var x=p[i];
+    if(/^[a-z]{4}$/.test(x)&&i===1){script=x;continue}
+    if(/^[a-z]{2}$/.test(x)&&!region){region=x;continue}
+    if(/^\d{3}$/.test(x)&&!region)return {ok:true,sev:'warn',canon:lang+(script?'-'+script.charAt(0).toUpperCase()+script.slice(1):'')+'-'+x,msg:'"'+x+'" is a UN M.49 region. It is valid BCP 47, but Google only supports two-letter ISO 3166-1 regions, so it may be ignored.',fix:canon(lang,script,null)};
+    return bad(s,'"'+x+'" is not a valid script or region subtag.');
+  }
+  if(region&&!R[region]){
+    if(region==='uk')return bad(s,'UK is not an ISO 3166-1 code. The United Kingdom is GB.',canon(lang,script,'gb'));
+    if(region==='xk')return {ok:true,sev:'warn',canon:canon(lang,script,'xk'),msg:'XK (Kosovo) is a user-assigned code, not part of ISO 3166-1. Search engines may not recognise it.'};
+    if(region==='eu'||region==='un'||region==='ww'||region==='la')return bad(s,'"'+region.toUpperCase()+'" is not a country. Regions must be ISO 3166-1 country codes. For a pan-regional version use the language alone or x-default.',canon(lang,script,null));
+    return bad(s,'"'+region.toUpperCase()+'" is not an ISO 3166-1 country code.');
+  }
+  if(DEPR[lang])return {ok:true,sev:'warn',canon:canon(lang,script,region),msg:'"'+lang+'" is a deprecated code.',fix:canon(DEPR[lang],script,region)};
+  return {ok:true,canon:canon(lang,script,region)};
+}
+function langOf(c){return c.split('-')[0]}
+
+/* ---------- Helpers ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function isUrl(v){return /^(https?:)?\/\//i.test(v)||/^\/[^\s]*$/.test(v)}
+function isCodeish(v){return /^(x-default|[a-z]{2,3}(?:[-_][a-z0-9]{2,8}){0,2})$/i.test(v)}
+function frac(rows,i,fn){var n=0,m=0;for(var r=0;r<rows.length;r++){var v=rows[r][i];if(v==null||v===''||v==='-'||v==='—')continue;n++;if(fn(v))m++}return n?m/n:0}
+var toastT;
+function toast(msg){var t=$('hv-toast');t.lastElementChild.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on')},2200)}
+function download(name,text,type){
+  var a=document.createElement('a'),u=URL.createObjectURL(new Blob([text],{type:(type||'text/plain')+';charset=utf-8'}));
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1000);
+  toast(name+' downloaded');
+}
+function csvCell(v){v=String(v==null?'':v);return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function csv(rows){return '﻿'+rows.map(function(r){return r.map(csvCell).join(',')}).join('\r\n')+'\r\n'}
+function xmlEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+/* ---------- Parsing ---------- */
+function detectDelim(t){
+  var head=t.split(/\r?\n/).slice(0,8).join('\n'),c={',':0,';':0,'\t':0},q=false;
+  for(var i=0;i<head.length;i++){var ch=head[i];if(ch==='"')q=!q;else if(!q&&ch in c)c[ch]++}
+  if(c['\t']>0&&c['\t']>=c[',']&&c['\t']>=c[';'])return '\t';
+  return c[';']>c[',']?';':',';
+}
+function parseCSV(t){
+  var d=detectDelim(t),rows=[],row=[],f='',q=false,i=0,n=t.length;
+  while(i<n){
+    var ch=t[i];
+    if(q){if(ch==='"'){if(t[i+1]==='"'){f+='"';i+=2;continue}q=false;i++;continue}f+=ch;i++;continue}
+    if(ch==='"'&&f.trim()===''){q=true;f='';i++;continue}
+    if(ch===d){row.push(f);f='';i++;continue}
+    if(ch==='\r'){i++;continue}
+    if(ch==='\n'){row.push(f);rows.push(row);row=[];f='';i++;continue}
+    f+=ch;i++;
+  }
+  if(f!==''||row.length){row.push(f);rows.push(row)}
+  return rows.map(function(r){return r.map(function(s){s=s.trim();return (s==='-'||s==='—')?'':s})}).filter(function(r){return r.some(Boolean)});
+}
+function parseXML(t){
+  var doc=new DOMParser().parseFromString(t,'application/xml');
+  if(doc.getElementsByTagName('parsererror').length)throw new Error('The XML could not be parsed. Check that it is a complete sitemap.');
+  if(doc.getElementsByTagNameNS('*','sitemapindex').length)throw new Error('This is a sitemap index. Load the child sitemap that contains the hreflang entries.');
+  var urls=doc.getElementsByTagNameNS('*','url'),anns=[],pages=[];
+  for(var i=0;i<urls.length;i++){
+    var u=urls[i],loc='',links=[];
+    for(var c=u.firstElementChild;c;c=c.nextElementSibling){
+      if(c.localName==='loc')loc=c.textContent.trim();
+      else if(c.localName==='link'&&(c.getAttribute('rel')||'').toLowerCase()==='alternate'&&c.hasAttribute('hreflang'))links.push([c.getAttribute('hreflang'),(c.getAttribute('href')||'').trim()]);
+    }
+    if(!loc)continue;
+    pages.push(loc);
+    links.forEach(function(l){anns.push({src:loc,code:l[0],tgt:l[1],row:i+1})});
+  }
+  if(!urls.length)throw new Error('No <url> entries found in this XML.');
+  return {anns:anns,pages:pages,n:urls.length};
+}
+
+/* ---------- State ---------- */
+var S={kind:null,rows:[],header:false,layout:'pairs',roles:[],xml:null,name:'',res:null,view:'issues',lv:'all',type:'',q:'',shown:100,cshown:20,onlyBad:false};
+var ROLES={pairs:[['ignore','Ignore'],['page','Page URL'],['code','Hreflang'],['target','Alternate URL'],['plang','Page language']],matrix:[['ignore','Ignore'],['code','Hreflang (header)']]};
+
+function msg(t){var m=$('hv-msg');if(!t){m.hidden=true;return}m.textContent=t;m.hidden=false}
+
+function load(text,name){
+  msg('');
+  text=String(text||'').replace(/^﻿/,'');
+  if(!text.trim()){msg('The file is empty.');return}
+  S.name=name||'pasted data';$('hv-file').textContent=S.name;
+  S.view='issues';S.lv='all';S.type='';S.q='';$('hv-q').value='';S.shown=100;S.cshown=20;
+  var tr=text.trim();
+  if(/^<(\?xml|urlset|sitemapindex)/i.test(tr)||/<urlset[\s>]/i.test(tr.slice(0,800))){
+    try{S.xml=parseXML(tr)}catch(e){msg(e.message);return}
+    S.kind='xml';S.rows=[];
+  }else{
+    var rows=parseCSV(text);
+    if(!rows.length){msg('No rows found.');return}
+    var w=rows.reduce(function(m,r){return Math.max(m,r.length)},0);
+    if(w<2){msg('Only one column found. The file needs at least a page URL and its hreflang data.');return}
+    rows.forEach(function(r){while(r.length<w)r.push('')});
+    S.kind='csv';S.rows=rows;S.xml=null;
+    autoDetect();
+  }
+  $('hv-step2').hidden=false;$('hv-step3').hidden=false;
+  renderMap();run();
+}
+
+function autoDetect(){
+  var rows=S.rows,h=rows[0],body=rows.slice(1,201),w=h.length;
+  // Matrix: two or more columns with code-like headers and URL values
+  var mcols=[];for(var i=0;i<w;i++){if(isCodeish(h[i])&&!isUrl(h[i])&&frac(body,i,isUrl)>=0.6)mcols.push(i)}
+  if(mcols.length>=2){
+    S.layout='matrix';S.header=true;
+    S.roles=h.map(function(x,i){return mcols.indexOf(i)>-1?'code':'ignore'});
+    return;
+  }
+  S.layout='pairs';
+  S.header=!h.some(function(v){return /^https?:\/\//i.test(v)});
+  guessPairRoles();
+}
+function guessPairRoles(){
+  var rows=S.rows,h=S.header?rows[0]:[],body=(S.header?rows.slice(1):rows).slice(0,200),w=rows[0].length;
+  var roles=[],urlCols=[],codeCols=[];
+  for(var i=0;i<w;i++){
+    roles.push('ignore');
+    var name=(h[i]||'').toLowerCase().trim();
+    if(/hreflang\s*\d+\s*url$/.test(name)){roles[i]='target';continue}
+    if(/hreflang\s*\d+$/.test(name)){roles[i]='code';continue}
+    var u=frac(body,i,isUrl),c=frac(body,i,isCodeish);
+    if(u>=0.6)urlCols.push({i:i,n:name});
+    else if(c>=0.6)codeCols.push({i:i,n:name});
+  }
+  var hasPairs=roles.indexOf('target')>-1;
+  if(urlCols.length){
+    var src=urlCols.filter(function(c){return /^(address|url|page|page.?url|source|from|loc|location)$/.test(c.n)||/page|source|address/.test(c.n)})[0]||urlCols[0];
+    roles[src.i]='page';
+    if(!hasPairs){
+      var rest=urlCols.filter(function(c){return c!==src});
+      var tg=rest.filter(function(c){return /target|href|alternate|alt|^to$|url/.test(c.n)})[0]||rest[0];
+      if(tg)roles[tg.i]='target';
+    }
+  }
+  if(!hasPairs&&codeCols.length){
+    var hc=codeCols.filter(function(c){return /hreflang|href.?lang|alternate.?lang|alt.?lang/.test(c.n)})[0];
+    var pl=codeCols.filter(function(c){return c!==hc&&/lang|locale|language/.test(c.n)&&!/hreflang/.test(c.n)})[0];
+    if(!hc){hc=codeCols[codeCols.length-1];if(codeCols.length>1&&!pl)pl=codeCols[0]}
+    roles[hc.i]='code';
+    if(pl&&pl!==hc)roles[pl.i]='plang';
+  }
+  S.roles=roles;
+}
+
+/* ---------- Mapping UI ---------- */
+function renderMap(){
+  var box=$('hv-map'),m=$('hv-map-msg');
+  if(S.kind==='xml'){
+    $('hv-layout-box').hidden=true;$('hv-header-l').hidden=true;box.hidden=true;
+    $('hv-step2-p').textContent='XML sitemap detected. Each <loc> is a page and each xhtml:link one of its annotations.';
+    m.textContent=S.xml.n+' <url> entries, '+S.xml.anns.length+' hreflang links.';
+    return;
+  }
+  $('hv-layout-box').hidden=false;$('hv-header-l').hidden=false;box.hidden=false;
+  $('hv-step2-p').textContent='Detected automatically. Change the layout or any column role if something was guessed wrong.';
+  $('hv-layout').value=S.layout;$('hv-header').checked=S.header;$('hv-header').disabled=S.layout==='matrix';
+  var rows=S.rows,h=S.header?rows[0]:null,body=(S.header?rows.slice(1):rows).slice(0,6),opts=ROLES[S.layout];
+  var html='<table class="hv-map"><thead><tr>';
+  S.roles.forEach(function(r,i){
+    html+='<th class="r-'+r+'"><select data-col="'+i+'" aria-label="Role of column '+(i+1)+'">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===r?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select><span class="hv-colname">'+(h?esc(h[i]||'(no name)'):'Column '+(i+1))+'</span></th>';
+  });
+  html+='</tr></thead><tbody>';
+  body.forEach(function(row){html+='<tr>'+row.map(function(v,i){return '<td class="r-'+S.roles[i]+'" title="'+esc(v)+'">'+esc(v)+'</td>'}).join('')+'</tr>'});
+  html+='</tbody></table>';
+  box.innerHTML=html;
+  m.innerHTML=mapSummary();
+}
+function mapSummary(){
+  var R=S.roles,cnt=function(r){return R.filter(function(x){return x===r}).length};
+  var rowsN=S.rows.length-(S.header?1:0);
+  if(S.layout==='matrix'){
+    var c=cnt('code');
+    if(c<2)return '<span style="color:var(--hv-err)">Pick at least two hreflang columns. Each column header is used as the hreflang code.</span>';
+    return rowsN+' page sets, '+c+' language columns. Every URL in a row is checked as if it carries the whole row as annotations.';
+  }
+  if(!cnt('page'))return '<span style="color:var(--hv-err)">Pick the Page URL column.</span>';
+  var c2=cnt('code'),t=cnt('target');
+  if(!c2||!t)return '<span style="color:var(--hv-err)">Pick at least one Hreflang and one Alternate URL column.</span>';
+  if(c2!==t)return '<span style="color:var(--hv-err)">'+c2+' Hreflang and '+t+' Alternate URL columns. They are paired left to right, so the counts must match.</span>';
+  return rowsN+' rows, '+(c2===1?'one annotation per row':c2+' hreflang pairs per row, paired left to right')+'.'+(cnt('page')>1?' Only the first Page URL column is used.':'');
+}
+
+/* ---------- Collect annotations ---------- */
+function collect(){
+  if(S.kind==='xml')return {anns:S.xml.anns,pages:S.xml.pages,incomplete:[]};
+  var out={anns:[],pages:[],incomplete:[]},R=S.roles,rows=S.rows,off=S.header?1:0,h=rows[0];
+  if(S.layout==='matrix'){
+    var cols=[];R.forEach(function(r,i){if(r==='code')cols.push(i)});
+    if(cols.length<2)return null;
+    for(var r=1;r<rows.length;r++){
+      var cells=[],srcs=[];cols.forEach(function(i){var u=rows[r][i];if(u){cells.push({code:h[i],url:u});if(srcs.indexOf(u)<0)srcs.push(u)}});
+      srcs.forEach(function(su){out.pages.push(su);cells.forEach(function(b){out.anns.push({src:su,code:b.code,tgt:b.url,row:r+1})})});
+    }
+    return out;
+  }
+  var page=R.indexOf('page'),pl=R.indexOf('plang'),codes=[],tgts=[];
+  R.forEach(function(x,i){if(x==='code')codes.push(i);if(x==='target')tgts.push(i)});
+  if(page<0||!codes.length||codes.length!==tgts.length)return null;
+  for(var j=off;j<rows.length;j++){
+    var row=rows[j],src=row[page];
+    if(!src){continue}
+    out.pages.push(src);
+    for(var k=0;k<codes.length;k++){
+      var c=row[codes[k]],t=row[tgts[k]];
+      if(!c&&!t)continue;
+      if(!c||!t){out.incomplete.push({src:src,code:c,tgt:t,row:j+1});continue}
+      out.anns.push({src:src,code:c,tgt:t,pl:pl>-1?row[pl]:'',row:j+1});
+    }
+  }
+  return out;
+}
+
+/* ---------- URL keys ---------- */
+var O={};
+function readOpts(){O={slash:$('hv-o-slash').checked,proto:$('hv-o-proto').checked,www:$('hv-o-www').checked,ci:$('hv-o-ci').checked}}
+function mkKey(u,o){
+  var s=u.replace(/#.*$/,'');
+  try{
+    var x=new URL(s),host=x.hostname.toLowerCase();
+    if(o.www)host=host.replace(/^www\./,'');
+    var path=x.pathname;if(o.ci)path=path.toLowerCase();
+    if(o.slash&&path.length>1)path=path.replace(/\/+$/,'');
+    return (o.proto?'':x.protocol)+'//'+host+(x.port?':'+x.port:'')+path+x.search;
+  }catch(e){return s}
+}
+var LOOSE={slash:1,proto:1,www:1,ci:1};
+function looseDiff(a,b){
+  var d=[];
+  try{var x=new URL(a),y=new URL(b);
+    if(x.protocol!==y.protocol)d.push('protocol');
+    if(x.hostname.replace(/^www\./,'')===y.hostname.replace(/^www\./,'')&&x.hostname!==y.hostname)d.push('www');
+    var p=x.pathname,q=y.pathname;
+    if(p.replace(/\/+$/,'')===q.replace(/\/+$/,'')&&p!==q)d.push('trailing slash');
+    else if(p.toLowerCase()===q.toLowerCase()&&p!==q)d.push('letter case');
+  }catch(e){}
+  return d.join(' and ');
+}
+
+/* ---------- Analysis ---------- */
+var TYPES={
+  'invalid-code':['error','Invalid code'],
+  'no-return':['error','Missing return link'],
+  'conflict':['error','Conflicting targets'],
+  'inconsistent':['error','Inconsistent mapping'],
+  'relative':['error','Relative URL'],
+  'incomplete':['error','Incomplete row'],
+  'code-warning':['warn','Questionable code'],
+  'no-self':['warn','Missing self-reference'],
+  'no-data':['warn','Target has no data'],
+  'protocol':['warn','HTTP alternate'],
+  'no-xdefault':['info','No x-default'],
+  'duplicate':['info','Duplicate annotation']
+};
+function analyze(){
+  var data=collect();
+  if(!data)return null;
+  readOpts();
+  var F=[],seen={},U={},P={},parent={},base=null;
+  var baseIn=$('hv-base').value.trim();
+  if(baseIn){try{base=new URL(/^https?:\/\//i.test(baseIn)?baseIn:'https://'+baseIn).origin}catch(e){}}
+  if(!base){var all=data.anns.map(function(a){return a.src}).concat(data.anns.map(function(a){return a.tgt}),data.pages);for(var i=0;i<all.length;i++){if(/^https?:\/\//i.test(all[i])){try{base=new URL(all[i]).origin}catch(e){}break}}}
+  function add(type,pk,code,tk,detail,ck){
+    var key=type+'|'+pk+'|'+code+'|'+tk;if(seen[key])return;seen[key]=1;
+    F.push({sev:TYPES[type][0],type:type,page:pk?U[pk]||pk:'',pk:pk,code:code||'',target:tk?U[tk]||tk:'',detail:detail,ck:ck===undefined?pk:ck});
+  }
+  function node(raw){
+    var v=raw.trim(),rel=false;
+    if(/^\/\//.test(v)){v='https:'+v;rel=true}
+    else if(!/^https?:\/\//i.test(v)){rel=true;if(base)v=base+(v.charAt(0)==='/'?'':'/')+v}
+    var k=mkKey(v,O);if(!U[k])U[k]=v;
+    if(!(k in parent))parent[k]=k;
+    return {k:k,rel:rel,raw:raw};
+  }
+  function find(k){while(parent[k]!==k){parent[k]=parent[parent[k]];k=parent[k]}return k}
+  function union(a,b){a=find(a);b=find(b);if(a!==b)parent[a]=b}
+  function page(k){return P[k]||(P[k]={k:k,anns:[],pl:'',by:{},tset:{}})}
+
+  data.pages.forEach(function(raw){var n=node(raw);page(n.k)});
+  var codeUse={},relSeen={},nAnn=0;
+  data.incomplete.forEach(function(a){var n=node(a.src);page(n.k);add('incomplete',n.k,a.code,'',(a.code?'Hreflang '+esc(a.code)+' has no alternate URL':'An alternate URL has no hreflang code')+' (row '+a.row+').')});
+  data.anns.forEach(function(a){
+    var s=node(a.src),t=node(a.tgt),v=vcode(a.code);nAnn++;
+    var p=page(s.k);
+    if(a.pl&&!p.pl)p.pl=a.pl;
+    union(s.k,t.k);
+    var cu=codeUse[a.code]||(codeUse[a.code]={n:0,pk:s.k,v:v,ukHint:false});cu.n++;
+    if(v.canon==='uk'&&/\/(en-)?uk(\/|$|-)|\.co\.uk/i.test(a.tgt))cu.ukHint=true;
+    if(s.rel&&!relSeen[s.k]){relSeen[s.k]=1;add('relative',s.k,'','','Page URL <code>'+esc(a.src)+'</code> is not absolute. hreflang annotations must use fully qualified URLs.')}
+    if(t.rel)add('relative',s.k,a.code,t.k,'<code>'+esc(a.tgt)+'</code> is not absolute. Use the full URL with protocol and host.');
+    if(/^http:\/\//i.test(U[t.k])&&/^https:\/\//i.test(U[s.k]))add('protocol',s.k,a.code,t.k,'An HTTPS page points to an HTTP alternate. That URL usually redirects, and hreflang to a redirect is ignored.');
+    p.anns.push({c:v.canon,ok:v.ok,xd:!!v.xd,t:t.k,raw:a.code});
+    p.tset[t.k]=1;
+  });
+  // Code findings, aggregated per written value
+  Object.keys(codeUse).forEach(function(raw){
+    var u=codeUse[raw],v=u.v,times=' Used '+u.n+' time'+(u.n===1?'':'s')+'.';
+    if(!v.ok)add('invalid-code',u.pk,raw,'',esc(v.msg)+(v.fix?' Use <code>'+esc(v.fix)+'</code>.':'')+times,'');
+    else if(v.sev)add('code-warning',u.pk,raw,'',esc(v.msg)+(v.fix?' Consider <code>'+esc(v.fix)+'</code>.':'')+times,'');
+    if(u.ukHint)add('code-warning',u.pk,raw,'','<code>uk</code> is the code for Ukrainian, but the URLs look British. For the United Kingdom use <code>en-GB</code>.'+times,'');
+  });
+
+  // Per page checks
+  var keys=Object.keys(P);
+  keys.forEach(function(k){
+    var p=P[k],by={},self=false;
+    p.anns.forEach(function(a){
+      var g=by[a.c]||(by[a.c]={});
+      if(g[a.t])add('duplicate',k,a.raw,a.t,'The same annotation appears more than once on this page.');
+      g[a.t]=(g[a.t]||0)+1;
+      if(a.t===k)self=true;
+    });
+    p.by=by;
+    Object.keys(by).forEach(function(c){
+      var ts=Object.keys(by[c]);
+      if(ts.length>1)add('conflict',k,c,'',(c==='x-default'?'More than one x-default on this page: ':'<code>'+esc(c)+'</code> points to '+ts.length+' different URLs: ')+ts.map(function(t){return '<code>'+esc(U[t])+'</code>'}).join(', ')+'. Only one can be used.');
+    });
+    if(p.anns.length&&!self)add('no-self',k,'','','This page lists '+Object.keys(p.tset).length+' alternate'+(Object.keys(p.tset).length===1?'':'s')+' but not itself. Google asks every version to include a self-referencing annotation.');
+  });
+
+  // Clusters and expected URL per code
+  var CL={};
+  Object.keys(parent).forEach(function(k){var r=find(k);(CL[r]||(CL[r]={id:r,members:[],votes:{},exp:{},codes:{}})).members.push(k)});
+  keys.forEach(function(k){
+    var cl=CL[find(k)];
+    P[k].anns.forEach(function(a){
+      var v=cl.votes[a.c]||(cl.votes[a.c]={});
+      v[a.t]=(v[a.t]||0)+1+(a.t===k?0.5:0);
+      cl.codes[a.c]=a.ok;
+    });
+  });
+  Object.keys(CL).forEach(function(r){
+    var cl=CL[r];
+    Object.keys(cl.votes).forEach(function(c){
+      var v=cl.votes[c],best=null;
+      Object.keys(v).forEach(function(t){if(best===null||v[t]>v[best])best=t});
+      cl.exp[c]=best;
+    });
+    // URL labelled as two languages
+    var langs={};
+    Object.keys(cl.exp).forEach(function(c){if(c==='x-default'||!cl.codes[c])return;var u=cl.exp[c];(langs[u]||(langs[u]={}))[langOf(c)]=c});
+    Object.keys(langs).forEach(function(u){var ls=Object.keys(langs[u]);if(ls.length>1)add('inconsistent',u,'','','This URL is used as '+ls.map(function(l){return '<code>'+esc(langs[u][l])+'</code>'}).join(' and ')+' at the same time. One URL can serve several regions of one language, not different languages.',u)});
+  });
+
+  // Mapping consistency, page language and return links
+  var noData={},nearPair={},looseKnown={};
+  keys.forEach(function(k){looseKnown[mkKey(U[k],LOOSE)]=1});
+  keys.forEach(function(k){
+    var p=P[k],cl=CL[find(k)];
+    Object.keys(p.by).forEach(function(c){
+      var ts=Object.keys(p.by[c]);
+      if(ts.length===1&&cl.exp[c]&&ts[0]!==cl.exp[c]){
+        var df=mkKey(U[ts[0]],LOOSE)===mkKey(U[cl.exp[c]],LOOSE)?looseDiff(U[ts[0]],U[cl.exp[c]]):'';
+        if(df)nearPair[k+'>'+ts[0]]=1;
+        add('inconsistent',k,c,ts[0],'This page says <code>'+esc(c)+'</code> is <code>'+esc(U[ts[0]])+'</code>, but the rest of the page set uses <code>'+esc(U[cl.exp[c]])+'</code>.'+(df?' Only the '+df+' differs, so the return link does not match.':''));
+      }
+    });
+    if(p.pl){
+      var pv=vcode(p.pl),mine=Object.keys(cl.exp).filter(function(c){return cl.exp[c]===k&&c!=='x-default'});
+      if(pv.ok&&mine.length&&mine.indexOf(pv.canon)<0&&mine.map(langOf).indexOf(langOf(pv.canon))<0)add('inconsistent',k,p.pl,'','The page language column says <code>'+esc(p.pl)+'</code>, but the annotations treat this URL as '+mine.map(function(c){return '<code>'+esc(c)+'</code>'}).join(', ')+'.');
+    }
+  });
+  keys.forEach(function(k){
+    var p=P[k],cl=CL[find(k)];
+    Object.keys(p.tset).forEach(function(t){
+      if(t===k)return;
+      var q=P[t];
+      if(!q){if(!looseKnown[mkKey(U[t],LOOSE)]){var nd=noData[t]||(noData[t]={n:0,from:k});nd.n++}return}
+      if(q.tset[k])return;
+      var myCodes=Object.keys(cl.exp).filter(function(c){return cl.exp[c]===k&&c!=='x-default'&&cl.codes[c]}).concat(Object.keys(cl.exp).filter(function(c){return cl.exp[c]===k&&(c==='x-default'||!cl.codes[c])}));
+      var near=null;
+      Object.keys(q.tset).some(function(x){if(mkKey(U[x],LOOSE)===mkKey(U[k],LOOSE)){near=x;return true}return false});
+      if(near&&nearPair[t+'>'+near])return;
+      add('no-return',t,myCodes[0]||'',k,'<code>'+esc(U[k])+'</code> lists this page as an alternate, but this page has no hreflang pointing back to it.'+(near?' It points to <code>'+esc(U[near])+'</code> instead ('+looseDiff(U[near],U[k])+' differs).':''));
+    });
+  });
+  Object.keys(noData).forEach(function(t){var nd=noData[t];add('no-data',t,'','','Referenced by '+nd.n+' page'+(nd.n===1?'':'s')+', but the file has no hreflang data for this URL, so its return links cannot be checked.')});
+  Object.keys(CL).forEach(function(r){
+    var cl=CL[r];
+    if(cl.members.length>1&&!cl.exp['x-default']){
+      var first=cl.members.filter(function(m){return P[m]})[0]||cl.members[0];
+      add('no-xdefault',first,'','','This page set of '+cl.members.length+' URLs has no x-default. Optional, but useful when no version matches the user.',first);
+    }
+  });
+
+  // Cluster ids for findings
+  F.forEach(function(f){f.cl=f.ck&&(f.ck in parent)?find(f.ck):null});
+  var order={error:0,warn:1,info:2};
+  F.sort(function(a,b){return order[a.sev]-order[b.sev]||(a.type<b.type?-1:a.type>b.type?1:0)||(a.page<b.page?-1:a.page>b.page?1:0)});
+  var cls=Object.keys(CL).map(function(r){return CL[r]});
+  var clStat={};F.forEach(function(f){if(!f.cl)return;var s=clStat[f.cl]||(clStat[f.cl]={error:0,warn:0,info:0});s[f.sev]++});
+  cls.forEach(function(c){c.stat=clStat[c.id]||{error:0,warn:0,info:0}});
+  cls.sort(function(a,b){return (b.stat.error-a.stat.error)||(b.stat.warn-a.stat.warn)||(b.members.length-a.members.length)});
+  return {F:F,U:U,P:P,CL:cls,find:find,nAnn:nAnn,nPages:keys.length,nUrls:Object.keys(U).length};
+}
+
+/* ---------- Rendering ---------- */
+var runT;
+function schedule(){clearTimeout(runT);runT=setTimeout(run,120)}
+function run(){
+  if(!S.kind)return;
+  var t0=performance.now();
+  var res=analyze();
+  S.res=res;
+  if(!res){$('hv-stats').innerHTML='';$('hv-meta').textContent='Set the column roles in step 02 to see results.';$('hv-tbody').innerHTML='';$('hv-cls').innerHTML='';$('hv-lv').innerHTML='';$('hv-types').innerHTML='';return}
+  var c={error:0,warn:0,info:0};res.F.forEach(function(f){c[f.sev]++});
+  var clean=res.CL.filter(function(x){return x.members.length>1&&!x.stat.error}).length,multi=res.CL.filter(function(x){return x.members.length>1}).length;
+  $('hv-stats').innerHTML=
+    tile(res.nPages,'Pages with data')+tile(res.nAnn,'Annotations')+tile(multi,'Page sets')+
+    tile(c.error,'Errors',c.error?'err':'ok')+tile(c.warn,'Warnings',c.warn?'warn':'')+
+    tile(multi?Math.round(clean/multi*100)+'%':'–','Page sets without errors',multi&&clean===multi?'ok':'');
+  $('hv-meta').textContent=S.name+' · '+(S.kind==='xml'?'XML sitemap':S.layout==='matrix'?'matrix layout':'pairs layout')+' · '+res.nUrls+' unique URLs · checked in '+Math.max(1,Math.round(performance.now()-t0))+' ms';
+  $('hv-lv').innerHTML=[['all','All',res.F.length],['error','Errors',c.error],['warn','Warnings',c.warn],['info','Notices',c.info]].map(function(x){return '<button type="button" data-lv="'+x[0]+'" aria-pressed="'+(S.lv===x[0])+'">'+x[1]+' <span>'+x[2]+'</span></button>'}).join('');
+  renderResults();
+}
+function tile(v,l,cls){return '<div class="hv-tile'+(cls?' hv-tile--'+cls:'')+'"><b>'+v+'</b><span>'+l+'</span></div>'}
+function matchQ(f){if(!S.q)return true;var q=S.q.toLowerCase();return (f.page+' '+f.target+' '+f.code).toLowerCase().indexOf(q)>-1}
+function renderResults(){
+  if(!S.res)return;
+  document.querySelectorAll('#hv-view button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.view===S.view))});
+  document.querySelectorAll('#hv-lv button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===S.lv))});
+  $('hv-v-issues').hidden=S.view!=='issues';$('hv-v-clusters').hidden=S.view!=='clusters';
+  if(S.view==='issues')renderIssues();else renderClusters();
+}
+function renderIssues(){
+  var F=S.res.F.filter(function(f){return (S.lv==='all'||f.sev===S.lv)&&matchQ(f)});
+  var tc={};F.forEach(function(f){tc[f.type]=(tc[f.type]||0)+1});
+  if(S.type&&!tc[S.type])S.type='';
+  $('hv-types').innerHTML=Object.keys(TYPES).filter(function(t){return tc[t]}).map(function(t){return '<button type="button" class="hv-chip" data-type="'+t+'" aria-pressed="'+(S.type===t)+'">'+TYPES[t][1]+' <span>'+tc[t]+'</span></button>'}).join('');
+  if(S.type)F=F.filter(function(f){return f.type===S.type});
+  var sevName={error:'Error',warn:'Warning',info:'Notice'};
+  var html=F.slice(0,S.shown).map(function(f){
+    return '<tr class="s-'+f.sev+'"><td><div class="hv-url">'+(f.page?esc(f.page):'<span class="hv-dim">Whole file</span>')+'</div></td><td class="hv-codecell">'+(f.code?esc(f.code):'<span class="hv-dim">–</span>')+'</td><td><div class="hv-url">'+(f.target?esc(f.target):'<span class="hv-dim">–</span>')+'</div></td><td><span class="hv-pill hv-pill--'+f.sev+'">'+sevName[f.sev]+'</span><div style="margin-top:6px;font-size:13.5px;color:var(--ink2)">'+TYPES[f.type][1]+'</div></td><td class="hv-detail">'+f.detail+'</td></tr>';
+  }).join('');
+  if(!F.length)html='<tr><td colspan="5" class="hv-empty-row">'+(S.res.F.length?'No findings match this filter.':'No issues found. Every annotation is valid and confirmed by a return link.')+'</td></tr>';
+  $('hv-tbody').innerHTML=html;
+  $('hv-count').textContent=F.length?'Showing '+Math.min(S.shown,F.length)+' of '+F.length:'';
+  $('hv-more').hidden=F.length<=S.shown;
+}
+function codeSort(a,b){if(a==='x-default')return 1;if(b==='x-default')return -1;return a<b?-1:a>b?1:0}
+function renderClusters(){
+  var R=S.res,U=R.U,P=R.P;
+  var list=R.CL.filter(function(c){return c.members.length>1});
+  if(S.onlyBad)list=list.filter(function(c){return c.stat.error||c.stat.warn});
+  if(S.q){var q=S.q.toLowerCase();list=list.filter(function(c){return c.members.some(function(m){return U[m].toLowerCase().indexOf(q)>-1})||Object.keys(c.exp).some(function(x){return x.toLowerCase().indexOf(q)>-1})})}
+  var html=list.slice(0,S.cshown).map(function(cl,ix){
+    var codes=Object.keys(cl.exp).sort(function(a,b){var ia=cl.codes[a]?0:1,ib=cl.codes[b]?0:1;return ia-ib||codeSort(a,b)});
+    var codeOf=function(m){return codes.filter(function(c){return cl.exp[c]===m&&cl.codes[c]})};
+    var mem=cl.members.slice().sort(function(a,b){var ca=codeOf(a)[0]||'~',cb=codeOf(b)[0]||'~';return codeSort(ca,cb)||(U[a]<U[b]?-1:1)});
+    var pills=(cl.stat.error?'<span class="hv-pill hv-pill--error">'+cl.stat.error+' error'+(cl.stat.error>1?'s':'')+'</span>':'')+(cl.stat.warn?'<span class="hv-pill hv-pill--warn">'+cl.stat.warn+' warning'+(cl.stat.warn>1?'s':'')+'</span>':'')+(!cl.stat.error&&!cl.stat.warn?'<span class="hv-pill hv-pill--ok">Clean</span>':'');
+    var h='<div class="hv-cl"><div class="hv-cl-h"><b>Page set '+(ix+1)+'</b><span class="hv-dim">'+mem.length+' URLs · '+codes.length+' codes</span><span class="hv-pills">'+pills+'</span></div><div class="hv-mxwrap"><table class="hv-mx"><thead><tr><th>Page</th>'+
+      codes.map(function(c){return '<th'+(cl.codes[c]?'':' class="bad" title="Invalid code"')+'>'+esc(c)+'</th>'}).join('')+'</tr></thead><tbody>';
+    mem.forEach(function(m){
+      var p=P[m],mc=codeOf(m);
+      h+='<tr'+(p?'':' class="nodata"')+'><th><span class="u">'+esc(U[m])+'</span><span class="c">'+(mc.length?mc.join(', '):'no code')+(p?'':' · no data in file')+'</span></th>';
+      codes.forEach(function(c){
+        var e=cl.exp[c],cell;
+        if(!p){cell=['na','–','No hreflang data for this URL in the file']}
+        else if(!cl.codes[c]&&!(p.by[c]))cell=['na','–','Invalid code, not expected on every page']
+        else{
+          var g=p.by[c],ts=g?Object.keys(g):[];
+          if(!ts.length)cell=['miss','✕','Missing: no hreflang="'+c+'"'+(e?' → '+U[e]:'')];
+          else if(ts.length>1)cell=['bad','!','Conflict: '+ts.map(function(t){return U[t]}).join(' and ')];
+          else if(ts[0]!==e)cell=['bad','!','Points to '+U[ts[0]]+', expected '+U[e]];
+          else if(e===m)cell=['self','✓','Self-reference'];
+          else if(P[e]&&!P[e].tset[m])cell=['warn','↩',U[e]+' does not link back to this page'];
+          else if(!P[e])cell=['ok','✓',U[e]+' (no data to confirm the return link)'];
+          else cell=['ok','✓',U[e]];
+        }
+        h+='<td><i class="hv-cell hv-cell--'+cell[0]+'" title="'+esc(c+': '+cell[2])+'">'+cell[1]+'</i></td>';
+      });
+      h+='</tr>';
+    });
+    return h+'</tbody></table></div></div>';
+  }).join('');
+  if(!list.length)html='<p class="hv-hint">'+(R.CL.some(function(c){return c.members.length>1})?'No page sets match this filter.':'No page sets with more than one URL.')+'</p>';
+  $('hv-cls').innerHTML=html;
+  $('hv-ccount').textContent=list.length?'Showing '+Math.min(S.cshown,list.length)+' of '+list.length+' page sets':'';
+  $('hv-cmore').hidden=list.length<=S.cshown;
+}
+
+/* ---------- Exports ---------- */
+function cleanSets(){
+  var R=S.res,out=[];
+  R.CL.forEach(function(cl){
+    var codes=Object.keys(cl.exp).filter(function(c){return cl.codes[c]}).sort(codeSort);
+    if(codes.length<1)return;
+    var links=codes.map(function(c){return [c,R.U[cl.exp[c]]]});
+    var urls=[];codes.forEach(function(c){var u=cl.exp[c];if(urls.indexOf(u)<0)urls.push(u)});
+    if(urls.length<2&&codes.length<2)return;
+    out.push({urls:urls.map(function(u){return R.U[u]}),links:links});
+  });
+  return out;
+}
+function exportXML(){
+  var sets=cleanSets(),x=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'];
+  sets.forEach(function(s){s.urls.forEach(function(u){
+    x.push('  <url>','    <loc>'+xmlEsc(u)+'</loc>');
+    s.links.forEach(function(l){x.push('    <xhtml:link rel="alternate" hreflang="'+xmlEsc(l[0])+'" href="'+xmlEsc(l[1])+'"/>')});
+    x.push('  </url>');
+  })});
+  x.push('</urlset>');
+  download('hreflang-sitemap.xml',x.join('\n')+'\n','application/xml');
+}
+function exportTags(){
+  var rows=[['page_url','hreflang_tags']];
+  cleanSets().forEach(function(s){
+    var tags=s.links.map(function(l){return '<link rel="alternate" hreflang="'+xmlEsc(l[0])+'" href="'+xmlEsc(l[1])+'" />'}).join('\n');
+    s.urls.forEach(function(u){rows.push([u,tags])});
+  });
+  download('hreflang-tags.csv',csv(rows),'text/csv');
+}
+function exportMatrix(){
+  var sets=cleanSets(),all=[];
+  sets.forEach(function(s){s.links.forEach(function(l){if(all.indexOf(l[0])<0)all.push(l[0])})});
+  all.sort(codeSort);
+  var rows=[['page_set'].concat(all)];
+  sets.forEach(function(s,i){var m={};s.links.forEach(function(l){m[l[0]]=l[1]});rows.push([String(i+1)].concat(all.map(function(c){return m[c]||''})))});
+  download('hreflang-matrix.csv',csv(rows),'text/csv');
+}
+function exportFindings(){
+  var rows=[['severity','issue','page_to_fix','hreflang','alternate_url','details']];
+  var sev={error:'Error',warn:'Warning',info:'Notice'};
+  S.res.F.forEach(function(f){rows.push([sev[f.sev],TYPES[f.type][1],f.page,f.code,f.target,f.detail.replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&')])});
+  download('hreflang-findings.csv',csv(rows),'text/csv');
+}
+
+/* ---------- Samples ---------- */
+var SAMPLES={
+  rows:['page_url,page_language,hreflang,target_url',
+    'https://example.com/en/,en,en,https://example.com/en/',
+    'https://example.com/en/,en,de,https://example.com/de/',
+    'https://example.com/en/,en,en-uk,https://example.com/uk/',
+    'https://example.com/en/,en,x-default,https://example.com/en/',
+    'https://example.com/de/,de,de,https://example.com/de/',
+    'https://example.com/de/,de,en,https://example.com/en',
+    'https://example.com/de/,de,x-default,https://example.com/en/',
+    'https://example.com/uk/,en-gb,en-gb,https://example.com/uk/',
+    'https://example.com/uk/,en-gb,en,https://example.com/en/',
+    'https://example.com/uk/,en-gb,de,https://example.com/de/',
+    'https://example.com/uk/,en-gb,de,https://example.com/at/',
+    'https://example.com/fr/,fr,fr,https://example.com/fr/',
+    'https://example.com/fr/,fr,en,https://example.com/en/'].join('\n'),
+  matrix:['Template,en-gb,en-us,de-de,fr,es-419,x-default',
+    'Home,https://example.com/en-gb/,https://example.com/en-us/,https://example.com/de/,https://example.com/fr/,https://example.com/es/,https://example.com/',
+    'Pricing,https://example.com/en-gb/pricing/,https://example.com/en-us/pricing/,https://example.com/de/preise/,https://example.com/fr/tarifs/,,https://example.com/en-us/pricing/',
+    'Blog,https://example.com/en-gb/blog/,https://example.com/en-us/blog/,https://example.com/de/blog/,https://example.com/de/blog/,,',
+    'Contact,https://example.com/en-gb/contact/,https://example.com/en-us/contact/,https://example.com/de/kontakt/,https://example.com/fr/contact/,https://example.com/es/contacto/,https://example.com/contact/'].join('\n'),
+  sf:['Address,Indexability,Occurrences,HTML hreflang 1,HTML hreflang 1 URL,HTML hreflang 2,HTML hreflang 2 URL,HTML hreflang 3,HTML hreflang 3 URL',
+    'https://example.com/,Indexable,3,en,https://example.com/,de,https://example.com/de/,x-default,https://example.com/',
+    'https://example.com/de/,Indexable,3,de,https://example.com/de/,en,https://example.com/,fr_FR,https://example.com/fr/',
+    'https://example.com/fr/,Indexable,2,fr-FR,https://example.com/fr/,en,https://example.com/,,'].join('\n'),
+  xml:['<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    '  <url>','    <loc>https://example.com/en/</loc>',
+    '    <xhtml:link rel="alternate" hreflang="en" href="https://example.com/en/"/>',
+    '    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://example.com/sr/"/>',
+    '    <xhtml:link rel="alternate" hreflang="sr-Cyrl" href="https://example.com/sr-cyr/"/>',
+    '    <xhtml:link rel="alternate" hreflang="x-default" href="https://example.com/en/"/>','  </url>',
+    '  <url>','    <loc>https://example.com/sr/</loc>',
+    '    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://example.com/sr/"/>',
+    '    <xhtml:link rel="alternate" hreflang="sr-Cyrl" href="https://example.com/sr-cyr/"/>',
+    '    <xhtml:link rel="alternate" hreflang="en" href="http://example.com/en/"/>','  </url>',
+    '  <url>','    <loc>https://example.com/sr-cyr/</loc>',
+    '    <xhtml:link rel="alternate" hreflang="sr-Cyrl" href="https://example.com/sr-cyr/"/>',
+    '    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://example.com/sr/"/>',
+    '    <xhtml:link rel="alternate" hreflang="en" href="https://example.com/en/"/>',
+    '    <xhtml:link rel="alternate" hreflang="x-default" href="https://example.com/en/"/>','  </url>',
+    '</urlset>'].join('\n')
+};
+var SNAME={rows:'rows-sample.csv',matrix:'matrix-sample.csv',sf:'screaming-frog-sample.csv',xml:'sitemap-sample.xml'};
+
+/* ---------- Events ---------- */
+function readFile(f){
+  if(f.size>30*1024*1024){msg('That file is over 30 MB. Split it or remove unused columns first.');return}
+  var r=new FileReader();r.onload=function(){load(r.result,f.name)};r.onerror=function(){msg('Could not read the file.')};r.readAsText(f);
+}
+function clearAll(){
+  S.kind=null;S.res=null;S.rows=[];S.xml=null;$('hv-file').textContent='No file selected';$('hv-input').value='';$('hv-paste').value='';msg('');
+  $('hv-step2').hidden=true;$('hv-step3').hidden=true;
+}
+function init(){
+  var drop=$('hv-drop');
+  $('hv-input').addEventListener('change',function(){if(this.files[0])readFile(this.files[0])});
+  ['dragenter','dragover'].forEach(function(e){drop.addEventListener(e,function(ev){ev.preventDefault();drop.classList.add('hv-over')})});
+  ['dragleave','drop'].forEach(function(e){drop.addEventListener(e,function(ev){ev.preventDefault();drop.classList.remove('hv-over')})});
+  drop.addEventListener('drop',function(ev){var f=ev.dataTransfer&&ev.dataTransfer.files[0];if(f)readFile(f)});
+  $('hv-paste-go').addEventListener('click',function(){load($('hv-paste').value,'pasted data')});
+  document.querySelectorAll('[data-sample]').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.sample;$('hv-paste').value=SAMPLES[k];load(SAMPLES[k],SNAME[k])})});
+  $('hv-clear').addEventListener('click',clearAll);
+  $('hv-layout').addEventListener('change',function(){
+    S.layout=this.value;
+    if(S.layout==='matrix'){S.header=true;var body=S.rows.slice(1,201);S.roles=S.rows[0].map(function(x,i){return isCodeish(x)&&frac(body,i,isUrl)>=0.3?'code':'ignore'})}
+    else{S.header=!S.rows[0].some(function(v){return /^https?:\/\//i.test(v)});guessPairRoles()}
+    renderMap();run();
+  });
+  $('hv-header').addEventListener('change',function(){S.header=this.checked;guessPairRoles();renderMap();run()});
+  $('hv-map').addEventListener('change',function(e){
+    var s=e.target.closest('select');if(!s)return;
+    S.roles[+s.dataset.col]=s.value;renderMap();run();
+  });
+  ['hv-o-slash','hv-o-proto','hv-o-www','hv-o-ci'].forEach(function(id){$(id).addEventListener('change',run)});
+  $('hv-base').addEventListener('input',schedule);
+  $('hv-view').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.view=b.dataset.view;renderResults()});
+  $('hv-lv').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.lv=b.dataset.lv;S.shown=100;if(S.view!=='issues')S.view='issues';renderResults()});
+  $('hv-types').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.type=S.type===b.dataset.type?'':b.dataset.type;S.shown=100;renderIssues()});
+  var qt;$('hv-q').addEventListener('input',function(){var v=this.value;clearTimeout(qt);qt=setTimeout(function(){S.q=v.trim();S.shown=100;S.cshown=20;renderResults()},150)});
+  $('hv-onlybad').addEventListener('change',function(){S.onlyBad=this.checked;S.cshown=20;renderClusters()});
+  $('hv-more').addEventListener('click',function(){S.shown+=200;renderIssues()});
+  $('hv-cmore').addEventListener('click',function(){S.cshown+=30;renderClusters()});
+  $('hv-x-xml').addEventListener('click',exportXML);
+  $('hv-x-tags').addEventListener('click',exportTags);
+  $('hv-x-matrix').addEventListener('click',exportMatrix);
+  $('hv-x-find').addEventListener('click',exportFindings);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+</body>
+</html>

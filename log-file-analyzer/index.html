@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Consent Mode v2 (default: denied) -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+gtag('set','ads_data_redaction',true);
+try{if(localStorage.getItem('vs-consent')==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MBWKV8RG');</script>
+<!-- End Google Tag Manager -->
+<script>(function(){try{var k='vs-theme',r=document.documentElement,t=localStorage.getItem(k);if(t)r.setAttribute('data-theme',t);if(window.__vsThemeBound)return;window.__vsThemeBound=1;document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem(k,n)}catch(_){}})}catch(_){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log File Analyzer: Googlebot &amp; AI Crawler Activity | Vuk Stojković</title>
+<meta name="description" content="Free log file analyzer for SEO. Load Apache, Nginx, IIS or JSON logs and see how Googlebot, Bingbot and AI crawlers really crawl your site: status codes, sections, parameters, missed pages and fake Googlebots.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://vukstojkovic.com/log-file-analyzer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vuk Stojković">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://vukstojkovic.com/log-file-analyzer/">
+<meta property="og:title" content="Log file analyzer: Googlebot and AI crawler activity">
+<meta property="og:description" content="See what Googlebot, Bingbot and AI crawlers actually do on your site. Status codes, crawl waste, missed pages and fake bots, straight from your server logs. Runs in your browser.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Log file analyzer: Googlebot and AI crawler activity">
+<meta name="twitter:description" content="See what Googlebot, Bingbot and AI crawlers actually do on your site. Status codes, crawl waste, missed pages and fake bots, straight from your server logs. Runs in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&amp;display=block" rel="stylesheet">
+<style>
+:root {
+    --bg:#100d0e; --bg2:#0b0909; --card:#151111; --card2:#171313; --cardacc:#19100f;
+    --ph1:#221c1b; --ph2:#2b2423;
+    --line:#241e1d; --line2:#2a2322; --line3:#2f2726; --line4:#3d3432; --line5:#1d1817;
+    --btnline:#332b2a; --btnline2:#5a4b48; --accline:#3d2420; --accline2:#2e1f1d;
+    --ink:#ece6e4; --ink1:#d6cfcc; --ink2:#c9c1be; --ink3:#a9a09d; --ink4:#9a918e;
+    --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
+    --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
+    --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
+    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
+  }
+  :root[data-theme="light"] {
+    --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
+    --ph1:#e9e4dc; --ph2:#ddd6cb;
+    --line:#e3ddd4; --line2:#d6cfc4; --line3:#cdc5b8; --line4:#c3baac; --line5:#ece7df;
+    --btnline:#cdc5b8; --btnline2:#8d8477; --accline:#b7d6cc; --accline2:#cde3db;
+    --ink:#15120f; --ink1:#262019; --ink2:#342d25; --ink3:#4c443b; --ink4:#554d43;
+    --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
+    --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
+    --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
+    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
+  }
+  .ms { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; font-size: 21px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); }
+  * { box-sizing: border-box; }
+  a { color: var(--acc-theme); text-decoration: none; }
+  a:hover { color: var(--acchov2); }
+  ::selection { background: var(--acc-theme); color: var(--bg); }
+  .navt { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .navb { display: none; }
+  .t-dark { display: none !important; }
+  :root[data-theme="light"] .t-light { display: none !important; }
+  :root[data-theme="light"] .t-dark { display: inline-block !important; }
+  @media (max-width: 1040px) {
+    .navb { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto; }
+    .navb span { display: block; width: 22px; height: 2px; background: var(--hamburger); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    header nav { display: none !important; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start !important; gap: 2px !important; padding: 10px clamp(20px, 5vw, 64px) 22px; }
+    .navt:checked ~ nav { display: flex !important; }
+    .navt:focus-visible + .navb { outline: 2px solid var(--acc-theme); outline-offset: 2px; border-radius: 6px; }
+    header nav > a { font-size: 17px !important; padding: 12px 0 !important; width: 100%; border-bottom: 1px solid var(--line5) !important; }
+    header nav > div { margin-top: 14px; }
+    .navt:checked + .navb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .navt:checked + .navb span:nth-child(2) { opacity: 0; }
+    .navt:checked + .navb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+.x1:hover,.x8:hover{color: var(--ink) !important}
+.x2:hover,.x3:hover,.x4:hover,.x5:hover,.x6:hover{color: var(--ink) !important; border-color: var(--acc, var(--acc-theme)) !important}
+.x7:hover{border-color: var(--btnline2) !important; color: var(--ink) !important}
+.x9:hover{background: var(--acchov) !important; color: var(--onacc) !important}
+.x44:hover,.x45:hover,.x46:hover,.x47:hover,.x48:hover,.x49:hover,.x50:hover,.x51:hover,.x52:hover,.x53:hover,.x54:hover,.x55:hover{color: var(--acc, var(--acc-theme)) !important}
+.navdd{position:relative;display:flex;align-items:center}
+.navdd-t{display:inline-flex;align-items:center;gap:3px;font:500 15px Archivo,Helvetica,sans-serif;color:var(--ink2);padding:6px 0;background:none;border:0;border-bottom:1px solid transparent;cursor:pointer}
+.navdd-t .ms{font-size:18px;transition:transform .2s}
+.navdd:hover .navdd-t,.navdd:focus-within .navdd-t,.navdd--on .navdd-t{color:var(--ink);border-bottom-color:var(--acc-theme)}
+.navdd:hover .navdd-t .ms,.navdd:focus-within .navdd-t .ms{transform:rotate(180deg)}
+.navdd-m{position:absolute;top:100%;left:-18px;padding-top:12px;min-width:290px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
+.navdd:hover .navdd-m,.navdd:focus-within .navdd-m{opacity:1;visibility:visible;transform:none}
+.navdd-b{display:flex;flex-direction:column;gap:2px;padding:8px;background:var(--card);border:1px solid var(--line3);border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.navdd-i{display:flex;flex-direction:column;gap:2px;padding:11px 12px;border-radius:9px;color:var(--ink)}
+.navdd-i:hover{background:var(--cardacc);color:var(--ink)}
+.navdd-i b{font-size:15px;font-weight:600}
+.navdd-i span{font-size:13px;color:var(--ink5)}
+header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
+@media (max-width:1040px){.navdd{flex-direction:column;align-items:stretch;width:100%;margin-top:0 !important}.navdd-t{font-size:17px;padding:12px 0;width:100%;border-bottom:1px solid var(--line5) !important;cursor:default;color:var(--ink2)}.navdd-t .ms{display:none}.navdd-m{position:static;opacity:1;visibility:visible;transform:none;padding:0;min-width:0}.navdd-b{background:transparent;border:0;box-shadow:none;padding:0}.navdd-i{padding:12px 0 12px 16px;border-radius:0;border-bottom:1px solid var(--line5)}}
+</style>
+<style id="lg-style">
+:root{--lg-err:#ff7b6b;--lg-errbg:rgba(255,123,107,.10);--lg-warn:#f7c948;--lg-warnbg:rgba(247,201,72,.09);--lg-ok:#4fd1b5;--lg-okbg:rgba(79,209,181,.09);--lg-info:#9db8ff;--lg-infobg:rgba(157,184,255,.09)}
+:root[data-theme="light"]{--lg-err:#b42318;--lg-errbg:#fdecea;--lg-warn:#8a5a00;--lg-warnbg:#fff3d4;--lg-ok:#0b6b7d;--lg-okbg:#e2f2f1;--lg-info:#2f4fa8;--lg-infobg:#e9eefb}
+.lg-wrap{max-width:1240px;margin:0 auto}
+.lg-card [hidden],.lg-rep [hidden]{display:none!important}
+.lg-eyebrow{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.lg-eyebrow::before{content:'';width:30px;height:1px;background:var(--acc,var(--acc-theme))}
+.lg-mono{font-family:'IBM Plex Mono',monospace}
+/* loader */
+.lg-card{border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.lg-load{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0}
+@media (max-width:900px){.lg-load{grid-template-columns:minmax(0,1fr)}}
+.lg-load > div{padding:clamp(20px,3vw,32px);min-width:0}
+.lg-load > div + div{border-left:1px solid var(--line)}
+@media (max-width:900px){.lg-load > div + div{border-left:0;border-top:1px solid var(--line)}}
+.lg-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.lg-h .n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc,var(--acc-theme));letter-spacing:.08em}
+.lg-h h2{margin:0;font-size:clamp(20px,2vw,24px);letter-spacing:-.02em;font-weight:700;color:var(--ink)}
+.lg-h p{margin:0;color:var(--ink4);font-size:15px;flex-basis:100%}
+.lg-drop{position:relative;display:flex;align-items:center;gap:18px;padding:22px 24px;border:1.5px dashed var(--line4);border-radius:14px;background:var(--bg2);cursor:pointer;transition:border-color .2s,background .2s}
+.lg-drop:hover,.lg-drop.over{border-color:var(--acc,var(--acc-theme));background:var(--acctint)}
+.lg-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.lg-drop .ms{font-size:36px;color:var(--acc,var(--acc-theme));flex:none}
+.lg-drop b{display:block;font-size:17px;color:var(--ink)}
+.lg-drop small{display:block;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink5);margin-top:4px}
+.lg-tabs{display:flex;gap:4px;margin:16px 0 0;border-bottom:1px solid var(--line)}
+.lg-tabs button{border:0;background:transparent;color:var(--ink4);font:600 14.5px Archivo,sans-serif;padding:10px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer}
+.lg-tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--acc,var(--acc-theme))}
+.lg-pane{padding-top:14px}
+.lg-ta,.lg-input,.lg-select{width:100%;font:400 13.5px/1.55 'IBM Plex Mono',monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line3);border-radius:10px;padding:11px 13px;outline:none}
+.lg-ta{min-height:150px;resize:vertical;white-space:pre;overflow:auto}
+.lg-input,.lg-select{font-family:Archivo,sans-serif;font-size:15px}
+.lg-select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink4) 50%),linear-gradient(135deg,var(--ink4) 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 14px) 52%;background-size:6px 6px;background-repeat:no-repeat;padding-right:40px;cursor:pointer}
+.lg-select option{background:var(--card);color:var(--ink)}
+.lg-ta:focus,.lg-input:focus,.lg-select:focus{border-color:var(--acc,var(--acc-theme));box-shadow:0 0 0 3px var(--acctint)}
+.lg-btn{display:inline-flex;align-items:center;gap:8px;font:600 14.5px Archivo,sans-serif;padding:11px 16px;border-radius:10px;cursor:pointer;border:1px solid var(--btnline);background:transparent;color:var(--ink2);transition:border-color .2s,color .2s,background .2s}
+.lg-btn:hover{border-color:var(--btnline2);color:var(--ink)}
+.lg-btn .ms{font-size:19px}
+.lg-btn--acc{background:var(--acc,var(--acc-theme));border-color:transparent;color:var(--onacc)}
+.lg-btn--acc:hover{background:var(--acchov);color:var(--onacc);border-color:transparent}
+.lg-btn--sm{padding:8px 12px;font-size:13.5px}
+.lg-btn:focus-visible,.lg-nav a:focus-visible,.lg-seg button:focus-visible,.lg-chip:focus-visible,.lg-x:focus-visible{outline:2px solid var(--acc-theme);outline-offset:2px}
+.lg-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lg-hint{font-size:13.5px;color:var(--ink5);line-height:1.5}
+.lg-hint code,.lg-detail code,.lg-prose code,.lg-side code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--bg2);border:1px solid var(--line);padding:1px 5px;border-radius:5px;word-break:break-all}
+.lg-msg{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--lg-errbg);color:var(--lg-err);font-size:15px}
+.lg-side h3{margin:0 0 10px;font-size:15px;color:var(--ink)}
+.lg-checks{margin:0 0 18px;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;font-size:14px;color:var(--ink3)}
+.lg-checks li{display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.lg-checks .ms{font-size:17px;color:var(--acc,var(--acc-theme));margin-top:1px}
+@media (max-width:520px){.lg-checks{grid-template-columns:1fr}}
+.lg-files{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.lg-file{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:10px 10px 10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
+.lg-file .ms{font-size:20px;color:var(--ink4)}
+.lg-file b{display:block;font:500 13.5px 'IBM Plex Mono',monospace;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lg-file small{display:block;font-size:12.5px;color:var(--ink5);margin-top:1px}
+.lg-file button{border:0;background:transparent;color:var(--ink5);cursor:pointer;padding:6px;border-radius:8px;display:grid;place-items:center}
+.lg-file button:hover{color:var(--ink);background:var(--line5)}
+.lg-file button .ms{font-size:18px;color:inherit}
+.lg-pill{display:inline-block;font:600 12px Archivo,sans-serif;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.lg-pill--error{background:var(--lg-errbg);color:var(--lg-err)}
+.lg-pill--warn{background:var(--lg-warnbg);color:var(--lg-warn)}
+.lg-pill--info{background:var(--lg-infobg);color:var(--lg-info)}
+.lg-pill--ok{background:var(--lg-okbg);color:var(--lg-ok)}
+.lg-pill--dim{background:var(--line5);color:var(--ink4)}
+.lg-cmp{margin-top:18px;border:1px solid var(--line);border-radius:12px;background:var(--bg2)}
+.lg-cmp summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;padding:14px 16px;font-size:15px;font-weight:600;color:var(--ink2)}
+.lg-cmp summary::-webkit-details-marker{display:none}
+.lg-cmp summary .ms{font-size:20px;color:var(--acc,var(--acc-theme))}
+.lg-cmp summary small{font-weight:400;color:var(--ink5);font-size:13px}
+.lg-cmp-b{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
+.lg-chk{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink2);cursor:pointer;line-height:1.45}
+.lg-chk input{margin-top:3px;width:16px;height:16px;accent-color:var(--acc-theme);flex:none}
+/* report */
+.lg-rep{margin-top:24px;border:1px solid var(--line);border-radius:16px;background:var(--card);display:grid;grid-template-columns:210px minmax(0,1fr)}
+@media (max-width:960px){.lg-rep{grid-template-columns:minmax(0,1fr)}}
+.lg-nav{border-right:1px solid var(--line);padding:22px 14px}
+.lg-nav-in{position:sticky;top:96px;display:flex;flex-direction:column;gap:2px}
+.lg-nav .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5);padding:0 10px 10px}
+.lg-nav a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:9px;font-size:14.5px;font-weight:500;color:var(--ink3)}
+.lg-nav a:hover{background:var(--cardacc);color:var(--ink)}
+.lg-nav a.on{background:var(--acctint);color:var(--ink)}
+.lg-nav a span{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink5)}
+@media (max-width:960px){.lg-nav{border-right:0;border-bottom:1px solid var(--line);padding:10px 12px;position:sticky;top:72px;z-index:5;background:var(--card);border-radius:16px 16px 0 0}.lg-nav-in{position:static;flex-direction:row;overflow-x:auto;gap:4px}.lg-nav .lbl{display:none}.lg-nav a{white-space:nowrap;flex:none}}
+.lg-body{min-width:0}
+.lg-sec{padding:clamp(22px,3vw,34px);border-top:1px solid var(--line);scroll-margin-top:90px}
+.lg-sec:first-child{border-top:0}
+.lg-sec > h2{margin:0 0 6px;font-size:clamp(20px,2vw,24px);letter-spacing:-.02em;color:var(--ink)}
+.lg-sec > p.sub{margin:0 0 20px;color:var(--ink4);font-size:15px}
+.lg-verdict{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:12px;margin-bottom:18px}
+.lg-verdict .ms{font-size:26px;flex:none}
+.lg-verdict b{display:block;font-size:17px;color:var(--ink)}
+.lg-verdict span{font-size:14.5px;color:var(--ink3)}
+.lg-verdict--ok{background:var(--lg-okbg)}.lg-verdict--ok .ms{color:var(--lg-ok)}
+.lg-verdict--warn{background:var(--lg-warnbg)}.lg-verdict--warn .ms{color:var(--lg-warn)}
+.lg-verdict--err{background:var(--lg-errbg)}.lg-verdict--err .ms{color:var(--lg-err)}
+.lg-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:10px}
+.lg-tile{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg2);display:flex;flex-direction:column;gap:2px}
+.lg-tile b{font-size:26px;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
+.lg-tile span{font-size:13px;color:var(--ink5);line-height:1.35}
+.lg-tile--err b{color:var(--lg-err)}.lg-tile--warn b{color:var(--lg-warn)}.lg-tile--ok b{color:var(--lg-ok)}
+.lg-ext{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--ink4);align-items:center}
+.lg-ftable{width:100%;border-collapse:collapse;font-size:14px;margin-top:18px;min-width:640px}
+.lg-ftable th{text-align:left;padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);border-bottom:1px solid var(--line)}
+.lg-ftable td{padding:10px;border-top:1px solid var(--line5);color:var(--ink2);vertical-align:top}
+.lg-ftable td:first-child{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);white-space:nowrap}
+.lg-ftable .num{font-family:'IBM Plex Mono',monospace;font-size:13px;white-space:nowrap}
+.lg-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 12px}
+.lg-seg{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--line2);border-radius:999px;flex-wrap:wrap}
+.lg-seg button{border:0;background:transparent;color:var(--ink4);font:600 13.5px Archivo,sans-serif;padding:7px 13px;border-radius:999px;cursor:pointer}
+.lg-seg button span{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:12px;opacity:.8}
+.lg-seg button[aria-pressed="true"]{background:var(--acc,var(--acc-theme));color:var(--onacc)}
+.lg-types{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.lg-chip{border:1px solid var(--line2);background:transparent;color:var(--ink3);font:500 13px Archivo,sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer}
+.lg-chip span{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink5)}
+.lg-chip[aria-pressed="true"]{border-color:var(--acc,var(--acc-theme));color:var(--ink);background:var(--acctint)}
+.lg-search{max-width:280px}
+.lg-tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.lg-table{width:100%;border-collapse:collapse;font-size:14px;min-width:820px}
+.lg-table th{text-align:left;padding:11px 12px;background:var(--bg2);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);border-bottom:1px solid var(--line)}
+.lg-table td{padding:10px 12px;border-top:1px solid var(--line5);vertical-align:top;color:var(--ink2)}
+.lg-table tr.s-error td:first-child{box-shadow:inset 3px 0 0 var(--lg-err)}
+.lg-table tr.s-warn td:first-child{box-shadow:inset 3px 0 0 var(--lg-warn)}
+.lg-table tr.s-info td:first-child{box-shadow:inset 3px 0 0 var(--lg-info)}
+.lg-url{font-family:'IBM Plex Mono',monospace;font-size:12.5px;word-break:break-all;color:var(--ink)}
+.lg-fn{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink4);white-space:nowrap}
+.lg-detail{font-size:13.5px;line-height:1.5;color:var(--ink3);max-width:440px}
+.lg-dim{color:var(--ink5)}
+.lg-empty-row{text-align:center;padding:28px!important;color:var(--ink5)!important}
+.lg-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+.lg-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:860px){.lg-two{grid-template-columns:minmax(0,1fr)}}
+.lg-panel{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--bg2);min-width:0}
+.lg-panel h3{margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.lg-hbars{display:flex;flex-direction:column;gap:8px}
+.lg-hb{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr) 64px;gap:10px;align-items:center;font-size:13.5px}
+.lg-hb button{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lg-hb button:hover{color:var(--acc,var(--acc-theme))}
+.lg-hb i{display:block;height:10px;border-radius:5px;background:var(--acc,var(--acc-theme));min-width:2px}
+.lg-hb em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink4);text-align:right}
+.lg-vbars{display:flex;align-items:flex-end;gap:3px;height:160px;padding-top:8px;border-bottom:1px solid var(--line)}
+.lg-vb{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative}
+.lg-vb i{display:block;background:var(--acc,var(--acc-theme));border-radius:3px 3px 0 0;min-height:1px;opacity:.9}
+.lg-vb.alt i{background:var(--ink5)}
+.lg-vb.fut i{background:var(--lg-err)}
+.lg-vb:hover i{opacity:1;filter:brightness(1.15)}
+.lg-vlab{display:flex;gap:3px;margin-top:6px}
+.lg-vlab span{flex:1;min-width:0;overflow:visible!important;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink5);text-align:center;overflow:hidden;white-space:nowrap}
+.lg-kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px;margin-top:16px}
+.lg-kv div{display:flex;flex-direction:column;gap:2px}
+.lg-kv b{font-size:18px;color:var(--ink)}
+.lg-kv span{font-size:13px;color:var(--ink5)}
+.lg-ufilters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.lg-ufilters .lg-select{width:auto;min-width:180px}
+.lg-flag{display:inline-block;font:500 11.5px Archivo,sans-serif;padding:2px 7px;border-radius:999px;margin:0 4px 4px 0;white-space:nowrap}
+.lg-exports{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.lg-x{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:16px;cursor:pointer;color:var(--ink);font-family:Archivo,sans-serif;transition:border-color .2s,transform .2s}
+.lg-x:hover{border-color:var(--acc,var(--acc-theme));transform:translateY(-2px)}
+.lg-x b{display:flex;align-items:center;gap:8px;font-size:15.5px}
+.lg-x b .ms{font-size:20px;color:var(--acc,var(--acc-theme))}
+.lg-x span{font-size:13.5px;color:var(--ink4);line-height:1.5}
+.lg-x--main{border-color:var(--accline)}
+.lg-prose{max-width:780px;color:var(--ink3);font-size:17px;line-height:1.7}
+.lg-prose h2{margin:56px 0 16px;color:var(--ink);font-size:clamp(26px,3vw,36px);line-height:1.12;letter-spacing:-.03em}
+.lg-prose h3{margin:28px 0 8px;color:var(--ink);font-size:19px}
+.lg-prose p{margin:0 0 16px}
+.lg-prose ul{margin:0 0 16px;padding-left:20px}
+.lg-prose li{margin:6px 0}
+.lg-prose b{color:var(--ink1)}
+.lg-limits{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:10px;margin:8px 0 22px}
+.lg-limits div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card)}
+.lg-limits b{display:block;font-size:24px;letter-spacing:-.02em;color:var(--ink)}
+.lg-limits span{font-size:13.5px;color:var(--ink4);line-height:1.45}
+.lg-faq details{border-top:1px solid var(--line)}
+.lg-faq details:last-child{border-bottom:1px solid var(--line)}
+.lg-faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:18px;font-weight:600;color:var(--ink)}
+.lg-faq summary::-webkit-details-marker{display:none}
+.lg-faq summary::after{content:'add';font-family:'Material Symbols Rounded';font-size:22px;color:var(--acc,var(--acc-theme));flex:none;transition:transform .2s}
+.lg-faq details[open] summary::after{transform:rotate(45deg)}
+.lg-faq p{margin:0 0 20px;color:var(--ink3)}
+.lg-toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--card);border:1px solid var(--line3);color:var(--ink);padding:12px 18px;border-radius:12px;font:600 14px Archivo,sans-serif;transition:opacity .25s,transform .25s;z-index:9000;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 18px 44px rgba(0,0,0,.3)}
+.lg-toast .ms{color:var(--lg-ok);font-size:19px}
+.lg-toast.on{opacity:1;transform:translate(-50%,0)}
+.lg-prog{margin-top:16px;display:flex;flex-direction:column;gap:6px}
+.lg-prog-b{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.lg-prog-b i{display:block;height:100%;width:0;background:var(--acc,var(--acc-theme));transition:width .2s}
+.lg-focus{position:sticky;top:72px;z-index:6;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px clamp(22px,3vw,34px);background:var(--card);border-bottom:1px solid var(--line)}
+.lg-focus label{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+.lg-focus .lg-select{width:auto;min-width:240px;max-width:100%}
+.lg-focus small{font-size:13px;color:var(--ink5)}
+@media (max-width:960px){.lg-focus{top:130px;padding-top:10px;padding-bottom:10px}}
+@media (max-width:600px){.lg-focus label{display:none}.lg-focus .lg-select{min-width:0;flex:1}}
+.lg-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink4);margin-top:12px}
+.lg-legend span{display:inline-flex;align-items:center;gap:7px}
+.lg-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.lg-stack{flex:1;min-width:0;display:flex;flex-direction:column-reverse;height:100%;cursor:default}
+.lg-stack i{display:block;width:100%;min-height:0}
+.lg-stack:hover{filter:brightness(1.15)}
+.c-google{background:var(--acc,var(--acc-theme))}
+.c-bing{background:var(--lg-info)}
+.c-ai{background:var(--lg-ok)}
+.c-search{background:#b48cff}
+.c-seo{background:var(--lg-warn)}
+.c-other{background:var(--ink5)}
+:root[data-theme="light"] .c-search{background:#6b3fb8}
+.lg-sbar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line)}
+.lg-sbar i{display:block;height:100%}
+.s2{background:var(--lg-ok)}.s3{background:var(--lg-info)}.s4{background:var(--lg-warn)}.s5{background:var(--lg-err)}.sx{background:var(--ink5)}
+.lg-findings{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.lg-fd{display:flex;gap:12px;align-items:flex-start;padding:13px 15px;border-radius:12px;font-size:14.5px;line-height:1.55;color:var(--ink2)}
+.lg-fd .ms{font-size:20px;flex:none;margin-top:1px}
+.lg-fd b{color:var(--ink)}
+.lg-fd code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--bg2);border:1px solid var(--line);padding:1px 5px;border-radius:5px;word-break:break-all}
+.lg-fd--error{background:var(--lg-errbg)}.lg-fd--error .ms{color:var(--lg-err)}
+.lg-fd--warn{background:var(--lg-warnbg)}.lg-fd--warn .ms{color:var(--lg-warn)}
+.lg-fd--info{background:var(--lg-infobg)}.lg-fd--info .ms{color:var(--lg-info)}
+.lg-fd--ok{background:var(--lg-okbg)}.lg-fd--ok .ms{color:var(--lg-ok)}
+.lg-ctable{width:100%;border-collapse:collapse;font-size:14px;min-width:820px}
+.lg-ctable th{text-align:left;padding:10px 12px;background:var(--bg2);font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);border-bottom:1px solid var(--line);white-space:nowrap}
+.lg-ctable td{padding:10px 12px;border-top:1px solid var(--line5);color:var(--ink2);vertical-align:middle}
+.lg-ctable td.n{font-family:'IBM Plex Mono',monospace;font-size:13px;white-space:nowrap;text-align:right}
+.lg-ctable th.n{text-align:right}
+.lg-ctable tr.grp td{background:var(--bg2);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);padding:8px 12px}
+.lg-ctable tr[data-bot]{cursor:pointer}
+.lg-ctable tr[data-bot]:hover td{background:var(--cardacc)}
+.lg-ctable tr.on td{background:var(--acctint)}
+.lg-ctable b{font-weight:600;color:var(--ink)}
+.lg-mini{width:120px}
+.lg-codes{display:flex;gap:4px;flex-wrap:wrap}
+.lg-code{font:500 11.5px 'IBM Plex Mono',monospace;padding:2px 6px;border-radius:6px;white-space:nowrap}
+.lg-code.k2{background:var(--lg-okbg);color:var(--lg-ok)}.lg-code.k3{background:var(--lg-infobg);color:var(--lg-info)}.lg-code.k4{background:var(--lg-warnbg);color:var(--lg-warn)}.lg-code.k5{background:var(--lg-errbg);color:var(--lg-err)}
+.lg-vtable td:last-child{white-space:nowrap}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebApplication",
+   "@id": "https://vukstojkovic.com/log-file-analyzer/#app",
+   "name": "Log File Analyzer",
+   "url": "https://vukstojkovic.com/log-file-analyzer/",
+   "inLanguage": "en",
+   "applicationCategory": "DeveloperApplication",
+   "operatingSystem": "Any",
+   "browserRequirements": "Requires JavaScript",
+   "description": "Free browser-based server log analyzer for SEO. Reads Apache, Nginx, IIS and JSON logs, including gzip, and reports how Googlebot, Bingbot and AI crawlers crawl a site: status codes, sections, parameters, pages never requested and fake Googlebots.",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+   },
+   "creator": {
+    "@id": "https://vukstojkovic.com/#vuk"
+   },
+   "provider": {
+    "@id": "https://vukstojkovic.com/#business"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://vukstojkovic.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Log file analyzer",
+     "item": "https://vukstojkovic.com/log-file-analyzer/"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://vukstojkovic.com/log-file-analyzer/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Are my log files uploaded anywhere?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Files are read and analysed by JavaScript in your browser, line by line. The only optional network request is the IP verification step, which sends crawler IP addresses to Google Public DNS."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How big can the log files be?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Files are streamed, so hundreds of megabytes work in a modern browser. Only crawler requests are kept in detail; visitor traffic is counted but not stored, which keeps memory use low."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many days of logs do I need?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "At least two weeks, ideally 30 days or more. Googlebot visits important pages often, but deeper pages may only be requested every few weeks, so short samples overstate how many pages are never crawled."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why do I see fewer Googlebot requests than Search Console reports?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Search Console's crawl stats cover every host Google crawls for the property, including CDN and image hosts, and every Google crawler. Your log may only cover one server or one host. Compare like for like."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I verify Googlebot without sending IPs to Google DNS?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Run the same check on your own machine: host 66.249.66.1, then host on the returned name. Or compare the IPs against the googlebot.json IP ranges Google publishes."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does it work with Cloudflare?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, with Cloudflare Logpush HTTP request logs in JSON format. Fields like ClientIP, ClientRequestURI, EdgeResponseStatus and ClientRequestUserAgent are recognised."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBWKV8RG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
+
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+      <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><svg viewBox="50 18 402 460" width="26" height="30" aria-hidden="true" style="flex: none; color: var(--acc, var(--acc-theme))"><path d="M113 195V32L205 128H298L390 32V195L437 297L250 462L65 297Z M113 195L205 128 M390 195L298 128 M157 250L205 278V392 M345 250L297 278V392" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="miter" stroke-miterlimit="10"></path><path d="M226 392H275L250.5 418Z" fill="currentColor"></path></svg>Vuk Stojković</a>
+      <input type="checkbox" id="nav-toggle" class="navt" aria-label="Menu">
+      <label for="nav-toggle" class="navb"><span></span><span></span><span></span></label>
+      <nav style="display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap">
+        <a class="x2" href="../experience/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Experience</a>
+        <a class="x3" href="../services/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Services</a>
+        <a class="x4" href="../work-with-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Work with me</a>
+        <div class="navdd navdd--on">
+          <button class="navdd-t" type="button" aria-haspopup="true">SEO tools<span class="ms" aria-hidden="true">expand_more</span></button>
+          <div class="navdd-m">
+            <div class="navdd-b">
+              <a class="navdd-i" href="../redirect-map-validator/"><b>Redirect map validator</b><span>Chains, loops and conflicts</span></a>
+              <a class="navdd-i" href="../hreflang-validator/"><b>Hreflang validator</b><span>Return links, codes and clusters</span></a>
+              <a class="navdd-i" href="../xml-sitemap-analyzer/"><b>XML sitemap analyzer</b><span>Limits, lastmod and duplicates</span></a>
+              <a class="navdd-i" href="../log-file-analyzer/" aria-current="page"><b>Log file analyzer</b><span>Googlebot and AI crawler activity</span></a>
+              <a class="navdd-i" href="../robots-txt-generator/"><b>Robots.txt generator</b><span>Google and AI crawler access</span></a>
+            </div>
+          </div>
+        </div>
+        <a class="x5" href="../products/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">Products</a>
+        <a class="x6" href="../about-me/" style="font-size: 15px; font-weight: 500; color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent">About me</a>
+        <button class="x7" type="button" data-theme-toggle="true" aria-label="Switch theme" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; padding: 0"><span class="ms t-dark" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">dark_mode</span><span class="ms t-light" aria-hidden="true" style="font-size: 18px; color: var(--sunmoon)">light_mode</span></button>
+        <div style="display: flex; align-items: center; border: 1px solid var(--line2); border-radius: 999px; padding: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em">
+          <span style="padding: 5px 11px; border-radius: 999px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 500">EN</span>
+          <a class="x8" href="../sr/" style="padding: 5px 11px; border-radius: 999px; color: var(--ink5)">SR</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section style="padding: clamp(48px, 6vw, 88px) clamp(20px, 5vw, 64px) clamp(32px, 4vw, 48px)">
+    <div class="lg-wrap">
+      <nav aria-label="Breadcrumb" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink5); margin-bottom: 26px"><a href="../" class="x1" style="color: var(--ink3)">Home</a> &nbsp;/&nbsp; <span style="color: var(--ink2)">Log file analyzer</span></nav>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); margin-bottom: 24px">Free tool &nbsp;·&nbsp; Crawl budget &nbsp;·&nbsp; AI crawlers</div>
+      <h1 style="margin: 0; font-size: clamp(34px, 4.6vw, 58px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; max-width: 18ch">Log file <span style="color: var(--acc, var(--acc-theme))">analyzer</span></h1>
+      <p style="margin: 26px 0 0; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink3); max-width: 62ch; text-wrap: pretty">Crawl tools show what a bot could see. Server logs show what it actually did. Load your access logs and see where Googlebot, Bingbot and AI crawlers spend their requests, which status codes they get, which pages they never visit, and who is only pretending to be Googlebot.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px">
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Apache, Nginx, IIS and JSON logs</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>40+ search, AI and SEO crawlers</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Hundreds of MB, .gz included</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Logs never leave the browser</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 0 clamp(20px, 5vw, 64px) clamp(56px, 7vw, 100px)">
+    <div class="lg-wrap">
+      <div class="lg-card" id="tool">
+        <div class="lg-load">
+          <div>
+            <div class="lg-h"><span class="n">01</span><h2>Load your access logs</h2><p>One file or several days at once. Plain or gzipped. Only crawler requests are kept in detail, so large files stay fast.</p></div>
+            <label class="lg-drop" id="lg-drop">
+              <input type="file" id="lg-input" multiple accept=".log,.txt,.gz,.json,.jsonl,.ndjson,text/plain,application/gzip,application/json" aria-label="Upload log files">
+              <span class="ms" aria-hidden="true">upload_file</span>
+              <span><b>Drop log files or click to browse</b><small>access.log · .log.gz · W3C/IIS · JSON lines</small></span>
+            </label>
+            <div class="lg-prog" id="lg-prog" hidden><div class="lg-prog-b"><i id="lg-prog-i"></i></div><span class="lg-hint" id="lg-prog-t"></span></div>
+            <div class="lg-tabs" role="tablist" aria-label="Other inputs">
+              <button type="button" role="tab" id="lg-t-paste" aria-selected="true" aria-controls="lg-p-paste">Paste log lines</button>
+              <button type="button" role="tab" id="lg-t-cmp" aria-selected="false" aria-controls="lg-p-cmp" tabindex="-1">Compare with URLs</button>
+            </div>
+            <div class="lg-pane" id="lg-p-paste" role="tabpanel" aria-labelledby="lg-t-paste">
+              <label class="lg-hint" for="lg-paste" style="display:block;margin-bottom:8px">Paste a few thousand lines straight from the server or a log viewer.</label>
+              <textarea class="lg-ta" id="lg-paste" spellcheck="false" placeholder='66.249.66.1 - - [05/Nov/2026:08:14:02 +0100] "GET /services/ HTTP/1.1" 200 18234 "-" "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"'></textarea>
+              <div class="lg-row" style="margin-top:10px"><button type="button" class="lg-btn lg-btn--acc" id="lg-paste-go"><span class="ms" aria-hidden="true">add</span>Add pasted lines</button></div>
+            </div>
+            <div class="lg-pane" id="lg-p-cmp" role="tabpanel" aria-labelledby="lg-t-cmp" hidden>
+              <label class="lg-hint" for="lg-cmp" style="display:block;margin-bottom:8px">Paste the URLs that matter: your XML sitemap, or indexable pages from a crawl. The report shows which of them the selected crawler never requested, and where it crawled instead.</label>
+              <textarea class="lg-ta" id="lg-cmp" spellcheck="false" placeholder="https://example.com/&#10;https://example.com/services/&#10;or paste a whole sitemap.xml"></textarea>
+              <div class="lg-row" style="margin-top:10px;justify-content:space-between">
+                <label class="lg-chk"><input type="checkbox" id="lg-cmp-slash"><span>Ignore trailing slash differences</span></label>
+                <label class="lg-btn lg-btn--sm" style="position:relative"><span class="ms" aria-hidden="true">upload</span>Load URL list or sitemap<input type="file" id="lg-cmp-file" accept=".txt,.csv,.xml,text/plain,text/csv,application/xml,text/xml" style="position:absolute;inset:0;opacity:0;cursor:pointer" aria-label="Upload URL list or sitemap"></label>
+              </div>
+              <span class="lg-hint" id="lg-cmp-n"></span>
+            </div>
+            <div class="lg-msg" id="lg-msg" role="alert" hidden></div>
+            <div class="lg-files" id="lg-files"></div>
+          </div>
+          <div class="lg-side">
+            <h3>What you get</h3>
+            <ul class="lg-checks">
+              <li><span class="ms" aria-hidden="true">smart_toy</span>Every crawler, grouped</li>
+              <li><span class="ms" aria-hidden="true">calendar_month</span>Daily crawl activity</li>
+              <li><span class="ms" aria-hidden="true">swap_horiz</span>Redirects, 404s and 5xx per bot</li>
+              <li><span class="ms" aria-hidden="true">folder_open</span>Crawl by section and file type</li>
+              <li><span class="ms" aria-hidden="true">filter_alt</span>Crawl waste on parameters</li>
+              <li><span class="ms" aria-hidden="true">visibility_off</span>Pages bots never visit</li>
+              <li><span class="ms" aria-hidden="true">phone_iphone</span>Smartphone vs desktop Googlebot</li>
+              <li><span class="ms" aria-hidden="true">verified_user</span>Fake Googlebot detection</li>
+            </ul>
+            <h3>Try it</h3>
+            <div class="lg-row">
+              <button type="button" class="lg-btn lg-btn--sm" id="lg-sample"><span class="ms" aria-hidden="true">description</span>Load a 14-day sample log</button>
+              <button type="button" class="lg-btn lg-btn--sm" id="lg-clear">Clear all</button>
+            </div>
+            <p class="lg-hint" style="margin:16px 0 0">Where to find logs: your host's control panel (cPanel › Raw Access, Plesk › Logs), <code>/var/log/nginx/</code> or <code>/var/log/apache2/</code> on a server, or Cloudflare Logpush. Ask for at least two weeks of logs, ideally 30 days.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg-rep" id="lg-rep" hidden>
+        <aside class="lg-nav" aria-label="Report sections">
+          <div class="lg-nav-in" id="lg-nav">
+            <div class="lbl">Report</div>
+            <a href="#lg-overview">Overview</a>
+            <a href="#lg-crawlers">Crawlers <span id="lg-nav-bots"></span></a>
+            <a href="#lg-status">Status codes</a>
+            <a href="#lg-sections">Sections</a>
+            <a href="#lg-urls">URLs <span id="lg-nav-urls"></span></a>
+            <a href="#lg-compare">Compare</a>
+            <a href="#lg-verify">Verify bots</a>
+            <a href="#lg-export">Export</a>
+          </div>
+        </aside>
+        <div class="lg-body">
+          <section class="lg-sec" id="lg-overview">
+            <h2>Overview</h2>
+            <p class="sub" id="lg-meta"></p>
+            <div class="lg-stats" id="lg-stats"></div>
+            <div class="lg-panel" style="margin-top:18px">
+              <h3 id="lg-daily-h">Requests per day</h3>
+              <div class="lg-vbars" id="lg-daily" style="height:180px"></div>
+              <div class="lg-vlab" id="lg-daily-lab"></div>
+              <div class="lg-legend" id="lg-daily-leg"></div>
+            </div>
+            <h3 style="margin:26px 0 0;font-size:17px;color:var(--ink)">Key findings</h3>
+            <div class="lg-findings" id="lg-findings"></div>
+          </section>
+
+          <section class="lg-sec" id="lg-crawlers">
+            <h2>Crawlers</h2>
+            <p class="sub">Every bot identified by user agent. Click a row to focus the rest of the report on it.</p>
+            <div class="lg-tablewrap"><table class="lg-ctable" id="lg-ctable"></table></div>
+          </section>
+
+          <div class="lg-focus">
+            <label for="lg-focus">Focus</label>
+            <select class="lg-select" id="lg-focus"></select>
+            <small id="lg-focus-n"></small>
+          </div>
+
+          <section class="lg-sec" id="lg-status">
+            <h2>Status codes</h2>
+            <p class="sub">What the focused crawler got back. Every redirect and error is a request not spent on a page that can rank.</p>
+            <div class="lg-sbar" id="lg-sbar"></div>
+            <div class="lg-legend" id="lg-sleg"></div>
+            <div class="lg-bar" style="margin-top:22px">
+              <div class="lg-seg" id="lg-scls" role="group" aria-label="Status class"></div>
+            </div>
+            <div class="lg-tablewrap"><table class="lg-table" style="min-width:600px"><thead><tr><th>URL</th><th style="text-align:right">Requests</th><th>Codes</th><th>Last request</th></tr></thead><tbody id="lg-stbody"></tbody></table></div>
+            <div class="lg-foot"><span class="lg-hint" id="lg-scount"></span></div>
+          </section>
+
+          <section class="lg-sec" id="lg-sections">
+            <h2>Where the crawl goes</h2>
+            <p class="sub">Requests by site section and file type. Click a section to see its URLs.</p>
+            <div class="lg-two">
+              <div class="lg-panel"><h3>Top sections</h3><div class="lg-hbars" id="lg-folders"></div></div>
+              <div class="lg-panel"><h3>File types</h3><div class="lg-hbars" id="lg-types"></div><h3 style="margin-top:22px">Parameters</h3><div class="lg-hbars" id="lg-params"></div></div>
+            </div>
+            <div class="lg-kv" id="lg-skv"></div>
+          </section>
+
+          <section class="lg-sec" id="lg-urls">
+            <h2>URL explorer</h2>
+            <p class="sub">Every URL the focused crawler requested.</p>
+            <div class="lg-ufilters">
+              <input class="lg-input lg-search" id="lg-uq" type="search" placeholder="Search URLs" aria-label="Search URLs">
+              <select class="lg-select" id="lg-ust" aria-label="Filter by status"><option value="">All status codes</option><option value="2">2xx only</option><option value="3">Any 3xx</option><option value="4">Any 4xx</option><option value="5">Any 5xx</option><option value="q">With parameters</option></select>
+              <select class="lg-select" id="lg-ufo" aria-label="Filter by section"></select>
+              <select class="lg-select" id="lg-usort" aria-label="Sort"><option value="h">Most requested</option><option value="l">Least requested</option><option value="r">Most recent</option><option value="o">Longest ago</option></select>
+            </div>
+            <div class="lg-tablewrap"><table class="lg-table" style="min-width:640px"><thead><tr><th>URL</th><th style="text-align:right">Requests</th><th>Codes</th><th>Last request</th></tr></thead><tbody id="lg-utbody"></tbody></table></div>
+            <div class="lg-foot"><span class="lg-hint" id="lg-ucount"></span><button type="button" class="lg-btn lg-btn--sm" id="lg-umore" hidden>Show more</button></div>
+          </section>
+
+          <section class="lg-sec" id="lg-compare">
+            <h2>Compare with your important URLs</h2>
+            <p class="sub" id="lg-csub">Paste your sitemap or a list of indexable URLs in the <b>Compare with URLs</b> tab above to see which pages the focused crawler never requested.</p>
+            <div id="lg-cbox" hidden>
+              <div class="lg-stats" id="lg-cstats"></div>
+              <div class="lg-bar" style="margin-top:18px">
+                <div class="lg-seg" id="lg-cview" role="group" aria-label="Compare view">
+                  <button type="button" data-c="never" aria-pressed="true">Never requested</button>
+                  <button type="button" data-c="extra" aria-pressed="false">Crawled, not in your list</button>
+                </div>
+              </div>
+              <div class="lg-tablewrap"><table class="lg-table" style="min-width:0"><tbody id="lg-ctbody"></tbody></table></div>
+              <div class="lg-foot"><span class="lg-hint" id="lg-ccount"></span><button type="button" class="lg-btn lg-btn--sm" id="lg-cx"><span class="ms" aria-hidden="true">download</span>Download this list</button></div>
+            </div>
+          </section>
+
+          <section class="lg-sec" id="lg-verify">
+            <h2>Verify crawler IPs</h2>
+            <p class="sub">Anyone can put "Googlebot" in a user agent. Google, Bing, Apple, Yandex and Baidu crawlers can be confirmed with a reverse DNS lookup followed by a forward lookup, the method these search engines document.</p>
+            <div class="lg-panel">
+              <p class="lg-hint" style="margin:0 0 12px" id="lg-vnote"></p>
+              <div class="lg-row"><button type="button" class="lg-btn lg-btn--acc" id="lg-vgo"><span class="ms" aria-hidden="true">verified_user</span>Verify with DNS lookups</button><span class="lg-hint" id="lg-vstat"></span></div>
+              <p class="lg-hint" style="margin:12px 0 0">This is the only step that uses the network: it sends the listed crawler IP addresses, and nothing else, to Google Public DNS (dns.google). The log itself stays in your browser.</p>
+            </div>
+            <div class="lg-tablewrap" style="margin-top:16px" id="lg-vwrap" hidden><table class="lg-table lg-vtable" style="min-width:640px"><thead><tr><th>IP</th><th>Claims to be</th><th style="text-align:right">Requests</th><th>Hostname</th><th>Result</th></tr></thead><tbody id="lg-vtbody"></tbody></table></div>
+          </section>
+
+          <section class="lg-sec" id="lg-export">
+            <h2>Export</h2>
+            <p class="sub">Take the numbers into a spreadsheet, a ticket or a client report.</p>
+            <div class="lg-exports">
+              <button type="button" class="lg-x lg-x--main" id="lg-x-urls"><b><span class="ms" aria-hidden="true">table_view</span>URLs for focused crawler</b><span>Every requested URL with hits, status codes, section and last request.</span></button>
+              <button type="button" class="lg-x" id="lg-x-bots"><b><span class="ms" aria-hidden="true">smart_toy</span>Crawler summary</b><span>One row per bot: requests, unique URLs, status mix, first and last seen.</span></button>
+              <button type="button" class="lg-x" id="lg-x-days"><b><span class="ms" aria-hidden="true">calendar_month</span>Daily activity</b><span>Requests per day for every crawler, ready for a chart.</span></button>
+              <button type="button" class="lg-x" id="lg-x-find"><b><span class="ms" aria-hidden="true">download</span>Key findings</b><span>The findings list as CSV.</span></button>
+            </div>
+          </section>
+        </div>
+      </div>
+      <p class="lg-hint" style="margin:14px 2px 0">Bots are identified by user agent. Use the verification step to separate real search engine crawlers from impostors.</p>
+    </div>
+  </section>
+
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
+    <div class="lg-wrap">
+      <div class="lg-prose">
+        <div class="lg-eyebrow">Guide</div>
+        <h2 style="margin-top:22px">Why log files matter for SEO</h2>
+        <p>Every SEO tool simulates a crawler. Your server logs record the real one. Each line is a request Googlebot or an AI crawler actually made, with the URL, the status code it got and the exact time. That makes logs the only direct answer to questions like: is Google crawling the pages that matter, how much crawl goes to redirects and junk URLs, how quickly new content is discovered, and which AI crawlers are reading the site.</p>
+        <h2>What to look for</h2>
+        <h3>Crawl waste</h3>
+        <p>Requests to redirects, 404s, parameter URLs, internal search and faceted navigation are requests not spent on pages that can rank. On small sites this rarely matters. On sites with tens of thousands of URLs, it decides how fast new and updated pages are picked up.</p>
+        <h3>Pages Googlebot never visits</h3>
+        <p>Compare the log with your sitemap. Important URLs with no Googlebot request in 30 days are usually poorly linked internally, too deep in the structure, or seen as low value. That list is often more useful than any crawl report.</p>
+        <h3>Server errors</h3>
+        <p>5xx responses tell Google the server is struggling, and Google slows down crawling in response. A few on one day can be noise. Errors every day, or a spike after a release, need a developer.</p>
+        <h3>Smartphone vs desktop Googlebot</h3>
+        <p>With mobile-first indexing, the large majority of Googlebot requests should come from the smartphone crawler. A site still crawled mostly by desktop Googlebot is worth checking in Search Console.</p>
+        <h3>AI crawlers</h3>
+        <p>GPTBot, ClaudeBot, OAI-SearchBot, PerplexityBot and others now show up in most logs. The report separates AI search crawlers, user-triggered fetchers and training crawlers, so you can see whether your <a href="../robots-txt-generator/">robots.txt rules</a> or CDN settings are doing what you intended. A wall of 403 responses usually means a firewall is blocking them, not robots.txt.</p>
+        <h3>Fake Googlebots</h3>
+        <p>Scrapers often pretend to be Googlebot. The verification step does a reverse DNS lookup on each IP, checks that the hostname belongs to the search engine (for example <code>googlebot.com</code> or <code>search.msn.com</code>), then confirms it with a forward lookup. Requests that fail are not Google, whatever the user agent says.</p>
+        <h2>Supported log formats</h2>
+        <ul>
+          <li><b>Apache and Nginx</b> common and combined formats, including virtual-host prefixes and extra fields after the user agent.</li>
+          <li><b>W3C extended (IIS)</b>, using the <code>#Fields</code> header.</li>
+          <li><b>JSON lines</b> from Cloudflare Logpush and most log pipelines. Common field names for IP, URL, status, user agent and time are detected automatically.</li>
+          <li><b>Gzipped files</b> are unzipped in the browser while they are read.</li>
+        </ul>
+        <h2>What this tool does not do</h2>
+        <p>It does not fetch any page, and it only knows what your logs contain. Logs behind a CDN may show cached responses, or miss requests the CDN answered on its own. If your host only keeps a few days of logs, ask for longer retention before you draw conclusions about crawl frequency.</p>
+        <h2 id="faq">FAQ</h2>
+        <div class="lg-faq">
+          <details><summary>Are my log files uploaded anywhere?</summary><p>No. Files are read and analysed by JavaScript in your browser, line by line. The only optional network request is the IP verification step, which sends crawler IP addresses to Google Public DNS.</p></details>
+          <details><summary>How big can the log files be?</summary><p>Files are streamed, so hundreds of megabytes work in a modern browser. Only crawler requests are kept in detail; visitor traffic is counted but not stored, which keeps memory use low.</p></details>
+          <details><summary>How many days of logs do I need?</summary><p>At least two weeks, ideally 30 days or more. Googlebot visits important pages often, but deeper pages may only be requested every few weeks, so short samples overstate how many pages are never crawled.</p></details>
+          <details><summary>Why do I see fewer Googlebot requests than Search Console reports?</summary><p>Search Console's crawl stats cover every host Google crawls for the property, including CDN and image hosts, and every Google crawler. Your log may only cover one server or one host. Compare like for like.</p></details>
+          <details><summary>How do I verify Googlebot without sending IPs to Google DNS?</summary><p>Run the same check on your own machine: host 66.249.66.1, then host on the returned name. Or compare the IPs against the googlebot.json IP ranges Google publishes.</p></details>
+          <details><summary>Does it work with Cloudflare?</summary><p>Yes, with Cloudflare Logpush HTTP request logs in JSON format. Fields like ClientIP, ClientRequestURI, EdgeResponseStatus and ClientRequestUserAgent are recognised.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
+    <div class="lg-wrap" style="display: flex; flex-wrap: wrap; gap: clamp(28px, 4vw, 56px); align-items: center; justify-content: space-between">
+      <div style="flex: 1 1 460px; min-width: 0">
+        <div class="lg-eyebrow">Log file analysis</div>
+        <h2 style="margin: 22px 0 0; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 22ch; color: var(--ink)">Want the logs read by someone who does this daily?</h2>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I combine your logs with a full crawl and Search Console data to find where crawl budget leaks, why important pages are skipped, and what to fix first. You get a prioritised list your developers can act on.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a class="x9" href="mailto:stojkovicv86@gmail.com?subject=Log%20file%20analysis" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
+        <a class="x7" href="../services/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink2); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">See services</a>
+        <a class="x7" href="../products/" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--btnline); color: var(--ink2); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">SEO guides</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top: 1px solid var(--line); background: var(--bg2); padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px) 32px">
+    <div style="max-width: 1240px; margin: 0 auto">
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 64px)">
+        <div style="flex: 1 1 280px; max-width: 360px; min-width: 0">
+          <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)">Vuk Stojković</div>
+          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Technical SEO, GEO and PPC. Belgrade, Serbia. I work with clients and teams remotely.</p>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Explore</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x44" href="../experience/" style="font-size: 16px; color: var(--ink2)">Experience</a>
+            <a class="x45" href="../services/" style="font-size: 16px; color: var(--ink2)">Services</a>
+            <a class="x46" href="../work-with-me/" style="font-size: 16px; color: var(--ink2)">Work with me</a>
+            <a class="x47" href="../about-me/" style="font-size: 16px; color: var(--ink2)">About me</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Products</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x48" href="../products/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
+            <a class="x49" href="../products/" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
+            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">Brand Visibility in AI Answers</a>
+            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">SEO + AI Visibility Bundle</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Contact</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x51" href="mailto:stojkovicv86@gmail.com" style="font-size: 16px; color: var(--ink2)">Email</a>
+            <a class="x52" href="https://www.linkedin.com/in/vuk-stojkovic-42416b390/" style="font-size: 16px; color: var(--ink2)">LinkedIn</a>
+            <a class="x53" href="https://www.instagram.com/vukstojkovicseo/" rel="me noopener" target="_blank" style="font-size: 16px; color: var(--ink2)">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5)">
+        <div>Belgrade, Serbia · CET/CEST</div>
+        <div>© 2026 Vuk Stojković. All rights reserved.</div>
+        <div style="display: flex; gap: 20px"><a class="x54" href="../privacy-policy/" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a><a class="x55" href="#" data-cc-open="" style="color: var(--ink2); text-decoration: underline; text-underline-offset: 3px">Cookie settings</a></div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<div class="lg-toast" id="lg-toast" role="status" aria-live="polite"><span class="ms" aria-hidden="true">check_circle</span><span></span></div>
+
+<style>#vs-cc .ccp:hover{background:var(--acchov)!important}#vs-cc .ccs:hover{border-color:var(--btnline2)!important;color:var(--ink)!important}#vs-cc button:focus-visible{outline:2px solid var(--acc-theme);outline-offset:2px}</style>
+<div id="vs-cc" hidden role="dialog" aria-label="Cookies" style="position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 9999; max-width: 480px; margin-left: auto; background: var(--card); border: 1px solid var(--line3); border-radius: 14px; padding: 20px 22px; box-shadow: 0 18px 50px rgba(0,0,0,0.35); font-family: 'Archivo', sans-serif; color: var(--ink)">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc-theme)">Cookies</div>
+  <p style="margin: 10px 0 16px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty">I use analytics cookies to see which pages help and which don’t. None are set until you choose. <a href="../privacy-policy/" style="color: var(--ink); text-decoration: underline; text-underline-offset: 3px">Privacy policy</a></p>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px">
+    <button type="button" data-cc="a" class="ccp" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: var(--acc-theme); color: var(--onacc); border: 1px solid transparent">Accept</button>
+    <button type="button" data-cc="r" class="ccs" style="font-family: inherit; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 10px; cursor: pointer; background: transparent; color: var(--ink2); border: 1px solid var(--btnline)">Necessary only</button>
+  </div>
+</div>
+<script>(function(){var b=document.getElementById('vs-cc');function set(v){try{localStorage.setItem('vs-consent',v)}catch(e){}var g=v==='granted'?'granted':'denied';gtag('consent','update',{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g});dataLayer.push({event:'consent_update',consent_choice:v});b.hidden=true}
+var c=null;try{c=localStorage.getItem('vs-consent')}catch(e){}if(!c)b.hidden=false;
+b.querySelector('[data-cc=a]').addEventListener('click',function(){set('granted')});b.querySelector('[data-cc=r]').addEventListener('click',function(){set('denied')});
+document.querySelectorAll('[data-cc-open]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();b.hidden=false;b.querySelector('[data-cc=a]').focus()})});})();</script>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+
+/* ---------- Crawler catalogue ---------- */
+var GROUPS={google:'Google',bing:'Microsoft',ai:'AI crawlers',search:'Other search engines',seo:'SEO tools',other:'Other bots'};
+var GORDER=['google','bing','ai','search','seo','other'];
+var SUB={search:'AI search',user:'User-triggered',train:'Training'};
+var BOTS=[
+  ['gb-img',/Googlebot-Image/i,'Googlebot-Image','google'],
+  ['gb-vid',/Googlebot-Video/i,'Googlebot-Video','google'],
+  ['gb-news',/Googlebot-News/i,'Googlebot-News','google'],
+  ['g-insp',/Google-InspectionTool/i,'Google-InspectionTool','google'],
+  ['g-other',/GoogleOther/i,'GoogleOther','google'],
+  ['g-store',/Storebot-Google/i,'Storebot-Google','google'],
+  ['g-ads',/AdsBot-Google/i,'AdsBot-Google','google'],
+  ['g-misc',/FeedFetcher-Google|Google-Read-Aloud|APIs-Google|Google-Site-Verification|Google-Safety|GoogleProducer/i,'Other Google fetchers','google'],
+  ['gb-mob',null,'Googlebot Smartphone','google'],
+  ['gb-desk',null,'Googlebot Desktop','google'],
+  ['bing',/bingbot|msnbot|BingPreview/i,'Bingbot','bing'],
+  ['bing-x',/adidxbot|MicrosoftPreview/i,'Microsoft (other)','bing'],
+  ['oai-search',/OAI-SearchBot/i,'OAI-SearchBot','ai','search'],
+  ['chatgpt-user',/ChatGPT-User/i,'ChatGPT-User','ai','user'],
+  ['gptbot',/GPTBot/i,'GPTBot','ai','train'],
+  ['claude-search',/Claude-SearchBot/i,'Claude-SearchBot','ai','search'],
+  ['claude-user',/Claude-User/i,'Claude-User','ai','user'],
+  ['claudebot',/ClaudeBot|anthropic-ai|Claude-Web/i,'ClaudeBot','ai','train'],
+  ['pplx-user',/Perplexity-User/i,'Perplexity-User','ai','user'],
+  ['pplx',/PerplexityBot/i,'PerplexityBot','ai','search'],
+  ['mistral',/MistralAI-User/i,'MistralAI-User','ai','user'],
+  ['duckassist',/DuckAssistBot/i,'DuckAssistBot','ai','search'],
+  ['meta-fetch',/meta-externalfetcher/i,'Meta-ExternalFetcher','ai','user'],
+  ['meta',/meta-externalagent|FacebookBot/i,'Meta-ExternalAgent','ai','train'],
+  ['bytespider',/Bytespider/i,'Bytespider','ai','train'],
+  ['ccbot',/CCBot/i,'CCBot','ai','train'],
+  ['amazonbot',/Amazonbot/i,'Amazonbot','ai','train'],
+  ['cohere',/cohere-ai|cohere-training/i,'Cohere','ai','train'],
+  ['diffbot',/Diffbot/i,'Diffbot','ai','train'],
+  ['applebot',/Applebot/i,'Applebot','search'],
+  ['yandex',/YandexBot|YandexImages|YandexMobileBot|YandexRenderResourcesBot/i,'YandexBot','search'],
+  ['baidu',/Baiduspider/i,'Baiduspider','search'],
+  ['ddg',/DuckDuckBot/i,'DuckDuckBot','search'],
+  ['petal',/PetalBot/i,'PetalBot','search'],
+  ['seznam',/SeznamBot/i,'SeznamBot','search'],
+  ['ahrefs',/AhrefsBot|AhrefsSiteAudit/i,'AhrefsBot','seo'],
+  ['semrush',/SemrushBot|SiteAuditBot/i,'SemrushBot','seo'],
+  ['majestic',/MJ12bot/i,'MJ12bot (Majestic)','seo'],
+  ['moz',/DotBot|rogerbot/i,'Moz','seo'],
+  ['sf',/Screaming Frog/i,'Screaming Frog','seo'],
+  ['sitebulb',/Sitebulb/i,'Sitebulb','seo'],
+  ['dataforseo',/DataForSeoBot/i,'DataForSeoBot','seo'],
+  ['other-bot',/bot\b|bot\/|crawler|spider|crawl|slurp|python-requests|python-urllib|curl\/|wget|Go-http-client|HeadlessChrome|okhttp|axios|node-fetch|scrapy|httpclient/i,'Other bots','other']
+];
+var BMAP={};BOTS.forEach(function(b){BMAP[b[0]]={id:b[0],re:b[1],name:b[2],g:b[3],sub:b[4]||''}});
+var VERIFY={google:['googlebot.com','google.com','googleusercontent.com'],bing:['search.msn.com'],applebot:['applebot.apple.com'],yandex:['yandex.ru','yandex.net','yandex.com'],baidu:['baidu.com','baidu.jp']};
+function verifyDomains(id){var b=BMAP[id];if(b.g==='google')return VERIFY.google;if(b.g==='bing')return VERIFY.bing;return VERIFY[id]||null}
+var uaCache=new Map();
+function classify(ua){
+  if(!ua||ua==='-')return null;
+  var c=uaCache.get(ua);if(c!==undefined)return c;
+  var r=null;
+  for(var i=0;i<BOTS.length;i++){
+    var b=BOTS[i];
+    if(b[0]==='gb-mob'){if(/Googlebot/i.test(ua)){r=/Android|Mobile|iPhone/i.test(ua)?'gb-mob':'gb-desk';break}continue}
+    if(b[0]==='gb-desk')continue;
+    if(b[1].test(ua)){r=b[0];break}
+  }
+  if(uaCache.size<50000)uaCache.set(ua,r);
+  return r;
+}
+var VIRTUAL={
+  'v-googlebot':{name:'Googlebot (smartphone + desktop)',ids:['gb-mob','gb-desk']},
+  'v-google':{name:'All Google crawlers',g:'google'},
+  'v-ai':{name:'All AI crawlers',g:'ai'},
+  'v-bing':{name:'All Microsoft crawlers',g:'bing'}
+};
+
+/* ---------- Helpers ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmtN(n){return Number(n).toLocaleString('en-US')}
+function fmtB(b){return b>=1073741824?(b/1073741824).toFixed(2)+' GB':b>=1048576?(b/1048576).toFixed(1)+' MB':b>=1024?Math.round(b/1024)+' KB':b+' B'}
+function pct(a,b){return b?Math.round(a/b*1000)/10+'%':'–'}
+function plural(n,w,p){return fmtN(n)+' '+(n===1?w:(p||w+'s'))}
+function msg(t){var m=$('lg-msg');if(!t){m.hidden=true;return}m.textContent=t;m.hidden=false}
+var toastT;
+function toast(t){var el=$('lg-toast');el.lastElementChild.textContent=t;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('on')},2200)}
+function download(name,text,type){var a=document.createElement('a'),u=URL.createObjectURL(new Blob([text],{type:(type||'text/plain')+';charset=utf-8'}));a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1500);toast(name+' downloaded')}
+function csvCell(v){v=String(v==null?'':v);return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function csv(rows){return '﻿'+rows.map(function(r){return r.map(csvCell).join(',')}).join('\r\n')+'\r\n'}
+function nDays(){if(!A.minT)return 1;return Math.round((Date.parse(dayKey(A.maxT))-Date.parse(dayKey(A.minT)))/86400000)+1}
+function dayKey(t){return new Date(t).toISOString().slice(0,10)}
+function dt(t){return t?new Date(t).toISOString().slice(0,16).replace('T',' '):'–'}
+var MON={jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+
+/* ---------- Parsing ---------- */
+var CLF=/\[(\d{1,2})\/([A-Za-z]{3})\/(\d{4}):(\d{2}):(\d{2}):(\d{2})\s*([+-]\d{4})?\]\s+"([A-Z]+)\s+(\S+)[^"]*"\s+(\d{3})\s+(\S+)(.*)$/;
+var IPRE=/^(?:\d{1,3}\.){3}\d{1,3}$|^[0-9a-f:]+:[0-9a-f:.]*$/i;
+function parseCLF(line){
+  var m=CLF.exec(line);if(!m)return null;
+  var head=line.slice(0,m.index).trim().split(/\s+/),ip='';
+  for(var i=0;i<head.length;i++){var tk=head[i].replace(/^.*?,/,'');if(IPRE.test(tk)){ip=tk;break}}
+  var tz=m[7]||'+0000',off=(tz.charAt(0)==='-'?-1:1)*(parseInt(tz.slice(1,3),10)*60+parseInt(tz.slice(3,5),10));
+  var t=Date.UTC(+m[3],MON[m[2].toLowerCase()],+m[1],+m[4],+m[5],+m[6])-off*60000;
+  var rest=m[12],q=[],re=/"((?:[^"\\]|\\.)*)"/g,x;while((x=re.exec(rest))&&q.length<6)q.push(x[1]);
+  var ua='';for(var k=0;k<q.length;k++){var v=q[k];if(!v||v==='-'||/^https?:\/\//i.test(v)&&!/\s/.test(v))continue;ua=v;break}
+  if(!ua&&q.length>1)ua=q[1];
+  return {ip:ip,t:t,m:m[8],p:m[9],s:+m[10],b:m[11]==='-'?0:+m[11]||0,ua:ua};
+}
+function parseW3C(line,F){
+  var v=line.split(' '),g=function(k){var i=F[k];return i==null?'':v[i]||''};
+  var date=g('date'),time=g('time');if(!date)return null;
+  var t=Date.parse(date+'T'+(time||'00:00:00')+'Z');if(isNaN(t))return null;
+  var p=g('cs-uri-stem')||g('cs-uri'),qs=g('cs-uri-query');if(qs&&qs!=='-')p+='?'+qs;
+  var ua=g('cs(user-agent)').replace(/\+/g,' ');
+  return {ip:g('c-ip'),t:t,m:g('cs-method')||'GET',p:p,s:+g('sc-status')||0,b:+g('sc-bytes')||0,ua:ua==='-'?'':ua};
+}
+var JK={ip:['ClientIP','client_ip','clientIp','remote_addr','remoteAddr','ip','c-ip','client'],
+  p:['ClientRequestURI','ClientRequestPath','request_uri','requestUri','uri','path','url','request_url','requestUrl'],
+  s:['EdgeResponseStatus','OriginResponseStatus','status','status_code','statusCode','response_status','sc-status'],
+  ua:['ClientRequestUserAgent','user_agent','userAgent','http_user_agent','ua','useragent','agent'],
+  t:['EdgeStartTimestamp','timestamp','@timestamp','time','time_iso8601','time_local','date','datetime'],
+  b:['EdgeResponseBytes','bytes','body_bytes_sent','bytes_sent','size'],
+  m:['ClientRequestMethod','method','request_method'],
+  host:['ClientRequestHost','host','http_host']};
+function pick(o,ks){for(var i=0;i<ks.length;i++){var v=o[ks[i]];if(v!=null&&v!=='')return v}return null}
+function parseJSON(line){
+  var o;try{o=JSON.parse(line)}catch(e){return null}
+  if(o&&o.httpRequest)o=Object.assign({},o,o.httpRequest,{ip:o.httpRequest.remoteIp,url:o.httpRequest.requestUrl,status:o.httpRequest.status,ua:o.httpRequest.userAgent});
+  var p=pick(o,JK.p),s=pick(o,JK.s);if(p==null||s==null)return null;
+  var tv=pick(o,JK.t),t;
+  if(typeof tv==='number'){t=tv>1e17?tv/1e6:tv>1e14?tv/1e3:tv>1e11?tv:tv*1000}
+  else if(typeof tv==='string'){t=Date.parse(tv);if(isNaN(t)){var m=/^(\d{1,2})\/([A-Za-z]{3})\/(\d{4}):(\d{2}):(\d{2}):(\d{2})/.exec(tv);t=m?Date.UTC(+m[3],MON[m[2].toLowerCase()],+m[1],+m[4],+m[5],+m[6]):NaN}}
+  if(!t||isNaN(t))return null;
+  return {ip:String(pick(o,JK.ip)||''),t:t,m:String(pick(o,JK.m)||'GET'),p:String(p),s:+s||0,b:+pick(o,JK.b)||0,ua:String(pick(o,JK.ua)||'')};
+}
+
+/* ---------- Aggregation ---------- */
+var A;
+function reset(){A={files:[],lines:0,bad:0,ok:0,minT:0,maxT:0,human:{h:0,st:{}},bots:{},days:{},badEx:[]}}
+reset();
+function normPath(p){
+  if(/^https?:\/\//i.test(p)){var i=p.indexOf('/',p.indexOf('//')+2);p=i<0?'/':p.slice(i)}
+  if(p.charAt(0)!=='/')p='/'+p;
+  if(p.length>2000)p=p.slice(0,2000);
+  return p;
+}
+function ingest(r){
+  if(!r){A.bad++;return}
+  A.ok++;
+  if(!A.minT||r.t<A.minT)A.minT=r.t;if(r.t>A.maxT)A.maxT=r.t;
+  var id=classify(r.ua),day=dayKey(r.t),cls=String(r.s).charAt(0);
+  var D=A.days[day]||(A.days[day]={_h:0});
+  if(!id){A.human.h++;A.human.st[cls]=(A.human.st[cls]||0)+1;D._h++;return}
+  D[id]=(D[id]||0)+1;
+  var B=A.bots[id]||(A.bots[id]={id:id,h:0,b:0,st:{},first:r.t,last:r.t,ips:new Map(),urls:new Map(),uas:new Map()});
+  B.h++;B.b+=r.b;B.st[cls]=(B.st[cls]||0)+1;
+  if(r.t<B.first)B.first=r.t;if(r.t>B.last)B.last=r.t;
+  if(r.ip){var ic=B.ips.get(r.ip);if(ic!==undefined)B.ips.set(r.ip,ic+1);else if(B.ips.size<20000)B.ips.set(r.ip,1)}
+  if(B.uas.size<20)B.uas.set(r.ua,(B.uas.get(r.ua)||0)+1);
+  var p=normPath(r.p),u=B.urls.get(p);
+  if(!u){u={h:0,last:0,first:r.t,st:{}};B.urls.set(p,u)}
+  u.h++;if(r.t>u.last)u.last=r.t;if(r.t<u.first)u.first=r.t;u.st[r.s]=(u.st[r.s]||0)+1;
+}
+function detectFormat(sample){
+  var ls=sample.split(/\r?\n/).filter(function(l){return l.trim()}).slice(0,30);
+  if(ls.some(function(l){return /^#Fields:/i.test(l)}))return 'w3c';
+  if(ls.length&&ls.filter(function(l){return l.trim().charAt(0)==='{'}).length>=ls.length*0.6)return 'json';
+  return 'clf';
+}
+function makeLineHandler(){
+  var fmt=null,F=null,pending=[];
+  function handle(line){
+    if(!line||!line.trim())return;
+    if(line.charCodeAt(line.length-1)===13)line=line.slice(0,-1);
+    if(fmt==='w3c'){
+      if(line.charAt(0)==='#'){if(/^#Fields:/i.test(line)){F={};line.replace(/^#Fields:\s*/i,'').trim().split(/\s+/).forEach(function(k,i){F[k.toLowerCase()]=i})}return}
+      A.lines++;var r=F?parseW3C(line,F):null;if(!r&&A.badEx.length<3)A.badEx.push(line.slice(0,160));ingest(r);return;
+    }
+    A.lines++;
+    var r2=fmt==='json'?parseJSON(line):parseCLF(line);
+    if(!r2&&A.badEx.length<3)A.badEx.push(line.slice(0,160));
+    ingest(r2);
+  }
+  return {
+    push:function(line){if(fmt){handle(line);return}pending.push(line);if(pending.length>=30)this.flush()},
+    flush:function(){if(!fmt){fmt=detectFormat(pending.join('\n'));}var p=pending;pending=[];p.forEach(handle)},
+    fmt:function(){return fmt}
+  };
+}
+var busy=false;
+async function readFile(file){
+  var head=new Uint8Array(await file.slice(0,2).arrayBuffer()),gz=head[0]===0x1f&&head[1]===0x8b;
+  var stream=file.stream(),counted=null;
+  if(gz){
+    if(!('DecompressionStream' in window))throw new Error('This browser cannot unzip '+file.name+'. Unzip it first.');
+    var cnt=0,tick=new TransformStream({transform:function(ch,c){cnt+=ch.byteLength;c.enqueue(ch)}});
+    stream=stream.pipeThrough(tick).pipeThrough(new DecompressionStream('gzip'));counted=function(){return cnt};
+  }
+  var reader=stream.pipeThrough(new TextDecoderStream()).getReader(),buf='',read=0,h=makeLineHandler(),n=0,before=A.lines;
+  for(;;){
+    var r=await reader.read();if(r.done)break;
+    read+=r.value.length;buf+=r.value;
+    var parts=buf.split('\n');buf=parts.pop();
+    for(var i=0;i<parts.length;i++)h.push(parts[i]);
+    if(++n%8===0){progress(file.name,counted?counted()/file.size:read/file.size);await new Promise(function(res){setTimeout(res,0)})}
+  }
+  if(buf)h.push(buf);h.flush();
+  return {name:file.name,size:file.size,gz:gz,fmt:h.fmt(),lines:A.lines-before};
+}
+function progress(name,f){$('lg-prog').hidden=false;$('lg-prog-i').style.width=Math.min(100,Math.round(f*100))+'%';$('lg-prog-t').textContent='Reading '+name+' · '+fmtN(A.lines)+' lines · '+fmtN(A.ok-A.human.h)+' crawler requests'}
+async function readFiles(list){
+  if(busy){msg('Still reading the previous files. Wait a moment.');return}
+  busy=true;msg('');
+  var files=Array.prototype.slice.call(list);
+  for(var i=0;i<files.length;i++){
+    try{var info=await readFile(files[i]);A.files.push(info)}catch(e){msg('Could not read '+files[i].name+': '+(e.message||'unknown error'))}
+  }
+  busy=false;$('lg-prog').hidden=true;
+  afterLoad();
+}
+function addText(text,name){
+  var h=makeLineHandler(),before=A.lines;
+  text.split('\n').forEach(function(l){h.push(l)});h.flush();
+  A.files.push({name:name,size:new Blob([text]).size,gz:false,fmt:h.fmt(),lines:A.lines-before});
+  afterLoad();
+}
+function afterLoad(){
+  renderFiles();
+  if(!A.ok){$('lg-rep').hidden=true;if(A.lines)msg('None of the '+fmtN(A.lines)+' lines could be read as a log entry. First line: '+(A.badEx[0]||''));return}
+  if(A.bad&&A.bad/A.lines>0.2)msg(pct(A.bad,A.lines)+' of lines could not be parsed and were skipped. Example: '+A.badEx[0]);
+  if(!S.focus||!focusIds(S.focus).some(function(id){return A.bots[id]}))S.focus=defaultFocus();
+  S.ver=null;
+  $('lg-rep').hidden=false;
+  renderAll();
+}
+
+/* ---------- Focus ---------- */
+var S={focus:'',scls:'3',cview:'never',url:{q:'',st:'',fo:'',sort:'h',shown:50},ver:null,cmpText:'',cmpSlash:false,findings:[]};
+function focusIds(f){
+  if(!f)return [];
+  if(VIRTUAL[f]){var v=VIRTUAL[f];if(v.ids)return v.ids;return Object.keys(A.bots).filter(function(id){return BMAP[id].g===v.g})}
+  return [f];
+}
+function defaultFocus(){
+  if(A.bots['gb-mob']||A.bots['gb-desk'])return 'v-googlebot';
+  var ids=Object.keys(A.bots).sort(function(a,b){return A.bots[b].h-A.bots[a].h});
+  return ids[0]||'';
+}
+var mergeCache={};
+function focusData(){
+  var key=S.focus;if(mergeCache[key])return mergeCache[key];
+  var ids=focusIds(key).filter(function(id){return A.bots[id]}),urls,h=0,st={};
+  if(ids.length===1)urls=A.bots[ids[0]].urls;
+  else{urls=new Map();ids.forEach(function(id){A.bots[id].urls.forEach(function(u,p){var m=urls.get(p);if(!m){m={h:0,last:0,first:u.first,st:{}};urls.set(p,m)}m.h+=u.h;if(u.last>m.last)m.last=u.last;if(u.first<m.first)m.first=u.first;for(var c in u.st)m.st[c]=(m.st[c]||0)+u.st[c]})})}
+  ids.forEach(function(id){var B=A.bots[id];h+=B.h;for(var c in B.st)st[c]=(st[c]||0)+B.st[c]});
+  return (mergeCache[key]={ids:ids,urls:urls,h:h,st:st});
+}
+function focusName(f){return VIRTUAL[f]?VIRTUAL[f].name:BMAP[f]?BMAP[f].name:''}
+
+/* ---------- Rendering ---------- */
+function renderAll(){mergeCache={};renderOverview();renderCrawlers();renderFocusSelect();renderFocus();renderVerifyNote()}
+function renderFocus(){renderStatus();renderSections();buildUrlFilters();renderUrls();renderCompare()}
+function renderFiles(){
+  var F={clf:'Apache / Nginx',w3c:'W3C / IIS',json:'JSON lines'};
+  $('lg-files').innerHTML=A.files.map(function(f){return '<div class="lg-file"><span class="ms" aria-hidden="true">description</span><div style="min-width:0"><b title="'+esc(f.name)+'">'+esc(f.name)+'</b><small>'+plural(f.lines,'line')+' · '+fmtB(f.size)+(f.gz?' gzipped':'')+'</small></div><span class="lg-pill lg-pill--dim">'+(F[f.fmt]||'Unknown')+'</span><span></span></div>'}).join('');
+}
+function tile(v,l,c){return '<div class="lg-tile'+(c?' lg-tile--'+c:'')+'"><b>'+v+'</b><span>'+l+'</span></div>'}
+function sumG(g){return Object.keys(A.bots).filter(function(id){return BMAP[id].g===g}).reduce(function(s,id){return s+A.bots[id].h},0)}
+function renderOverview(){
+  var botH=A.ok-A.human.h,days=nDays();
+  $('lg-meta').textContent=plural(A.files.length,'file')+' · '+fmtN(A.lines)+' lines'+(A.bad?' ('+fmtN(A.bad)+' skipped)':'')+' · '+dayKey(A.minT)+' to '+dayKey(A.maxT)+' · '+plural(days,'day');
+  var gb=(A.bots['gb-mob']?A.bots['gb-mob'].h:0)+(A.bots['gb-desk']?A.bots['gb-desk'].h:0);
+  var gbU=0,gbBad=0;
+  if(gb){var fd=focusDataFor('v-googlebot');gbU=fd.urls.size;gbBad=fd.h-(fd.st['2']||0)}
+  $('lg-stats').innerHTML=tile(fmtN(A.ok),'Requests in the log')+tile(pct(botH,A.ok),'Made by crawlers')+tile(fmtN(gb),'Googlebot requests',gb?'':'warn')+tile(fmtN(gbU),'URLs Googlebot requested')+tile(gb?pct(gbBad,gb):'–','Googlebot non-200',gb&&gbBad/gb>0.15?'warn':gb?'ok':'')+tile(fmtN(sumG('ai')),'AI crawler requests');
+  renderDaily();
+  S.findings=findings();
+  var ic={error:'error',warn:'warning',info:'info',ok:'check_circle'};
+  $('lg-findings').innerHTML=S.findings.map(function(f){return '<div class="lg-fd lg-fd--'+f[0]+'"><span class="ms" aria-hidden="true">'+ic[f[0]]+'</span><div>'+f[1]+'</div></div>'}).join('');
+  $('lg-nav-bots').textContent=Object.keys(A.bots).length||'';
+}
+function focusDataFor(f){var s=S.focus;S.focus=f;var d=focusData();S.focus=s;return d}
+function renderDaily(){
+  var keys=[],t=Date.UTC(new Date(A.minT).getUTCFullYear(),new Date(A.minT).getUTCMonth(),new Date(A.minT).getUTCDate());
+  for(;t<=A.maxT;t+=86400000)keys.push(dayKey(t));
+  var weekly=keys.length>92,buckets=[];
+  if(weekly){for(var i=0;i<keys.length;i+=7)buckets.push(keys.slice(i,i+7))}else buckets=keys.map(function(k){return [k]});
+  var data=buckets.map(function(b){var o={};GORDER.forEach(function(g){o[g]=0});b.forEach(function(k){var D=A.days[k];if(!D)return;for(var id in D){if(id==='_h')continue;o[BMAP[id].g]+=D[id]}});o.tot=GORDER.reduce(function(s,g){return s+o[g]},0);o.k=b[0];return o});
+  var max=Math.max.apply(null,data.map(function(d){return d.tot}).concat([1]));
+  $('lg-daily-h').textContent='Crawler requests per '+(weekly?'week':'day');
+  $('lg-daily').innerHTML=data.map(function(d){
+    var tip=d.k+(weekly?' (week)':'')+': '+fmtN(d.tot)+' crawler requests'+GORDER.filter(function(g){return d[g]}).map(function(g){return '\n'+GROUPS[g]+': '+fmtN(d[g])}).join('');
+    return '<div class="lg-stack" title="'+esc(tip)+'" style="height:'+Math.round(d.tot/max*100)+'%">'+GORDER.map(function(g){return d[g]?'<i class="c-'+g+'" style="height:'+(d[g]/d.tot*100)+'%"></i>':''}).join('')+'</div>';
+  }).join('');
+  var step=Math.max(1,Math.ceil(data.length/8));
+  $('lg-daily-lab').innerHTML=data.map(function(d,i){return '<span>'+(i%step===0?d.k.slice(5):'')+'</span>'}).join('');
+  $('lg-daily-leg').innerHTML=GORDER.filter(function(g){return sumG(g)}).map(function(g){return '<span><i class="c-'+g+'"></i>'+GROUPS[g]+' '+fmtN(sumG(g))+'</span>'}).join('');
+}
+function topParams(urls){var c={};urls.forEach(function(u,p){var q=p.indexOf('?');if(q<0)return;p.slice(q+1).split('&').forEach(function(kv){var k=decodeSafe(kv.split('=')[0]).toLowerCase();if(k)c[k]=(c[k]||0)+u.h})});return Object.keys(c).map(function(k){return [k,c[k]]}).sort(function(a,b){return b[1]-a[1]})}
+function decodeSafe(s){try{return decodeURIComponent(s)}catch(_){return s}}
+function codeList(st,limit){return Object.keys(st).sort(function(a,b){return st[b]-st[a]}).slice(0,limit||4).map(function(c){return '<span class="lg-code k'+c.charAt(0)+'">'+c+(st[c]>1?' ×'+fmtN(st[c]):'')+'</span>'}).join('')}
+function findings(){
+  var out=[],days=nDays();
+  var gm=A.bots['gb-mob'],gd=A.bots['gb-desk'],gb=(gm?gm.h:0)+(gd?gd.h:0);
+  if(days<7)out.push(['info','The log covers only '+plural(days,'day')+'. Crawl patterns need at least two weeks, ideally 30 days, before you judge which pages Googlebot ignores.']);
+  if(!gb){out.push(['warn','<b>No Googlebot requests in this log.</b> Check that the log covers the main host, is not filtered by your host, and that a firewall is not blocking Googlebot.'])}
+  else{
+    var G=focusDataFor('v-googlebot'),st=G.st,r3=st['3']||0,r4=st['4']||0,r5=st['5']||0;
+    if(r5){var urls5=[];G.urls.forEach(function(u,p){if(Object.keys(u.st).some(function(c){return c.charAt(0)==='5'}))urls5.push([p,u])});
+      out.push(['error','<b>Googlebot got '+plural(r5,'server error')+' (5xx)</b> on '+plural(urls5.length,'URL')+'. Repeated 5xx responses make Google slow down crawling. Example: <code>'+esc(urls5.sort(function(a,b){return b[1].h-a[1].h})[0][0])+'</code>.'])}
+    if(r3/gb>0.1)out.push(['warn','<b>'+pct(r3,gb)+' of Googlebot requests hit redirects.</b> Point internal links, canonicals and sitemaps straight at the final URLs so crawl goes to pages, not hops.']);
+    else if(r3)out.push(['info',pct(r3,gb)+' of Googlebot requests hit redirects. That is a normal level.']);
+    if(r4){var u4=[];G.urls.forEach(function(u,p){var n=0;for(var c in u.st)if(c.charAt(0)==='4')n+=u.st[c];if(n)u4.push([p,n])});u4.sort(function(a,b){return b[1]-a[1]});
+      out.push([r4/gb>0.05?'warn':'info','<b>'+plural(u4.length,'URL')+' returned 4xx to Googlebot</b> ('+pct(r4,gb)+' of its requests). Most requested: <code>'+esc(u4[0][0])+'</code>. Redirect the ones that have links or traffic, and remove internal links to the rest.'])}
+    var pq=0;G.urls.forEach(function(u,p){if(p.indexOf('?')>-1)pq+=u.h});
+    if(pq/gb>0.15){var tp=topParams(G.urls).slice(0,4);out.push(['warn','<b>'+pct(pq,gb)+' of Googlebot crawl goes to URLs with parameters.</b> Most common: '+tp.map(function(x){return '<code>'+esc(x[0])+'</code>'}).join(', ')+'. Filters, sorting and tracking parameters are classic crawl waste.'])}
+    var mob=gm?gm.h:0;
+    out.push([mob/gb<0.6?'warn':'ok','<b>'+pct(mob,gb)+' smartphone, '+pct(gb-mob,gb)+' desktop Googlebot.</b> '+(mob/gb<0.6?'With mobile-first indexing most crawl should be smartphone. Check the indexing crawler in Search Console settings.':'As expected with mobile-first indexing.')]);
+    var robots=0;['gb-mob','gb-desk','g-other','g-insp','gb-img'].forEach(function(id){var B=A.bots[id];if(B){var u=B.urls.get('/robots.txt');if(u)robots+=u.h}});
+    if(!robots)out.push(['info','No Google crawler requested <code>/robots.txt</code> in this log. Google normally fetches it about once a day, so the log may be filtered or cover another host.']);
+    var fo={};G.urls.forEach(function(u,p){var f=folderOf(p);fo[f]=(fo[f]||0)+u.h});var top=Object.keys(fo).sort(function(a,b){return fo[b]-fo[a]})[0];
+    if(top&&fo[top]/gb>0.4)out.push(['info','<b>'+pct(fo[top],gb)+' of Googlebot requests go to <code>'+esc(top)+'</code>.</b> Check that this is where your most important pages are.']);
+  }
+  var ai=Object.keys(A.bots).filter(function(id){return BMAP[id].g==='ai'});
+  if(ai.length){
+    var aiH=ai.reduce(function(s,id){return s+A.bots[id].h},0),a403=ai.reduce(function(s,id){var u=0;A.bots[id].urls.forEach(function(x){u+=(x.st[403]||0)});return s+u},0);
+    var top3=ai.sort(function(a,b){return A.bots[b].h-A.bots[a].h}).slice(0,4).map(function(id){return BMAP[id].name+' '+fmtN(A.bots[id].h)});
+    out.push(['info','<b>AI crawlers made '+plural(aiH,'request')+'</b>: '+top3.join(', ')+'.']);
+    if(a403/aiH>0.5)out.push(['warn','<b>'+pct(a403,aiH)+' of AI crawler requests got 403 Forbidden.</b> That is a firewall or CDN block, not robots.txt. If you want to appear in ChatGPT, Claude or Perplexity answers, allow their search crawlers. The <a href="../robots-txt-generator/">robots.txt generator</a> explains which is which.']);
+  }else out.push(['info','No AI crawler requests found. Either they have not visited in this period, or a firewall or CDN blocks them before they reach the server.']);
+  var seo=sumG('seo'),bt=A.ok-A.human.h;
+  if(seo&&seo/bt>0.25)out.push(['info','SEO tool crawlers (Ahrefs, Semrush and others) make '+pct(seo,bt)+' of all crawler requests. They do not help rankings. Rate-limit or block them if they load the server.']);
+  if(S.ver){
+    var fake=S.ver.filter(function(v){return v.res==='fake'}),fh=fake.reduce(function(s,v){return s+v.h},0);
+    if(fake.length)out.unshift(['error','<b>'+plural(fake.length,'IP')+' pretend to be a search engine crawler</b> ('+plural(fh,'request')+'). Their reverse DNS does not belong to the search engine. Block them at the firewall, and leave them out when you judge crawl volume.']);
+    else out.unshift(['ok','<b>All checked crawler IPs verified.</b> Every request claiming to be Google, Bing or another verifiable search engine came from its real network.']);
+  }
+  var C=compare();
+  if(C&&C.list)out.push([C.never.length/C.list>0.2?'warn':'info','<b>'+focusName(S.focus)+' did not request '+plural(C.never.length,'URL')+' of '+fmtN(C.list)+' in your list</b> ('+pct(C.never.length,C.list)+'). Check internal links and depth for those pages.']);
+  return out;
+}
+function renderCrawlers(){
+  var tot=A.ok-A.human.h,html='<thead><tr><th>Crawler</th><th class="n">Requests</th><th class="n">Share</th><th class="n">URLs</th><th>Status mix</th><th class="n">IPs</th><th>Last seen</th></tr></thead><tbody>';
+  GORDER.forEach(function(g){
+    var ids=Object.keys(A.bots).filter(function(id){return BMAP[id].g===g}).sort(function(a,b){return A.bots[b].h-A.bots[a].h});
+    if(!ids.length)return;
+    html+='<tr class="grp"><td colspan="7">'+GROUPS[g]+' · '+fmtN(sumG(g))+'</td></tr>';
+    ids.forEach(function(id){
+      var B=A.bots[id],b=BMAP[id];
+      html+='<tr data-bot="'+id+'"'+(S.focus===id?' class="on"':'')+'><td><b>'+esc(b.name)+'</b>'+(b.sub?' <span class="lg-pill lg-pill--dim">'+SUB[b.sub]+'</span>':'')+'</td><td class="n">'+fmtN(B.h)+'</td><td class="n">'+pct(B.h,tot)+'</td><td class="n">'+fmtN(B.urls.size)+'</td><td><div class="lg-sbar lg-mini" title="'+esc(stTitle(B.st,B.h))+'">'+sbar(B.st,B.h)+'</div></td><td class="n">'+fmtN(B.ips.size)+'</td><td class="lg-fn">'+dt(B.last)+'</td></tr>';
+    });
+  });
+  html+='<tr class="grp"><td colspan="7">Visitors and unidentified · '+fmtN(A.human.h)+'</td></tr></tbody>';
+  $('lg-ctable').innerHTML=html;
+}
+function sbar(st,h){return ['2','3','4','5'].map(function(c){return st[c]?'<i class="s'+c+'" style="width:'+(st[c]/h*100)+'%"></i>':''}).join('')+(h-(st['2']||0)-(st['3']||0)-(st['4']||0)-(st['5']||0)>0?'<i class="sx" style="flex:1"></i>':'')}
+function stTitle(st,h){return ['2','3','4','5'].filter(function(c){return st[c]}).map(function(c){return c+'xx '+pct(st[c],h)}).join(' · ')}
+function renderFocusSelect(){
+  var opts=[];
+  Object.keys(VIRTUAL).forEach(function(k){if(focusIds(k).some(function(id){return A.bots[id]})&&!(VIRTUAL[k].g&&focusIds(k).length<2))opts.push([k,VIRTUAL[k].name])});
+  Object.keys(A.bots).sort(function(a,b){return A.bots[b].h-A.bots[a].h}).forEach(function(id){opts.push([id,BMAP[id].name+' ('+fmtN(A.bots[id].h)+')'])});
+  $('lg-focus').innerHTML=opts.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===S.focus?' selected':'')+'>'+esc(o[1])+'</option>'}).join('');
+  var d=focusData();$('lg-focus-n').textContent=fmtN(d.h)+' requests · '+fmtN(d.urls.size)+' URLs';
+  document.querySelectorAll('#lg-ctable tr[data-bot]').forEach(function(tr){tr.classList.toggle('on',tr.dataset.bot===S.focus)});
+}
+function renderStatus(){
+  var d=focusData(),h=d.h,st=d.st;
+  $('lg-sbar').innerHTML=sbar(st,h);
+  var L={'2':'2xx success','3':'3xx redirect','4':'4xx client error','5':'5xx server error'};
+  $('lg-sleg').innerHTML=['2','3','4','5'].map(function(c){return '<span><i class="s'+c+'"></i>'+L[c]+' '+fmtN(st[c]||0)+' ('+pct(st[c]||0,h)+')</span>'}).join('');
+  $('lg-scls').innerHTML=['3','4','5'].map(function(c){return '<button type="button" data-c="'+c+'" aria-pressed="'+(S.scls===c)+'">'+c+'xx <span>'+fmtN(st[c]||0)+'</span></button>'}).join('');
+  var rows=[];d.urls.forEach(function(u,p){var n=0;for(var k in u.st)if(k.charAt(0)===S.scls)n+=u.st[k];if(n)rows.push([p,n,u])});
+  rows.sort(function(a,b){return b[1]-a[1]});
+  $('lg-stbody').innerHTML=rows.length?rows.slice(0,100).map(function(r){return '<tr><td><div class="lg-url">'+esc(r[0])+'</div></td><td class="lg-fn" style="text-align:right">'+fmtN(r[1])+'</td><td><div class="lg-codes">'+codeList(r[2].st)+'</div></td><td class="lg-fn">'+dt(r[2].last)+'</td></tr>'}).join(''):'<tr><td colspan="4" class="lg-empty-row">No '+S.scls+'xx responses for this crawler.</td></tr>';
+  $('lg-scount').textContent=rows.length>100?'Top 100 of '+fmtN(rows.length)+' URLs. The URL export has all of them.':rows.length?plural(rows.length,'URL'):'';
+}
+function folderOf(p){var q=p.split('?')[0],s=q.split('/').filter(Boolean);if(!s.length)return '/ (home)';if(s.length===1&&/\.[a-z0-9]{2,5}$/i.test(s[0]))return '/'+decodeSafe(s[0]);return '/'+decodeSafe(s[0])+'/'}
+var TYPES=[['HTML pages',/^$/],['Images',/\.(jpe?g|png|gif|webp|avif|svg|ico|bmp)$/i],['JavaScript',/\.(m?js)$/i],['CSS',/\.css$/i],['Fonts',/\.(woff2?|ttf|otf|eot)$/i],['PDF and documents',/\.(pdf|docx?|xlsx?|pptx?)$/i],['XML, sitemaps and feeds',/\.(xml|rss|atom)$|\/feed\/?$/i],['JSON and APIs',/\.json$|\/wp-json\/|\/api\//i],['robots.txt',/^\/robots\.txt$/i],['Other files',/\.[a-z0-9]{2,5}$/i]];
+function typeOf(p){var q=p.split('?')[0];for(var i=1;i<TYPES.length;i++)if(TYPES[i][1].test(q))return TYPES[i][0];return 'HTML pages'}
+function hbars(el,rows,attr){
+  var max=rows.length?Math.max.apply(null,rows.map(function(r){return r[1]})):1;
+  el.innerHTML=rows.length?rows.map(function(r){return '<div class="lg-hb">'+(attr?'<button type="button" data-'+attr+'="'+esc(r[0])+'" title="'+esc(r[0])+'">'+esc(r[0])+'</button>':'<span class="lg-mono" style="font-size:12.5px;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+esc(r[0])+'">'+esc(r[0])+'</span>')+'<i style="width:'+Math.max(1,Math.round(r[1]/max*100))+'%"></i><em>'+fmtN(r[1])+'</em></div>'}).join(''):'<p class="lg-hint">No requests.</p>';
+}
+function renderSections(){
+  var d=focusData(),fo={},ty={},pq=0,pu=0;
+  d.urls.forEach(function(u,p){var f=folderOf(p);fo[f]=(fo[f]||0)+u.h;var t=typeOf(p);ty[t]=(ty[t]||0)+u.h;if(p.indexOf('?')>-1){pq+=u.h;pu++}});
+  var fr=Object.keys(fo).map(function(k){return [k,fo[k]]}).sort(function(a,b){return b[1]-a[1]});
+  hbars($('lg-folders'),fr.slice(0,14),'folder');
+  if(fr.length>14)$('lg-folders').insertAdjacentHTML('beforeend','<p class="lg-hint" style="margin:4px 0 0">'+fmtN(fr.slice(14).reduce(function(s,r){return s+r[1]},0))+' more requests in '+(fr.length-14)+' smaller sections.</p>');
+  hbars($('lg-types'),Object.keys(ty).map(function(k){return [k,ty[k]]}).sort(function(a,b){return b[1]-a[1]}));
+  hbars($('lg-params'),topParams(d.urls).slice(0,8).map(function(x){return ['?'+x[0]+'=',x[1]]}));
+  var rob=d.urls.get('/robots.txt'),once=0;d.urls.forEach(function(u){if(u.h===1)once++});
+  var days=nDays();
+  $('lg-skv').innerHTML=[[pct(pq,d.h),'of requests to URLs with parameters'],[fmtN(pu),'parameter URLs requested'],[pct(once,d.urls.size),'of URLs requested only once'],[rob?fmtN(rob.h):'0','robots.txt requests'],[(d.h/days).toFixed(d.h/days<10?1:0),'requests per day']].map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join('');
+}
+function buildUrlFilters(){
+  var d=focusData(),fo={};d.urls.forEach(function(u,p){var f=folderOf(p);fo[f]=(fo[f]||0)+1});
+  if(S.url.fo&&!fo[S.url.fo])S.url.fo='';
+  $('lg-ufo').innerHTML='<option value="">All sections</option>'+Object.keys(fo).sort(function(a,b){return fo[b]-fo[a]}).slice(0,200).map(function(f){return '<option value="'+esc(f)+'">'+esc(f)+' ('+fmtN(fo[f])+')</option>'}).join('');
+  $('lg-ufo').value=S.url.fo;$('lg-ust').value=S.url.st;$('lg-usort').value=S.url.sort;
+}
+function urlRows(){
+  var d=focusData(),U=S.url,q=U.q.toLowerCase(),rows=[];
+  d.urls.forEach(function(u,p){
+    if(q&&p.toLowerCase().indexOf(q)<0)return;
+    if(U.fo&&folderOf(p)!==U.fo)return;
+    if(U.st==='q'){if(p.indexOf('?')<0)return}
+    else if(U.st==='2'){if(Object.keys(u.st).some(function(c){return c.charAt(0)!=='2'}))return}
+    else if(U.st&&!Object.keys(u.st).some(function(c){return c.charAt(0)===U.st}))return;
+    rows.push([p,u]);
+  });
+  var s=U.sort;rows.sort(s==='h'?function(a,b){return b[1].h-a[1].h}:s==='l'?function(a,b){return a[1].h-b[1].h}:s==='r'?function(a,b){return b[1].last-a[1].last}:function(a,b){return a[1].last-b[1].last});
+  return rows;
+}
+function renderUrls(){
+  var rows=urlRows(),U=S.url;
+  $('lg-utbody').innerHTML=rows.length?rows.slice(0,U.shown).map(function(r){return '<tr><td><div class="lg-url">'+esc(r[0])+'</div></td><td class="lg-fn" style="text-align:right">'+fmtN(r[1].h)+'</td><td><div class="lg-codes">'+codeList(r[1].st)+'</div></td><td class="lg-fn">'+dt(r[1].last)+'</td></tr>'}).join(''):'<tr><td colspan="4" class="lg-empty-row">No URLs match these filters.</td></tr>';
+  $('lg-ucount').textContent=rows.length?'Showing '+fmtN(Math.min(U.shown,rows.length))+' of '+fmtN(rows.length):'';
+  $('lg-umore').hidden=rows.length<=U.shown;
+  $('lg-nav-urls').textContent=fmtN(focusData().urls.size);
+}
+
+/* ---------- Compare ---------- */
+function cmpList(){
+  var t=S.cmpText;if(!t.trim())return [];
+  var locs=t.match(/<loc>\s*([^<]+?)\s*<\/loc>/gi),urls;
+  if(locs)urls=locs.map(function(x){return x.replace(/<\/?loc>/gi,'').trim().replace(/&amp;/g,'&')});
+  else urls=(t.match(/https?:\/\/[^\s,;"'<>|]+|^\/[^\s,;"'<>|]*/gim)||[]);
+  var seen={},out=[];urls.forEach(function(u){u=u.replace(/[).\]]+$/,'');var p=normPath(u);if(!seen[p]){seen[p]=1;out.push(p)}});
+  return out;
+}
+function ck(p){return S.cmpSlash?p.replace(/\/+(?=$|\?)/,''):p}
+function compare(){
+  var list=cmpList();if(!list.length||!A.ok)return null;
+  var d=focusData(),crawled={},inList={};
+  d.urls.forEach(function(u,p){crawled[ck(p)]=p});
+  var never=[];list.forEach(function(p){inList[ck(p)]=1;if(!crawled[ck(p)])never.push(p)});
+  var extra=[];d.urls.forEach(function(u,p){var t=typeOf(p);if(t!=='HTML pages')return;if(!inList[ck(p)])extra.push([p,u.h])});
+  extra.sort(function(a,b){return b[1]-a[1]});
+  var extraH=extra.reduce(function(s,x){return s+x[1]},0);
+  return {list:list.length,never:never,extra:extra,extraH:extraH,h:d.h};
+}
+function renderCompare(){
+  var n=cmpList().length;$('lg-cmp-n').textContent=n?plural(n,'unique URL')+' in the list.':'';
+  var C=compare();
+  $('lg-cbox').hidden=!C;
+  $('lg-csub').innerHTML=C?'Your list has '+plural(C.list,'URL')+'. Compared with what <b>'+esc(focusName(S.focus))+'</b> requested in this log.':'Paste your sitemap or a list of indexable URLs in the <b>Compare with URLs</b> tab above to see which pages the focused crawler never requested.';
+  if(!C)return;
+  $('lg-cstats').innerHTML=tile(fmtN(C.list-C.never.length),'Requested at least once','ok')+tile(fmtN(C.never.length),'Never requested',C.never.length?'warn':'ok')+tile(pct(C.list-C.never.length,C.list),'Coverage of your list')+tile(fmtN(C.extra.length),'Crawled pages not in your list')+tile(pct(C.extraH,C.h),'Of requests went to those');
+  document.querySelectorAll('#lg-cview button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.c===S.cview))});
+  var never=S.cview==='never',L=never?C.never:C.extra;
+  var note=never?'URLs from your list with no request from this crawler in the log period. Strengthen internal links to them, bring them closer to the home page, and check they are in the sitemap.':'HTML URLs the crawler requested that are not in your list, most requested first. Old URLs, parameters, redirects and pages missing from the sitemap show up here.';
+  $('lg-ctbody').innerHTML='<tr><td class="lg-hint" colspan="2" style="background:var(--bg2)">'+note+'</td></tr>'+(L.length?L.slice(0,100).map(function(x){return never?'<tr><td colspan="2"><div class="lg-url">'+esc(x)+'</div></td></tr>':'<tr><td><div class="lg-url">'+esc(x[0])+'</div></td><td class="lg-fn" style="text-align:right">'+fmtN(x[1])+'</td></tr>'}).join(''):'<tr><td colspan="2" class="lg-empty-row">Nothing here.</td></tr>');
+  $('lg-ccount').textContent=L.length>100?'Showing 100 of '+fmtN(L.length)+'. Download for the full list.':L.length?plural(L.length,'URL'):'';
+  $('lg-cx').hidden=!L.length;
+}
+
+/* ---------- Verification ---------- */
+function candidates(){
+  var out=[];
+  Object.keys(A.bots).forEach(function(id){var dm=verifyDomains(id);if(!dm)return;A.bots[id].ips.forEach(function(h,ip){out.push({ip:ip,id:id,h:h,dm:dm})})});
+  var by={};out.forEach(function(c){var k=c.ip;if(!by[k])by[k]={ip:k,ids:[],h:0,dm:c.dm};by[k].ids.push(c.id);by[k].h+=c.h});
+  return Object.keys(by).map(function(k){return by[k]}).sort(function(a,b){return b.h-a.h});
+}
+function renderVerifyNote(){
+  var c=candidates();
+  $('lg-vnote').textContent=c.length?plural(c.length,'unique IP')+' claim to be Google, Bing, Apple, Yandex or Baidu crawlers.'+(c.length>300?' The 300 with the most requests will be checked.':''):'No requests from crawlers that can be verified by DNS.';
+  $('lg-vgo').disabled=!c.length;
+  if(!S.ver){$('lg-vwrap').hidden=true;$('lg-vstat').textContent=''}
+}
+function expand6(ip){
+  if(ip.indexOf('.')>-1){var v4=ip.slice(ip.lastIndexOf(':')+1).split('.').map(Number);ip=ip.slice(0,ip.lastIndexOf(':')+1)+((v4[0]<<8)|v4[1]).toString(16)+':'+((v4[2]<<8)|v4[3]).toString(16)}
+  var parts=ip.split('::'),a=parts[0]?parts[0].split(':'):[],b=parts.length>1&&parts[1]?parts[1].split(':'):[];
+  var fill=new Array(8-a.length-b.length).fill('0');
+  return a.concat(parts.length>1?fill:[],b).map(function(x){return ('0000'+x).slice(-4).toLowerCase()}).join(':');
+}
+function revName(ip){
+  if(ip.indexOf(':')<0)return ip.split('.').reverse().join('.')+'.in-addr.arpa';
+  return expand6(ip).replace(/:/g,'').split('').reverse().join('.')+'.ip6.arpa';
+}
+async function doh(name,type){
+  var r=await fetch('https://dns.google/resolve?name='+encodeURIComponent(name)+'&type='+type,{headers:{accept:'application/dns-json'}});
+  if(!r.ok)throw new Error('DNS '+r.status);
+  var j=await r.json(),want={PTR:12,A:1,AAAA:28}[type];
+  return (j.Answer||[]).filter(function(a){return a.type===want}).map(function(a){return a.data.replace(/\.$/,'').toLowerCase()});
+}
+async function verifyOne(c){
+  try{
+    var ptr=await doh(revName(c.ip),'PTR');
+    if(!ptr.length){c.res='fake';c.host='(no reverse DNS)';return}
+    var host=ptr.filter(function(h){return c.dm.some(function(d){return h===d||h.slice(-d.length-1)==='.'+d})})[0];
+    if(!host){c.res='fake';c.host=ptr[0];return}
+    c.host=host;
+    var v6=c.ip.indexOf(':')>-1,fwd=await doh(host,v6?'AAAA':'A');
+    var me=v6?expand6(c.ip):c.ip;
+    c.res=fwd.some(function(x){return (v6?expand6(x):x)===me})?'ok':'fake';
+    if(c.res==='fake')c.host+=' (forward lookup does not match)';
+  }catch(e){c.res='error';c.host='Lookup failed'}
+}
+async function runVerify(){
+  var list=candidates().slice(0,300),done=0,btn=$('lg-vgo');
+  if(!list.length)return;
+  btn.disabled=true;S.ver=list;
+  var q=list.slice(),workers=[];
+  function step(){$('lg-vstat').textContent='Checked '+done+' of '+list.length;}
+  for(var w=0;w<6;w++)workers.push((async function(){while(q.length){var c=q.shift();await verifyOne(c);done++;step()}})());
+  step();
+  await Promise.all(workers);
+  btn.disabled=false;
+  var fails=list.filter(function(c){return c.res==='error'}).length;
+  $('lg-vstat').textContent='Done. '+list.filter(function(c){return c.res==='ok'}).length+' verified, '+list.filter(function(c){return c.res==='fake'}).length+' fake'+(fails?', '+fails+' failed (network or DNS blocked)':'')+'.';
+  if(fails===list.length){S.ver=null;msg('DNS lookups failed. A network filter or extension may be blocking dns.google.')}
+  renderVerifyTable();renderOverview();
+}
+function renderVerifyTable(){
+  if(!S.ver){$('lg-vwrap').hidden=true;return}
+  $('lg-vwrap').hidden=false;
+  var order={fake:0,error:1,ok:2},L={ok:['ok','Verified'],fake:['error','Not genuine'],error:['dim','Lookup failed']};
+  $('lg-vtbody').innerHTML=S.ver.slice().sort(function(a,b){return order[a.res]-order[b.res]||b.h-a.h}).map(function(c){return '<tr'+(c.res==='fake'?' class="s-error"':'')+'><td class="lg-url">'+esc(c.ip)+'</td><td>'+c.ids.map(function(id){return esc(BMAP[id].name)}).join(', ')+'</td><td class="lg-fn" style="text-align:right">'+fmtN(c.h)+'</td><td class="lg-url" style="color:var(--ink3)">'+esc(c.host||'')+'</td><td><span class="lg-pill lg-pill--'+L[c.res][0]+'">'+L[c.res][1]+'</span></td></tr>'}).join('');
+}
+
+/* ---------- Exports ---------- */
+function exportUrls(){
+  var rows=[['url','requests','status_codes','section','file_type','first_request','last_request']];
+  urlRows().forEach(function(r){rows.push([r[0],r[1].h,Object.keys(r[1].st).map(function(c){return c+':'+r[1].st[c]}).join(' '),folderOf(r[0]),typeOf(r[0]),dt(r[1].first),dt(r[1].last)])});
+  download('log-urls-'+S.focus+'.csv',csv(rows),'text/csv');
+}
+function exportBots(){
+  var rows=[['crawler','group','type','requests','unique_urls','2xx','3xx','4xx','5xx','ips','bytes','first_seen','last_seen']];
+  Object.keys(A.bots).sort(function(a,b){return A.bots[b].h-A.bots[a].h}).forEach(function(id){var B=A.bots[id],b=BMAP[id];rows.push([b.name,GROUPS[b.g],b.sub?SUB[b.sub]:'',B.h,B.urls.size,B.st['2']||0,B.st['3']||0,B.st['4']||0,B.st['5']||0,B.ips.size,B.b,dt(B.first),dt(B.last)])});
+  rows.push(['Visitors and unidentified','','',A.human.h,'',A.human.st['2']||0,A.human.st['3']||0,A.human.st['4']||0,A.human.st['5']||0,'','','','']);
+  download('log-crawlers.csv',csv(rows),'text/csv');
+}
+function exportDays(){
+  var ids=Object.keys(A.bots).sort(function(a,b){return A.bots[b].h-A.bots[a].h});
+  var rows=[['date'].concat(ids.map(function(id){return BMAP[id].name}),['visitors'])];
+  Object.keys(A.days).sort().forEach(function(k){var D=A.days[k];rows.push([k].concat(ids.map(function(id){return D[id]||0}),[D._h||0]))});
+  download('log-daily.csv',csv(rows),'text/csv');
+}
+function exportFind(){
+  var rows=[['severity','finding']];S.findings.forEach(function(f){rows.push([f[0],f[1].replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')])});
+  download('log-findings.csv',csv(rows),'text/csv');
+}
+
+/* ---------- Sample ---------- */
+function sampleLog(){
+  var seed=7;function rnd(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff}
+  function pickA(a){return a[Math.floor(rnd()*a.length)]}
+  var UA={
+    mob:'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.204 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+    desk:'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/131.0.6778.204 Safari/537.36',
+    img:'Googlebot-Image/1.0',
+    bing:'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/116.0.1938.76 Safari/537.36',
+    gpt:'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.2; +https://openai.com/gptbot',
+    oai:'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot',
+    cgu:'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/1.0; +https://openai.com/bot',
+    claude:'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)',
+    pplx:'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)',
+    ahrefs:'Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)',
+    semrush:'Mozilla/5.0 (compatible; SemrushBot/7~bl; +http://www.semrush.com/bot.html)',
+    human:['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36','Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1','Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15']
+  };
+  var pages=['/','/services/','/services/technical-seo/','/services/international-seo/','/services/site-migrations/','/about/','/contact/','/pricing/','/case-studies/','/blog/'];
+  for(var i=1;i<=40;i++)pages.push('/blog/post-'+i+'/');
+  var products=[];for(var j=1;j<=120;j++)products.push('/shop/product-'+j+'/');
+  var params=[];['price','newest','popular'].forEach(function(s){for(var pg=1;pg<=12;pg++)params.push('/shop/?sort='+s+'&page='+pg)});['red','blue','black','green'].forEach(function(c){params.push('/shop/?filter_color='+c);params.push('/shop/?filter_color='+c+'&sort=price')});
+  var old=[];for(var k=1;k<=25;k++)old.push('/old-blog/post-'+k+'/');
+  var noslash=['/services','/about','/blog/post-3','/blog/post-7','/pricing'];
+  var assets=['/wp-content/themes/site/style.css','/wp-content/themes/site/app.js','/wp-content/uploads/hero.webp'];
+  function status(p,day,bot){
+    if(p.indexOf('/old-blog/')===0)return 404;
+    if(noslash.indexOf(p)>-1)return 301;
+    if(day===9&&bot==='g'&&rnd()<0.12)return 503;
+    if(bot==='ai403'&&rnd()<0.85)return 403;
+    return 200;
+  }
+  function gbPath(){var r=rnd();if(r<0.30)return pickA(pages);if(r<0.55)return pickA(products.slice(0,60));if(r<0.78)return pickA(params);if(r<0.86)return pickA(old);if(r<0.93)return pickA(noslash);return pickA(assets)}
+  var lines=[],start=Date.UTC(2026,9,23);
+  function line(ip,t,p,s,ua){var d=new Date(t+3600000),M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],pad=function(n){return (n<10?'0':'')+n};
+    lines.push(ip+' - - ['+pad(d.getUTCDate())+'/'+M[d.getUTCMonth()]+'/'+d.getUTCFullYear()+':'+pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())+':'+pad(d.getUTCSeconds())+' +0100] "GET '+p+' HTTP/1.1" '+s+' '+(s===200?Math.floor(5000+rnd()*40000):s===301?0:612)+' "-" "'+ua+'"')}
+  for(var day=0;day<14;day++){
+    var base=start+day*86400000;
+    function many(n,fn){for(var x=0;x<n;x++)fn(base+Math.floor(rnd()*86400000))}
+    many(170+Math.floor(rnd()*40),function(t){var p=gbPath();line('66.249.66.'+Math.floor(1+rnd()*200),t,p,status(p,day,'g'),UA.mob)});
+    many(22,function(t){var p=gbPath();line('66.249.79.'+Math.floor(1+rnd()*200),t,p,status(p,day,'g'),UA.desk)});
+    many(10,function(t){line('66.249.66.'+Math.floor(1+rnd()*200),t,'/wp-content/uploads/img-'+Math.floor(rnd()*80)+'.webp',200,UA.img)});
+    many(2,function(t){line('66.249.66.1',t,'/robots.txt',200,UA.mob)});
+    many(1,function(t){line('66.249.66.1',t,'/sitemap_index.xml',200,UA.mob)});
+    many(38,function(t){var p=gbPath();line(pickA(['157.55.39.','40.77.167.'])+Math.floor(1+rnd()*200),t,p,status(p,day,'b'),UA.bing)});
+    many(55,function(t){var p=rnd()<0.5?pickA(pages):pickA(products);line('20.171.207.'+Math.floor(1+rnd()*200),t,p,status(p,day,'ai403'),UA.gpt)});
+    many(30,function(t){var p=rnd()<0.6?pickA(pages):pickA(products);line('216.73.216.'+Math.floor(1+rnd()*200),t,p,status(p,day,'c'),UA.claude)});
+    many(12,function(t){var p=pickA(pages);line('74.7.227.'+Math.floor(1+rnd()*200),t,p,200,UA.oai)});
+    many(8,function(t){var p=pickA(pages);line('44.221.181.'+Math.floor(1+rnd()*200),t,p,200,UA.pplx)});
+    many(5,function(t){var p=pickA(pages.slice(10));line('23.98.142.'+Math.floor(1+rnd()*200),t,p,200,UA.cgu)});
+    many(48,function(t){var p=rnd()<0.5?pickA(pages):pickA(old.concat(params));line('54.36.148.'+Math.floor(1+rnd()*200),t,p,status(p,day,'a'),UA.ahrefs)});
+    many(26,function(t){var p=pickA(pages.concat(products));line('85.208.98.'+Math.floor(1+rnd()*200),t,p,200,UA.semrush)});
+    many(14,function(t){var p=pickA(pages.concat(products));line('185.191.171.'+Math.floor(1+rnd()*20),t,p,200,UA.mob)});
+    many(280,function(t){var p=rnd()<0.7?pickA(pages):pickA(products.concat(assets));line(Math.floor(30+rnd()*190)+'.'+Math.floor(rnd()*255)+'.'+Math.floor(rnd()*255)+'.'+Math.floor(1+rnd()*254),t,p,status(p,day,'h'),pickA(UA.human))});
+  }
+  lines.sort(function(a,b){return a.slice(a.indexOf('[')).localeCompare(b.slice(b.indexOf('[')))});
+  return lines.join('\n');
+}
+var SAMPLE_CMP=(function(){var u=['/','/services/','/services/technical-seo/','/services/international-seo/','/services/site-migrations/','/about/','/contact/','/pricing/','/case-studies/','/blog/'];for(var i=1;i<=40;i++)u.push('/blog/post-'+i+'/');for(var j=1;j<=120;j++)u.push('/shop/product-'+j+'/');return u.map(function(p){return 'https://example.com'+p}).join('\n')})();
+
+/* ---------- Events ---------- */
+function selectTab(w){['paste','cmp'].forEach(function(k){var on=k===w,t=$('lg-t-'+k);t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;$('lg-p-'+k).hidden=!on})}
+function setFocus(f){S.focus=f;S.url.shown=100;S.url.fo='';renderFocusSelect();renderFocus();if(cmpList().length)renderOverview()}
+function init(){
+  var drop=$('lg-drop');
+  $('lg-input').addEventListener('change',function(){if(this.files.length)readFiles(this.files);this.value=''});
+  ['dragenter','dragover'].forEach(function(e){drop.addEventListener(e,function(ev){ev.preventDefault();drop.classList.add('over')})});
+  ['dragleave','drop'].forEach(function(e){drop.addEventListener(e,function(ev){ev.preventDefault();drop.classList.remove('over')})});
+  drop.addEventListener('drop',function(ev){if(ev.dataTransfer&&ev.dataTransfer.files.length)readFiles(ev.dataTransfer.files)});
+  $('lg-paste-go').addEventListener('click',function(){var t=$('lg-paste').value;if(!t.trim()){msg('Paste some log lines first.');return}msg('');addText(t,'pasted-'+(A.files.length+1)+'.log');$('lg-paste').value=''});
+  $('lg-sample').addEventListener('click',function(){reset();uaCache.clear();S.focus='';S.ver=null;S.url={q:'',st:'',fo:'',sort:'h',shown:50};$('lg-uq').value='';S.cmpText=SAMPLE_CMP;$('lg-cmp').value=SAMPLE_CMP;addText(sampleLog(),'access-sample.log');$('lg-rep').scrollIntoView({behavior:'smooth',block:'start'})});
+  $('lg-clear').addEventListener('click',function(){reset();S.focus='';S.ver=null;S.cmpText='';$('lg-cmp').value='';msg('');renderFiles();$('lg-rep').hidden=true;renderCompare()});
+  $('lg-t-paste').addEventListener('click',function(){selectTab('paste')});
+  $('lg-t-cmp').addEventListener('click',function(){selectTab('cmp')});
+  document.querySelector('.lg-tabs').addEventListener('keydown',function(e){if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var n=$('lg-t-paste').getAttribute('aria-selected')==='true'?'cmp':'paste';selectTab(n);$('lg-t-'+n).focus()});
+  var ct;$('lg-cmp').addEventListener('input',function(){var v=this.value;clearTimeout(ct);ct=setTimeout(function(){S.cmpText=v;renderCompare();if(A.ok)renderOverview()},300)});
+  $('lg-cmp-slash').addEventListener('change',function(){S.cmpSlash=this.checked;renderCompare();if(A.ok)renderOverview()});
+  $('lg-cmp-file').addEventListener('change',function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$('lg-cmp').value=r.result;S.cmpText=r.result;renderCompare();if(A.ok)renderOverview()};r.readAsText(f);this.value=''});
+  $('lg-ctable').addEventListener('click',function(e){var tr=e.target.closest('tr[data-bot]');if(!tr)return;setFocus(tr.dataset.bot);document.querySelector('.lg-focus').scrollIntoView({behavior:'smooth',block:'start'})});
+  $('lg-focus').addEventListener('change',function(){setFocus(this.value)});
+  $('lg-scls').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.scls=b.dataset.c;renderStatus()});
+  $('lg-folders').addEventListener('click',function(e){var b=e.target.closest('[data-folder]');if(!b)return;S.url.fo=b.dataset.folder;S.url.shown=100;buildUrlFilters();renderUrls();$('lg-urls').scrollIntoView({behavior:'smooth',block:'start'})});
+  var uq;$('lg-uq').addEventListener('input',function(){var v=this.value;clearTimeout(uq);uq=setTimeout(function(){S.url.q=v.trim();S.url.shown=100;renderUrls()},150)});
+  [['lg-ust','st'],['lg-ufo','fo'],['lg-usort','sort']].forEach(function(x){$(x[0]).addEventListener('change',function(){S.url[x[1]]=this.value;S.url.shown=100;renderUrls()})});
+  $('lg-umore').addEventListener('click',function(){S.url.shown+=300;renderUrls()});
+  $('lg-cview').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.cview=b.dataset.c;renderCompare()});
+  $('lg-cx').addEventListener('click',function(){var C=compare();if(!C)return;var L=S.cview==='never'?C.never:C.extra.map(function(x){return x[0]});download(S.cview==='never'?'never-requested.txt':'crawled-not-in-list.txt',L.join('\n')+'\n')});
+  $('lg-vgo').addEventListener('click',runVerify);
+  $('lg-x-urls').addEventListener('click',exportUrls);
+  $('lg-x-bots').addEventListener('click',exportBots);
+  $('lg-x-days').addEventListener('click',exportDays);
+  $('lg-x-find').addEventListener('click',exportFind);
+  if('IntersectionObserver' in window){
+    var links={};document.querySelectorAll('#lg-nav a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting)Object.keys(links).forEach(function(k){links[k].classList.toggle('on',k===x.target.id)})})},{rootMargin:'-30% 0px -60% 0px'});
+    document.querySelectorAll('.lg-sec').forEach(function(s){io.observe(s)});
+  }
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+</body>
+</html>

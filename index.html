@@ -165,6 +165,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .navdd-i span{font-size:13px;color:var(--ink5)}
 header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
 @media (max-width:1040px){.navdd{flex-direction:column;align-items:stretch;width:100%;margin-top:0 !important}.navdd-t{font-size:17px;padding:12px 0;width:100%;border-bottom:1px solid var(--line5) !important;cursor:default;color:var(--ink2)}.navdd-t .ms{display:none}.navdd-m{position:static;opacity:1;visibility:visible;transform:none;padding:0;min-width:0}.navdd-b{background:transparent;border:0;box-shadow:none;padding:0}.navdd-i{padding:12px 0 12px 16px;border-radius:0;border-bottom:1px solid var(--line5)}}
+.toolgrid{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:1040px){.toolgrid{grid-template-columns:repeat(5,minmax(0,1fr))}.toolc{padding:18px !important;min-height:180px !important}}
+@media (max-width:880px){.toolgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.toolgrid{grid-template-columns:minmax(0,1fr)}}
+.toolc:hover{border-color:var(--acc-theme) !important;background:var(--cardacc) !important;transform:translateY(-3px)}
+.toolc:hover .toolc-i{transform:rotate(-8deg) scale(1.08)}
+.toolc:hover .toolc-a{transform:translateX(4px);color:var(--acc-theme) !important}
 </style>
 <script>(function(){if(window.__vsStats)return;window.__vsStats=1;function run(){var ease=function(p){return 1-Math.pow(1-p,3)};document.querySelectorAll('[data-count]:not([data-done])').forEach(function(e){e.setAttribute('data-done','1');var t=parseInt(e.getAttribute('data-count'),10),sfx=e.getAttribute('data-suffix')||'';if(!('IntersectionObserver'in window)){e.textContent=t+sfx;return}e.textContent='0'+sfx;var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.disconnect();var s=performance.now();(function f(n){var p=Math.min(1,(n-s)/1000);e.textContent=Math.round(t*ease(p))+sfx;if(p<1)requestAnimationFrame(f)})(performance.now())})},{threshold:.4});io.observe(e)});document.querySelectorAll('[data-reveal]:not([data-done])').forEach(function(e){e.setAttribute('data-done','1');if(!('IntersectionObserver'in window))return;e.style.opacity='0';e.style.transform='translateY(10px)';e.style.transition='opacity .55s ease, transform .55s ease';e.style.transitionDelay=(e.getAttribute('data-reveal')||0)+'ms';var io=new IntersectionObserver(function(en){en.forEach(function(x){if(!x.isIntersecting)return;io.disconnect();e.style.opacity='1';e.style.transform='none'})},{threshold:.4});io.observe(e)})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();setTimeout(run,400);setTimeout(run,1200);})();</script>
@@ -194,7 +201,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     "postalCode": "11174",
     "addressCountry": "RS"
   },
-  "description": "Technical SEO, website optimization and tech SEO audits: crawl budget, indexation, hreflang and log analysis, plus website builds of up to 15 pages.",
+  "description": "Technical SEO, website optimization and tech SEO audits: crawl budget, indexation, hreflang and log analysis.",
   "email": "stojkovicv86@gmail.com",
   "areaServed": {
     "@type": "Place",
@@ -236,16 +243,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
           "name": "Ongoing engagement",
           "description": "Monthly crawl, hreflang maintenance, SEO QA around deploys and implementation through the dev team."
         }
-      },
-      {
-        "@type": "Offer",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "A site from scratch",
-          "description": "Structure, keyword plan, design and build of a site up to 15 pages with technical SEO built in."
-        }
       }
     ]
   }
@@ -258,7 +255,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   "@id": "https://vukstojkovic.com/#vuk",
   "name": "Vuk Stojković",
   "jobTitle": "Technical SEO Executive",
-  "description": "Freelancer specialising in search engine optimisation (SEO) and generative answers (GEO), PPC advertising and websites.",
+  "description": "Freelancer specialising in search engine optimisation (SEO), generative answers (GEO) and PPC advertising.",
   "email": "stojkovicv86@gmail.com",
   "url": "https://vukstojkovic.com/about-me/",
   "knowsAbout": [
@@ -330,6 +327,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="navdd-m">
             <div class="navdd-b">
               <a class="navdd-i" href="./redirect-map-validator/"><b>Redirect map validator</b><span>Chains, loops and conflicts</span></a>
+              <a class="navdd-i" href="./hreflang-validator/"><b>Hreflang validator</b><span>Return links, codes and clusters</span></a>
+              <a class="navdd-i" href="./xml-sitemap-analyzer/"><b>XML sitemap analyzer</b><span>Limits, lastmod and duplicates</span></a>
+              <a class="navdd-i" href="./log-file-analyzer/"><b>Log file analyzer</b><span>Googlebot and AI crawler activity</span></a>
+              <a class="navdd-i" href="./robots-txt-generator/"><b>Robots.txt generator</b><span>Google and AI crawler access</span></a>
             </div>
           </div>
         </div>
@@ -358,7 +359,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px">
           <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Technical audits</span>
           <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Hreflang &amp; international SEO</span>
-          <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; color: var(--ink2)"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--acc, var(--acc-theme))"></span>Websites up to 15 pages</span>
         </div>
       </div>
       <div class="heroanim" style="flex: 1 1 360px; max-width: 470px; min-width: 0; padding-top: clamp(0px, 2vw, 24px)">
@@ -568,64 +568,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   
 
-  <section style="padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
-    <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); align-items: flex-start">
-      <div style="flex: 1 1 220px; max-width: 340px; min-width: 0">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); padding-bottom: 14px; border-bottom: 1px solid var(--line2)">How it runs</div>
-        <p style="margin: 16px 0 0; color: var(--ink5); font-size: 15px; text-wrap: pretty">A realistic order; each step opens the next</p>
+  <section id="seo-tools" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line)">
+    <div style="max-width: 1240px; margin: 0 auto">
+      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>SEO tools</div>
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 48px; margin-top: 24px">
+        <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Free SEO tools</h2>
+        <p style="margin: 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 48ch; text-wrap: pretty">The checks I run in audits, turned into tools. They run in your browser, free and without sign-up.</p>
       </div>
-      <div style="flex: 3 1 460px; min-width: 0">
-        <h2 style="margin: 0 0 32px; font-size: clamp(28px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">The long discovery phase is over. You get insight into the problem in the first week.</h2>
-        <div style="border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr))">
-          <div class="x30" style="padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card); transition: background .18s ease">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Step 1</div>
-            <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Intro call</h3>
-            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Thirty minutes, free. You describe the problem, I tell you honestly whether I am the right person for it.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">call</span></span></div>
-          </div>
-          <div class="x31" style="padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card); transition: background .18s ease">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Step 2</div>
-            <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Diagnostics</h3>
-            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Crawl, logs, Search Console and the history of recent deploys. Data before opinions.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">troubleshoot</span></span></div>
-          </div>
-          <div class="x32" style="padding: 26px; border-bottom: 1px solid var(--line); background: var(--card); transition: background .18s ease">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Step 3</div>
-            <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Findings and plan</h3>
-            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">What is actually blocking visibility, ranked by impact, with concrete tasks instead of a list of principles.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">assignment</span></span></div>
-          </div>
-          <div class="x33" style="padding: 26px; border-right: 1px solid var(--line); background: var(--card); transition: background .18s ease">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Step 4</div>
-            <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Implementation</h3>
-            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">I work with your team: tickets, staging checks and verification that the change really reached production.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">build</span></span></div>
-          </div>
-          <div class="x34" style="padding: 26px; border-right: 1px solid var(--line); background: var(--card); transition: background .18s ease">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Step 5</div>
-            <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">Handover</h3>
-            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">A documented way of working the team keeps using once I am gone. That is the point.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">handshake</span></span></div>
-          </div>
-          <div class="x35" style="padding: 26px; background: var(--card); transition: background .18s ease">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--acc, var(--acc-theme)); letter-spacing: 0.08em">Step 6</div>
-            <h3 style="margin: 12px 0 8px; font-size: 17px; font-weight: 600">30-day check-in</h3>
-            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">One hour: what worked, what did not and what needs another round. Free of charge, and usually the most useful hour of all.</p>
-            <div style="display: flex; justify-content: center; margin-top: 18px; color: var(--acc, var(--acc-theme))"><span style="width: 34px; height: 34px; border-radius: 9px; background: var(--acctint); display: flex; align-items: center; justify-content: center"><span class="ms" aria-hidden="true" style="font-size: 19px">event_repeat</span></span></div>
-          </div>
-        </div>
+      <div class="toolgrid" style="display: grid; gap: 14px; margin-top: clamp(32px, 4vw, 48px)">
+        <a class="toolc" href="./redirect-map-validator/" style="display: flex; flex-direction: column; gap: 14px; min-height: 196px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); color: var(--ink); transition: border-color .18s ease, background .18s ease, transform .18s ease">
+          <span class="toolc-i" style="width: 48px; height: 48px; border-radius: 12px; background: var(--acctint); color: var(--acc, var(--acc-theme)); display: flex; align-items: center; justify-content: center; transition: transform .25s ease"><span class="ms" aria-hidden="true" style="font-size: 26px">alt_route</span></span>
+          <span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 600; line-height: 1.25">Redirect map validator</span><span style="font-size: 14px; color: var(--ink4); line-height: 1.45">Chains, loops and conflicts</span></span>
+          <span class="ms toolc-a" aria-hidden="true" style="margin-top: auto; font-size: 20px; color: var(--ink5); transition: transform .18s ease, color .18s ease">arrow_forward</span>
+        </a>
+        <a class="toolc" href="./hreflang-validator/" style="display: flex; flex-direction: column; gap: 14px; min-height: 196px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); color: var(--ink); transition: border-color .18s ease, background .18s ease, transform .18s ease">
+          <span class="toolc-i" style="width: 48px; height: 48px; border-radius: 12px; background: var(--acctint); color: var(--acc, var(--acc-theme)); display: flex; align-items: center; justify-content: center; transition: transform .25s ease"><span class="ms" aria-hidden="true" style="font-size: 26px">translate</span></span>
+          <span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 600; line-height: 1.25">Hreflang validator</span><span style="font-size: 14px; color: var(--ink4); line-height: 1.45">Return links, codes and clusters</span></span>
+          <span class="ms toolc-a" aria-hidden="true" style="margin-top: auto; font-size: 20px; color: var(--ink5); transition: transform .18s ease, color .18s ease">arrow_forward</span>
+        </a>
+        <a class="toolc" href="./xml-sitemap-analyzer/" style="display: flex; flex-direction: column; gap: 14px; min-height: 196px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); color: var(--ink); transition: border-color .18s ease, background .18s ease, transform .18s ease">
+          <span class="toolc-i" style="width: 48px; height: 48px; border-radius: 12px; background: var(--acctint); color: var(--acc, var(--acc-theme)); display: flex; align-items: center; justify-content: center; transition: transform .25s ease"><span class="ms" aria-hidden="true" style="font-size: 26px">account_tree</span></span>
+          <span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 600; line-height: 1.25">XML sitemap analyzer</span><span style="font-size: 14px; color: var(--ink4); line-height: 1.45">Limits, lastmod and duplicates</span></span>
+          <span class="ms toolc-a" aria-hidden="true" style="margin-top: auto; font-size: 20px; color: var(--ink5); transition: transform .18s ease, color .18s ease">arrow_forward</span>
+        </a>
+        <a class="toolc" href="./log-file-analyzer/" style="display: flex; flex-direction: column; gap: 14px; min-height: 196px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); color: var(--ink); transition: border-color .18s ease, background .18s ease, transform .18s ease">
+          <span class="toolc-i" style="width: 48px; height: 48px; border-radius: 12px; background: var(--acctint); color: var(--acc, var(--acc-theme)); display: flex; align-items: center; justify-content: center; transition: transform .25s ease"><span class="ms" aria-hidden="true" style="font-size: 26px">query_stats</span></span>
+          <span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 600; line-height: 1.25">Log file analyzer</span><span style="font-size: 14px; color: var(--ink4); line-height: 1.45">Googlebot and AI crawler activity</span></span>
+          <span class="ms toolc-a" aria-hidden="true" style="margin-top: auto; font-size: 20px; color: var(--ink5); transition: transform .18s ease, color .18s ease">arrow_forward</span>
+        </a>
+        <a class="toolc" href="./robots-txt-generator/" style="display: flex; flex-direction: column; gap: 14px; min-height: 196px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); color: var(--ink); transition: border-color .18s ease, background .18s ease, transform .18s ease">
+          <span class="toolc-i" style="width: 48px; height: 48px; border-radius: 12px; background: var(--acctint); color: var(--acc, var(--acc-theme)); display: flex; align-items: center; justify-content: center; transition: transform .25s ease"><span class="ms" aria-hidden="true" style="font-size: 26px">smart_toy</span></span>
+          <span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 600; line-height: 1.25">Robots.txt generator</span><span style="font-size: 14px; color: var(--ink4); line-height: 1.45">Google and AI crawler access</span></span>
+          <span class="ms toolc-a" aria-hidden="true" style="margin-top: auto; font-size: 20px; color: var(--ink5); transition: transform .18s ease, color .18s ease">arrow_forward</span>
+        </a>
       </div>
-    </div>
-  <div style="max-width: 1240px; margin: clamp(34px, 4vw, 52px) auto 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px">
-      <a class="ctaprim" href="mailto:stojkovicv86@gmail.com?subject=Intro%20call" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px"><span class="ms" aria-hidden="true" style="font-size: 19px">mail</span>Book a free intro call</a>
-      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">30 minutes, free and no obligation</span>
     </div>
   </section>
 
   <section id="planovi" style="scroll-margin-top: 88px; padding: clamp(56px, 7vw, 100px) clamp(20px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--bg2)">
     <div style="max-width: 1240px; margin: 0 auto">
       <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>Work with me</div>
-      <h2 style="margin: 24px 0 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Three ways to work together</h2>
+      <h2 style="margin: 24px 0 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Two ways to work together</h2>
       <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 52ch; text-wrap: pretty">Start with the smallest scope that answers the question. We can always expand; going the other way rarely makes sense.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; margin-top: clamp(32px, 4vw, 52px); align-items: stretch">
@@ -663,27 +646,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <a class="x27" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Book a call</a>
         </div>
-
-        <div class="x28" style="border: 1px solid var(--line); border-radius: 16px; padding: clamp(26px, 3vw, 34px); background: var(--card); display: flex; flex-direction: column; gap: 18px; transition: background .18s ease, border-color .18s ease, transform .18s ease">
-          <div style="min-height: 160px">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink5)">Project-based</div>
-            <h3 style="margin: 12px 0 8px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em">A site from scratch</h3>
-            <p style="margin: 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">When there is no site yet, or the current one is not worth saving: I design and set it up so the foundation is right from day one.</p>
-          </div>
-          <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 18px; border-bottom: 1px solid var(--line)">
-            <span style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em">On request</span>
-            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink5)">/ by site complexity</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 11px">
-            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Site structure, sitemap and keyword plan</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Design and build, from a one-pager up to 15 pages</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Technical SEO built in during the build</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>GSC and GA4 measurement set up</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>GEO reports: visibility in AI answers</div>
-            <div style="display: flex; gap: 11px; font-size: 15px; color: var(--ink2)"><span style="color: var(--acc, var(--acc-theme))">—</span>Handover with a guide for running it yourself</div>
-          </div>
-          <a class="x29" href="mailto:stojkovicv86@gmail.com" style="margin-top: auto; text-align: center; border: 1px solid var(--btnline); color: var(--ink); font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 10px">Describe your project</a>
-        </div>
       </div>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 26px">Scope and timing depend on site size and number of markets. The intro call is free.</div>
     </div>
@@ -719,7 +681,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 64px)">
         <div style="flex: 1 1 280px; max-width: 360px; min-width: 0">
           <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)">Vuk Stojković</div>
-          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Technical SEO, PPC and website design. Belgrade, Serbia. I work with clients and teams remotely.</p>
+          <p style="margin: 16px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Technical SEO, GEO and PPC. Belgrade, Serbia. I work with clients and teams remotely.</p>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Explore</div>
