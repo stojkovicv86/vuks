@@ -304,7 +304,7 @@ header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
    "offers": {
     "@type": "Offer",
     "price": "0",
-    "priceCurrency": "EUR"
+    "priceCurrency": "USD"
    },
    "creator": {
     "@id": "https://vukstojkovic.com/#vuk"
@@ -605,7 +605,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="sm-prose">
         <div class="sm-eyebrow">Guide</div>
         <h2 style="margin-top:22px">What a good sitemap looks like</h2>
-        <p>A sitemap is a list of the URLs you want search engines to index, and nothing else. Every entry should be canonical, return 200, be indexable, and use the same protocol and host as the rest of the site. Search engines treat the sitemap as a hint, so a list full of redirects, parameters and duplicates teaches them to trust it less.</p>
+        <p>A sitemap is a list of the URLs you want search engines to index, and nothing else. Every entry should be canonical, return 200, be indexable, and use the same protocol and host as the rest of the site. Search engines treat the sitemap as a hint, so <a href="../redirect-map-validator/" style="color: inherit; text-decoration: underline; text-decoration-color: var(--acc, var(--acc-theme)); text-decoration-thickness: 1px; text-underline-offset: 3px">a list full of redirects</a>, parameters and duplicates teaches them to trust it less.</p>
         <div class="sm-limits">
           <div><b>50,000</b><span>URLs per sitemap, and sitemaps per index</span></div>
           <div><b>50 MB</b><span>uncompressed size per file, gzip or not</span></div>
@@ -634,7 +634,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2>Compare the sitemap with a crawl</h2>
         <p>The most useful sitemap audit is a comparison. Crawl the site, filter to indexable HTML pages, and paste those URLs into the compare tab. <b>Missing from sitemap</b> shows real pages the sitemap forgot, often whole sections added after the generator was configured. <b>Only in sitemap</b> shows URLs the crawl did not find as indexable: redirected, noindexed, canonicalised or orphaned pages that should be fixed or removed.</p>
         <h2>What this tool does not do</h2>
-        <p>It does not fetch anything. It cannot follow sitemap URLs from robots.txt, download child sitemaps or see status codes. That is deliberate: it works on staging files, client exports and sitemaps behind a login, and nothing leaves your browser. For live checks, crawl the sitemap URLs in Screaming Frog list mode and bring the results back here as a URL list.</p>
+        <p>It does not fetch anything. It cannot follow <a href="../robots-txt-generator/" style="color: inherit; text-decoration: underline; text-decoration-color: var(--acc, var(--acc-theme)); text-decoration-thickness: 1px; text-underline-offset: 3px">sitemap URLs from robots.txt</a>, download child sitemaps or see status codes. That is deliberate: it works on staging files, client exports and sitemaps behind a login, and nothing leaves your browser. For live checks, crawl the sitemap URLs in Screaming Frog list mode and bring the results back here as a URL list.</p>
         <h2 id="faq">FAQ</h2>
         <div class="sm-faq">
           <details><summary>Are my sitemaps uploaded anywhere?</summary><p>No. Files are read, unzipped and analysed by JavaScript in your browser. Nothing is sent to a server.</p></details>
@@ -653,7 +653,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="flex: 1 1 460px; min-width: 0">
         <div class="sm-eyebrow">Crawling and indexation</div>
         <h2 style="margin: 22px 0 0; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 22ch; color: var(--ink)">Pages not getting indexed?</h2>
-        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I compare your sitemaps, crawl data and Search Console coverage to find out why pages are discovered but not indexed, then fix the signals that waste crawl budget. You get a prioritised list your developers can work through.</p>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I compare your sitemaps, crawl data and Search Console coverage to find out why pages are discovered but not indexed, then fix the signals that <a href="../log-file-analyzer/" style="color: inherit; text-decoration: underline; text-decoration-color: var(--acc, var(--acc-theme)); text-decoration-thickness: 1px; text-underline-offset: 3px">waste crawl budget</a>. You get a prioritised list your developers can work through.</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px">
         <a class="x9" href="mailto:stojkovicv86@gmail.com?subject=Sitemap%20and%20indexation%20review" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
@@ -682,10 +682,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="flex: 1 1 180px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Products</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x48" href="../products/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
-            <a class="x49" href="../products/" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
-            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">Brand Visibility in AI Answers</a>
-            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">SEO + AI Visibility Bundle</a>
+            <a class="x48" href="../products/#google-starter-pack" style="font-size: 16px; color: var(--ink2)">Google Starter Pack and Building a Website with AI</a>
+            <a class="x49" href="../products/#technical-seo-audit" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
+            <a class="x50" href="../products/#brand-visibility" style="font-size: 16px; color: var(--ink2)">Brand Visibility on Google and in AI Answers</a>
+            <a class="x50" href="../products/#seo-ai-bundle" style="font-size: 16px; color: var(--ink2)">Complete SEO + AI Visibility Bundle</a>
+          </div>
+        </div>
+        <div data-foot-tools="" style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">SEO tools</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x48" href="../redirect-map-validator/" style="font-size: 16px; color: var(--ink2)">Redirect map validator</a>
+            <a class="x48" href="../hreflang-validator/" style="font-size: 16px; color: var(--ink2)">Hreflang validator</a>
+            <a class="x48" href="../log-file-analyzer/" style="font-size: 16px; color: var(--ink2)">Log file analyzer</a>
+            <a class="x48" href="../robots-txt-generator/" style="font-size: 16px; color: var(--ink2)">Robots.txt generator</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">

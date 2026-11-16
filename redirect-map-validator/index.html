@@ -308,7 +308,7 @@ header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
    "offers": {
     "@type": "Offer",
     "price": "0",
-    "priceCurrency": "EUR"
+    "priceCurrency": "USD"
    },
    "creator": {
     "@id": "https://vukstojkovic.com/#vuk"
@@ -569,7 +569,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </ul>
 
         <h2>Why flatten redirect chains</h2>
-        <p>Each extra hop is another request before the page loads, for users and for crawlers. Google documents that its crawlers follow a limited number of redirect hops, and long chains left over from older migrations waste crawl activity on URLs that should resolve in one step.</p>
+        <p>Each extra hop is another request before the page loads, for users and for crawlers. Google documents that its crawlers follow a limited number of redirect hops, and long chains left over from older migrations <a href="../log-file-analyzer/" style="color: inherit; text-decoration: underline; text-decoration-color: var(--acc, var(--acc-theme)); text-decoration-thickness: 1px; text-underline-offset: 3px">waste crawl activity</a> on URLs that should resolve in one step.</p>
         <p>The flattened export fixes this at the source. Every URL that redirects, including the intermediate hops, points straight to its final destination. If <code>/old-page/</code> went through <code>/page-1/</code> and <code>/page-2/</code>, all three now go directly to <code>/new-page/</code>.</p>
 
         <h2>When to use the normalization options</h2>
@@ -597,7 +597,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="flex: 1 1 460px; min-width: 0">
         <div class="rv-eyebrow">SEO QA and migrations</div>
         <h2 style="margin: 22px 0 0; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 22ch; color: var(--ink)">Planning a migration?</h2>
-        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I build and test the redirect map before launch, check staging, and verify the live redirects, canonicals and indexation after the switch. You get tickets your developers can close without guessing.</p>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I <a href="../services/" style="color: inherit; text-decoration: underline; text-decoration-color: var(--acc, var(--acc-theme)); text-decoration-thickness: 1px; text-underline-offset: 3px">build and test the redirect map before launch</a>, check staging, and verify the live redirects, canonicals and indexation after the switch. You get tickets your developers can close without guessing.</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px">
         <a class="x9" href="mailto:stojkovicv86@gmail.com?subject=Site%20migration" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
@@ -626,10 +626,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="flex: 1 1 180px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Products</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x48" href="../products/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
-            <a class="x49" href="../products/" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
-            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">Brand Visibility in AI Answers</a>
-            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">SEO + AI Visibility Bundle</a>
+            <a class="x48" href="../products/#google-starter-pack" style="font-size: 16px; color: var(--ink2)">Google Starter Pack and Building a Website with AI</a>
+            <a class="x49" href="../products/#technical-seo-audit" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
+            <a class="x50" href="../products/#brand-visibility" style="font-size: 16px; color: var(--ink2)">Brand Visibility on Google and in AI Answers</a>
+            <a class="x50" href="../products/#seo-ai-bundle" style="font-size: 16px; color: var(--ink2)">Complete SEO + AI Visibility Bundle</a>
+          </div>
+        </div>
+        <div data-foot-tools="" style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">SEO tools</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x48" href="../hreflang-validator/" style="font-size: 16px; color: var(--ink2)">Hreflang validator</a>
+            <a class="x48" href="../xml-sitemap-analyzer/" style="font-size: 16px; color: var(--ink2)">XML sitemap analyzer</a>
+            <a class="x48" href="../log-file-analyzer/" style="font-size: 16px; color: var(--ink2)">Log file analyzer</a>
+            <a class="x48" href="../robots-txt-generator/" style="font-size: 16px; color: var(--ink2)">Robots.txt generator</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">

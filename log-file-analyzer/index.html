@@ -353,7 +353,7 @@ header > div > a:first-child,header nav a,.navdd-t{white-space:nowrap}
    "offers": {
     "@type": "Offer",
     "price": "0",
-    "priceCurrency": "EUR"
+    "priceCurrency": "USD"
    },
    "creator": {
     "@id": "https://vukstojkovic.com/#vuk"
@@ -673,9 +673,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Every SEO tool simulates a crawler. Your server logs record the real one. Each line is a request Googlebot or an AI crawler actually made, with the URL, the status code it got and the exact time. That makes logs the only direct answer to questions like: is Google crawling the pages that matter, how much crawl goes to redirects and junk URLs, how quickly new content is discovered, and which AI crawlers are reading the site.</p>
         <h2>What to look for</h2>
         <h3>Crawl waste</h3>
-        <p>Requests to redirects, 404s, parameter URLs, internal search and faceted navigation are requests not spent on pages that can rank. On small sites this rarely matters. On sites with tens of thousands of URLs, it decides how fast new and updated pages are picked up.</p>
+        <p><a href="../redirect-map-validator/" style="color: inherit; text-decoration: underline; text-decoration-color: var(--acc, var(--acc-theme)); text-decoration-thickness: 1px; text-underline-offset: 3px">Requests to redirects</a>, 404s, parameter URLs, internal search and faceted navigation are requests not spent on pages that can rank. On small sites this rarely matters. On sites with tens of thousands of URLs, it decides how fast new and updated pages are picked up.</p>
         <h3>Pages Googlebot never visits</h3>
-        <p>Compare the log with your sitemap. Important URLs with no Googlebot request in 30 days are usually poorly linked internally, too deep in the structure, or seen as low value. That list is often more useful than any crawl report.</p>
+        <p><a href="../xml-sitemap-analyzer/" style="color: inherit; text-decoration: underline; text-decoration-color: var(--acc, var(--acc-theme)); text-decoration-thickness: 1px; text-underline-offset: 3px">Compare the log with your sitemap</a>. Important URLs with no Googlebot request in 30 days are usually poorly linked internally, too deep in the structure, or seen as low value. That list is often more useful than any crawl report.</p>
         <h3>Server errors</h3>
         <p>5xx responses tell Google the server is struggling, and Google slows down crawling in response. A few on one day can be noise. Errors every day, or a spike after a release, need a developer.</p>
         <h3>Smartphone vs desktop Googlebot</h3>
@@ -711,7 +711,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="flex: 1 1 460px; min-width: 0">
         <div class="lg-eyebrow">Log file analysis</div>
         <h2 style="margin: 22px 0 0; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 22ch; color: var(--ink)">Want the logs read by someone who does this daily?</h2>
-        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I combine your logs with a full crawl and Search Console data to find where crawl budget leaks, why important pages are skipped, and what to fix first. You get a prioritised list your developers can act on.</p>
+        <p style="margin: 18px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">I combine your logs with a full crawl and Search Console data to <a href="../services/" style="color: inherit; text-decoration: underline; text-decoration-color: var(--acc, var(--acc-theme)); text-decoration-thickness: 1px; text-underline-offset: 3px">find where crawl budget leaks</a>, why important pages are skipped, and what to fix first. You get a prioritised list your developers can act on.</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px">
         <a class="x9" href="mailto:stojkovicv86@gmail.com?subject=Log%20file%20analysis" style="display: inline-flex; align-items: center; gap: 10px; background: var(--acc, var(--acc-theme)); color: var(--onacc); font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 10px">Send an email</a>
@@ -740,10 +740,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="flex: 1 1 180px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">Products</div>
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-            <a class="x48" href="../products/" style="font-size: 16px; color: var(--ink2)">Google Starter Pack</a>
-            <a class="x49" href="../products/" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
-            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">Brand Visibility in AI Answers</a>
-            <a class="x50" href="../products/" style="font-size: 16px; color: var(--ink2)">SEO + AI Visibility Bundle</a>
+            <a class="x48" href="../products/#google-starter-pack" style="font-size: 16px; color: var(--ink2)">Google Starter Pack and Building a Website with AI</a>
+            <a class="x49" href="../products/#technical-seo-audit" style="font-size: 16px; color: var(--ink2)">60-Minute Technical SEO Audit</a>
+            <a class="x50" href="../products/#brand-visibility" style="font-size: 16px; color: var(--ink2)">Brand Visibility on Google and in AI Answers</a>
+            <a class="x50" href="../products/#seo-ai-bundle" style="font-size: 16px; color: var(--ink2)">Complete SEO + AI Visibility Bundle</a>
+          </div>
+        </div>
+        <div data-foot-tools="" style="flex: 1 1 180px; min-width: 0">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 22px">SEO tools</div>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+            <a class="x48" href="../redirect-map-validator/" style="font-size: 16px; color: var(--ink2)">Redirect map validator</a>
+            <a class="x48" href="../hreflang-validator/" style="font-size: 16px; color: var(--ink2)">Hreflang validator</a>
+            <a class="x48" href="../xml-sitemap-analyzer/" style="font-size: 16px; color: var(--ink2)">XML sitemap analyzer</a>
+            <a class="x48" href="../robots-txt-generator/" style="font-size: 16px; color: var(--ink2)">Robots.txt generator</a>
           </div>
         </div>
         <div style="flex: 1 1 180px; min-width: 0">
