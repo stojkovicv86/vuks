@@ -50,7 +50,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
+    --headerbg:rgb(16,13,14); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -61,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
+    --headerbg:rgb(250,248,245); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
@@ -139,7 +139,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
-  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); border-bottom: 1px solid var(--acc, var(--acc-theme))">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
       <a class="x1" href="../" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><svg viewBox="50 18 402 460" width="26" height="30" aria-hidden="true" style="flex: none; color: var(--acc, var(--acc-theme))"><path d="M113 195V32L205 128H298L390 32V195L437 297L250 462L65 297Z M113 195L205 128 M390 195L298 128 M157 250L205 278V392 M345 250L297 278V392" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="miter" stroke-miterlimit="10"></path><path d="M226 392H275L250.5 418Z" fill="currentColor"></path></svg>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Menu">
@@ -187,7 +187,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div style="flex: 2 1 420px; min-width: 0">
             <h2 style="margin: 0 0 18px; font-size: clamp(21px, 2.2vw, 26px); font-weight: 700; letter-spacing: -0.02em">Technical SEO across a portfolio of 20+ sites</h2>
             <div style="font-size: 19px; font-weight: 600; color: var(--ink)">Nexplay Media SA</div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Technical SEO Executive · 2026—present</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Technical SEO Executive · 2026–present</div>
             <p style="margin: 22px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The situation.</strong> Twenty-plus WordPress sites in the crypto and iGaming verticals, each with its own stack, publishing pace and migration history. No single audit covers them all, so what is needed is a repeatable system.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">What I own.</strong> Technical audits through Screaming Frog, JetOctopus and Lumar; log analysis to understand crawl behaviour and optimise crawl budget; implementing and validating hreflang networks; resolving redirect chains, broken links and canonical conflicts.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The hardest part.</strong> Preventing SEO regression on a portfolio that never stops changing. That means QA before and after deploys, staging verification and validation of SEO-critical elements during migrations, all through the dev teams’ ticketing systems.</p>
@@ -207,7 +207,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">Log-level insight</div>
-              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Decisions from server logs, not from assumptions about what Googlebot does</p>
+              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Decisions based on what server logs show Googlebot doing</p>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">No regression</div>
@@ -223,7 +223,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div style="flex: 2 1 420px; min-width: 0">
             <h2 style="margin: 0 0 18px; font-size: clamp(21px, 2.2vw, 26px); font-weight: 700; letter-spacing: -0.02em">International SEO across multiple markets</h2>
             <div style="font-size: 19px; font-weight: 600; color: var(--ink)">Clickout Media</div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Technical SEO Executive · 2024—2026</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Technical SEO Executive · 2024–2026</div>
             <p style="margin: 22px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">The situation.</strong> Several WordPress sites targeting different markets and languages. Incomplete hreflang networks, redirects inherited from old structures, and indexation that was unpredictable from site to site.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">What I owned.</strong> Implementing technical SEO tasks across the portfolio, working on hreflang structures and international SEO, and systematically resolving redirect, broken-link and indexation issues.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">The hardest part.</strong> A task-driven environment where a recommendation counts only once implemented. Working through ticketing systems and spreadsheets, aligning SEO and dev teams on priorities that shifted weekly.</p>
@@ -245,7 +245,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">Implemented</div>
-              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Focus on recommendations that reach production, not on the length of the audit</p>
+              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Focus on recommendations that reach production</p>
             </div>
           </div>
         </div>
@@ -257,7 +257,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div style="flex: 2 1 420px; min-width: 0">
             <h2 style="margin: 0 0 18px; font-size: clamp(21px, 2.2vw, 26px); font-weight: 700; letter-spacing: -0.02em">Technical tasks to specification</h2>
             <div style="font-size: 19px; font-weight: 600; color: var(--ink)">Finixio</div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Junior Technical SEO, freelance · 2022—2024</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Junior Technical SEO, freelance · 2022–2024</div>
             <p style="margin: 22px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">The situation.</strong> Other people’s audits, clear specifications and WordPress sites where a change has to be right the first time. There was no room for improvisation.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">What I did.</strong> Executing technical SEO tasks to specification, optimising the WordPress backend (canonicals, redirects, hreflang) and implementing changes based on SEO audits.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">What I learned.</strong> Precision and the discipline of working to a brief: what an audit looks like from the implementer’s side, and why a vaguely written recommendation never reaches production.</p>
@@ -275,7 +275,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">Backend focus</div>
-              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Work at the level of the WordPress setup, not just inside an SEO plugin</p>
+              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Work in the WordPress setup itself, beyond SEO plugin settings</p>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">The foundation</div>
@@ -291,7 +291,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); align-items: flex-start">
       <div style="flex: 1 1 220px; max-width: 340px; min-width: 0">
         <h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); padding-bottom: 14px; border-bottom: 1px solid var(--line2)">Tools and skills</h2>
-        <p style="margin: 16px 0 0; color: var(--ink5); font-size: 15px; text-wrap: pretty">What I work with daily, not a list of everything I have ever opened</p>
+        <p style="margin: 16px 0 0; color: var(--ink5); font-size: 15px; text-wrap: pretty">What I work with every day</p>
       </div>
       <div style="flex: 3 1 460px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px">
         <div>

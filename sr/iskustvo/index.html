@@ -50,7 +50,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
+    --headerbg:rgb(16,13,14); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -61,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
+    --headerbg:rgb(250,248,245); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
@@ -139,7 +139,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
-  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); border-bottom: 1px solid var(--acc, var(--acc-theme))">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
       <a class="x1" href="../../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><svg viewBox="50 18 402 460" width="26" height="30" aria-hidden="true" style="flex: none; color: var(--acc, var(--acc-theme))"><path d="M113 195V32L205 128H298L390 32V195L437 297L250 462L65 297Z M113 195L205 128 M390 195L298 128 M157 250L205 278V392 M345 250L297 278V392" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="miter" stroke-miterlimit="10"></path><path d="M226 392H275L250.5 418Z" fill="currentColor"></path></svg>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Meni">
@@ -187,7 +187,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div style="flex: 2 1 420px; min-width: 0">
             <h2 style="margin: 0 0 18px; font-size: clamp(21px, 2.2vw, 26px); font-weight: 700; letter-spacing: -0.02em">Tehnički SEO na portfoliju od 20+ sajtova</h2>
             <div style="font-size: 19px; font-weight: 600; color: var(--ink)">Nexplay Media SA</div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Technical SEO Executive · 2026—danas</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Technical SEO Executive · 2026–danas</div>
             <p style="margin: 22px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Situacija.</strong> Dvadeset i više WordPress sajtova u crypto i iGaming vertikali, svaki sa svojim stekom, tempom objave i istorijom migracija. Nijedan audit ne pokriva sve, potreban je sistem koji se može ponavljati.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Šta vodim.</strong> Tehničke audite kroz Screaming Frog, JetOctopus i Lumar; log analizu radi razumevanja crawl ponašanja i optimizacije crawl budžeta; implementaciju i validaciju hreflang mreža; rešavanje redirect lanaca, broken linkova i canonical konflikata.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Najteži deo.</strong> Sprečiti SEO regresiju na portfoliju koji se stalno menja, QA pre i posle deploy-a, verifikacija na stagingu i validacija SEO kritičnih elemenata tokom migracija, sve kroz ticketing sisteme dev timova.</p>
@@ -207,7 +207,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">Log-level uvid</div>
-              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Odluke iz server logova, ne iz pretpostavki o tome šta Googlebot radi</p>
+              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Odluke na osnovu onoga što server logovi pokazuju o Googlebotu</p>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">Bez regresije</div>
@@ -223,7 +223,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div style="flex: 2 1 420px; min-width: 0">
             <h2 style="margin: 0 0 18px; font-size: clamp(21px, 2.2vw, 26px); font-weight: 700; letter-spacing: -0.02em">Internacionalni SEO na više tržišta</h2>
             <div style="font-size: 19px; font-weight: 600; color: var(--ink)">Clickout Media</div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Technical SEO Executive · 2024—2026</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Technical SEO Executive · 2024–2026</div>
             <p style="margin: 22px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Situacija.</strong> Više WordPress sajtova koji ciljaju različita tržišta i jezike. Hreflang mreže nepotpune, redirecti nasleđeni iz starih struktura, a indeksacija nepredvidiva od sajta do sajta.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Šta sam vodio.</strong> Implementaciju tehničkih SEO zadataka na portfoliju sajtova, rad na hreflang strukturama i internacionalnom SEO-u, i sistematsko rešavanje problema sa redirectima, broken linkovima i indeksacijom.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Najteži deo.</strong> Task-driven okruženje gde preporuka vredi samo ako je implementirana. Rad kroz ticketing sisteme i tabele, uz usklađivanje SEO i dev timova oko prioriteta koji se menjaju nedeljno.</p>
@@ -245,7 +245,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">Implementirano</div>
-              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Fokus na preporukama koje stignu do produkcije, ne na dužini audita</p>
+              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Fokus na preporukama koje stignu do produkcije</p>
             </div>
           </div>
         </div>
@@ -257,7 +257,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div style="flex: 2 1 420px; min-width: 0">
             <h2 style="margin: 0 0 18px; font-size: clamp(21px, 2.2vw, 26px); font-weight: 700; letter-spacing: -0.02em">Tehnički zadaci po specifikaciji</h2>
             <div style="font-size: 19px; font-weight: 600; color: var(--ink)">Finixio</div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Junior Technical SEO, freelance · 2022—2024</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink5); margin-top: 6px">Junior Technical SEO, freelance · 2022–2024</div>
             <p style="margin: 22px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Situacija.</strong> Tuđi auditi, jasne specifikacije i WordPress sajtovi na kojima izmena mora da bude tačna iz prvog puta. Prostora za improvizaciju nije bilo.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: rgb(236, 230, 228); font-weight: 600;">Šta sam radio.</strong> Izvršavanje tehničkih SEO zadataka prema specifikaciji, optimizaciju WordPress backenda, canonical, redirecti, hreflang i implementaciju promena na osnovu SEO audita.</p>
             <p style="margin: 16px 0 0; color: var(--ink2); text-wrap: pretty"><strong style="color: var(--ink); font-weight: 600">Šta sam naučio.</strong> Preciznost i disciplinu rada po zahtevu: kako audit izgleda sa strane onoga ko ga implementira i zašto nejasno napisana preporuka nikada ne stigne do produkcije.</p>
@@ -275,7 +275,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">Backend fokus</div>
-              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Rad na nivou WordPress postavke, a ne samo u SEO pluginu</p>
+              <p style="margin: 8px 0 0; color: var(--ink4); font-size: 15px; text-wrap: pretty">Rad u samoj WordPress postavci, šire od podešavanja SEO plugina</p>
             </div>
             <div>
               <div style="font-size: 17px; font-weight: 700; color: var(--acc, var(--acc-theme)); letter-spacing: -0.01em">Temelj</div>
@@ -291,7 +291,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); align-items: flex-start">
       <div style="flex: 1 1 220px; max-width: 340px; min-width: 0">
         <h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc, var(--acc-theme)); padding-bottom: 14px; border-bottom: 1px solid var(--line2)">Alati i veštine</h2>
-        <p style="margin: 16px 0 0; color: var(--ink5); font-size: 15px; text-wrap: pretty">Ono čime radim svakodnevno, ne spisak svega što sam ikada otvorio</p>
+        <p style="margin: 16px 0 0; color: var(--ink5); font-size: 15px; text-wrap: pretty">Ono čime radim svakodnevno</p>
       </div>
       <div style="flex: 3 1 460px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px">
         <div>

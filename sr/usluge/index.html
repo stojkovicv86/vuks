@@ -48,7 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --ink5:#8b807d; --ink6:#8b807d; --ink7:#8e8481; --onacc:#15100f;
     --acc-theme:#ff5c47; --acchov:#ff7a66; --acchov2:#ff8873; --ok:#4fd1b5;
     --acctint:rgba(255,92,71,0.12); --acctint2:rgba(255,92,71,0.16);
-    --headerbg:rgba(16,13,14,0.92); --hamburger:#ece6e4; --sunmoon:#f7c948;
+    --headerbg:rgb(16,13,14); --hamburger:#ece6e4; --sunmoon:#f7c948;
   }
   :root[data-theme="light"] {
     --bg:#faf8f5; --bg2:#f1ede7; --card:#ffffff; --card2:#ffffff; --cardacc:#eef5f2;
@@ -59,7 +59,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --ink5:#655c51; --ink6:#655c51; --ink7:#655c51; --onacc:#ffffff;
     --acc-theme:#0f6e5c; --acchov:#0b5648; --acchov2:#0b5648; --ok:#0b6b7d;
     --acctint:rgba(15,110,92,0.10); --acctint2:rgba(15,110,92,0.15);
-    --headerbg:rgba(250,248,245,0.92); --hamburger:#15120f; --sunmoon:#b07d00;
+    --headerbg:rgb(250,248,245); --hamburger:#15120f; --sunmoon:#b07d00;
   }
   body { margin: 0; background: var(--bg); }
   * { box-sizing: border-box; }
@@ -148,7 +148,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div style="--acc: var(--acc-theme); --acc2: var(--ok); background: var(--bg); color: var(--ink); font-family: Archivo, Helvetica, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip">
 
-  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--acc, var(--acc-theme))">
+  <header style="position: sticky; top: 0; z-index: 50; background: var(--headerbg); border-bottom: 1px solid var(--acc, var(--acc-theme))">
     <div style="max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
       <a class="x1" href="../../sr/" style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink)"><svg viewBox="50 18 402 460" width="26" height="30" aria-hidden="true" style="flex: none; color: var(--acc, var(--acc-theme))"><path d="M113 195V32L205 128H298L390 32V195L437 297L250 462L65 297Z M113 195L205 128 M390 195L298 128 M157 250L205 278V392 M345 250L297 278V392" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="miter" stroke-miterlimit="10"></path><path d="M226 392H275L250.5 418Z" fill="currentColor"></path></svg>Vuk Stojković</a>
       <input type="checkbox" id="nav-toggle" class="navt" aria-label="Meni">
@@ -195,7 +195,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section style="padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px); border-bottom: 1px solid var(--line)">
     <div style="max-width: 1240px; margin: 0 auto">
       <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink5)"><span style="width: 30px; height: 1px; background: var(--acc, var(--acc-theme))"></span>Ciklus</div>
-      <h2 style="margin: 24px 0 0; font-size: clamp(28px, 4vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Tehnički SEO je krug, ne prava linija</h2>
+      <h2 style="margin: 24px 0 0; font-size: clamp(28px, 4vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700">Tehnički SEO je krug, a ne prava linija jer se uvek vraćaš osnovama u čitanju izveštaja</h2>
       <p style="margin: 20px 0 0; color: var(--ink3); font-size: clamp(16px, 1.4vw, 19px); max-width: 54ch; text-wrap: pretty">Svaka usluga ispod stoji na nekom mestu ovog kruga. Većina sajtova ima četiri faze koje rade dobro i jednu koja tiho kvari ostale.</p>
 
       <div style="border: 1px solid var(--line); border-radius: 16px; background: var(--card); padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 36px); margin-top: clamp(32px, 4vw, 48px)">
@@ -253,10 +253,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="flex: 1 1 320px; min-width: 0">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink5); margin-bottom: 20px">Šta dobijate</div>
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Nalaz prioritizovan po uticaju, ne po broju grešaka</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Nalaz prioritizovan po uticaju</span></div>
             <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Lista zadataka koju dev tim može direktno da izvrši</span></div>
             <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Kriterijum „gotovo“ za svaki zadatak</span></div>
-            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Walkthrough poziv sa timom, bez PDF-a koji nikome ništa ne znači</span></div>
+            <div style="display: flex; gap: 12px; color: var(--ink2); font-size: 16px"><span class="ms" aria-hidden="true" style="color: var(--acc, var(--acc-theme)); flex: 0 0 auto">check</span><span>Walkthrough poziv da ceo tim razume nalaze</span></div>
           </div>
         </div>
       </div>
